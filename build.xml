@@ -7,13 +7,16 @@
 
 <property name="src.dir" value="src"/>
 
-<target name="all" depends="">
-  <echo>${ant.project.name}</echo>
+<target name="all" depends="test">
 </target>
 
 
 <target name="test" depends="">
-  
+  <py-test pythonpath=".">
+    <fileset dir="${src.dir}">
+      <include name="**/*_test.py"/>
+    </fileset>
+  </py-test>
 </target>
 
 
