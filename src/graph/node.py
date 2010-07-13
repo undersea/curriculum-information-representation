@@ -1,6 +1,8 @@
 #base for all graph objects
 
 class Node:
-    def __init__(self):
-        pass
+    def __init__(self, *args, **kwargs):
+        raise NotImplementedError("Can't be Initialised")
+        
+
 

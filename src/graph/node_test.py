@@ -5,7 +5,8 @@ from node import Node
 class NodeTest(unittest.TestCase):
     def test_cannot_be_initialised(self):
         try:
-            Node()
-            raise Exception("Init should have failed")
+            node = Node()
         except:
-            pass
+            return
+        
+        self.fail("Should have failed to Init")

@@ -15,3 +15,5 @@
 * TODO Create a graph library in python that I can use to map the papers onto
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
+
+
