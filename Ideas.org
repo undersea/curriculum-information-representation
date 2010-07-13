@@ -1,0 +1,14 @@
+
+* Ideas
+** Multi story floor plan
+   The building represents the programme.  Years are represented by levels in a building. Each level contains rooms representing papers.  Stairs from rooms can indicate a links between one paper and another at different levels.  Stairs can go up or down.
+** Atom view               
+   Each atom is a programme.  The nucleus is the programme name, with each electron being a paper.  Each paper can spin around the nucleus at differing orbits with the lowest one being year 1, going up to year 2, etc.
+** Line graph              
+   Lines represent path taken, showing where papers intersect
+** Jigsaw puzzle           
+   Puzzle is programme, and pieces are papers, connected to prerequisites and corequisites.
+** Self Organising map     
+ + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
+ + Maybe uses idea from jigsaw puzzle and use the connections as limiters
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="curriculum_information_representation" default="all" basedir=".">
+
+<!--make sure it knows about the python tasks-->
+<taskdef resource="pyAntTasks.properties"/>
+
+<property name="src.dir" value="src"/>
+
+<target name="all" depends="">
+  <echo>${ant.project.name}</echo>
+</target>
+
+
+<target name="test" depends="">
+  
+</target>
+
+
+</project>
