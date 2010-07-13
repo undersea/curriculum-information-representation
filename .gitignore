@@ -1,1 +1,5 @@
 /src/graph/node.py~
+/src/graph/__init__.pyc
+/src/graph/edge.py~
+/src/graph/node.pyc
+/src/graph/node_test.pyc

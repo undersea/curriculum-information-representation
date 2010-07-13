@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<project name="curriculum_information_representation" default="all" basedir=".">
+<project name="curriculum-information-representation" default="all" basedir=".">
 
 <!--make sure it knows about the python tasks-->
 <taskdef resource="pyAntTasks.properties"/>
@@ -12,7 +12,7 @@
 
 
 <target name="test" depends="">
-  <py-test pythonpath=".">
+  <py-test pythonpath="${src.dir}">
     <fileset dir="${src.dir}">
       <include name="**/*_test.py"/>
     </fileset>
