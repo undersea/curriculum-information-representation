@@ -12,3 +12,6 @@
  + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
  + Maybe uses idea from jigsaw puzzle and use the connections as limiters
 
+* TODO Create a graph library in python that I can use to map the papers onto
+
+* TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
