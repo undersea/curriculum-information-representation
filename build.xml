@@ -6,6 +6,8 @@
 <taskdef resource="pyAntTasks.properties"/>
 
 <property name="src.dir" value="src"/>
+<property name="lib.dir" value="lib"/>
+<property name="archive.dir" value="archives"/>
 
 <target name="all" depends="test">
 </target>
@@ -17,6 +19,13 @@
       <include name="**/*_test.py"/>
     </fileset>
   </py-test>
+</target>
+
+
+<target name="prepare" depends="">
+  <unzip src="${archive.dir}/MLcode.zip" dest="${lib.dir}">
+    
+  </unzip>
 </target>
 
 
