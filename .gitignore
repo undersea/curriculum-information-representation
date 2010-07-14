@@ -3,6 +3,7 @@
 /src/graph/vertex.py~
 /src/graph/vertices.py~
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /src/graph/__init__.pyc
 /src/graph/edge.pyc
 /src/graph/edge_test.pyc
@@ -10,5 +11,7 @@
 /src/graph/vertex.pyc
 /src/graph/vertex_test.pyc
 /src/graph/vertex_test.py~
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
