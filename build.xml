@@ -13,7 +13,7 @@
 </target>
 
 
-<target name="test" depends="">
+<target name="test" depends="prepare">
   <py-test pythonpath="${src.dir}">
     <fileset dir="${src.dir}">
       <include name="**/*_test.py"/>
@@ -44,6 +44,7 @@
   <delete>
     <fileset dir="${src.dir}">
       <include name="**/*.pyc"/>
+      <include name="**/*py~"/>
       <exclude name="**/*.py"/>
     </fileset>
   </delete>
