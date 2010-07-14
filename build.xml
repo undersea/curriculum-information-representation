@@ -26,12 +26,12 @@
   <unzip src="${archive.dir}/MLcode.zip" dest="${lib.dir}">
     <patternset>
       <include name="**/pca.py"/>
-      <include name="**/som.py"/>
+      <include name="**/som*.py"/>
     </patternset>
   </unzip>
   <move todir="${lib.dir}/unsupervised" flatten="true">
     <fileset dir="${lib.dir}/Machine Learning/src/">
-      <include name="**/som.py"/>
+      <include name="**/som*.py"/>
       <include name="**/pca.py"/>
     </fileset>
   </move>
@@ -44,7 +44,8 @@
   <delete>
     <fileset dir="${src.dir}">
       <include name="**/*.pyc"/>
-      <include name="**/*py~"/>
+      <!--include below not working for some reason-->
+      <!--<include name="**/*py~"/>-->
       <exclude name="**/*.py"/>
     </fileset>
   </delete>
