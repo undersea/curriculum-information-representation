@@ -9,7 +9,7 @@
 <property name="lib.dir" value="lib"/>
 <property name="archive.dir" value="archives"/>
 
-<target name="all" depends="test">
+<target name="all" depends="prepare,test">
 </target>
 
 
@@ -24,7 +24,10 @@
 
 <target name="prepare" depends="">
   <unzip src="${archive.dir}/MLcode.zip" dest="${lib.dir}">
-    
+    <patternset>
+      <include name="**/pca.py"/>
+      <include name="**/som*.py"/>
+    </patternset>
   </unzip>
 </target>
 
