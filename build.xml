@@ -8,6 +8,7 @@
 <property name="src.dir" value="src"/>
 <property name="lib.dir" value="lib"/>
 <property name="archive.dir" value="archives"/>
+<property name="som.lib.dir" value="${lib.dir}/unsupervised"/>
 
 <target name="all" depends="prepare,test">
 </target>
@@ -29,7 +30,7 @@
       <include name="**/som*.py"/>
     </patternset>
   </unzip>
-  <move todir="${lib.dir}/unsupervised" flatten="true">
+  <move todir="${som.lib.dir}" flatten="true">
     <fileset dir="${lib.dir}/Machine Learning/src/">
       <include name="**/som*.py"/>
       <include name="**/pca.py"/>
@@ -40,7 +41,7 @@
 
 
 <target name="clean" depends="">
-  <delete dir="${lib.dir}/unsupervised"/>
+  <delete dir="${som.lib.dir}"/>
   <delete>
     <fileset dir="${src.dir}">
       <include name="**/*.pyc"/>
