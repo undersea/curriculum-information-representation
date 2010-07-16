@@ -16,3 +16,4 @@
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
 * Seems you have to commit to local git repository 1st then do magit-svn-dcommit to update svn copy and if this goes wrong do an magit-stash then commit to svn then apply this stash and commit to local before update of svn again
+* 
