@@ -38,3 +38,6 @@
 /src/som/__init__.pyc
 /src/som/som.pyc
 /src/som/som_test.pyc
+/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/__init__.pyc
+/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/sink.pyc
+/pylib/site.pyc
