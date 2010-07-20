@@ -9,3 +9,7 @@ class SOM(som):
             super(SOM, self).__init__(*args, **kwargs)
         except:
             som.__init__(self, *args, **kwargs)
+
+
+    def dummy(self):
+        pass

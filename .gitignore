@@ -28,3 +28,13 @@
 >>>>>>> Stashed changes
 >>>>>>> merge
 /src/som/som_test.py~
+/lib/unsupervised/__init__.py
+/lib/unsupervised/__init__.pyc
+/lib/unsupervised/pca.py
+/lib/unsupervised/pca.pyc
+/lib/unsupervised/som.py
+/lib/unsupervised/som.pyc
+/lib/unsupervised/somdemo.py
+/src/som/__init__.pyc
+/src/som/som.pyc
+/src/som/som_test.pyc

@@ -46,6 +46,19 @@
   </move>
   
   <echo file="${som.lib.dir}/__init__.py" append="false">#This is to make this directory into a python package</echo>
+  <!--Turn som from a classic class to a newstyle class by making it inherit from object -->
+  <script language="jython">
+<![CDATA[
+filepath = "%s/som.py"% (project.getProperty("som.lib.dir"))
+pyfile = open(filepath)
+output = pyfile.read().replace('class som:', 'class som(object):')
+pyfile.close()
+pyfile = open(filepath, 'w')
+pyfile.write(output)
+pyfile.close()
+print 'Modified unsupervised/som.py to be a newstyle class by changing class som: to class som(object):'
+]]>
+  </script>
   <delete dir="${lib.dir}/Machine Learning"/>
 </target>
 
