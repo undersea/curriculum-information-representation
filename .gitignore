@@ -43,3 +43,15 @@
 /pylib/site.pyc
 /lib/tidylib/__init__.pyc
 /lib/tidylib/sink.pyc
+/src/programme/__init__.pyc
+/src/programme/html/__init__.pyc
+/src/programme/html/parser/Parser_test.pyc
+/src/programme/html/parser/Parser_test.py~
+/src/programme/html/parser/__init__.pyc
+/src/programme/html/parser/__init__.py~
+/src/programme/html/parser/page_finder.pyc
+/src/programme/html/parser/page_finder.py~
+/src/programme/html/parser/parser.pyc
+/src/programme/html/parser/parser.py~
+/src/programme/html/test.py~
+/src/programme/html/test.py
