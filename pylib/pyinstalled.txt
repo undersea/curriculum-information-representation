@@ -1,0 +1,9 @@
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/EGG-INFO/zip-safe
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/EGG-INFO/PKG-INFO
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/EGG-INFO/dependency_links.txt
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/EGG-INFO/top_level.txt
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/EGG-INFO/SOURCES.txt
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/sink.pyc
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/__init__.py
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/sink.py
+/home/terrasea/Projects/Eclipse/Massey/Workload/Workload/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/__init__.pyc
