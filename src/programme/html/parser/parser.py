@@ -29,6 +29,7 @@ xslt = libxslt.parseStylesheetDoc(libxml2.parseDoc("""
 
 class Parser(object):
     def __init__(self, programme):
-        self.url = urls[programme]
+        url = urls[programme]
         options = dict(output_xhtml=1, add_xml_decl=1, indent=1, tidy_mark=0)
         self.data = libxml2.parseDoc(str(tidy.parseString(urllib.urlopen(url).read(), **options)))
+        
