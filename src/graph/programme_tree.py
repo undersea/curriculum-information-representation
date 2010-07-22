@@ -16,6 +16,7 @@ class Tree(object):
         self.tree = set()
         for paper in papers:
             vertex = vertex.Vertex(paper)
+            self.tree.add(vertex)
             htmlstr = urllib2.urlopen(self.paperquery_url%(paper)).read()
             result = restricted.search(htmlstr)
             if result:
