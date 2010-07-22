@@ -1,7 +1,7 @@
 import unittest
 
 import page_finder as pf
-import parser
+#import parser
 import libxml2
 
 class ParserTest(unittest.TestCase):

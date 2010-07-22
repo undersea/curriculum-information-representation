@@ -9,23 +9,24 @@ class ProgrammeFunction(parser.Parser):
         super(ProgrammeFunction, self).__init__()
 
     def __call__(self):
-        return False
+        try:
+            items = re.findall('\d{3}\.\d{3}', self.htmlstr)
+            return set(items)
+        except:
+            return False
 
 
 
 class AccountancyFunction(ProgrammeFunction):
     def __init__(self):
         super(AccountancyFunction, self).__init__()
-
-    def __call__(self):
-        items = re.findall('\d{3}\.\d{3}', self.htmlstr)
-        return set(items)
+        
 
 
 
 
 
-functions = {'':ProgrammeFunction()}
+functions = {'':ProgrammeFunction(), 'Bachelor of Accountancy (BAcc)': AccountancyFunction(),}
 
 def get_function(programme):
     try:
