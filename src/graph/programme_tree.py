@@ -12,7 +12,9 @@ class Tree(object):
         self.paperquery_url = 'http://www.massey.ac.nz/massey/learning/programme-course-paper/paper.cfm?paper_code=%s'
         papers = parser.get_function(programme)()
         code = re.compile('\d{3}\.\d{3}')
-        restricted = re.compile('<li><b>Restriction\(s\):</b> (<a href="\?paper_code=\d{3}\.\d{3}" title="\d{3}\.\d{3}">\d{3}\.\d{3}</a>)*</li>')
+        code_link_pattern = '<a href="\?paper_code=%s" title="%s">%s</a>'%(code, code, code)
+        restricted = re.compile('<li><b>Restriction\(s\):</b> (%s)*</li>'% (code_link_pattern))
+        prereq = re.compile('<li><b>Prerequisite\(s\):</b> ()* (or %s)?(%s)*</li>')
         self.tree = set()
         for paper in papers:
             vertex = vertex.Vertex(paper)
