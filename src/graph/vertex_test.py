@@ -9,5 +9,6 @@ class VertexTest(unittest.TestCase):
         except:
             self.fail("could not initialise Vertex")
 
-
-
+    def test_eq_works(self):
+        
+        self.assertEqual(Vertex('1'), Vertex('1'))

@@ -1,10 +1,12 @@
 #also known as nodes
 
+import uuid
+
 from node import Node
 from edge import Edge
 
 class Vertex(Node):
-    def __init__(self, id):
+    def __init__(self, id=uuid.uuid4().hex):
         self.id = id
         self.prereqlist = set()
         self.coreqlist = set()
@@ -26,3 +28,10 @@ class Vertex(Node):
 
     def add_restriction(self, paper):
         self.restrictlist.add(paper)
+
+    def __str__(self):
+        return "%s"%(self.id)
+
+
+    def __eq__(self, obj):
+        return self.id == obj.id
