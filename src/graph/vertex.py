@@ -33,5 +33,26 @@ class Vertex(Node):
         return "%s"%(self.id)
 
 
-    def __eq__(self, obj):
-        return self.id == obj.id
+    def __hash__(self):
+        return hash(self.id)
+
+
+    def __eq__(self, other):
+        if isinstance(other, Vertex):
+            return self.id == other.id
+        else:
+            return self.id == other
+
+
+    def __cmp__(self, other):
+        if isinstance(other, Vertex):
+            return cmp(self.id, other.id)
+        else:
+            return cmp(self.id, other)
+
+    def __ne__(self, other):
+        if isinstance(other, Vertex):
+            return self.id != other.id
+        else:
+            return self.id != other
+
