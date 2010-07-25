@@ -7,19 +7,20 @@ class ProgrammeTreeTest(unittest.TestCase):
     def setUp(cls):
         try:
             
-            cls.tree = pt.Tree('')
+            cls.tree = pt.Tree()
         except:
             cls.tree = None
 
     def test_tree_init(self):
         param = ''
         try:
-            pt.Tree(param)
+            pt.Tree()
         except Exception, e:
-            self.fail("Couldn't create a Tree instance with '%s' as it's parameter:\n%s"%(param, str(e)))
+            self.fail("Couldn't create a Tree instance:\n"%(param, str(e)))
 
 
     def test_tree_size(self):
         for v in self.tree.tree:
             print v,',',
-        self.assertEqual(len(self.tree.tree), 28)
+        self.assertEqual(len(self.tree.tree), 0)
+
