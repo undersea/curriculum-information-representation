@@ -12,8 +12,14 @@
  + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
  + Maybe uses idea from jigsaw puzzle and use the connections as limiters
 
-* TODO Create a graph library in python that I can use to map the papers onto
+* TODO Create a vertex, edge graph library in python that I can use to map the papers onto
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
 * Seems you have to commit to local git repository 1st then do magit-svn-dcommit to update svn copy and if this goes wrong do an magit-stash then commit to svn then apply this stash and commit to local before update of svn again
 * Group according to what year they fall in given a set of constraints such as prereq must not go after the paper they are prereq for and year they fall on must be equal to or greater than the level of the paper
+* Changes
+** Turns out I am restricted to just using the meta info on the papers and not the offering info itself.
+** Need to be able to get a list of papers that make up each programme of study
+*** It is not really possible to get accurate complete lists of papers for each programme as each programme paper list page is done differently making it hard to parse and it will need a huge list of regular expressions to use
+** The paper information like prerequsites are possible to get as that infomation is displayed in a uniform manner and is not as varied as programme paper lists
+* Maybe keep a track of papers choosen by people and what programme they choose.  Use this information to build profiles on what papers are needed.  Use this list as a suggestion to the end user. Only downside is it relies on the user to know what papers to select the first time this application is used.

@@ -2,10 +2,6 @@
 /src/graph/node.pyc
 /src/graph/vertex.py~
 /src/graph/vertices.py~
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 /src/graph/__init__.pyc
 /src/graph/edge.pyc
 /src/graph/edge_test.pyc
@@ -13,20 +9,9 @@
 /src/graph/vertex.pyc
 /src/graph/vertex_test.pyc
 /src/graph/vertex_test.py~
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-<<<<<<< HEAD
 /lib/Machine Learning/src/10 Dimension Reduction/pca.py
 /lib/Machine Learning/src/9 Unsupervised/som.py
 /lib/Machine Learning/src/9 Unsupervised/somdemo.py
-=======
-=======
->>>>>>> Stashed changes
->>>>>>> merge
 /src/som/som_test.py~
 /lib/unsupervised/__init__.py
 /lib/unsupervised/__init__.pyc
@@ -60,6 +45,14 @@
 /src/programme/html/parser/page_finder.py~
 /src/programme/html/parser/parser.pyc
 /src/programme/html/parser/parser.py~
-/src/programme/html/test.py
 /src/programme/html/test.pyc
 /src/programme/html/test.py~
+/src/programme/html/test.py
+/src/programme/html/parser/function_list.py~
+/src/graph/programme_tree.py~
+/src/graph/programme_tree.pyc
+/src/graph/programme_tree_test.pyc
+/src/graph/programme_tree_test.py~
+/test.html
+/test2.html
+
