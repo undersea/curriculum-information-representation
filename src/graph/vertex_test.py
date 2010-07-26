@@ -28,5 +28,10 @@ class VertexTest(unittest.TestCase):
         v1 = Vertex('1')
         v2 = Vertex('2')
         self.assertEqual(cmp(v1, v1), 0)
-        self.assertEqual(cmp(v1, v2), 1)
-        self.assertEqual(cmp(v2, v1), -1)
+        self.assertEqual(cmp(v1, v2), -1)
+        self.assertEqual(cmp(v2, v1), 1)
+
+
+    def test_str_works(self):
+        v1 = Vertex('1')
+        self.assertEqual(str(v1), 'vertex:1')
