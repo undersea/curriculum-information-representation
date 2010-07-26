@@ -32,6 +32,49 @@ class VertexTest(unittest.TestCase):
         self.assertEqual(cmp(v2, v1), 1)
 
 
+    def test_cmp_with_id_str(self):
+        self.assertEqual(Vertex('1'), '1')
+
+
     def test_str_works(self):
         v1 = Vertex('1')
         self.assertEqual(str(v1), 'vertex:1')
+
+
+    def test_add_prereq(self):
+        pre = Vertex('1')
+        curr = Vertex('2')
+        s1 = curr.prereqlist.copy()
+        p1 = pre.leadstolist.copy()
+        curr.add_prereq(pre)
+        s2 = curr.prereqlist.copy()
+        p2 = pre.leadstolist.copy()
+        self.assertEqual(len(s1), 0)
+        self.assertEqual(len(s2), 1)
+        self.assertNotEqual(s1, s2)
+        self.assertTrue(pre in s2)
+
+
+    def test_add_coreq(self):
+        pre = Vertex('1')
+        curr = Vertex('2')
+        s1 = curr.coreqlist.copy()
+        curr.add_coreq(pre)
+        s2 = curr.coreqlist.copy()
+        self.assertEqual(len(s1), 0)
+        self.assertEqual(len(s2), 1)
+        self.assertNotEqual(s1, s2)
+        self.assertTrue(pre in s2)
+
+
+    def test_add_restrict(self):
+        pre = Vertex('1')
+        curr = Vertex('2')
+        s1 = curr.restrictlist.copy()
+        curr.add_restriction(pre)
+        s2 = curr.restrictlist.copy()
+        self.assertEqual(len(s1), 0)
+        self.assertEqual(len(s2), 1)
+        self.assertNotEqual(s1, s2)
+        self.assertTrue(pre in s2)
+
