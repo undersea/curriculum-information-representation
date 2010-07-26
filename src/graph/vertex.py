@@ -30,7 +30,7 @@ class Vertex(Node):
         self.restrictlist.add(paper)
 
     def __str__(self):
-        return "%s"%(self.id)
+        return "vertex:%s"%(self.id)
 
 
     def __hash__(self):
