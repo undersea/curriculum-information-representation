@@ -69,7 +69,7 @@ print 'Modified unsupervised/som.py to be a newstyle class by changing class som
     <fileset dir="${src.dir}">
       <include name="**/*.pyc"/>
       <!--include below not working for some reason-->
-      <!--<include name="**/*py~"/>-->
+      <include name="**/*.py~"/>
       <exclude name="**/*.py"/>
     </fileset>
   </delete>

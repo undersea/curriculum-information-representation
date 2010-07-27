@@ -6,6 +6,7 @@ import edge
 import programme.html.parser as parser
 
 import re
+import sys
 
 class Tree(object):
     def __init__(self):
@@ -61,14 +62,14 @@ class Tree(object):
 
     
 
-    def pprint(self):
+    def pprint(self, output=sys.stdout):
         tmp = list(self.tree)
         tmp.sort()
         for paper in tmp:
             inc = (int(paper.id[paper.id.find('.')+1:]) / 100) - 1
             for tab in range(inc):
-                print '\t',
-            print paper.id
+                print >>output, '\t',
+            print >>output, paper.id
 
 
 
