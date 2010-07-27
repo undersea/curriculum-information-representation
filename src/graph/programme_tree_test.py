@@ -22,8 +22,15 @@ class ProgrammeTreeTest(unittest.TestCase):
         self.assertEqual(len(self.tree.tree), 0)
 
 
-    def test_tree_print_paper(self):
+    def test_tree_print(self):
         self.tree.add_paper('159.201')
-        for paper in self.tree.tree:
-            if paper == '159.201':
-                self.tree.pprint(paper)
+        from cStringIO import StringIO
+        out = StringIO()
+        self.tree.pprint(output=out)
+        expected = """159.101
+159.102
+\t159.201
+"""
+        got = out.getvalue()
+        out.close()
+        self.assertEqual(got, expected) 

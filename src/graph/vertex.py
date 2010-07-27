@@ -5,6 +5,8 @@ import uuid
 from node import Node
 from edge import Edge
 
+import sys
+
 class Vertex(Node):
     def __init__(self, id=uuid.uuid4().hex):
         self.id = id
@@ -56,3 +58,21 @@ class Vertex(Node):
         else:
             return self.id != other
 
+
+    def pprint(self, output=sys.stdout):
+        tmp = self.prereqlist.union(self.coreqlist)
+        final = tmp
+        for paper in tmp:
+            final = final.union(paper.prereqlist.union(paper.coreqlist))
+        
+        tmp = list(final)
+        tmp.sort()
+        for paper in tmp:
+            inc = (int(paper.id[self.id.find('.')+1:]) / 100) - 1
+            for x in range(inc):
+                print >> output, '\t',
+            print >> output , paper.id
+        inc = (int(self.id[self.id.find('.')+1:]) / 100) - 1
+        for x in range(inc):
+            print >> output, '\t',
+        print >> output , self.id
