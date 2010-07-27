@@ -1,6 +1,8 @@
 import unittest
 
 from vertex import Vertex
+from programme_tree import Tree
+from cStringIO import StringIO
 
 class VertexTest(unittest.TestCase):
     def test_does_vertex_initialise(self):
@@ -107,3 +109,18 @@ class VertexTest(unittest.TestCase):
         self.assertEqual(set([]), p1)
         self.assertEqual(set([curr]), p2)
         
+
+    def test_pprint(self):
+        paper = Tree().add_paper('159.302')
+        out = StringIO()
+        paper.pprint(out)
+        expected = """159.101
+159.102
+\t159.201
+\t159.202
+\t159.211
+\t\t159.302
+"""
+        got = out.getvalue()
+        out.close()
+        self.assertEqual(expected, got)
