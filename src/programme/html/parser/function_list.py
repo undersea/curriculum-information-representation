@@ -25,8 +25,7 @@ class AccountancyFunction(ProgrammeFunction):
 
 
 
-
-functions = {'':ProgrammeFunction(), 'Bachelor of Accountancy (BAcc)': AccountancyFunction(),}
+functions = {'':ProgrammeFunction(), 'Bachelor of Accountancy (BAcc)': AccountancyFunction(),'Bachelor of AgriScience (Agriculture)':ProgrammeFunction()}
 
 def get_function(programme):
     try:
@@ -36,6 +35,6 @@ def get_function(programme):
         return parser
     except:
         def nullfunction():
-            return False
+            return set()
         return nullfunction
 
