@@ -34,3 +34,6 @@ class ProgrammeTreeTest(unittest.TestCase):
         got = out.getvalue()
         out.close()
         self.assertEqual(got, expected) 
+
+    def test_or_pattern(self):
+        self.assertNotNone(self.tree.or_pattern.search('<a href="?paper_code=159.201" title="159.201">159.201</a> or <a href="?paper_code=159.202" title="159.202">159.202</a> or <a href="?paper_code=159.211" title="159.211">159.211</a></li><li><b>Restriction(s):</b> <a href="?paper_code=159.318" title="159.318">159.318</a>')
