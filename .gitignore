@@ -2,10 +2,6 @@
 /src/graph/node.pyc
 /src/graph/vertex.py~
 /src/graph/vertices.py~
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 /src/graph/__init__.pyc
 /src/graph/edge.pyc
 /src/graph/edge_test.pyc
@@ -13,17 +9,52 @@
 /src/graph/vertex.pyc
 /src/graph/vertex_test.pyc
 /src/graph/vertex_test.py~
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-<<<<<<< HEAD
 /lib/Machine Learning/src/10 Dimension Reduction/pca.py
 /lib/Machine Learning/src/9 Unsupervised/som.py
 /lib/Machine Learning/src/9 Unsupervised/somdemo.py
-=======
-=======
->>>>>>> Stashed changes
->>>>>>> merge
+/src/som/som_test.py~
+/lib/unsupervised/__init__.py
+/lib/unsupervised/__init__.pyc
+/lib/unsupervised/pca.py
+/lib/unsupervised/pca.pyc
+/lib/unsupervised/som.py
+/lib/unsupervised/som.pyc
+/lib/unsupervised/somdemo.py
+/src/som/__init__.pyc
+/src/som/som.pyc
+/src/som/som_test.pyc
+/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/__init__.pyc
+/pylib/pytidylib-0.2.1-py2.6.egg/tidylib/sink.pyc
+/pylib/site.pyc
+/lib/tidylib/__init__.pyc
+/lib/tidylib/sink.pyc
+/src/graph/#programme_tree.py#
+/src/graph/programme_tree.pyc
+/src/graph/programme_tree_test.pyc
+/src/graph/programme_tree_test.py~
+/src/programme/__init__.pyc
+/src/programme/html/__init__.pyc
+/src/programme/html/parser/Parser_test.pyc
+/src/programme/html/parser/Parser_test.py~
+/src/programme/html/parser/__init__.pyc
+/src/programme/html/parser/__init__.py~
+/src/programme/html/parser/function_list.pyc
+/src/programme/html/parser/function_list_test.pyc
+/src/programme/html/parser/function_list_test.py~
+/src/programme/html/parser/page_finder.pyc
+/src/programme/html/parser/page_finder.py~
+/src/programme/html/parser/parser.pyc
+/src/programme/html/parser/parser.py~
+/src/programme/html/test.pyc
+/src/programme/html/test.py~
+/src/programme/html/test.py
+/src/programme/html/parser/function_list.py~
+/src/graph/programme_tree.py~
+/src/graph/programme_tree.pyc
+/src/graph/programme_tree_test.pyc
+/src/graph/programme_tree_test.py~
+/test.html
+/test2.html
+/programme.txt
+/src/programme/graph/__init__.py~
+/src/programme/graph/programme_tree_test.py~

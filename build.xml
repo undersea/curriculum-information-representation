@@ -7,15 +7,23 @@
 
 <property name="src.dir" value="src"/>
 <property name="lib.dir" value="lib"/>
-<property name="archive.dir" value="archives"/>
 <property name="som.lib.dir" value="${lib.dir}/unsupervised"/>
+<property name="archive.dir" value="archives"/>
+
+
+
+<path id="python.path">
+  <pathelement location="${src.dir}"/>
+  <pathelement location="${lib.dir}"/>
+</path>
+
 
 <target name="all" depends="prepare,test">
 </target>
 
 
 <target name="test" depends="prepare">
-  <py-test pythonpath="${src.dir}">
+  <py-test pythonpathref="python.path">
     <fileset dir="${src.dir}">
       <include name="**/*_test.py"/>
     </fileset>
@@ -24,18 +32,33 @@
 
 
 <target name="prepare" depends="">
-  <unzip src="${archive.dir}/MLcode.zip" dest="${lib.dir}">
+  <unzip src="${archive.dir}/MLcode.zip" overwrite="false" dest="${lib.dir}">
     <patternset>
       <include name="**/pca.py"/>
       <include name="**/som*.py"/>
     </patternset>
   </unzip>
-  <move todir="${som.lib.dir}" flatten="true">
+  <move todir="${som.lib.dir}" overwrite="false" flatten="true">
     <fileset dir="${lib.dir}/Machine Learning/src/">
       <include name="**/som*.py"/>
       <include name="**/pca.py"/>
     </fileset>
   </move>
+  
+  <echo file="${som.lib.dir}/__init__.py" append="false">#This is to make this directory into a python package</echo>
+  <!--Turn som from a classic class to a newstyle class by making it inherit from object -->
+  <script language="jython">
+<![CDATA[
+filepath = "%s/som.py"% (project.getProperty("som.lib.dir"))
+pyfile = open(filepath)
+output = pyfile.read().replace('class som:', 'class som(object):')
+pyfile.close()
+pyfile = open(filepath, 'w')
+pyfile.write(output)
+pyfile.close()
+print 'Modified unsupervised/som.py to be a newstyle class by changing class som: to class som(object):'
+]]>
+  </script>
   <delete dir="${lib.dir}/Machine Learning"/>
 </target>
 
@@ -46,7 +69,7 @@
     <fileset dir="${src.dir}">
       <include name="**/*.pyc"/>
       <!--include below not working for some reason-->
-      <!--<include name="**/*py~"/>-->
+      <include name="**/*.py~"/>
       <exclude name="**/*.py"/>
     </fileset>
   </delete>
