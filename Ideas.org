@@ -21,5 +21,8 @@
 ** Turns out I am restricted to just using the meta info on the papers and not the offering info itself.
 ** Need to be able to get a list of papers that make up each programme of study
 *** It is not really possible to get accurate complete lists of papers for each programme as each programme paper list page is done differently making it hard to parse and it will need a huge list of regular expressions to use
+*** Discard idea of getting programme info from massey programme page as each is to different from the other to reliable get a list of papers
+*** Will use the learn from previous student choices method and also maybe get a list of typical papers from programme directors
 ** The paper information like prerequsites are possible to get as that infomation is displayed in a uniform manner and is not as varied as programme paper lists
+*** Will get paper pre and coreq from paper web pages as they are sufficiently similar and consistent in layout
 * Maybe keep a track of papers choosen by people and what programme they choose.  Use this information to build profiles on what papers are needed.  Use this list as a suggestion to the end user. Only downside is it relies on the user to know what papers to select the first time this application is used.
