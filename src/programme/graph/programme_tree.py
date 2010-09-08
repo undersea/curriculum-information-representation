@@ -17,9 +17,11 @@ class Tree(object):
         self.code_meta_specific_pattern = '\w*\s*\d{3}.\w{3}\s*paper'
         #<li><b>Prerequisite(s):</b> <a href="?paper_code=159.101" title="159.101">159.101</a>, <a href="?paper_code=159.102" title="159.102">159.102</a> (or <a href="?paper_code=159.101" title="159.101">159.101</a> taken prior to 2003)</li>
         self.pattern = '\(s\):</b>\s*(%s[\s,]*|%s[\s,]*)*(\s*or\s*(%s[\s,]*|%s[\s,]*))*\s*(\(\s*or\s*%s\s*taken\s*prior\s*to\s*\d{4}\))*</li>'%(self.code_link_pattern, self.code_meta_specific_pattern, self.code_link_pattern, self.code_meta_specific_pattern, self.code_link_pattern)
+        
         self.restricted = re.compile('<li><b>Restriction%s'% (self.pattern))
         self.prereq = re.compile('<li><b>Prerequisite%s'%(self.pattern))
         self.coreq = re.compile('<li><b>Corequisite%s'%(self.pattern))
+        self.or_pattern = re.compile('(%s\s*or\s*)+(%s)*'%(self.code_link_pattern,self.code_link_pattern))
         self.tree = set()
         self.tmp = None
         

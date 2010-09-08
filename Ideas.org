@@ -26,3 +26,6 @@
 ** The paper information like prerequsites are possible to get as that infomation is displayed in a uniform manner and is not as varied as programme paper lists
 *** Will get paper pre and coreq from paper web pages as they are sufficiently similar and consistent in layout
 * Maybe keep a track of papers choosen by people and what programme they choose.  Use this information to build profiles on what papers are needed.  Use this list as a suggestion to the end user. Only downside is it relies on the user to know what papers to select the first time this application is used.
+* Created regular expressions to parse degree programme web pages to get a list of papers.
+* Made another set of regular expressions to parse paper description pages to extract the prerequisites, coreg and restrictions of a paper
+* Created a graph library to store this information in
