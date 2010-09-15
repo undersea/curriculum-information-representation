@@ -16,6 +16,7 @@
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
 * Seems you have to commit to local git repository 1st then do magit-svn-dcommit to update svn copy and if this goes wrong do an magit-stash then commit to svn then apply this stash and commit to local before update of svn again
+** got rid of svn git stuff locally as was causing to much trouble
 * Group according to what year they fall in given a set of constraints such as prereq must not go after the paper they are prereq for and year they fall on must be equal to or greater than the level of the paper
 * Changes
 ** Turns out I am restricted to just using the meta info on the papers and not the offering info itself.
@@ -29,3 +30,4 @@
 * Created regular expressions to parse degree programme web pages to get a list of papers.
 * Made another set of regular expressions to parse paper description pages to extract the prerequisites, coreg and restrictions of a paper
 * Created a graph library to store this information in
+* When doing a search for related papers, I may keep the regular expression simple and any 'OR' and 'AND' operations be done using the set() methods otherwise expression will just get to complicated
