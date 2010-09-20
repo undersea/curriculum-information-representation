@@ -1,0 +1,34 @@
+Curriculum Information Representation
+Proposal 
+
+This is a tool to graphically aid in the design of programmes of study at a university and the planning of a students programme of study.
+
+A tool to assist in the development of programmes of study.  Two views will be developed. One from the point of view of a staff member wanting to develop a template for students to use including compulsory papers, elective papers, and give a guideline to the order in which they should be studied.  The other view is that of a student wishing to plan their programme of study, change their mind, and come back later using what papers they have already done to map a new plan of study, showing what they need to do, and what options they have.
+
+ 
+
+ 
+Views
+
+ 
+Staff view
+
+Staff view used for the planning and creation of programme templates.  The template being a several year long programme of study, which specifies what papers a student should do at each year.  This plan makes it so the student takes prerequisites for papers specified in the year following, and makes sure they cover all that is required to complete this programme of study with a qualification at the end of it.
+
+It should end up with a plan equivalent to this, except for being more specific in terms of what exactly for example the 158 prefix papers are.
+
+
+ 
+Student view
+
+Student view with which they can plan what papers they are going to do over a set number of years.  Show them what papers taking a particular paper allows them to do, as in what papers the paper selected is a prerequisite to.  Also what prerequisites they need to do if they want to take this paper.  Also if a student changed their mind on what programme they want to do it displays what papers they have already done, how these papers fit into the new programme and what other papers they now need to do as well.
+
+
+The Challenge
+
+
+The challenge is to have a single dynamic graphical representation of this, with the production of a template showing what is needed for a student to do all the papers included in the programme of study, check the integrity of this plan and allow the adjustment of this plan in a dynamic fashion, represented in a single graphical view.
+
+
+
+There is no tool currently available which does this job, and it could be a useful tool to have.
