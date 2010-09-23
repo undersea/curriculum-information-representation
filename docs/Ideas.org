@@ -12,7 +12,7 @@
  + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
  + Maybe uses idea from jigsaw puzzle and use the connections as limiters
 
-* TODO Create a vertex, edge graph library in python that I can use to map the papers onto
+* DONE Create a vertex, edge graph library in python that I can use to map the papers onto
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
 * Seems you have to commit to local git repository 1st then do magit-svn-dcommit to update svn copy and if this goes wrong do an magit-stash then commit to svn then apply this stash and commit to local before update of svn again
