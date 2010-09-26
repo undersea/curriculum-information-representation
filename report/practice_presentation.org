@@ -1,4 +1,6 @@
 #+TITLE: Curriculum Information Representation
+#+AUTHOR: James Hurford
+#+DATE:
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [presentation]
 #+BEAMER_FRAME_LEVEL: 2
