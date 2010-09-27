@@ -31,3 +31,7 @@
 * Made another set of regular expressions to parse paper description pages to extract the prerequisites, coreg and restrictions of a paper
 * Created a graph library to store this information in
 * When doing a search for related papers, I may keep the regular expression simple and any 'OR' and 'AND' operations be done using the set() methods otherwise expression will just get to complicated
+* [2010-09-27 Mon] Developing prototypes first as a starting point and modifying as I go along from there
+** [2010-09-27 Mon] Created a basic prototype for a template authoring system
+* [2010-09-27 Mon] Updated Ideas document on google docs
+** Corridors may link rooms to stairs, which also gives a way to group papers together by prerequisites
