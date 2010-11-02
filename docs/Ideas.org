@@ -11,7 +11,9 @@
 ** Self Organising map     
  + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
  + Maybe uses idea from jigsaw puzzle and use the connections as limiters
-
+** Templates
+*** A degree is a template via which you can create the programme from
+    [[./drawing.png]]
 * DONE Create a vertex, edge graph library in python that I can use to map the papers onto
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
@@ -35,3 +37,57 @@
 ** [2010-09-27 Mon] Created a basic prototype for a template authoring system
 * [2010-09-27 Mon] Updated Ideas document on google docs
 ** Corridors may link rooms to stairs, which also gives a way to group papers together by prerequisites
+* Outline
+** Rules for degrees/majors
+** Identify majors and papers needed for that major
+** Do this from a location(campus) point of view
+** Yr 1 Degree X/Major Y
+*** What must I do?
+*** What papers do they lead to?
+** Yr 2 (Done some papers and have changed mind)
+*** What can I do instead?
+*** What majors and/or degrees do the papers I've done so far count towards?
+* Rules for degrees and papers (sourced from Giovanni)
+#+AUTHOR:    
+#+EMAIL:     
+#+DATE:      
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+
+** Degree structure
+ - majoring requirements for each degree (BA/BSc/BInfSci/BE ...)
+** Subject-specific majoring requirements
+ - majoring requirements for Computer Science, Maths ...
+** Paper-specific details
+ - no. of credits
+ - prerequisites
+ - co-requisites
+ - restrictions
+* Possible libraries
+ - Raphaël
+  Vector graphics library for javascript
+   http://raphaeljs.com/
+  
+
+
+
+* Further ideas
+
+** Do this as a django app
+
+** Use javascript to draw graphics like Raphaël to draw the graphs vertexes, and edges
+   I can possible make this a interactive web graph using Raphaël
+** Use java to create applets to run in the browser
+   Then can use java graphing libraries
+** Run as a standalone programme like java or C# or something
+   Drawback is that they have to download it then run it so maybe not as
+   accessible due to possible reluctance of people to download standalone programmes
