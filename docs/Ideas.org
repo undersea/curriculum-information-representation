@@ -72,7 +72,9 @@
  - prerequisites
  - co-requisites
  - restrictions
-* Possible libraries
+* Possible libraries <2010-11-02 Tue>
+  Looked at possible libraries for doing graphs with javascript.
+  Possible choices are Raphaël, Canviz, Dracula, Ajaxian
  - Raphaël
   Vector graphics library for javascript
    http://raphaeljs.com/
@@ -80,7 +82,7 @@
 
 
 
-* Further ideas
+* Further ideas <2010-11-02 Tue>
 
 ** Do this as a django app
 
