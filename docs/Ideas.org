@@ -93,3 +93,10 @@
 ** Run as a standalone programme like java or C# or something
    Drawback is that they have to download it then run it so maybe not as
    accessible due to possible reluctance of people to download standalone programmes
+
+** Use javascript regualr expressions to figure out whether papers taken for-full a degree/major requirement
+ - ie BIndSci needs to have a stats paper, but that can be lots of
+   papers so regular expression would be '161\d{3}'
+ - Website for finding out how to do RE in javascript
+   -
+     http://www.yourinspirationweb.com/en/how-to-use-regular-expressions-in-javascript/
