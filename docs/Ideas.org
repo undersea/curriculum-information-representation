@@ -100,3 +100,32 @@
  - Website for finding out how to do RE in javascript
    -
      http://www.yourinspirationweb.com/en/how-to-use-regular-expressions-in-javascript/
+
+* What do I want to do?
+** I have done these papers, what degree/major can I do?
+   I can see this happening in this way
+   + A degree list is shown of possibilities.
+   + Some indication of how well the papers that have been done fit
+     each of the degrees listed.
+     - How many of the major papers have I done so far.
+   + A list of papers that can follow on the ones that have already
+     been done and still qualify for the degree selected.
+   + A break down of the paths that can be taken to finish a
+     degree. (this will probably be very challenging)
+     - This would involve some way of cycling through the path choices.
+     - Give a metric of the suitability of each path
+       - The number of papers that you have done that you can't use.
+       - The number of extra papers you have to do
+       - etc
+   + Do all this by campus
+     - I'm in Albany, what papers are offered here for the degree I
+       want to do.
+     - Can I do the degree on this campus, or do I have to go to
+       another campus to do this.
+** 3 aspects to this problem
+  - create network of papers
+  - determine the best path
+  - display this
+
+
+
