@@ -5,6 +5,8 @@
 utf-8"/>
 <script type="text/javascript" src="javascript/raphael-min.js">
 </script>
+<script type="text/javascript" src="javascript/degree.js">
+</script>
 <title></title>
 </head>
 
@@ -15,7 +17,7 @@ utf-8"/>
 <div>After</div>
 <script type="text/javascript">
 /* Create regular expression non distinguishing between capital and small letters */
-var regex = /\s*/i;
+var regex = /(Home)|(sweet)/i;
 /* Set the string on which to search */
 var str = "Home sweet home"
 /* if there's a correspondence, display a message */
@@ -25,6 +27,24 @@ if( regex.test(str) ){
 }else {
     alert(regex);
 }
+
+alert(getRequiredDegreePapers('binfsci'));
+
+var papers = getRequiredDegreePapers('binfsci');
+for(var i in papers) {
+    //alert(papers[i].test("158100"));
+    
+}
+
+var papers2 = getRequiredMajorDegreePapers('binfsci', 'comp_sci');
+alert(papers2);
+for(var i in papers2) {
+    //alert(papers2[i].test('159201, 159101, 159202, 159356, 159256, 159345, 159343, 159333, 159334'));
+}
+
+emailtest = /[A-Z0-9._%+-]@+[A-Z0-9.-]+\.[A-Z]{2,4}/i
+alert('email valid: ' + emailtest.test('local._g@web.com'));
+
 
 // Creates canvas 320 × 200 at 10, 50
 var paper = Raphael(document.getElementById("notepad"), 640, 480);
@@ -84,5 +104,5 @@ circle.drag(move, start, up);
 
 <hr/>
 <address></address>
-<!-- hhmts start -->Last modified: Wed Nov  3 17:16:29 NZDT 2010 <!-- hhmts end -->
+<!-- hhmts start -->Last modified: Thu Nov  4 10:05:39 NZDT 2010 <!-- hhmts end -->
 </body> </html>
