@@ -129,3 +129,63 @@
 
 
 
+* Constraints satisfaction
+** Reason
+   I was told to figure out how CS works.  The reason for this way of
+   thinking was not immediately obvious to me, not knowing anything
+   about CS.  I soon realised after asking Graham and letting what he
+   told me sink in along with what I read on Web, that CS is a useful
+   way of defining formal rules, which when applied on a set of
+   options, can help solve this problem.
+
+   It seems that the rules get applied thus
+ 
+#+begin_src pyseudo
+
+   -> : implies
+   or : Boolean or
+   
+   Boolean and is applied to each line, so all lines must be true to
+   satisfy the constraint.
+
+   p1 -> p1a or p1b or p1c
+   p2 -> p2a or p2b
+   degree -> p1
+   degree -> p2
+#+end_src
+
+   so to fore-full the degree they must have both p1 and p2. p1 must
+   have either p1a, p1b or p1c and p2 must have either p2a or p2b.
+
+
+   With such a formal set of rules, one can easily solve a problem,
+   which could be very difficult to do without CS.  I'm still
+   stumbling in the dark here, and am looking for reasons to justify
+   the use of CS.  I could do this with or without external libraries,
+   I will just have to write my own CS parser, or write a set of
+   functions which all must return True for the combination tested to
+   be selected.  I favour using a library, as I don't want to be spend
+   half my time coming up with my own, and I know the library I choose
+   will work, as apposed to any implementation I come up with.
+
+** Programming library choice
+*** Gecode 
+    Open source C++ library which is said to be efficient, takes
+    advantage of all processors available, using threads, and has won
+    some awards.
+
+    Has a Ruby wrapper and a python wrapper, but I understand the python
+    wrapper is immature and is only a thin one, meaning I think that
+    it is not as functional as the C++ interface.
+*** Google cp-solver
+    Open source C++ library with a python wrapper which is similar to Gecode,
+    except I have no idea about the threading capabilities of it.
+    It's main advantage is the python wrapper for me.  My preference
+    at the moment is to code in python and the python API is probably
+    the same as is available when using the C++ version.
+
+    The other advantage is that if needed, I can easily convert it to
+    C++ code, due to the similarity of the python wrapper to C++.
+
+    I can also possible use Gecode examples to figure out solutions to
+    problems I encounter, since they are similar in the API used
