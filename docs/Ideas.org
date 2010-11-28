@@ -188,4 +188,8 @@
     C++ code, due to the similarity of the python wrapper to C++.
 
     I can also possible use Gecode examples to figure out solutions to
-    problems I encounter, since they are similar in the API used
+    problems I encounter, since they are similar in the API used.  The
+    problem is this library is so new having been first created
+    September 15 2010.  This has got me to thinking that it might be a
+    good idea to at the moment stick to Gecode since it has been
+    around for a while and is mostly free of bugs, or so they claim.
