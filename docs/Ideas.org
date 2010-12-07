@@ -219,6 +219,16 @@
     September 15 2010.  This has got me to thinking that it might be a
     good idea to at the moment stick to Gecode since it has been
     around for a while and is mostly free of bugs, or so they claim.
+
+
+** Approach
+*** Constrain by what papers are required
+    This would be degree and majoring paper requirements
+*** Constrain by what papers outside the degree you can include
+    This would be the optional extra papers that can be taken from
+    outside the degree papers, ie a paper from Humanities used for a
+    BSc degree
+
 * <2010-11-29 Mon> Activities
 ** Printed out Gecode documentation manual
   - Have read up to page 43
@@ -226,3 +236,4 @@
 ** Found another and am going to look at that at http://www.slideserve.com/presentation/25956/Constraints-Satisfaction-Problem
 ** learnt some more about how linear constraints work in Gecode in reference to SEND + MORE = MONEY problem by applying it to TWO + TWO = FOUR
 * Need to learn how to make a percentage of the papers done be a constraint and not have to rely on, you have done all these papers so you have for fulled the degree requirements, but if you are one short there are no solutions.
+
