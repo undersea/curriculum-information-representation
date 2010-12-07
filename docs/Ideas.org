@@ -15,6 +15,7 @@
 *** A degree is a template via which you can create the programme from
     [[./drawing.png]]
 * DONE Create a vertex, edge graph library in python that I can use to map the papers onto
+** Think I will not use this due to my choice of using Constraints Satisfaction and it being easier not to use this module I just created.
 
 * TODO See if I can create some custom git lisp commands for doing git svn clone --username jdhurfor [[https://ist-linux1.massey.ac.nz/svn/jdhurfor/]]
 * Seems you have to commit to local git repository 1st then do magit-svn-dcommit to update svn copy and if this goes wrong do an magit-stash then commit to svn then apply this stash and commit to local before update of svn again
@@ -107,7 +108,8 @@
    + A degree list is shown of possibilities.
    + Some indication of how well the papers that have been done fit
      each of the degrees listed.
-     - How many of the major papers have I done so far.
+     - How many of the degree papers have I done so far.
+     - What papers I have done that don't fit this degree
    + A list of papers that can follow on the ones that have already
      been done and still qualify for the degree selected.
    + A break down of the paths that can be taken to finish a
@@ -122,10 +124,34 @@
        want to do.
      - Can I do the degree on this campus, or do I have to go to
        another campus to do this.
+
+** I want to this degree/major, what do I need to do?
+   + What papers do I need to do to for-full my major
+   + What papers do I need to do to for-full any minor I choose
+   + What papers do I need to do to for-full the actual degree
+   + What possible paths may I choose from
+     - Cycle through these possibilities
+     - Give some sort of metric for each path
+       - Could be based on the recommended papers
+       - What career
+   + Do all this by campus
+     - I'm in Albany, what papers are offered here for the degree I
+       want to do.
+     - Can I do the degree on this campus, or do I have to go to
+       another campus to do this.
+
 ** 3 aspects to this problem
   - create network of papers
+    - this is similar to the Internet but with less connections
+      between each node
+    - Use only the current degree to determine what papers make up the network
+    - recreate the network every time a new degree is chosen
   - determine the best path
-  - display this
+    - based on what has been done
+    - based on what is recommended
+    - What needs to be done
+    - shortest route?
+  - determine the best fit for already existing papers
 
 
 
@@ -194,6 +220,7 @@
     good idea to at the moment stick to Gecode since it has been
     around for a while and is mostly free of bugs, or so they claim.
 
+
 ** Approach
 *** Constrain by what papers are required
     This would be degree and majoring paper requirements
@@ -201,3 +228,11 @@
     This would be the optional extra papers that can be taken from
     outside the degree papers, ie a paper from Humanities used for a
     BSc degree
+
+* <2010-11-29 Mon> Activities
+** Printed out Gecode documentation manual
+  - Have read up to page 43
+** Read most of a CS tutorial at http://4c.ucc.ie/web/outreach/tutorial.html
+** Found another and am going to look at that at http://www.slideserve.com/presentation/25956/Constraints-Satisfaction-Problem
+** learnt some more about how linear constraints work in Gecode in reference to SEND + MORE = MONEY problem by applying it to TWO + TWO = FOUR
+
