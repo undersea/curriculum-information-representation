@@ -221,7 +221,7 @@
     around for a while and is mostly free of bugs, or so they claim.
 
 
-** Approach
+** Approach <2010-12-08 Wed>
 *** Constrain by what papers are required
     This would be degree and majoring paper requirements
 *** Constrain by what papers outside the degree you can include
@@ -235,5 +235,16 @@
 ** Read most of a CS tutorial at http://4c.ucc.ie/web/outreach/tutorial.html
 ** Found another and am going to look at that at http://www.slideserve.com/presentation/25956/Constraints-Satisfaction-Problem
 ** learnt some more about how linear constraints work in Gecode in reference to SEND + MORE = MONEY problem by applying it to TWO + TWO = FOUR
+** Created a list of subject numbers for BSc.
+   This is so I can check to see if at least 4 different ones have been chosen.
 * Need to learn how to make a percentage of the papers done be a constraint and not have to rely on, you have done all these papers so you have for fulled the degree requirements, but if you are one short there are no solutions.
 
+* Requirements for degrees
+
+** BSc
+|------------+---------------------------------------|
+|        100 | <= 165                                |
+|        300 | >= 75                                 |
+|    outside | <= 60                                 |
+| compulsory | 119.155 or 119.177 and 160.* or 161.* |
+| compulsory |                                       |
