@@ -221,13 +221,25 @@
     around for a while and is mostly free of bugs, or so they claim.
 
 
-** Approach <2010-12-08 Wed>
+** Approach <2010-12-14 Tue>
 *** Constrain by what papers are required
     This would be degree and majoring paper requirements
 *** Constrain by what papers outside the degree you can include
     This would be the optional extra papers that can be taken from
     outside the degree papers, ie a paper from Humanities used for a
     BSc degree
+*** Rules
+    All these rules are according to the regulations and not taking into
+    account the discretion of those in charge.
+**** Must have
+     Papers that must be included which student doesn't have choice of
+**** Choice of
+     Papers that student can choose to do, which includes those not degree
+     specific.  These have a min and/or max and can be a range of specific
+     papers, a range of subjects, or a choice of papers outside the degree
+**** Can't use
+     Papers that a student has passed, but can't be used by the specific
+     degree in question.
 
 * <2010-11-29 Mon> Activities
 ** Printed out Gecode documentation manual
