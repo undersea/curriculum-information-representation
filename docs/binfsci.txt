@@ -2,6 +2,7 @@
 100 <= 165
 300 >= 75
 
+(IGNORE MINORS)
 minor in any Massey subject of greater than 100 level (not major
 subject) >= 45
 
