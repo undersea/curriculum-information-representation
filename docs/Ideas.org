@@ -260,3 +260,10 @@
 |    outside | <= 60                                 |
 | compulsory | 119.155 or 119.177 and 160.* or 161.* |
 | compulsory |                                       |
+
+* COP values for degree satisfaction heuristic
+  Each degree should be represented by a position in a integer array,
+  with each degree being given a integer value.  The higher the value
+  the more fit the degree is for the selection of papers that have
+  been provided.  Use the sum of this array as the heuristic cost of
+  the search branch to help satisfy the COP algorithm.
