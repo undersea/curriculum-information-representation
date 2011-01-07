@@ -269,3 +269,9 @@
   the search branch to help satisfy the COP algorithm.
 * Decided that if the number of 100 level papers exceeds the number allowed will just return the max number allowed. <2011-01-08 Sat>
 ** This allows me to then go on and consider which ones to use later on in order to get the most choice of follow up papers. ie 159101 leads to all the 200 level 159 papers, as opposed to some other paper which doesn't lead to many papers at all.
+* Justification for moving away from Gecode for solving how many papers can I use towards that degree.
+  The problem for seeing which degree / major combinations use the most
+  papers is not a CS problem which needs Gecode or other similar library
+  to solve it.  You could use Gecode, but it doesn't help any more than
+  a regular search and match solution provided by C++ STL algorithm like
+  count_if.
