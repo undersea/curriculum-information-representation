@@ -267,3 +267,5 @@
   the more fit the degree is for the selection of papers that have
   been provided.  Use the sum of this array as the heuristic cost of
   the search branch to help satisfy the COP algorithm.
+* Decided that if the number of 100 level papers exceeds the number allowed will just return the max number allowed. <2011-01-08 Sat>
+** This allows me to then go on and consider which ones to use later on in order to get the most choice of follow up papers. ie 159101 leads to all the 200 level 159 papers, as opposed to some other paper which doesn't lead to many papers at all.
