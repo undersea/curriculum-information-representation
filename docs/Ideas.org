@@ -275,3 +275,7 @@
   to solve it.  You could use Gecode, but it doesn't help any more than
   a regular search and match solution provided by C++ STL algorithm like
   count_if.
+* progress <2011-01-10 Mon>
+  Need to find a logical way of figuring out if the core requirements,
+  the cs requirements and comm requirement are for fulled as well at 100
+  level as well as whether the max amount of 100 level papers has been reached.
