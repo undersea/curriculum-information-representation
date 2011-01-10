@@ -279,3 +279,6 @@
   Need to find a logical way of figuring out if the core requirements,
   the cs requirements and comm requirement are for fulled as well at 100
   level as well as whether the max amount of 100 level papers has been reached.
+* progress <2011-01-11 Tue>
+  Trying the approach of removing papers from class list as they are
+  progress counted, so they won't be counted again later.
