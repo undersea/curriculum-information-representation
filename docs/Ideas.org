@@ -305,7 +305,7 @@
    Need to write some test cases to test the outcomes of these algorithms
    I'm coming up with.
 ** update 2
-   Turn paper_count into double representing double. Calculated by
+   Turn paper_count into double representing percentage. Calculated by
    taking for binfsci major cs total number of papers from cs, it,
    stats and math.  Divide by total min of these papers needed (15)
    and times by 100.
@@ -316,3 +316,8 @@
    What this weighting is going to be, and how it is applied, I don't
    know yet. I am thinking maybe normalising the total min papers
    needed to a number of 24.
+* entry <2011-01-12 Wed>
+  I am thinking maybe I can't use just the degree schedule papers.
+  This will lead to the selection being biased towards those whose
+  major and degree core requirements are a small number of papers.
+  That is my thinking.  
