@@ -304,3 +304,15 @@
 
    Need to write some test cases to test the outcomes of these algorithms
    I'm coming up with.
+** update 2
+   Turn paper_count into double representing double. Calculated by
+   taking for binfsci major cs total number of papers from cs, it,
+   stats and math.  Divide by total min of these papers needed (15)
+   and times by 100.
+
+   Not sure how going to take into account a degree with a higher min
+   compulsory paper number like all of them.  This will overall give a
+   lower percentage.  Some weighting must be used, is my thinking.
+   What this weighting is going to be, and how it is applied, I don't
+   know yet. I am thinking maybe normalising the total min papers
+   needed to a number of 24.
