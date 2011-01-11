@@ -302,3 +302,5 @@
 
    Then again maybe not, seems overly complicated.
 
+   Need to write some test cases to test the outcomes of these algorithms
+   I'm coming up with.
