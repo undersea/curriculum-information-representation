@@ -282,3 +282,23 @@
 * progress <2011-01-11 Tue>
   Trying the approach of removing papers from class list as they are
   progress counted, so they won't be counted again later.
+** update
+   There has got to be a simple way of calculating how many papers one
+   can use towards a degree. My current method seems to work,
+   but how it works is not exactly clear to me and I wrote it.  There
+   are to many things to keep track of at once.  This is supposed to
+   be the simple part too.  Maybe I need to simplify things even more
+   and not worry about specifics like the limit on how many 100 level
+   papers can be counted, and just count all of them and worry about
+   it when it comes to constraints satisfaction.  Take note of the
+   papers that are part of the degree only and thus making this list
+   suitable for the degree in question.  Basically just simplify and
+   reduce possibility of errors.
+
+   I could even take a look at the ratio of papers given a major of CS
+   take all CS papers and see how many are taken giving a metric modified
+   by some bias towards CS, taking other papers in degree into account
+   as well.
+
+   Then again maybe not, seems overly complicated.
+
