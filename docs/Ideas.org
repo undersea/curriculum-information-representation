@@ -320,4 +320,12 @@
   I am thinking maybe I can't use just the degree schedule papers.
   This will lead to the selection being biased towards those whose
   major and degree core requirements are a small number of papers.
-  That is my thinking.  
+  That is my thinking.  For the moment I will stick to my previous
+  decision as I am running out of time and I need to get onto the next
+  stage.
+
+  Thought I may as well stick to using python as much as possible, as I
+  find it easier to work with.  With this in mind I decided that I
+  would use pythons ctypes module and create a c library of my CS
+  rules using the CS C++ Gecode, and compile it as a libary and see if
+  I can use it from within python.  I can and it worked perfectly.
