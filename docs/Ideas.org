@@ -329,3 +329,7 @@
   would use pythons ctypes module and create a c library of my CS
   rules using the CS C++ Gecode, and compile it as a libary and see if
   I can use it from within python.  I can and it worked perfectly.
+* entry <2011-01-13 Thu>
+  [[http://starship.python.net/crew/theller/ctypes/tutorial.html]]
+  Looked at this site and learned some ways I can pass variables
+  between python and c library calls
