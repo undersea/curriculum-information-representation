@@ -333,3 +333,15 @@
   [[http://starship.python.net/crew/theller/ctypes/tutorial.html]]
   Looked at this site and learned some ways I can pass variables
   between python and c library calls
+
+  Have now created a set of programmes which are callable with a list
+  of papers done.  When called creates a set of papers that are shared
+  between the papers done list and the papers/subjects available in
+  this programme.  Using the length of the final set as the value of
+  this programme. This seems like the easiest way of doing it.
+
+
+  Now for the hard part of finding out how to apply a set of rules to
+  a COP class in Gecode which finds all the papers that the current
+  papers are prerequisites to.  Also how do I pad out the empty slots
+  to for full the degree requirements.
