@@ -1,2 +1,0 @@
-from som import SOM
-
