@@ -373,3 +373,10 @@
   I also found that I can make a python class callable and pass that as
   the function pointer to the C funtion call using ctypes.
 
+  I created a Papers class which is callable.  It, when called,
+  fetches prerequisites, co-requisites, and restrictions on a paper.
+  I intend on using this in the Gecode library which will be pointed
+  to by a function pointer in that c code.  This will form the basis
+  by which I do constraints satisfaction with.  This will take the
+  form of trying to find papers which lead to the most choices in the
+  degree selection, thus further narrowing down which degree to use.
