@@ -369,3 +369,7 @@
   extern "C" { some c function that uses C++ code } if I am to use the
   C++ part as I can only call pure C functions with ctypes as C++
   mangles the names too much.
+
+  I also found that I can make a python class callable and pass that as
+  the function pointer to the C funtion call using ctypes.
+
