@@ -384,7 +384,11 @@
   Fixed up the papers search algorithm to cover more papers like
   161326 which uses the format of 161.2xx to specify a prerequisite
   and does provide a link to that prerequisite as it covers more than
-  one paper.  I have to now consider how I'm going to handle
+  one paper.  I did this by being more specific with the pattern and
+  adding '<li><b>Restriction\(s\)' to the end of the prerequisite
+  pattern to match.
+
+  I have to now consider how I'm going to handle
   "One of 161.2xx or (159.2xx and 161.1xx)" patterns.  This is all
   handled by regular expression syntax.  The idea here being that when
   the Constraints satisfaction algorithm trys to see haw many papers a
