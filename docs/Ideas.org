@@ -380,3 +380,19 @@
   by which I do constraints satisfaction with.  This will take the
   form of trying to find papers which lead to the most choices in the
   degree selection, thus further narrowing down which degree to use.
+* entry <2011-01-14 Fri>
+  Fixed up the papers search algorithm to cover more papers like
+  161326 which uses the format of 161.2xx to specify a prerequisite
+  and does provide a link to that prerequisite as it covers more than
+  one paper.  I have to now consider how I'm going to handle
+  "One of 161.2xx or (159.2xx and 161.1xx)" patterns.  This is all
+  handled by regular expression syntax.  The idea here being that when
+  the Constraints satisfaction algorithm trys to see haw many papers a
+  paper leads to, many different paper numbers are tried till one is
+  found that has this as it's prerequisite.  The problem with this
+  approach is that there could be thousands of papers with this as a
+  prerequisite and there are lots of numbers to try which won't match
+  a paper that exists now.  I am thinking that I might restrict the
+  paper numbers to those in the degree schedule, or to the paper
+  subject number in question if it isn't a prerequisite for a
+  scheduled paper or both.
