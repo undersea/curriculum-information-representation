@@ -400,3 +400,13 @@
   paper numbers to those in the degree schedule, or to the paper
   subject number in question if it isn't a prerequisite for a
   scheduled paper or both.
+
+  I am think in the COP I will use a set of arrays 8 long by 3 high
+  with each 8 long group representing a year like year 1 year 2 and
+  year 3.  The academic record will fill up as many slots starting
+  from the bottom and proceed from there. It will try and find a
+  solution that gives as much choice of papers to do in the future by
+  looking at how many papers you can follow a paper on with.  I will
+  ignore any paper with a prerequisite of say any 100 level, for
+  purposes of costing the value of that solution as it makes little
+  difference what paper you do before that one, you can do it anyway.
