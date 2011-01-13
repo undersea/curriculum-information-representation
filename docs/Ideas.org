@@ -352,3 +352,20 @@
   will add it to the list I defined.  This is important if I am to
   interact with Gecode, which is a C++ library from within python.  I
   did notice that unsigned int is transformed into a python long integer.
+
+  It seems that the return type in a c library in python ctypes is
+  specified as libc.printf.restype and is by default expected to
+  return a c_int.  To change this to return void, do the following
+  libc.printf.restype = None, or to char libc.printf.restype =
+  c_char.  Argtypes can be assigned as a list to the attribute
+  argtypes ie libc.printf.argtypes = [c_char_p, c_char_p, c_int,
+  c_double] or printf(char *, char *, int) as in 
+  printf("%s %d", "A value", 10); which will print "A Value 10".
+  These things are useful to know if I am to interact with the C
+  library I am going to create to do the Constraints Satisfaction
+  solving.
+
+  I've also got to remember to use the keyword 
+  extern "C" { some c function that uses C++ code } if I am to use the
+  C++ part as I can only call pure C functions with ctypes as C++
+  mangles the names too much.
