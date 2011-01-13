@@ -72,3 +72,5 @@
 /prototype/create.pyc
 /src/programme/selection/programme.pyc
 /src/programme/selection/rules.pyc
+/src/programme/graph/__init__.pyc
+/src/programme/graph/programme_tree.pyc

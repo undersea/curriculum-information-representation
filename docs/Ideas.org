@@ -345,3 +345,10 @@
   a COP class in Gecode which finds all the papers that the current
   papers are prerequisites to.  Also how do I pad out the empty slots
   to for full the degree requirements.
+
+  Figured out how to pass a pointer to a python function to a c library
+  function and use that python function to put values into a list, thus
+  when called in c will pass a value from c to the python function which
+  will add it to the list I defined.  This is important if I am to
+  interact with Gecode, which is a C++ library from within python.  I
+  did notice that unsigned int is transformed into a python long integer.
