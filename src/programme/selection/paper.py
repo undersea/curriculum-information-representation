@@ -1,6 +1,7 @@
 import re
+from ctypes import *
 
-class Paper(object):
+class Paper(Structure):
     def __init__(self):
         self.paperquery_url = 'http://www.massey.ac.nz/massey/learning/programme-course-paper/paper.cfm?paper_code=%s'
         self.codestr = '\d{3}\.\d{1}\w{2}'
@@ -24,21 +25,14 @@ class Paper(object):
     def __call__(self, paper):
         self.paper = paper #so the paper code can be retrieved
         htmlstr = urllib2.urlopen(self.paperquery_url%(paper)).read()
-        prereq_start = re.split(r'Prerequisite\(s\)', htmlstr)
-        print 'start', len(prereq_start[1])
-        if prereq_start:
-            result = self.prereq.search(htmlstr)
-            if result:
-                print 'prereq'
-                print result.group()
-                for pre in (self.code.findall(result.group())):
-                    #add it to prereq
-                    self.prereq_set.add(pre)
+        result = self.prereq.search(htmlstr)
+        if result:
+            for pre in (self.code.findall(result.group())):
+                #add it to prereq
+                self.prereq_set.add(pre)
                 
         result = self.restricted.search(htmlstr)
         if result:
-            print 'restrict'
-            print result.group(0)
             for restrict in set(self.code.findall(result.group(0))):
                 #just straight string code of paper
                 self.restriction_set.add(restrict)
@@ -51,10 +45,7 @@ class Paper(object):
 
 
 
+
 p = Paper()
-print 'fetching'
-p(159201)
-print
-print 'prereq:', p.prereq_set
-print 'coreq:', p.coreq_set
-print 'restrict:', p.restriction_set
+p(161326)
+p(159202)
