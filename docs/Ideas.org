@@ -410,3 +410,22 @@
   ignore any paper with a prerequisite of say any 100 level, for
   purposes of costing the value of that solution as it makes little
   difference what paper you do before that one, you can do it anyway.
+* entry <2011-01-15 Sat>
+  Wrote some C++ code as a skeleton to my COP selector.  Wrote a test
+  python script to load the resulting C++ library.  The interaction is
+  going to be python calls a C function with a callback function.  C
+  calls python through a pointer to this python function.  Python uses
+  this callback function to populate the answers.  I am going to get C
+  to use some python code I've written to find paper dependencies like
+  prerequisites to the figure out what a paper leads to.  The idea is
+  to try a large selection of papers and find out which ones have the
+  paper as a prerequisite.  This is not ideal, as it is costly in CPU
+  cycles.  I am thinking this might be done as a learning method.  A
+  paper is found to be a prerequisite to another paper, add this to
+  the database as a paper this paper leads to.  The database is the
+  first to be looked up.  I think a flag for this paper should be used
+  to say if it has been checked for what it leads to or not.  I am
+  also thinking that for papers that have 2 dependencies or more, to
+  lock the conditions for including that paper to must have both
+  prerequisite there, or not include it.  This is going to be tricky,
+  as how to I code this.
