@@ -44,8 +44,3 @@ class Paper(Structure):
                 node.coreq_set.add(co)
 
 
-
-
-p = Paper()
-p(161326)
-p(159202)
