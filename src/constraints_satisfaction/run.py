@@ -3,9 +3,10 @@ from ctypes import *
 constrain = CDLL('./libconstrain.so')
 
 def caller(ptr, size):
+	print ptr, size
 	for x in range(size):
-		print 'caller', ptr[x],
-	print
+		print 'ptr[%d]' % x, ptr[x],
+	print 'finished calling'
 
 CMPFUNC = CFUNCTYPE(None, POINTER(c_int), c_int)
 
