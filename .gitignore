@@ -76,3 +76,5 @@
 /src/programme/graph/programme_tree.pyc
 /src/constraints_satisfaction/degree.o
 /src/constraints_satisfaction/libconstrain.so
+/src/programme/selection/__init__.pyc
+/src/programme/selection/paper.pyc

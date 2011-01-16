@@ -1,7 +1,16 @@
 import re
 from ctypes import *
+import urllib2
 
 class Paper(Structure):
+    _fields_ = [('paper', c_int),
+                ('prerequisites', POINTER(c_int)),
+                ('prereq_len', c_int),
+                ('corequisites', POINTER(c_int)),
+                ('coreq_len', c_int),
+                ('restrictions', POINTER(c_int)),
+                ('restrict_len', c_int),]
+
     def __init__(self):
         self.paperquery_url = 'http://www.massey.ac.nz/massey/learning/programme-course-paper/paper.cfm?paper_code=%s'
         self.codestr = '\d{3}\.\d{1}\w{2}'
@@ -30,17 +39,34 @@ class Paper(Structure):
             for pre in (self.code.findall(result.group())):
                 #add it to prereq
                 self.prereq_set.add(pre)
+            self.prereq_array = (c_int * len(self.prereq_set))()
+            for pos in range(self.prereq_set):
+                self.prereq_array[pos] = self.prereq_set[pos]
+            self.prerequites = self.prereq_array
+            self.prereq_len = len(self.prereq_array)
                 
         result = self.restricted.search(htmlstr)
         if result:
             for restrict in set(self.code.findall(result.group(0))):
                 #just straight string code of paper
                 self.restriction_set.add(restrict)
+            self.restrict_array = (c_int * len(self.restriction_set))()
+            for pos in range(self.restriction_set):
+                self.restrict_array[pos] = self.restriction_set[pos]
+            self.restrictions = self.restrict_array
+            self.restrict_len = len(self.restrict_array)
         
         result = self.coreq.search(htmlstr)
         if result:
             for co in (self.code.findall(result.group(0))):
                 #add it to coreq
-                node.coreq_set.add(co)
+                self.coreq_set.add(co)
+            self.coreq_array = (c_int * len(self.coreq_set))()
+            for pos in range(self.coreq_set):
+                self.coreq_array[pos] = self.coreq_set[pos]
+            self.corequisites = self.coreq_array
+            self.coreq_len = len(self.coreq_array)
+
+        return pointer(self)
 
 

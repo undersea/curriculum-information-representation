@@ -429,3 +429,29 @@
   lock the conditions for including that paper to must have both
   prerequisite there, or not include it.  This is going to be tricky,
   as how to I code this.
+* entry <2011-01-16 Sun>
+  Realise I need to pass the callable class Paper to the C code.  I
+  envisioned it returning a pointer to itself when called.  The return
+  type would have to be a structure.  The problem is for python there
+  is no way of telling ctypes that the return type is a structure as
+  it doesn't support this.  Or so I have been lead to believe.  I am
+  thinking there is a way round this since I am using C++ I can make
+  the native C++ structure defined there a callable one too.  Then it
+  doesn't have to return a pointer to itself.  The problem I am having
+  with all this is that it is forcing me to make things more
+  complicated than they should be.
+* entry <2011-01-17 Mon>
+  Thinking about putting the papers passed to Degree int the first
+  part of Degree.degree_papers positions.  Then the rest are made up
+  of papers that these papers lead to.  The problem is
+  1) What if the papers done are more than 24?
+  2) What about the ones that can't be used for this degree?
+  3) If I am optimising for choice, do I use all the papers they have done.
+     - If I don't accept all papers they have already done?
+       + How do I select the ones to use?
+         - apart from making sure that they can be used for this
+           degree
+       + ...
+  4) What CS expression can I use to achieve this?
+
+
