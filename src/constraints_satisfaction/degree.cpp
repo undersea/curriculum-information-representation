@@ -44,7 +44,7 @@ namespace Degree
   {
     for(int i = 0; i < length; i++) {
       paper_list.insert(papers[i]);
-      rel(*this, degree_papers == papers[i]);
+      rel(*this, degree_papers[i] == papers[i]);
     }
 
     for(int i = length; i < 
