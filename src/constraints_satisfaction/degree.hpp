@@ -24,8 +24,16 @@ typedef struct
   int coreq_len;
   int *restrictions;
   int restrict_len;
-  bool operator () (int);
 } Dependencies;
+
+
+typedef struct
+{
+  int *papers;
+  int plength;
+  int *major;
+  int mlength;
+} DegreePapers;
 
 
 namespace Degree
@@ -35,7 +43,7 @@ namespace Degree
   public:
     Degree(int *papers, 
            int length, 
-           Dependencies *dep);
+           DegreePapers *schedule);
     Degree(bool share, Degree &degree);
     ~Degree(void);
 
@@ -51,7 +59,7 @@ namespace Degree
     IntVar cost_value;
     IntVarArray degree_papers;
     std::set<int> paper_list;
-    Dependencies *gprereqs;
+    DegreePapers *degree_schedule;
 
   private:
     
@@ -64,7 +72,7 @@ extern "C" {
   void run(int *papers,
            int length, 
            void (caller)(int *, int), 
-           Dependencies *dep);
+           DegreePapers *schedule);
   //int get_paper(Degree::Degree &degree, int &pos);
 }
 #endif //  __cplusplus

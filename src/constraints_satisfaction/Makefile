@@ -10,7 +10,7 @@ all:	$(OBJECTS) $(LIBRARY_NAME)
 
 
 libconstrain.so:	$(OBJECTS)
-	gcc -shared -Wl,-soname,$(LIBRARY_NAME).1 -o $(LIBRARY_NAME) $(LDXXFLAGS) $(OBJECTS)
+	$(CXX) -shared -Wl,-soname,$(LIBRARY_NAME).1 -o $(LIBRARY_NAME) $(LDXXFLAGS) $(OBJECTS)
 
 .o:	*.cpp
 

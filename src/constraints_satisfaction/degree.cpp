@@ -2,13 +2,18 @@
 
 #ifdef __cplusplus
 extern "C" {
+  void test(DegreePapers *ptr)
+  {
+    std::cout << ptr->papers << std::endl;
+  }
+
   void run(int *papers, 
            int length,
-           void (caller)(int *, int), 
-           Dependencies *(get_prereqs)(int))
+           void (caller)(int *, int),
+           DegreePapers *schedule)
   {
     try {
-      Degree::Degree *degree = new Degree::Degree(papers, length, get_prereqs);
+      Degree::Degree *degree = new Degree::Degree(papers, length, schedule);
       BAB<Degree::Degree> bab(degree);
       delete degree;
       int count = 0;
@@ -37,8 +42,8 @@ namespace Degree
 {
 
   Degree::Degree(int *papers, 
-                 int length, 
-                 Dependencies *dep)
+                 int length,
+                 int ()
     : cost_value(*this, 0, 100),
       degree_papers(*this, 24, 100100, 999999)
   {
@@ -47,7 +52,11 @@ namespace Degree
       rel(*this, degree_papers[i] == papers[i]);
     }
 
-    for(int i = length; i < 
+    
+
+    for(int i = length; i < 24; i++) {
+      
+    }
 
     distinct(*this, degree_papers);
     rel(*this, cost_value == 100);
