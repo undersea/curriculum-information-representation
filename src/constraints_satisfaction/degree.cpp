@@ -27,7 +27,7 @@ extern "C" {
          * python function allowing solution to 
          * be accesed by python code.
          */
-        caller(paper_set, 24);
+        caller(d->get_degree(), paper_set, 24);
         delete d; // free pointer up for next iteration
         d = NULL; // always set pointers to NULL after freeing
       }
@@ -45,19 +45,18 @@ namespace Degree
                  int length,
                  int ()
     : cost_value(*this, 0, 100),
-      degree_papers(*this, 24, 100100, 999999)
+      degree_papers(*this, 24, 100100, 999999),
+      degree(*this, 0, 100000)
   {
-    for(int i = 0; i < length; i++) {
+    for(int i = 0, j = 0; i < length; i++) {
       paper_list.insert(papers[i]);
-      rel(*this, degree_papers[i] == papers[i]);
+      if(is_valid(0, papers[i])) {
+        rel(*this, degree_papers[j++] == papers[i]);
+      }
     }
 
-    
 
-    for(int i = length; i < 24; i++) {
-      
-    }
-
+    rel(*this, degree == is_valid(degree.assigned() ? degree.val() : -1, 0));
     distinct(*this, degree_papers);
     rel(*this, cost_value == 100);
 
@@ -67,13 +66,13 @@ namespace Degree
 
 
 
-  Degree::Degree(bool share, Degree &degree)
-    : MaximiseSpace(share, degree),
-      paper_list(degree.paper_list)
+  Degree::Degree(bool share, Degree &d)
+    : MaximiseSpace(share, d),
+      paper_list(d.paper_list)
   {
-    cost_value.update(*this, share, degree.cost_value);
-    degree_papers.update(*this, share, degree.degree_papers);
-    
+    cost_value.update(*this, share, d.cost_value);
+    degree_papers.update(*this, share, d.degree_papers);
+    degree.update(*this, share, d.degree);
   }
 
 
@@ -101,9 +100,15 @@ namespace Degree
   }
 
 
-  int Degree::get_paper(int pos)
+  int Degree::get_paper(int pos) const
   {
     //needs to check if is assigned or not
     return degree_papers[pos].val();
+  }
+
+
+  int Degree::get_degree(void) const
+  {
+    return degree.val();
   }
 } // Degree

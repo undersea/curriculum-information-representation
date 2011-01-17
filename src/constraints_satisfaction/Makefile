@@ -1,8 +1,8 @@
 
 OBJECTS = degree.o
 
-CXXFLAGS = -fPIC -Wall -pedantic -ansi -std=c++0x `python-config --cflags`
-LDXXFLAGS = -lgecodeint -lgecodesearch -lgecodesupport -lgecodeminimodel -lgecodekernel -lgecodeset
+CXXFLAGS = -Iinclude -fPIC -Wall -pedantic -ansi -std=c++0x `python-config --includes`
+LDXXFLAGS = -Llib -lgecodeint -lgecodesearch -lgecodesupport -lgecodeminimodel -lgecodekernel -lgecodeset
 
 LIBRARY_NAME = libconstrain.so
 

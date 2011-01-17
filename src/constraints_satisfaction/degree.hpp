@@ -53,11 +53,13 @@ namespace Degree
     //cost function needed for MaximiseSpace
     virtual IntVar cost(void) const;
     
-    int get_paper(int pos);
-    
+    int get_paper(int pos) const;
+    int get_degree(void) const;
   protected:
     IntVar cost_value;
     IntVarArray degree_papers;
+    IntVar degree;
+
     std::set<int> paper_list;
     DegreePapers *degree_schedule;
 
