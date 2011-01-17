@@ -9,11 +9,11 @@ extern "C" {
 
   void run(int *papers, 
            int length,
-           void (caller)(int *, int),
-           DegreePapers *schedule)
+           void (caller)(int, int *, int),
+           int (is_valid)(int, int))
   {
     try {
-      Degree::Degree *degree = new Degree::Degree(papers, length, schedule);
+      Degree::Degree *degree = new Degree::Degree(papers, length, is_valid);
       BAB<Degree::Degree> bab(degree);
       delete degree;
       int count = 0;
@@ -43,7 +43,7 @@ namespace Degree
 
   Degree::Degree(int *papers, 
                  int length,
-                 int ()
+                 int (is_valid)(int, int))
     : cost_value(*this, 0, 100),
       degree_papers(*this, 24, 100100, 999999),
       degree(*this, 0, 100000)
