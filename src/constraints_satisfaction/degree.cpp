@@ -12,7 +12,7 @@ extern "C" {
            int *degrees,
            int dlength,
            void (caller)(int, int *, int),
-           int *(is_valid)(int, int *))
+           void *(is_valid)(int, int *))
   {
     try {
       std::cout << "Number of papers is " << length << std::endl;
@@ -52,7 +52,7 @@ namespace Degree
                  int length,
                  int *degrees,
                  int dlength,
-                 int *(valid_papers)(int degree, int *length))
+                 void *(valid_papers)(int degree, int *length))
     : cost_value(*this, 0, 100),
       degree_papers(*this, 24, 100100, 999999),
       degree(*this, 0, 100000)
@@ -72,11 +72,12 @@ namespace Degree
       if(degree.assigned()) {
         int *papers = NULL;
         int len = 1;
-        papers = valid_papers(degree.val(), &len);
+        papers = (int *)valid_papers(degree.val(), &len);
         std::cout << len << std::endl;
         for(int i = 0; i < len; i++) {
-          std::cout << papers[0] << std::endl;
+          std::cout << i << ": " << papers[i] << std::endl;
         }
+        papers[0] = -1;
       }
     }
 

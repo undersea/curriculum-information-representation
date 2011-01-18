@@ -45,7 +45,7 @@ namespace Degree
            int length,
            int *degrees,
            int dlength,
-           int *(valid_papers)(int, int*));
+           void *(valid_papers)(int, int*));
     Degree(bool share, Degree &degree);
     ~Degree(void);
 
@@ -78,7 +78,7 @@ extern "C" {
            int *degrees,
            int dlength,
            void (caller)(int, int *, int), 
-           int *(is_valid)(int, int *));
+           void *(is_valid)(int, int *));
   //int get_paper(Degree::Degree &degree, int &pos);
 }
 #endif //  __cplusplus
