@@ -455,3 +455,11 @@
   4) What CS expression can I use to achieve this?
 
 
+* entry <2011-01-18 Tue>
+  got allocator to work from python using numpy arrays
+
+  It is extremly important when allocating memory to a python var then
+  returning that var to a C calling function to assign a copy of that
+  var to a global variable otherwise pythons garbage collector will
+  clean it up before C gets a chance to use it and thus creating a
+  dangerous situation.
