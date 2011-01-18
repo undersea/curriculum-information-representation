@@ -470,3 +470,5 @@
   Here is a link to the cookbook approach to a python C memory allocator
   mentioned previously.
   [[http://www.scipy.org/Cookbook/Ctypes]]
+  Link to a thesis done by one of the major contributors to Gecode
+  [[http://www.ps.uni-saarland.de/Papers/abstracts/tackDiss.html]]
