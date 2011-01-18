@@ -463,3 +463,6 @@
   var to a global variable otherwise pythons garbage collector will
   clean it up before C gets a chance to use it and thus creating a
   dangerous situation.
+
+  Also when using CS you limit what the values can be by saying what can
+  and can't be assigned.  Seems so obvious now.
