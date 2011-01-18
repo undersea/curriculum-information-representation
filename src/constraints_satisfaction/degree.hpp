@@ -42,8 +42,10 @@ namespace Degree
   {
   public:
     Degree(int *papers, 
-           int length, 
-           int (is_valid)(int, int));
+           int length,
+           int *degrees,
+           int dlength,
+           int *(valid_papers)(int, int*));
     Degree(bool share, Degree &degree);
     ~Degree(void);
 
@@ -72,9 +74,11 @@ namespace Degree
 #ifdef __cplusplus
 extern "C" {
   void run(int *papers,
-           int length, 
+           int length,
+           int *degrees,
+           int dlength,
            void (caller)(int, int *, int), 
-           int (is_valid)(int, int));
+           int *(is_valid)(int, int *));
   //int get_paper(Degree::Degree &degree, int &pos);
 }
 #endif //  __cplusplus
