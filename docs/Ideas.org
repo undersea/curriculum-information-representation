@@ -466,3 +466,7 @@
 
   Also when using CS you limit what the values can be by saying what can
   and can't be assigned.  Seems so obvious now.
+* entry <2011-01-19 Wed>
+  Here is a link to the cookbook approach to a python C memory allocator
+  mentioned previously.
+  [[http://www.scipy.org/Cookbook/Ctypes]]

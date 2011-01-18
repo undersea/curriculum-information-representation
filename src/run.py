@@ -29,10 +29,6 @@ def valid_paper(degree, size):
         return ptr
 
 
-pointer = POINTER(c_int)(c_int(-1))
-test(pointer)
-print pointer[0], pointer[1]
-        
 CALLFUNC = CFUNCTYPE(None, c_int, POINTER(c_int), POINTER(c_int))
 SEARCHFUNC = CFUNCTYPE(None, c_int)
 VALIDFUNC = CFUNCTYPE(c_void_p, c_int, POINTER(c_int))
