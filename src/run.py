@@ -8,7 +8,7 @@ from programme.selection.paper import Paper
 constrain = CDLL('constraints_satisfaction/libconstrain.so')
 
 def caller(degree, ptr, size):
-	print degree, ptr, size
+	print degree, ptr[0], size
         try:
                 for x in range(size):
                         print 'ptr[%d]' % x, ptr[x],
@@ -29,9 +29,21 @@ def valid_paper(degree, size):
         return ptr
 
 
-CALLFUNC = CFUNCTYPE(None, c_int, POINTER(c_int), POINTER(c_int))
+
+def in_degree(degree, paper):
+        print 'python in_degree:', degree, paper
+        return True
+
+
+INDEGREE = CFUNCTYPE(c_int, c_int, c_int)
+CALLFUNC = CFUNCTYPE(None, c_int, POINTER(c_int), c_int)
 SEARCHFUNC = CFUNCTYPE(None, c_int)
 VALIDFUNC = CFUNCTYPE(c_void_p, c_int, POINTER(c_int))
+
+
+set_in_degree = constrain.set_in_degree_function
+set_in_degree.restype = None
+set_in_degree(INDEGREE(in_degree))
 
 run = constrain.run
 run.restype = None

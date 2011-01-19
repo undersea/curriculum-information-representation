@@ -1,0 +1,87 @@
+#+TITLE:     The management of databases for a large organisation
+#+AUTHOR:    James Hurford
+#+EMAIL:     
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+
+* Introduction
+
+
+* Workload
+** The Problem
+Workload is a measure of how many virtual hours each staff member is
+going to be doing for the coming year. The purpose of Workload is to
+spread the workload as fairly among the staff.  It is a artificial
+measurement, using a formula to determine a individuals hour based on
+a set of predetermined metrics.
+
+The task is to create a application to take in:
+
++ For each paper offered
+
++ For each person teaching this paper how much of the paper they
+  are teaching.
+  + who the global coordinator is
+  + who the local coordinator is
+
++ The Admin roles for each of the members of staff and how much
+  the admin roles are worth in Workload hours.
++ For each postgraduate student
+
+
+It could also be used as a tool to indicate where resources are needed
+the most, if a extra staff member is needed.
+*** What it is that this application is replacing
+Currently a Excel spreadsheet is being used to store the input data
+and calculate and display the results.  The current solutions is to
+complex and needs a easier method for inputting the data.  The amount
+of data inputted is coming near to the limit of how much Excel can
+take.
+*** How can a application be more flexible than the spreadsheet solution
+
+
+*** How to represent it to users?
+What form will this take?  What sort of format will be used?
+** Challenges
+*** What methods of development do I use?
+*** What programming platform do I use?
+*** Where is it going to be deployed?
+*** Security
+*** How to represent it to users
+*** Where do I get my data from and how do I store it
+*** What functionality do I implement
+*** Responsiveness of application
+** Solutions
+*** Method of development
+*** Deploying the application
+*** Security
+*** Framework choice
+*** Database and importing of data
+*** Feature choice
+*** Code optimisation
+** Conclusion
+
+* Paper Planner
+** The Problem
+*** How to represent it to users
+*** How to solve it
+** Solutions chosen
+*** Web Representation
+*** Constraints Satisfaction
+*** Programming library choice
+*** Programming language choice
+** Challenges
+*** Using python to run C++ code
+Python can import C libraries using ctypes and run C functions.
+*** How to represent and encode the problem
+** Conclusion
+Conclusion is here

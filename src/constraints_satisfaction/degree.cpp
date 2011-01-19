@@ -1,12 +1,8 @@
 #include "degree.hpp"
+#include "propagator.hpp"
 
 #ifdef __cplusplus
 extern "C" {
-  void test(DegreePapers *ptr)
-  {
-    std::cout << ptr->papers << std::endl;
-  }
-
   void run(int *papers, 
            int length,
            int *degrees,
@@ -57,9 +53,6 @@ namespace Degree
       degree_papers(*this, 24, 100100, 999999),
       degree(*this, 0, 100000)
   {
-    for(int i = 0; i < dlength; i++) {
-      rel(*this, degree == degrees[i]);
-    }
     std::cout << "In constructor with paper length of " << length << std::endl;
     int j = 0;
     for(int i = 0; i < length; i++) {
@@ -69,23 +62,15 @@ namespace Degree
 
 
     for(int i = j; i < 24; i++) {
-      if(degree.assigned()) {
-        int *papers = NULL;
-        int len = 1;
-        papers = (int *)valid_papers(degree.val(), &len);
-        std::cout << len << std::endl;
-        for(int i = 0; i < len; i++) {
-          std::cout << i << ": " << papers[i] << std::endl;
-        }
-        papers[0] = -1;
-      }
+      valid_paper(*this, degree, degree_papers[i]);
     }
+  
 
     //rel(*this, degree == is_valid(degree.assigned() ? degree.val() : -1, NULL, -1, -1));
     distinct(*this, degree_papers);
-    rel(*this, cost_value == 10);
+    rel(*this, cost_value == 100);
 
-    branch(*this, degree_papers, INT_VAR_SIZE_MAX, INT_VAL_RND);
+    branch(*this, degree_papers, INT_VAR_SIZE_MIN, INT_VAL_RND);
   }
 
 
