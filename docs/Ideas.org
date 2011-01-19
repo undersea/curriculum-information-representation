@@ -472,3 +472,24 @@
   [[http://www.scipy.org/Cookbook/Ctypes]]
   Link to a thesis done by one of the major contributors to Gecode
   [[http://www.ps.uni-saarland.de/Papers/abstracts/tackDiss.html]]
+
+  Created a propagator class called ValidPaper, which checks to see if a
+  paper is in the degree in question, with the idea of pruning off any
+  branches that don't match that degree and paper combination.  This
+  does not quiet work how I expected, as the propagate method is never
+  called.
+
+  In the process, I wanted a callback function in python to be called
+  to see if the paper is valid for the degree in question.  I did this
+  not by passing the function pointer to the ValidPaper class but
+  creating a pointer to a function in the library and assigning it the
+  address of the python function.  This was done through a function
+  which has the function as a parameter, and assigned the pointer the
+  address of this function.  I had not been successful at this in the
+  past, as i did not know the proper signature to use for a function
+  pointer that can be assigned to.  It seems that I must use the
+  following signature for this to work.
+
+  int (*some_func)(int)
+
+  The (*) part is the key.
