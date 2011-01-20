@@ -8,12 +8,13 @@
 #include <gecode/minimodel.hh>
 
 
-#include <set>
+#include <vector>
 
 using namespace Gecode;
 
 
 typedef MaximizeSpace MaximiseSpace;
+typedef MinimizeSpace MinimiseSpace;
 
 typedef struct
 {
@@ -38,14 +39,13 @@ typedef struct
 
 namespace Degree
 {
-  class Degree : public MaximiseSpace
+  class Degree : public MinimiseSpace
   {
   public:
     Degree(int *papers, 
            int length,
-           int *degrees,
-           int dlength,
-           void *(valid_papers)(int, int*));
+           int *deg_papers,
+           int dplength);
     Degree(bool share, Degree &degree);
     ~Degree(void);
 
@@ -54,17 +54,19 @@ namespace Degree
 
     //cost function needed for MaximiseSpace
     virtual IntVar cost(void) const;
-    
+
+    void print(void) const;    
+
     int get_paper(int pos) const;
     int get_degree(void) const;
   protected:
     IntVar cost_value;
     IntVarArray degree_papers;
-    IntVar degree;
+    //IntVar degree;
 
-    std::set<int> paper_list;
-    DegreePapers *degree_schedule;
-
+    std::vector<int> paper_list;
+    //DegreePapers *degree_schedule;
+    std::vector<int> ar_papers;
   private:
     
   };
@@ -77,8 +79,8 @@ extern "C" {
            int length,
            int *degrees,
            int dlength,
-           void (caller)(int, int *, int), 
-           void *(is_valid)(int, int *));
+           void (caller)(int, int *, int))/*, 
+           void *(is_valid)(int, int *))*/;
   //int get_paper(Degree::Degree &degree, int &pos);
 }
 #endif //  __cplusplus

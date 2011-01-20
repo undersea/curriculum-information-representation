@@ -21,4 +21,4 @@ libconstrain.so:	$(OBJECTS)
 .phony: clean
 
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS) libconstrain.so

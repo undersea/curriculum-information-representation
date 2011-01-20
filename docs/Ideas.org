@@ -493,3 +493,30 @@
   int (*some_func)(int)
 
   The (*) part is the key.
+
+  Seems even this does not work as I call the function and after the
+  function has finished the pointer goes back to NULL;
+
+* entry <2011-01-20 Thu>
+  Decided the way to go is to use propagators.  To reduce the domain
+  to include only papers in the degree, for now.  I also want to
+  ensure that at least one of the papers in the students record is
+  present in the result.  The ides is to prune off branches and
+  hopefully reduce the amount of time it takes to run.
+
+  It hasn't worked so far, I have had to deal with a search on such a
+  large search space that it takes forever, if it doesn't segfault.
+  Making it so that there is no possible solutions.  Having the
+  propagators consume lots of memory the longer it runs.
+
+* entry <2011-01-21 Fri>
+  I seem to be making progress.  I have found and fixed the bug which
+  keeps on crashing it, although why it causes this behaviour I don't
+  know, I just shifted a check and return statement outside both loops
+  inside the at_least_one propagator.  The space is still to large.  I
+  am going to reduce it by enforcing ordering of vars in the array.
+  This still leaves a large search space though.
+
+  How do I reduce the space to the point that it takes at most 2 or 3
+  minutes? This is something solid I can get help on, if I can explain
+  it properly.
