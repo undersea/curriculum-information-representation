@@ -4,6 +4,12 @@
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
 
+
+#include <map>
+#include <vector>
+
+using namespace Gecode;
+
 typedef MinimizeSpace MaximiseSpace
 
 namespace Programme
@@ -12,7 +18,7 @@ namespace Programme
   class Major : public MaximiseSpace
   {
   public:
-    Major(void);
+    Major(std::map<string, std::vector<int> > majors);
   protected:
 
   private:
