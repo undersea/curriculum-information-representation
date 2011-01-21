@@ -520,3 +520,16 @@
   How do I reduce the space to the point that it takes at most 2 or 3
   minutes? This is something solid I can get help on, if I can explain
   it properly.
+
+  Seems I am on the wrong track, and am the solution has a to larger
+  search space.  I need to focus on finding a valid major, the using
+  the list of valid majors find the major which best fits the papers
+  done by student.  Then once best major is chosen, select the
+  combination of papers that gives the student the most choice in
+  terms of what how many papers a paper can lead to.  The first one
+  can be done with CS, but can also be done without.  I want to
+  simplify the solution, so avoid using CS if a easy solution which
+  gives the best results is available.  The last 2 I decided to use CS
+  and use the COP approach.
+
+  This all means going back to square one again.

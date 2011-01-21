@@ -47,19 +47,36 @@ complex and needs a easier method for inputting the data.  The amount
 of data inputted is coming near to the limit of how much Excel can
 take.
 *** How can a application be more flexible than the spreadsheet solution
-
-
+What do we mean by flexible?  What form can this take and why should
+we do this?
 *** How to represent it to users?
 What form will this take?  What sort of format will be used?
 ** Challenges
+*** What question do you ask first?
 *** What methods of development do I use?
+Is there one which suits a individual best?  How does one keep
+themselves motivated?  Do you use a version control system?  What
+system and does it matter?  
 *** What programming platform do I use?
+What language and does it matter?  Which works best for the scenario I
+choose?  Is a compiled system a good choice?
 *** Where is it going to be deployed?
+This is important, as it decides what options are available to you and
+poses its own challenges.
 *** Security
+How important is security, and how doe you overcome these problems?
 *** How to represent it to users
+What do users respond best to and do you want to force them to install
+a programme on their computer or have it available anywhere on the intranet?
 *** Where do I get my data from and how do I store it
+What other technologies to I have to interact with and how can I
+minimise this interaction?
 *** What functionality do I implement
+How flexible do you want it?  What does it need to do and what extra
+features can you justify adding to it
 *** Responsiveness of application
+How do you overcome the problem of doing lots of IO and calculations
+at once?  How fast does it have to be and how can you optimise it.
 ** Solutions
 *** Method of development
 *** Deploying the application
