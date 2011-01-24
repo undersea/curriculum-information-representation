@@ -20,16 +20,18 @@ namespace Programme
   class Major : public Space
   {
   public:
-    Major(std::map<std::string, std::vector<int> > majors0,
+    Major(std::map<int, std::vector<int> > majors0,
           std::vector<int> paper_record0);
     Major(bool share, Major &m);
     virtual Space *copy(bool share);
     virtual void constrain(const Space &_b);
+    void print(void) const;
   protected:
 
   private:
     IntVarArray majors;
-    std::map<std::string, int> name_to_pos;
+    IntVar m;
+    std::map<int, int> name_to_pos;
     std::map<int, std::string> pos_to_name;
     std::map<int, std::vector<int>> major_papers;
     std::vector<int> paper_record;

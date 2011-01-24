@@ -63,11 +63,22 @@ run.restype = None
 papers = (c_int*6)(159101, 159101, 158100, 160101, 161101, 160102)
 paper_search = Paper()
 
+degree_list = zeros((1, 25), dtype=c_int)
+allocated_arrays.append(degree_list);
+
 degrees = (c_int * 25)(159101, 159102, 159201, 159202, 159233, 159234, 159235, 159253, 159254, 158359, 159302, 159331, 159333, 159334, 159335, 159339, 159351, 159354, 159355, 159356, 159357, 159359, 161326  )
 
 print len(degrees)
 
-run(papers, len(papers),
-    degrees, len(degrees), 
-    CALLFUNC(caller))#,
+for x in range(len(degrees)):
+    degree_list[0,x] = degrees[x]
+
+ptr = degree_list.ctypes.data_as(c_void_p).value
+pdsize = (c_int * 2)(1, len(degrees))
+
+run(ptr, pdsize,
+    papers, len(papers))
+#run(papers, len(papers),
+#    degrees, len(degrees), 
+#    CALLFUNC(caller))#,
     #VALIDFUNC(valid_paper))
