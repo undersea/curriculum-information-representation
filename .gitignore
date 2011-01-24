@@ -90,3 +90,6 @@
 /report/tmp/practice_presentation.pdf
 /src/constraints_satisfaction/propagator.o
 /src/out.txt
+/src/constraints_satisfaction/#major.cpp#
+/src/constraints_satisfaction/.#major.cpp
+/src/constraints_satisfaction/major.o

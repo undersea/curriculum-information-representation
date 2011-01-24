@@ -1,5 +1,5 @@
 
-SOURCES = degree.cpp propagator.cpp
+SOURCES = major.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
