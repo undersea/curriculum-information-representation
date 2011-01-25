@@ -62,46 +62,20 @@ def list_to_c_array(majors):
     allocated_arrays.append(degree)
     ptr = degree.ctypes.data_as(c_void_p).value
     
-    print degree.shape
-    print degree
-
     return ptr, (c_int * 2)(dim[0], dim[1])
 
 
 
-INDEGREE = CFUNCTYPE(c_void_p, POINTER(c_int))
-CALLFUNC = CFUNCTYPE(None, c_int, POINTER(c_int), c_int)
-SEARCHFUNC = CFUNCTYPE(None, c_int)
-VALIDFUNC = CFUNCTYPE(c_void_p, c_int, POINTER(c_int))
-
-setter = INDEGREE(in_degree)
-
-#set_degrees = constrain.set_degrees_function
-#set_degrees.restype = None
-#set_degrees(setter)
-
-#constrain.init()
-
 run = constrain.run_majors
 run.restype = POINTER(c_int)
 
-malloc = libc.malloc
-malloc.restype = c_void_p
-free = libc.free
-
 papers = (c_int*7)(159101, 159102, 158100, 160101, 161101, 160102, 159201)
-paper_search = Paper()
-
-degree_list = zeros((1, 25), dtype=c_int)
-allocated_arrays.append(degree_list);
 
 cs = [159101, 159102, 159201, 159202, 159233, 159234, 159235, 159253, 159254, 158359, 159302, 159331, 159333, 159334, 159335, 159339, 159351, 159354, 159355, 159356, 159357, 159359, 161326]
 
-print len(cs)
-
 it = [158100, 157241, 158212, 158225, 158235, 158244, 158258, 158261,
 159254, 157341, 158326, 158337, 158344, 158359, 158368, 159351]
-#print len(degrees)
+
 
 majors = [cs, it]
 
@@ -112,13 +86,4 @@ results = run(ptr, pdsize,
 for x in range(pdsize[0]):
     print 'result', x, results[x]
 
-#print run
 
-result = malloc(6*sizeof(c_int))
-print type(result), result
-free(result)
-results = None
-#run(papers, len(papers),
-#    degrees, len(degrees), 
-#    CALLFUNC(caller))#,
-    #VALIDFUNC(valid_paper))
