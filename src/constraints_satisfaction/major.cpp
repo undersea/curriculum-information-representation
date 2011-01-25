@@ -2,32 +2,38 @@
 
 #include <algorithm>
 
-inline void run_search(std::map<int, std::vector<int> > majors,
+inline int *run_search(std::map<int, std::vector<int> > majors,
                 std::vector<int> papers)
 {
   Programme::Major *major = new Programme::Major(majors, papers);
   DFS<Programme::Major> e(major);
   delete major;
   major = NULL;
-
+  int *majors_result;
   while(Programme::Major *m = e.next()) {
-    m->print();
+    majors_result = m->get();
     delete m;
     m = NULL;
   }
+
+  return majors_result;
 }
 
 extern "C" {
-  void run(int *majors, int mdsize[2],
-           int *papers, int size)
+  //should return a array of ints the same length as number of majors
+  int *run_majors(int *majors, int mdsize[2],
+                  int *papers, int size)
   {
     std::map<int, std::vector<int> > majors_map;
     for(int i = 0; i < mdsize[0]; i++) {
       std::vector<int> paper_list(mdsize[1]);
+      std::printf("major %d\n", i);
       for(int j = 0; j < mdsize[1]; j++) {
-        paper_list[j] = majors[(i*mdsize[0]) + j];
-        std::printf("%6d\n", majors[(i*mdsize[0]) + j]);
+        std::printf("%6d ", majors[i*mdsize[1] + j]);
+        paper_list[j] = majors[i*mdsize[1] + j];
+        
       }
+      std::cout << std::endl;
       majors_map[i] = paper_list;
     }
     
@@ -36,8 +42,16 @@ extern "C" {
       paper_list[i] = papers[i];
     }
 
-    run_search(majors_map, paper_list);
+    return run_search(majors_map, paper_list);
   }
+
+
+  void free_memory(int *pointer)
+  {
+    std::printf("freeing %p\n", (void *)pointer);
+    delete pointer;
+  }
+
 }
 
 
@@ -115,6 +129,17 @@ namespace Programme
   {
     std::cout << "Major Values\n";
     std::cout << majors << std::endl;
+  }
+
+
+  int *Major::get(void) const
+  {
+    int *result = new int[majors.size()];
+    for(int i = 0; i < majors.size(); i++) {
+      result[i] = majors[i].assigned() ? majors[i].val() : -1;
+    }
+
+    return result;
   }
 } // namespace Programme
 

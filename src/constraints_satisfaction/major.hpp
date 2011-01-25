@@ -26,6 +26,7 @@ namespace Programme
     virtual Space *copy(bool share);
     virtual void constrain(const Space &_b);
     void print(void) const;
+    int *get(void) const;
   protected:
 
   private:
