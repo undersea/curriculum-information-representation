@@ -2,8 +2,8 @@
 
 #include <algorithm>
 
-inline int *run_search(std::map<int, std::vector<int> > majors,
-                std::vector<int> papers)
+inline int *run_search(std::map<int, std::vector<int> > &majors,
+                std::vector<int> &papers)
 {
   Programme::Major *major = new Programme::Major(majors, papers);
   DFS<Programme::Major> e(major);
@@ -57,10 +57,9 @@ extern "C" {
 
 namespace Programme
 {
-  Major::Major(std::map<int, std::vector<int> > majors0,
-               std::vector<int> paper_record0)
+  Major::Major(std::map<int, std::vector<int> > &majors0,
+               std::vector<int> &paper_record0)
     : majors(*this, majors0.size(), 0, 1000),
-      m(*this, 0, paper_record.size()),
       paper_record(paper_record0)
   {
     //set up database
@@ -99,7 +98,6 @@ namespace Programme
       major_papers(m.major_papers),
       paper_record(m.paper_record)
   {
-    this->m.update(*this, share, m.m);
     majors.update(*this, share, m.majors);
   }
 
@@ -141,5 +139,8 @@ namespace Programme
 
     return result;
   }
+
+
+
 } // namespace Programme
 
