@@ -2,15 +2,7 @@ import re
 from ctypes import *
 import urllib2
 
-class Paper(Structure):
-    _fields_ = [('paper', c_int),
-                ('prerequisites', POINTER(c_int)),
-                ('prereq_len', c_int),
-                ('corequisites', POINTER(c_int)),
-                ('coreq_len', c_int),
-                ('restrictions', POINTER(c_int)),
-                ('restrict_len', c_int),]
-
+class Paper(object):
     def __init__(self):
         self.paperquery_url = 'http://www.massey.ac.nz/massey/learning/programme-course-paper/paper.cfm?paper_code=%s'
         self.codestr = '\d{3}\.\d{1}\w{2}'
