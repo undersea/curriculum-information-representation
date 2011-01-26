@@ -79,9 +79,27 @@ How do you overcome the problem of doing lots of IO and calculations
 at once?  How fast does it have to be and how can you optimise it.
 ** Solutions
 *** Method of development
+Web based application developed in python using the django framework.
+Needs to be able to run in a web server environment.  Apache is being
+used, with the module wsgi. mod_python could also be used, but
+development and support for mod_python doesn't exist anymore, and wsgi
+is recommended anyway.
 *** Deploying the application
+Theoretically it could be deployed on any OS which has a web server
+that can run python. However it was decided to run it on a Centos
+Server under the SEAT domain.
 *** Security
+While it is an issue is not a high priority.  We have been
+given the impression that the staff in SEAT are open about the hours
+they have done, and honest.  The restriction I imposed are those of
+write access.  Administrators get access to everything, Staff get to
+only view the results, and cluster leaders get to only alter the parts
+that are relevant to their cluster.
 *** Framework choice
+Django was chosen, as it is a python library, and we wanted to solve
+this problem in python.  The django framework is a kitchen sink
+approach, for web development with a model (show model diagram).
+
 *** Database and importing of data
 *** Feature choice
 *** Code optimisation
@@ -94,6 +112,7 @@ at once?  How fast does it have to be and how can you optimise it.
 ** Solutions chosen
 *** Web Representation
 *** Constraints Satisfaction
+*** Database use.
 *** Programming library choice
 *** Programming language choice
 ** Challenges

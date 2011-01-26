@@ -533,3 +533,14 @@
   and use the COP approach.
 
   This all means going back to square one again.
+* entry <2011-01-24 Mon>
+Started reworking finding best major
+* entry <2011-01-25 Tue>
+Got the selecting best major done.
+* entry <2011-01-26 Wed>
+Worked out a formula for filling out a programme of study based upon
+prerequisite look-up and adding this to selection.  Talked to Stephen,
+where we both figured out it was not a constraints optimisation
+problem.  Am going to work on a tree of papers I have prerequisites
+to, and a list of papers I don't need prerequisites for.  I am going
+to enforce the degree rules on these.  This is where CS may come in.
