@@ -20,6 +20,11 @@ namespace Programme
     std::map<int, std::map<int, std::vector<int> > > degrees;
     std::vector<int> paper_record;
     IntVar degree;
+    IntVar major;
+    IntVarArray degree_weights;
+
+    inline void process_degrees(void);
+
   private:
   };
 } // namespace Programme
