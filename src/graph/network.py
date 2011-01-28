@@ -1,4 +1,9 @@
 
 class Network(object):
     def __init__(self):
-        pass
+        self.vertex_set = set()
+        
+
+
+    def add(self, paper):
+        
