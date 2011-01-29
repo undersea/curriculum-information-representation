@@ -5,9 +5,9 @@ from graph.edge import Edge
 def get(paper):
     sql = "SELECT prereq FROM paper_prereq WHERE code LIKE'%s%%';" % (paper)
     planner = connect(host='localhost',
-                  user='workload',
-                  passwd='workload',
-                  db='programme_planner')
+                      user='workload',
+                      passwd='workload',
+                      db='programme_planner')
     planner_cursor = planner.cursor()
     planner_cursor.execute(sql)
     row = planner_cursor.fetchone()
@@ -15,8 +15,12 @@ def get(paper):
     while row != None:
         papers.add(row[0])
         row = planner_cursor.fetchone()
-
+        continue
+    
     return papers
+
+
+
 
 
 def leadsto(paper):
@@ -35,6 +39,9 @@ def leadsto(paper):
 
     return papers
     
+
+
+
 def create_leadsto_set(academic_record):
     record = ['%s.%sxx' % (x/1000, x%1000/100) for x in academic_record]
     pset = set()
@@ -48,6 +55,8 @@ def create_leadsto_set(academic_record):
         
     return pset
             
+
+
 
 
 def get_possibles(paper_pattern):

@@ -219,7 +219,8 @@
     September 15 2010.  This has got me to thinking that it might be a
     good idea to at the moment stick to Gecode since it has been
     around for a while and is mostly free of bugs, or so they claim.
-
+*** <2011-01-28 Fri>
+    To new so no complete tutorial or reference to the python version
 
 ** Approach <2010-12-14 Tue>
 *** Constrain by what papers are required
@@ -544,3 +545,7 @@ where we both figured out it was not a constraints optimisation
 problem.  Am going to work on a tree of papers I have prerequisites
 to, and a list of papers I don't need prerequisites for.  I am going
 to enforce the degree rules on these.  This is where CS may come in.
+* entry <2011-01-29 Sat>
+  Partial Constraints Satisfaction Problem (PCSP)
+  [[http://ktiml.mff.cuni.cz/~bartak/constraints/pcsp.html]]
+  Ask about relation with COP
