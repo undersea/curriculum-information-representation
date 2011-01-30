@@ -1,60 +1,66 @@
-from html.parser import HTMLParser
+from lxml import etree
+import urllib2
+from cStringIO import StringIO
+import tidy #to normalise the html to a valid xml document format
 
+def extract_major(htmlstr, major):
+    f = StringIO(htmlstr)
+    tree = etree.parse(f)
+    tmp = tree.getroot().xpath('//xhtml:h4[text()="%s"]/following-sibling::xhtml:table[1]/xhtml:tbody/xhtml:tr/xhtml:td[1]/text()' % (major), namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
+    tmp = [x for x in tmp if len(x) > 1]
+    if len(tmp) == 0:
+        tmp = tree.getroot().xpath('//xhtml:h4[text()="%s"]/../../..//xhtml:tr/xhtml:td[1]/text()' % (major), namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
+        tmp = [x for x in tmp if len(x) > 1]
+        if len(tmp) == 0:
+            return False
 
-class ScheduleExtracter(HTMLParser):
-
-    def __init__(self):
-        HTMLParser.__init__(self)
-        self.h4 = False
-        self.major = False
-        self.table = False
-
-    def handle_starttag(self, tag, attrs):
-        if tag == 'h4':
-            self.h4 = True
+    return major, set(tmp)
             
-            print('Start tag: ', tag)
-            
+
+def extract_major_names(htmlstr):
+    f = StringIO(htmlstr)
+    tree = etree.parse(f)
+    tmp = tree.getroot().xpath('//xhtml:h4/text()', namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
+    remove = list()
+    for x in tmp:
+        expression = '//xhtml:h4[text()="%s"]' % (x)
+        print expression
+        tmp2 = tree.getroot().xpath(expression, namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
+        
+        # note don't remove elements of a list you are iterating 
+        # over in the loop as it puts the iteration out of sync
+        for y in tmp2:
+            if (y != None and y.getnext() != None and 
+                y.getnext().text != None and
+                (y.getnext().text.startswith("No new"))):
+                print 'remove', x, [type(y) for y in tmp2]
+                remove.append(x)
         else:
-            if self.major and tag == 'table':
-                print('start of major schedule table')
-                self.table = True
-            if self.major and self.table:
-                print('"<%s>"'% (tag), end=' ')
-            
-    
-    def handle_endtag(self, tag):
-        if tag == 'h4':
-            self.h4 = False
+            if len(tmp2) == 0:
+                print 'remove', x
+                remove.append(x)
 
-            print('End tag: ', tag)
+    print remove
 
-                
-        else:
-            if self.major and self.table:
-                
-                print('"</%s>"'% (tag), end=' ')
-                
-            if self.major and self.table and tag == 'table':
-                
-                print('end of table', tag)
-                
-                self.major = False
-                self.table = False
+    tmp = [x for x in tmp if len(x) > 1 and not x.startswith('Part') and not (x in remove)]
 
-    def handle_data(self, data):
-        if self.h4:
-            print("'%s' %s" % (data, len(data)))
-            if str(data) == 'Agricultural Science':
-                self.major = True
-            
+    return tmp
 
+
+def fix_html(htmlstr):
+    options = dict()
+    options['output_xhtml'] = 1
+    options['tidy_mark'] = 0
+    options['numeric_entities'] = 1
+
+    return str(tidy.parseString(htmlstr, **options))
 
 if __name__ == '__main__':
-    import urllib.request, urllib.error, urllib.parse
-    sock = urllib.request.urlopen('http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-science.cfm')
-    data = sock.read()
-    print(type(data))
-    p = ScheduleExtracter()
-    p.feed(str(data))
+    sock = urllib2.urlopen('http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-science.cfm')
+    data = fix_html(sock.read())
+    sock.close()
+    for x in extract_major_names(data):
+        print x #extract_major(data, x)
+
+    
 
