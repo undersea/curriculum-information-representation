@@ -96,3 +96,6 @@
 /src/db/paper.pyc
 /src/db/__init__.pyc
 /src/db/retrieve.pyc
+/src/db/bsc.html
+/src/db/degreeparser.pyc
+/src/db/scheduleparser.pyc

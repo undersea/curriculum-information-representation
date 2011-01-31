@@ -1,23 +1,33 @@
 from MySQLdb import connect
 from paper import Paper
+from degreeparser import extract_papers, get_data
+
 
 """
 This all assumes that the database has been created along with all its tables
 """
 def setup():
-    workload = connect(host='localhost',
-                       user='workload',
-                       passwd='workload',
-                       db='workload')
-    workload_cursor = workload.cursor()
+#    workload = connect(host='localhost',
+#                       user='workload',
+#                       passwd='workload',
+#                       db='workload')
+#    workload_cursor = workload.cursor()
 
-    papers = list()
+#    papers = list()
+#
+#    workload_cursor.execute("SELECT code FROM db_paper")
+#    row = workload_cursor.fetchone()
+#    while row != None:
+#        papers.append(row[0])
+#        row = workload_cursor.fetchone()
 
-    workload_cursor.execute("SELECT code FROM db_paper")
-    row = workload_cursor.fetchone()
-    while row != None:
-        papers.append(row[0])
-        row = workload_cursor.fetchone()
+    url = 'http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-science.cfm'
+    papers = [int(float(x)*1000) for x in extract_papers(get_data(url))]
+    url2 = 'http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-information-sciences.cfm'
+    papers2 = [int(float(x)*1000) for x in extract_papers(get_data(url2))]
+
+    papers = list(set(papers + papers2))
+
 
     planner = connect(host='localhost',
                       user='workload',

@@ -24,7 +24,7 @@ def extract_major_names(htmlstr):
     remove = list()
     for x in tmp:
         expression = '//xhtml:h4[text()="%s"]' % (x)
-        print expression
+        
         tmp2 = tree.getroot().xpath(expression, namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
         
         # note don't remove elements of a list you are iterating 
@@ -33,14 +33,12 @@ def extract_major_names(htmlstr):
             if (y != None and y.getnext() != None and 
                 y.getnext().text != None and
                 (y.getnext().text.startswith("No new"))):
-                print 'remove', x, [type(y) for y in tmp2]
+        
                 remove.append(x)
         else:
             if len(tmp2) == 0:
-                print 'remove', x
                 remove.append(x)
 
-    print remove
 
     tmp = [x for x in tmp if len(x) > 1 and not x.startswith('Part') and not (x in remove)]
 
@@ -60,7 +58,7 @@ if __name__ == '__main__':
     data = fix_html(sock.read())
     sock.close()
     for x in extract_major_names(data):
-        print x #extract_major(data, x)
+        print extract_major(data, x)
 
     
 
