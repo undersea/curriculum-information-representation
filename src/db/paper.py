@@ -1,7 +1,8 @@
 import re
-from ctypes import *
 import urllib2
-
+from lxml import etree
+from cStringIO import StringIO
+from scheduleparser import fix_html
 
 #use xpath it's a lot less messy
 
@@ -29,7 +30,16 @@ class Paper(object):
 
     def __call__(self, paper):
         self.paper = paper #so the paper code can be retrieved
-        htmlstr = urllib2.urlopen(self.paperquery_url%(paper)).read()
+
+        sock = urllib2.urlopen(self.paperquery_url%(paper))
+        htmlstr = fix_html(sock.read())
+        sock.close()
+
+        f = StringIO(htmlstr)
+        tree = etree.parse(f)
+        #prereqs, coreqs and restrictions are kept 
+        #in li tags in the div with id of 'maincontent'
+        tmp = tree.getroot().xpath('//xhtml:div[@id="maincontent"]//xhtml:li',  namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
         result = self.prereq.search(htmlstr)
         if result:
             for pre in (self.code.findall(result.group())):
