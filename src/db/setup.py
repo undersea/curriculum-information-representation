@@ -58,7 +58,8 @@ def setup():
     for paper in papers:
         try:
             dep = Paper()
-            dep(paper)
+            if dep(paper) == False:
+                continue
             if len(dep.prereq_set) > 0:
                 if len(dep.prereq_set) > 1:
                     combo_id += 1

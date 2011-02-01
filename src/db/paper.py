@@ -32,6 +32,10 @@ class Paper(object):
         f = StringIO(htmlstr)
         tree = etree.parse(f)
 
+        #make sure it is still offered
+        if len(tree.getroot().xpath('//xhtml:p/xhtml:b[starts-with(text(), "This paper is not offered in")]', namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})) > 0:
+            return False
+
         #prereqs, coreqs and restrictions are kept 
         #in li tags in the div with id of 'maincontent'
         ul = tree.getroot().xpath('//xhtml:div[@id="maincontent"]//xhtml:li/xhtml:b',  namespaces={'xhtml':'http://www.w3.org/1999/xhtml'})
@@ -50,7 +54,7 @@ class Paper(object):
             elif constraint == 'corequisite(s):':
                 for p in pattern.findall(papers):
                     self.coreq_set.add(p)
-
+    return True
 
 
 if __name__ == '__main__':

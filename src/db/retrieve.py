@@ -43,7 +43,11 @@ def leadsto(paper):
     row = planner_cursor.fetchone()
     papers = set()
     while row != None:
-        papers.add(row[0])
+        try:
+            papers.add(leadsto(int(float(row[0]))))
+            print row[0]
+        except:
+            papers.add(PaperNode(row[0], []))
         row = planner_cursor.fetchone()
 
     return PaperNode(paper, papers)
@@ -59,10 +63,10 @@ def create_leadsto_set(academic_record):
         have = False
         remove = list()
         for p in papers.leadsto:
-            have = int(p) in academic_record or p in record
+            have = int(p.name) in academic_record or p in record
             if not have:
                 remove.append(p)
-        papers.leadsto = set([int(x) for x in papers.leadsto if x in remove])
+        papers.leadsto = set([x for x in papers.leadsto if x in remove])
         pset.add(papers)
 
     return pset
