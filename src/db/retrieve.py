@@ -32,7 +32,14 @@ def get(paper):
 
 
 
+
+
 def leadsto(paper):
+    try:
+        paper = int(paper)
+    except:
+        paper = int(float(paper)*1000)
+        
     sql = "SELECT code FROM paper_prereq WHERE prereq LIKE'%s%%' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
     planner = connect(host='localhost',
                   user='workload',
@@ -44,11 +51,14 @@ def leadsto(paper):
     papers = set()
     while row != None:
         try:
-            papers.add(leadsto(int(float(row[0]))))
-            print row[0]
+            papers.add(row[0])
+            
         except:
-            papers.add(PaperNode(row[0], []))
+            pass
         row = planner_cursor.fetchone()
+
+    planner.close()
+    
 
     return PaperNode(paper, papers)
     
