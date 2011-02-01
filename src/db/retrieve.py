@@ -73,6 +73,8 @@ def leadsto(paper):
 
 
 def create_leadsto_set(academic_record):
+    if len(academic_record) == 0:
+        return set()
     record = ['%s.%sxx' % (x/1000, x%1000/100) for x in academic_record]
     pset = set()
     for paper in academic_record:
