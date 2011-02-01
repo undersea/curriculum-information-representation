@@ -25,26 +25,33 @@ def get(paper):
         papers.add(row[0])
         row = planner_cursor.fetchone()
         continue
+
+    planner.close()
     
     return papers
 
 
-
-
+def paper_to_int(paper):
+    if isinstance(paper, str):
+        if paper.contains('.'):
+            if not paper.lower().endswith('xx'):
+                return False
+            return int(float(paper)*1000)
+        return int(paper)
+    elif isinstance(paper, float):
+        return int(paper * 1000)
+    elif isinstance(paper, int):
+        return paper
 
 
 
 def leadsto(paper):
-    try:
-        paper = int(paper)
-    except:
-        paper = int(float(paper)*1000)
-        
+    paper = paper_to_int(paper)        
     sql = "SELECT code FROM paper_prereq WHERE prereq LIKE'%s%%' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
     planner = connect(host='localhost',
-                  user='workload',
-                  passwd='workload',
-                  db='programme_planner')
+                      user='workload',
+                      passwd='workload',
+                      db='programme_planner')
     planner_cursor = planner.cursor()
     planner_cursor.execute(sql)
     row = planner_cursor.fetchone()
