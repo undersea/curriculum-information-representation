@@ -54,7 +54,7 @@ class Paper(object):
             elif constraint == 'corequisite(s):':
                 for p in pattern.findall(papers):
                     self.coreq_set.add(p)
-    return True
+        return True
 
 
 if __name__ == '__main__':

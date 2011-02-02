@@ -33,7 +33,7 @@ def get(paper):
 
 def paper_to_int(paper):
     if isinstance(paper, str):
-        if paper.contains('.'):
+        if '.' in paper:
             if not paper.lower().endswith('xx'):
                 return False
             return int(float(paper)*1000)
@@ -45,29 +45,34 @@ def paper_to_int(paper):
 
 
 
-def leadsto(paper):
+def leadsto(paper, record):
+    if isinstance(record, list):
+        record = set(record)
     paper = paper_to_int(paper)        
-    sql = "SELECT code FROM paper_prereq WHERE prereq LIKE'%s%%' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
+    sql = "SELECT code FROM paper_prereq WHERE prereq LIKE '%s' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
     planner = connect(host='localhost',
                       user='workload',
                       passwd='workload',
                       db='programme_planner')
     planner_cursor = planner.cursor()
     planner_cursor.execute(sql)
+    
     row = planner_cursor.fetchone()
-    papers = set()
+    tree = dict()
     while row != None:
         try:
-            papers.add(row[0])
+            tmp = paper_to_int(row[0])
+            if tmp != paper and tmp not in record:
+                tree.update({tmp:leadsto(tmp, record)})
             
-        except:
-            pass
+        except Exception, e:
+            print e
         row = planner_cursor.fetchone()
 
-    planner.close()
     
+    planner.close()
 
-    return PaperNode(paper, papers)
+    return tree
     
 
 
@@ -76,17 +81,10 @@ def create_leadsto_set(academic_record):
     if len(academic_record) == 0:
         return set()
     record = ['%s.%sxx' % (x/1000, x%1000/100) for x in academic_record]
-    pset = set()
+    pset = dict()
     for paper in academic_record:
-        papers = leadsto(paper)
-        have = False
-        remove = list()
-        for p in papers.leadsto:
-            have = int(p.name) in academic_record or p in record
-            if not have:
-                remove.append(p)
-        papers.leadsto = set([x for x in papers.leadsto if x in remove])
-        pset.add(papers)
+        paper = paper_to_int(paper)
+        pset.update({paper:leadsto(paper, academic_record)})
 
     return pset
             
@@ -128,8 +126,19 @@ def get_no_prereq_papers():
     return papers
 
 
+
+def print_tree(tree, level=0):
+    for key in tree:
+        for x in range(level):
+            print '    ',
+        print '+', key
+        print_tree(tree[key], level+1)
+
+    
+
+
 if __name__ == '__main__':
     record = [159101, 159102, 161101, 160101, 160102, 158100, 123101, 119177]
-    print create_leadsto_set(record)
-    print get_no_prereq_papers()
+    print_tree(create_leadsto_set(record))
+    #print get_no_prereq_papers()
     
