@@ -45,7 +45,7 @@ def paper_to_int(paper):
 
 
 
-def leadsto(paper, record):
+def leadsto_dict(paper, record):
     if isinstance(record, list):
         record = set(record)
     paper = paper_to_int(paper)        
@@ -63,7 +63,7 @@ def leadsto(paper, record):
         try:
             tmp = paper_to_int(row[0])
             if tmp != paper and tmp not in record:
-                tree.update({tmp:leadsto(tmp, record)})
+                tree.update({tmp:leadsto_dict(tmp, record)})
             
         except Exception, e:
             print e
@@ -77,14 +77,14 @@ def leadsto(paper, record):
 
 
 
-def create_leadsto_set(academic_record):
+def create_leadsto_dict(academic_record):
     if len(academic_record) == 0:
         return set()
     record = ['%s.%sxx' % (x/1000, x%1000/100) for x in academic_record]
     pset = dict()
     for paper in academic_record:
         paper = paper_to_int(paper)
-        pset.update({paper:leadsto(paper, academic_record)})
+        pset.update({paper:leadsto_dict(paper, academic_record)})
 
     return pset
             
@@ -92,25 +92,8 @@ def create_leadsto_set(academic_record):
 
 
 
-def get_possibles(paper_pattern):
-    sql = "SELECT code FROM paper_prereq WHERE code LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
-    planner = connect(host='localhost',
-                  user='workload',
-                  passwd='workload',
-                  db='programme_planner')
-    planner_cursor = planner.cursor()
-    planner_cursor.execute(sql)
-    row = planner_cursor.fetchone()
-    papers = set()
-    while row != None:
-        papers.add(row[0])
-        row = planner_cursor.fetchone()
-
-    return papers
-
-
 def get_no_prereq_papers():
-    sql = "SELECT code FROM paper_prereq WHERE prereq IS NULL;" #damn floating point errors
+    sql = "SELECT code FROM paper_prereq WHERE prereq IS NULL;"
     planner = connect(host='localhost',
                   user='workload',
                   passwd='workload',
@@ -136,9 +119,19 @@ def print_tree(tree, level=0):
 
     
 
+#turns a dictionary tree into a graph
+def tree_to_graph(tree):
+    pass
+
+
+"""
+Still need a way of telling if prereq needs to be combined with another before you can do a paper.  Posible using the combo_id column to indicate this. Also either needs to be manually done or the regular expression needs to pick this up from web page.  The problem is that the web page format may be different ot another one, with the english meaning the same thing, but using different words to explain it.  They are not consistent.
+"""
+
 
 if __name__ == '__main__':
     record = [159101, 159102, 161101, 160101, 160102, 158100, 123101, 119177]
-    print_tree(create_leadsto_set(record))
+    tree = create_leadsto_dict(record)
+    print_tree(tree)
     #print get_no_prereq_papers()
     

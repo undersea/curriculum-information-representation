@@ -7,20 +7,6 @@ from degreeparser import extract_papers, get_data
 This all assumes that the database has been created along with all its tables
 """
 def setup():
-#    workload = connect(host='localhost',
-#                       user='workload',
-#                       passwd='workload',
-#                       db='workload')
-#    workload_cursor = workload.cursor()
-
-#    papers = list()
-#
-#    workload_cursor.execute("SELECT code FROM db_paper")
-#    row = workload_cursor.fetchone()
-#    while row != None:
-#        papers.append(row[0])
-#        row = workload_cursor.fetchone()
-
     url = 'http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-science.cfm'
     papers = [int(float(x)*1000) for x in extract_papers(get_data(url))]
     url2 = 'http://www.massey.ac.nz/massey/about-massey/calendar/degree-diploma-and-certificate-regulations/college-of-sciences/en/bachelor-of-information-sciences.cfm'
@@ -51,32 +37,36 @@ def setup():
     planner_cursor.execute(sql)
 
     combo_id = 0
-    sql = 'delete from paper_prereq;'
-    print sql
-    planner_cursor.execute(sql)
+#    sql = 'delete from paper_prereq;'
+#    print sql
+#    planner_cursor.execute(sql)
 
     for paper in papers:
         try:
             dep = Paper()
+            #this tests to see if paper is actually offered, at same time if it exists parses the doc and extracts prereqs.
             if dep(paper) == False:
                 continue
-            if len(dep.prereq_set) > 0:
-                if len(dep.prereq_set) > 1:
+            if len(dep.combo_prereq_list) > 0:
+                for combo in dep.combo_prereq_list:
                     combo_id += 1
+                    for item in combo:
+                        sql = "INSERT INTO paper_prereq VALUES(0, '%s', '%s', '%s');" % (str(paper), str(combo_id), item)
+                        print sql
+                        planner_cursor.execute(sql)
+            if len(dep.prereq_set) > 0:
                 for inst in dep.prereq_set:
                     try:
                         inst = str(int(float(inst)*1000))
                     except:
                         inst = str(inst)
-                    if len(dep.prereq_set) > 1:
-                        sql = "INSERT INTO paper_prereq VALUES(0, '%s', %d, '%s');" % (str(paper), combo_id, inst)
-                        print sql
-                        planner_cursor.execute(sql)
-                    else:
-                        sql = "INSERT INTO paper_prereq VALUES(0, '%s', NULL, '%s');" % (str(paper), inst)
-                        print sql
-                        planner_cursor.execute(sql)
-            else:
+            
+                        
+                    
+                    sql = "INSERT INTO paper_prereq VALUES(0, '%s', NULL, '%s');" % (str(paper), inst)
+                    print sql
+                    planner_cursor.execute(sql)
+            elif len(dep.combo_prereq_list) == 0:
                 sql = "INSERT INTO paper_prereq VALUES(0, '%s', NULL, NULL);" % (str(paper))
                 print sql
                 planner_cursor.execute(sql)

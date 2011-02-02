@@ -16,6 +16,7 @@ class Paper(object):
         self.paperquery_url = 'http://www.massey.ac.nz/massey/learning/programme-course-paper/paper.cfm?paper_code=%s'
         self.paper = None
         self.prereq_set = set()
+        self.combo_prereq_list = list()
         self.coreq_set = set()
         self.restriction_set = set()
 
@@ -42,12 +43,20 @@ class Paper(object):
 
         
         pattern = re.compile('\d{3}\.\w{3}')
+        combo_pattern = re.compile('\d{3}\.\w{3}\s*[aA][nN][dD]\s*\d{3}\.\w{3}')
         for i in ul:
-            constraint = str(i.text).strip().lower()
-            papers = str(i.tail).strip()
+            constraint = str(i.text).strip().lower() #text from tag
+            papers = str(i.tail).strip() #text from that which comes after this tag
             if constraint == 'prerequisite(s):':
                 for p in pattern.findall(papers):
                     self.prereq_set.add(p)
+                #for papers which both need to be done before paper can be taken
+                for p in combo_pattern.findall(papers):
+                    items = []
+                    for q in pattern.findall(p):
+                        items.append(q)
+                        self.prereq_set.remove(q)
+                    self.combo_prereq_list.append(items)
             elif constraint == "restriction(s):":
                 for p in pattern.findall(papers):
                     self.restriction_set.add(p)
@@ -59,7 +68,8 @@ class Paper(object):
 
 if __name__ == '__main__':
     paper = Paper()
-    paper(152319)
+    paper(161326)
     print paper.prereq_set
     print paper.coreq_set
     print paper.restriction_set
+    print paper.combo_prereq_list
