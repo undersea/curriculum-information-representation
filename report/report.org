@@ -28,14 +28,18 @@ The task is to create a application to take in:
 
 + For each paper offered
 
-+ For each person teaching this paper how much of the paper they
-  are teaching.
+  + For each person teaching this paper how much of the paper they
+    are teaching.
   + who the global coordinator is
   + who the local coordinator is
 
 + The Admin roles for each of the members of staff and how much
   the admin roles are worth in Workload hours.
-+ For each postgraduate student
++ For each staff
+  + Which postgraduate they are supervising
+    + how much supervision in percentage terms they are giving
+    + Given that each postgraduate degree
+
 
 
 It could also be used as a tool to indicate where resources are needed
