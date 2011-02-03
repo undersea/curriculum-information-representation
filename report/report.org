@@ -65,6 +65,13 @@ This is important, as it decides what options are available to you and
 poses its own challenges.
 *** Security
 How important is security, and how doe you overcome these problems?
+
+Security seems to be a concern.  The only ones who should be able to
+access the data produced by this application are academic staff, and managers
+and cluster leaders. The Workload of other academic staff, should be
+visible to each other.  Academic staff should only be able to view
+data, and alter their personal information, but not anything else.
+Cluster leaders should be able to alter 
 *** How to represent it to users
 What do users respond best to and do you want to force them to install
 a programme on their computer or have it available anywhere on the intranet?

@@ -4,10 +4,13 @@ import sys
 #from graph.edge import Edge
 
 class PaperNode(object):
-    def __init__(self, name, papers):
+    def __init__(self, name, papers=set(), parents=set()):
         self.name = name
         self.leadsto = set(papers)
-        
+        if isinstance(parents, set) or isinstance(parents, list):
+            self.parents = set(parents)
+        else:
+            self.parents = set([parents])
 
     def __repr__(self):
         return str([self.name, str(self.leadsto)])
