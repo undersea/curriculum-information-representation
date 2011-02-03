@@ -1,4 +1,5 @@
 from MySQLdb import connect
+import sys
 #from graph.vertex import Vertex
 #from graph.edge import Edge
 
@@ -33,7 +34,7 @@ def get(paper):
 
 def paper_to_int(paper):
     if isinstance(paper, str):
-        if paper.contains('.'):
+        if '.' in paper:
             if not paper.lower().endswith('xx'):
                 return False
             return int(float(paper)*1000)
@@ -45,48 +46,53 @@ def paper_to_int(paper):
 
 
 
-def leadsto(paper):
-    paper = paper_to_int(paper)        
-    sql = "SELECT code FROM paper_prereq WHERE prereq LIKE'%s%%' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
-    planner = connect(host='localhost',
-                      user='workload',
-                      passwd='workload',
-                      db='programme_planner')
+def leadsto(paper, planner):
+    paper = paper_to_int(paper)
+    if paper % 1000 /100 == 3:
+        return dict()
+    tree = dict()
+    sql = "SELECT code FROM paper_prereq WHERE prereq LIKE '%s' or prereq LIKE '%s%%';" % (paper, '%d.%dxx' % (paper/1000, paper%1000/100)) #damn floating point errors
     planner_cursor = planner.cursor()
-    planner_cursor.execute(sql)
-    row = planner_cursor.fetchone()
-    papers = set()
+    try:
+        planner_cursor.execute(str(sql))
+    except Exception, e:
+        print >>sys.stderr, paper, e
+        return dict()
+    else:
+        row = planner_cursor.fetchone()
+    
     while row != None:
         try:
-            papers.add(row[0])
-            
-        except:
-            pass
+            if paper_to_int(row[0]) != paper:
+                tree.update({paper_to_int(row[0]):leadsto(row[0], planner)})
+        except Exception, e:
+            print >>sys.stderr, row, e
         row = planner_cursor.fetchone()
 
-    planner.close()
+    
     
 
-    return PaperNode(paper, papers)
+    return tree
     
 
 
 
 def create_leadsto_set(academic_record):
+    planner = connect(host='localhost',
+                      user='workload',
+                      passwd='workload',
+                      db='programme_planner')
     if len(academic_record) == 0:
-        return set()
+        return dict()
     record = ['%s.%sxx' % (x/1000, x%1000/100) for x in academic_record]
-    pset = set()
+    pset = dict()
     for paper in academic_record:
-        papers = leadsto(paper)
-        have = False
-        remove = list()
-        for p in papers.leadsto:
-            have = int(p.name) in academic_record or p in record
-            if not have:
-                remove.append(p)
-        papers.leadsto = set([x for x in papers.leadsto if x in remove])
-        pset.add(papers)
+        #try:
+        papers = leadsto(paper, planner)
+        pset.update({paper:papers})
+        #except Exception, e:
+        #    print >>sys.stderr, paper, e
+    planner.close()
 
     return pset
             
@@ -129,7 +135,11 @@ def get_no_prereq_papers():
 
 
 if __name__ == '__main__':
-    record = [159101, 159102, 161101, 160101, 160102, 158100, 123101, 119177]
+    limit = sys.getrecursionlimit()
+    #sys.setrecursionlimit(limit*20)
+    print sys.getrecursionlimit()
+    record = [159101, 159102, 161101, 160102, 158100, 123101, 119177]
+    record = [159101, 159102, 161101, 161102, 158100, 119177, 123101]
     print create_leadsto_set(record)
     print get_no_prereq_papers()
     
