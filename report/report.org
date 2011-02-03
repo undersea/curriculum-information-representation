@@ -38,8 +38,14 @@ The task is to create a application to take in:
 + For each staff
   + Which postgraduate they are supervising
     + how much supervision in percentage terms they are giving
-    + Given that each postgraduate degree
+    + Given that each postgraduate degree is worth different hours
+      + What percentage of supervision they give and thus how many of
+        those hours do they get.
 
+This process gets it's information from 2 databases.  One being the
+postgraduate database, and the other a local custom built MySQL
+database.  All the information needed is stored on the local MySQL
+database, with 
 
 
 It could also be used as a tool to indicate where resources are needed
