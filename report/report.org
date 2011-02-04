@@ -50,15 +50,33 @@ database, with
 
 It could also be used as a tool to indicate where resources are needed
 the most, if a extra staff member is needed.
+
+
 *** What it is that this application is replacing
 Currently a Excel spreadsheet is being used to store the input data
 and calculate and display the results.  The current solutions is to
 complex and needs a easier method for inputting the data.  The amount
 of data inputted is coming near to the limit of how much Excel can
 take.
+
+Currently cluster leaders put together the workload hour report for
+their cluster.  They then pass that information onto Glenda who then
+inputs the data into a spreadsheet application.  Micheal also compiles
+a report of the postgraduate hours for each staff member and sends
+this to Glenda who also puts this into the spreadsheet application.
+The entire process is time consuming and error prone, and mistakes
+can take a long time to be fixed.
+
 *** How can a application be more flexible than the spreadsheet solution
 What do we mean by flexible?  What form can this take and why should
 we do this?
+
+For SEAT Management to more efficiently do their job they would
+benefit from a application which streamlines the data input process
+and minimises the amount of intervention that is needed to produce the
+required reports.  I planned to remove a few steps from this process.
+
+
 *** How to represent it to users?
 What form will this take?  What sort of format will be used?
 ** Challenges
