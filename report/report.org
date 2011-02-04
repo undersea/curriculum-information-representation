@@ -84,7 +84,14 @@ What form will this take?  What sort of format will be used?
 *** What methods of development do I use?
 Is there one which suits a individual best?  How does one keep
 themselves motivated?  Do you use a version control system?  What
-system and does it matter?  
+system and does it matter?
+
+
+Produced a prototype of the application in html, css and javascript.
+Was not the optimal choice, but it demonstrated my initial ideas.  I
+then took this prototype and showed it to Glenda, Stephen and Hans,
+who approved of it.  I then went ahead and implemented it in python,
+using the django framework, along with some javascript, and css styling.
 *** What programming platform do I use?
 What language and does it matter?  Which works best for the scenario I
 choose?  Is a compiled system a good choice?
