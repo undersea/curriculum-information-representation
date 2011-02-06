@@ -38,21 +38,45 @@ The task is to create a application to take in:
 + For each staff
   + Which postgraduate they are supervising
     + how much supervision in percentage terms they are giving
-    + Given that each postgraduate degree
+    + Given that each postgraduate degree is worth different hours
+      + What percentage of supervision they give and thus how many of
+        those hours do they get.
 
+This process gets it's information from 2 databases.  One being the
+postgraduate database, and the other a local custom built MySQL
+database.  All the information needed is stored on the local MySQL
+database, with 
 
 
 It could also be used as a tool to indicate where resources are needed
 the most, if a extra staff member is needed.
+
+
 *** What it is that this application is replacing
 Currently a Excel spreadsheet is being used to store the input data
 and calculate and display the results.  The current solutions is to
 complex and needs a easier method for inputting the data.  The amount
 of data inputted is coming near to the limit of how much Excel can
 take.
+
+Currently cluster leaders put together the workload hour report for
+their cluster.  They then pass that information onto Glenda who then
+inputs the data into a spreadsheet application.  Micheal also compiles
+a report of the postgraduate hours for each staff member and sends
+this to Glenda who also puts this into the spreadsheet application.
+The entire process is time consuming and error prone, and mistakes
+can take a long time to be fixed.
+
 *** How can a application be more flexible than the spreadsheet solution
 What do we mean by flexible?  What form can this take and why should
 we do this?
+
+For SEAT Management to more efficiently do their job they would
+benefit from a application which streamlines the data input process
+and minimises the amount of intervention that is needed to produce the
+required reports.  I planned to remove a few steps from this process.
+
+
 *** How to represent it to users?
 What form will this take?  What sort of format will be used?
 ** Challenges
@@ -60,7 +84,14 @@ What form will this take?  What sort of format will be used?
 *** What methods of development do I use?
 Is there one which suits a individual best?  How does one keep
 themselves motivated?  Do you use a version control system?  What
-system and does it matter?  
+system and does it matter?
+
+
+Produced a prototype of the application in html, css and javascript.
+Was not the optimal choice, but it demonstrated my initial ideas.  I
+then took this prototype and showed it to Glenda, Stephen and Hans,
+who approved of it.  I then went ahead and implemented it in python,
+using the django framework, along with some javascript, and css styling.
 *** What programming platform do I use?
 What language and does it matter?  Which works best for the scenario I
 choose?  Is a compiled system a good choice?
