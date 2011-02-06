@@ -85,9 +85,34 @@ minimise this interaction?
 *** What functionality do I implement
 How flexible do you want it?  What does it need to do and what extra
 features can you justify adding to it
+
+jquery hover events work well in changing a html tag into a html form
+tag, like a <span> into a <input type="text".../>, and back again, but
+this doesn't work so well when going back to a span from a
+<select../>.  If you bring up the drop down menu and try and use the
+mouse to select one of the options, the hover out event wound trigger
+changing the element back to a <span> tag.  This is not what is
+wanted, so the hover out event has to disabled when the <select> is
+clicked with the change back event being tied to the change event
+associated with <select>.  The problem with this is that if the user
+doesn't change the selection the change event is not triggered so the
+<select> control stays where it is.  This is not wanted, so but there
+is nothing that can be done simply to overcome this.  The decision was
+to use the focus events, so that when the user select another thing in
+the page, the tag changes back to the span tag.  This is not ideal,
+but it's these kind of compromises that have to be dealt with when
+creating web applications like this, that rely on only w3c standards
+compliant html, css and javascript.
+javascript.
 *** Responsiveness of application
 How do you overcome the problem of doing lots of IO and calculations
 at once?  How fast does it have to be and how can you optimise it.
+
+I at first used javascript to fill the table entries.  This worked,
+but it was extremely slow.  I decided this was not acceptable, as
+users expect a quick response to queries, so I implemented it on the
+server side.  It was still slow, but faster than the javascript
+version.  (Diagrams needed of both systems used)
 ** Solutions
 *** Method of development
 Web based application developed in python using the django framework.
