@@ -134,7 +134,16 @@ the page, the tag changes back to the span tag.  This is not ideal,
 but it's these kind of compromises that have to be dealt with when
 creating web applications like this, that rely on only w3c standards
 compliant html, css and javascript.
-javascript.
+
+The biggest barrier to what I can do is what do all the browsers have
+in common.  What css standards do they all implement?  What html tags
+will they all use, and what javascript functionality do they all
+implement?  That is the biggest problem when doing a web application,
+the fact that each browser behaves in a different way in the way they
+display your pages, and the javascript implementation will have
+different behaviors, like IE is pedantic about have variable declared
+with the var tag.
+
 *** Responsiveness of application
 How do you overcome the problem of doing lots of IO and calculations
 at once?  How fast does it have to be and how can you optimise it.
