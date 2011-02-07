@@ -1,4 +1,4 @@
-% Created 2011-01-19 Wed 17:16
+% Created 2011-02-07 Mon 14:50
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -19,7 +19,7 @@
 
 \title{The management of databases for a large organisation}
 \author{James Hurford}
-\date{19 January 2011}
+\date{07 February 2011}
 
 \begin{document}
 
@@ -44,21 +44,43 @@ a set of predetermined metrics.
 
 The task is to create a application to take in:
 
-
 \begin{itemize}
 \item For each paper offered
-\item For each person teaching this paper how much of the paper they
-  are teaching.
 
 \begin{itemize}
+\item For each person teaching this paper how much of the paper they
+    are teaching.
 \item who the global coordinator is
 \item who the local coordinator is
 \end{itemize}
 
 \item The Admin roles for each of the members of staff and how much
   the admin roles are worth in Workload hours.
-\item For each postgraduate student
+\item For each staff
+
+\begin{itemize}
+\item Which postgraduate they are supervising
+
+\begin{itemize}
+\item how much supervision in percentage terms they are giving
+\item Given that each postgraduate degree is worth different hours
+
+\begin{itemize}
+\item What percentage of supervision they give and thus how many of
+        those hours do they get.
 \end{itemize}
+
+\end{itemize}
+
+\end{itemize}
+
+\end{itemize}
+
+This process gets it's information from 2 databases.  One being the
+postgraduate database, and the other a local custom built MySQL
+database.  All the information needed is stored on the local MySQL
+database, with 
+
 
 It could also be used as a tool to indicate where resources are needed
 the most, if a extra staff member is needed.
@@ -70,40 +92,145 @@ and calculate and display the results.  The current solutions is to
 complex and needs a easier method for inputting the data.  The amount
 of data inputted is coming near to the limit of how much Excel can
 take.
+
+Currently cluster leaders put together the workload hour report for
+their cluster.  They then pass that information onto Glenda who then
+inputs the data into a spreadsheet application.  Micheal also compiles
+a report of the postgraduate hours for each staff member and sends
+this to Glenda who also puts this into the spreadsheet application.
+The entire process is time consuming and error prone, and mistakes
+can take a long time to be fixed.
 \subsubsection{How can a application be more flexible than the spreadsheet solution}
 \label{sec-2_1_2}
+
+What do we mean by flexible?  What form can this take and why should
+we do this?
+
+For SEAT Management to more efficiently do their job they would
+benefit from a application which streamlines the data input process
+and minimises the amount of intervention that is needed to produce the
+required reports.  I planned to remove a few steps from this process.
 \subsubsection{How to represent it to users?}
 \label{sec-2_1_3}
 
 What form will this take?  What sort of format will be used?
 \subsection{Challenges}
 \label{sec-2_2}
-\subsubsection{What methods of development do I use?}
+\subsubsection{What question do you ask first?}
 \label{sec-2_2_1}
-\subsubsection{What programming platform do I use?}
+\subsubsection{What methods of development do I use?}
 \label{sec-2_2_2}
-\subsubsection{Where is it going to be deployed?}
+
+Is there one which suits a individual best?  How does one keep
+themselves motivated?  Do you use a version control system?  What
+system and does it matter?
+
+
+Produced a prototype of the application in html, css and javascript.
+Was not the optimal choice, but it demonstrated my initial ideas.  I
+then took this prototype and showed it to Glenda, Stephen and Hans,
+who approved of it.  I then went ahead and implemented it in python,
+using the django framework, along with some javascript, and css styling.
+\subsubsection{What programming platform do I use?}
 \label{sec-2_2_3}
-\subsubsection{Security}
+
+What language and does it matter?  Which works best for the scenario I
+choose?  Is a compiled system a good choice?
+\subsubsection{Where is it going to be deployed?}
 \label{sec-2_2_4}
-\subsubsection{How to represent it to users}
+
+This is important, as it decides what options are available to you and
+poses its own challenges.
+\subsubsection{Security}
 \label{sec-2_2_5}
-\subsubsection{Where do I get my data from and how do I store it}
+
+How important is security, and how doe you overcome these problems?
+
+Security seems to be a concern.  The only ones who should be able to
+access the data produced by this application are academic staff, and managers
+and cluster leaders. The Workload of other academic staff, should be
+visible to each other.  Academic staff should only be able to view
+data, and alter their personal information, but not anything else.
+Cluster leaders should be able to alter 
+\subsubsection{How to represent it to users}
 \label{sec-2_2_6}
-\subsubsection{What functionality do I implement}
+
+What do users respond best to and do you want to force them to install
+a programme on their computer or have it available anywhere on the intranet?
+\subsubsection{Where do I get my data from and how do I store it}
 \label{sec-2_2_7}
-\subsubsection{Responsiveness of application}
+
+What other technologies to I have to interact with and how can I
+minimise this interaction?
+\subsubsection{What functionality do I implement}
 \label{sec-2_2_8}
+
+How flexible do you want it?  What does it need to do and what extra
+features can you justify adding to it
+
+jquery hover events work well in changing a html tag into a html form
+tag, like a <span> into a <input type=''text''\ldots{}/>, and back again, but
+this doesn't work so well when going back to a span from a
+<select../>.  If you bring up the drop down menu and try and use the
+mouse to select one of the options, the hover out event wound trigger
+changing the element back to a <span> tag.  This is not what is
+wanted, so the hover out event has to disabled when the <select> is
+clicked with the change back event being tied to the change event
+associated with <select>.  The problem with this is that if the user
+doesn't change the selection the change event is not triggered so the
+<select> control stays where it is.  This is not wanted, so but there
+is nothing that can be done simply to overcome this.  The decision was
+to use the focus events, so that when the user select another thing in
+the page, the tag changes back to the span tag.  This is not ideal,
+but it's these kind of compromises that have to be dealt with when
+creating web applications like this, that rely on only w3c standards
+compliant html, css and javascript.
+javascript.
+\subsubsection{Responsiveness of application}
+\label{sec-2_2_9}
+
+How do you overcome the problem of doing lots of IO and calculations
+at once?  How fast does it have to be and how can you optimise it.
+
+I at first used javascript to fill the table entries.  This worked,
+but it was extremely slow.  I decided this was not acceptable, as
+users expect a quick response to queries, so I implemented it on the
+server side.  It was still slow, but faster than the javascript
+version.  (Diagrams needed of both systems used)
+
+
+\includegraphics[width=10em]{client-side_23d10d6ee75d47e6d6fa34721d30134fd6b3bb6b.png}
 \subsection{Solutions}
 \label{sec-2_3}
 \subsubsection{Method of development}
 \label{sec-2_3_1}
+
+Web based application developed in python using the django framework.
+Needs to be able to run in a web server environment.  Apache is being
+used, with the module wsgi. mod$_{\mathrm{python}}$ could also be used, but
+development and support for mod$_{\mathrm{python}}$ doesn't exist anymore, and wsgi
+is recommended anyway.
 \subsubsection{Deploying the application}
 \label{sec-2_3_2}
+
+Theoretically it could be deployed on any OS which has a web server
+that can run python. However it was decided to run it on a Centos
+Server under the SEAT domain.
 \subsubsection{Security}
 \label{sec-2_3_3}
+
+While it is an issue is not a high priority.  We have been
+given the impression that the staff in SEAT are open about the hours
+they have done, and honest.  The restriction I imposed are those of
+write access.  Administrators get access to everything, Staff get to
+only view the results, and cluster leaders get to only alter the parts
+that are relevant to their cluster.
 \subsubsection{Framework choice}
 \label{sec-2_3_4}
+
+Django was chosen, as it is a python library, and we wanted to solve
+this problem in python.  The django framework is a kitchen sink
+approach, for web development with a model (show model diagram).
 \subsubsection{Database and importing of data}
 \label{sec-2_3_5}
 \subsubsection{Feature choice}
@@ -126,10 +253,12 @@ What form will this take?  What sort of format will be used?
 \label{sec-3_2_1}
 \subsubsection{Constraints Satisfaction}
 \label{sec-3_2_2}
-\subsubsection{Programming library choice}
+\subsubsection{Database use.}
 \label{sec-3_2_3}
-\subsubsection{Programming language choice}
+\subsubsection{Programming library choice}
 \label{sec-3_2_4}
+\subsubsection{Programming language choice}
+\label{sec-3_2_5}
 \subsection{Challenges}
 \label{sec-3_3}
 \subsubsection{Using python to run C++ code}
