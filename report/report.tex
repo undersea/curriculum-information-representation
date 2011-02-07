@@ -1,4 +1,4 @@
-% Created 2011-02-07 Mon 14:50
+% Created 2011-02-07 Mon 20:33
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -15,6 +15,8 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \tolerance=1000
+\usepackage{color}
+\usepackage{listings}
 \providecommand{\alert}[1]{\textbf{#1}}
 
 \title{The management of databases for a large organisation}
@@ -192,6 +194,39 @@ javascript.
 How do you overcome the problem of doing lots of IO and calculations
 at once?  How fast does it have to be and how can you optimise it.
 
+There are two places to process the data and one place to display the
+results. You can use client side scripts, like javascript to process
+the data, and it can be processed on the server side.  The more data
+that is processed on the server side the less people that it can
+handle at once.  Also doing it all on the server side means the pages
+have to be reloaded every time a new choice is made.  The client side
+processing of data, takes some of the load off the server, but it has
+the downside, of relying on the clients browser to have the
+functionality required, like javascript, which could be of a different
+version to the one that the site was developed for.  Also javascript
+seems to be a lot slower to process data than the server side scripts
+are.  The goal here is to have the pages reloaded as little as
+possible, but load up in a reasonable time.  How much time is
+reasonable depends on who you talk to, but I feel that more than 30
+seconds is not acceptable.  Fortunately there is a javascript library,
+present in all major browsers, called Ajax.  It can be used to fetch
+information from the server without reloading the page.  I also found
+that using libraries like jquery, overcome most of the
+incompatibilities of javascript between browsers, and also have some
+convenient routines to make finding and manipulating the displayed
+page through the HTML DOM.  It also handles events like clicking of
+tags, like clicking a <div> element, making it easier to control the
+way it looks and responds to the users input.  The combination of
+javascript and ajax, makes the creation of web based applications
+possible.  The addition of jquery, makes manipulation of elements
+easier.  (must provide proof)
+
+jquery makes for a uniform javascript api across most of the major
+browsers, like IE and Firefox.  This simplifies the development of web
+applications and reduces the number of issues that come from having
+more than one brand of web browser accessing the site.
+
+
 I at first used javascript to fill the table entries.  This worked,
 but it was extremely slow.  I decided this was not acceptable, as
 users expect a quick response to queries, so I implemented it on the
@@ -199,7 +234,7 @@ server side.  It was still slow, but faster than the javascript
 version.  (Diagrams needed of both systems used)
 
 
-\includegraphics[width=10em]{client-side_23d10d6ee75d47e6d6fa34721d30134fd6b3bb6b.png}
+\includegraphics[width=10em]{client-side_0c3231dba6daa14a7c2d95d7da7ad968e2c7be25.png}
 \subsection{Solutions}
 \label{sec-2_3}
 \subsubsection{Method of development}
