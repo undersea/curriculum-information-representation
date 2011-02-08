@@ -79,6 +79,15 @@ required reports.  I planned to remove a few steps from this process.
 
 *** How to represent it to users?
 What form will this take?  What sort of format will be used?
+
+It was decided to do this application as a web application.  This meant
+it could be OS independent, as far as the person who was accessing it
+is concerned, don't have to worry about installing it on many
+machines, just one.  All the user needs is a modern browser with css
+and javascript enabled.   The downside is that the different browsers
+behave differently to each other in terms of how they display things
+and what they are capable of running.
+
 ** Challenges
 *** What question do you ask first?
 *** What methods of development do I use?
@@ -91,7 +100,9 @@ Produced a prototype of the application in html, css and javascript.
 Was not the optimal choice, but it demonstrated my initial ideas.  I
 then took this prototype and showed it to Glenda, Stephen and Hans,
 who approved of it.  I then went ahead and implemented it in python,
-using the django framework, along with some javascript, and css styling.
+using the django framework, along with some javascript, and css
+styling.
+
 *** What programming platform do I use?
 What language and does it matter?  Which works best for the scenario I
 choose?  Is a compiled system a good choice?
@@ -240,6 +251,31 @@ that are relevant to their cluster.
 Django was chosen, as it is a python library, and we wanted to solve
 this problem in python.  The django framework is a kitchen sink
 approach, for web development with a model (show model diagram).
+
+
+Django uses the Model Template View (MTV) development pattern.
+ - M is the model which is the data access layer.
+ - T is the templates which is the presentation layer.
+ - V is the views which is the business logic layer.
+
+In the diagram in 
+#+attr_latex: with=30em
+#+BEGIN_DITAA  mtv-django -r -S -E
+
+           +------+
+           | {io} |
+    +----->| View |-------+
+    |      +------+       |
+    |                     |
+    |                     |
+    |                     v
++---+---+           +-----+----+
+| {s}   |           | {d}      |
+| Model |           | Template |
++-------+           +----------+
+
+#+END_DITAA
+
 
 *** Database and importing of data
 *** Feature choice
