@@ -125,6 +125,143 @@ a programme on their computer or have it available anywhere on the intranet?
 What other technologies to I have to interact with and how can I
 minimise this interaction?
 *** What functionality do I implement
+The original idea was to use data from other databases found around
+Massey to fill the Workload database tables.  It was supposed to be
+directly imported by the application.  The proved to be not possible
+due to security concerns.  They wouldn't give me access.  There was to
+be two databases used, on being the COS database and the other was the
+Postgraduate database. Direct access to the COS database has so far
+been denied, however I have not pushed the issue, as this is a
+situation I individually can't do anything about.  I therefore decided
+to use csv imports instead. Each csv file represents a table in the
+Workload database, how the files are created is not my concern.  I
+know they can be created. I am able to access the Postgraduate
+database, the problem is it is a MS Access database file.  I am
+running the application on a CentOS server which does not run MS
+Access.  There is a solution however,  I found a set of programs under
+the name MDBTools.  This allows read only access to the database
+tables in the Postgraduate database.  Futher there is a way of
+accessing MS Access files using ODBC through the UnixODBC.  There is
+also a python package called pyodbc, which allows me to what is
+defined in the ODBC config files in python, with the ability to
+execute SQL statements against this database.
+
+
+#+BEGIN_DITAA postgrad_db_access -r -S -E
+
++----------+
+| Workload |
+| DB       |
+| {s}      |
+| c888     |
+| (MYSQL)  |
++----------+
+     ^
+     |
++----------+
+| Python   |
+| pyodbc   |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| Unix     |
+| ODBC     |
+| {io}     |
+| cBLU     |
++----------+      |
+     ^
+     |
++----------+
+| MDB Tools|
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++-----------+
+| Postgrad  |
+| DB        |
+| {s}       |
+| c888      |
+|(MS Access)|
++-----------+
+#+END_DITAA
+
+The mounting of the Samba share is a risky move.  You are relying on
+the connection being maintained.  This cannot be counted upon and if
+the connection is lost, the application may not know this, and will
+fall down when it does try.  There is no way for it to reconnect under
+the environment that it is installed on.  However connecting to the
+database via tcp to a MSSQL server, would not have these problems.
+This would also eliminate the dependency on MDB Tools, removing a
+possible fail point.  It does not overcome connection problems like if
+the server goes down, but if something goes wrong, the application may
+be able to remedy the situation by trying again.
+Since this involves having to mount a samba share and then access the
+DB file it was suggested that I connect to it via MSSQL.  Then speak
+to it in SQL avoiding the extra step of using MDB Tools.  Not only
+does this
+
+#+BEGIN_DITAA postgrad_db_mssql -r -S -E
+
++----------+
+| Workload |
+| DB       |
+| {s}      |
+| c888     |
+| (MYSQL)  |
++----------+
+     ^
+     |
++----------+
+| Python   |
+| pyodbc   |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| Unix     |
+| ODBC     |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| Postgrad |
+| DB       |
+| {s}      |
+| c888     |
+| (MSSQL)  |
++----------+
+#+END_DITAA
+
+
+
+
+
+There are 3 views or users of this system.
+ - Manager
+ - Cluster leader
+ - Staff
+
+Each has a different set of functions available to them.
+
+The manager is like a cut down implementation of a superuser.  They
+have overall access to all the data needed to obtain the Workload
+stats.  They even have limited ability to modify some of the data like
+Teaching Allocations, and is the only one able to import fresh data
+into the database.
+
+
+
+
+
 How flexible do you want it?  What does it need to do and what extra
 features can you justify adding to it
 
@@ -247,6 +384,10 @@ they have done, and honest.  The restriction I imposed are those of
 write access.  Administrators get access to everything, Staff get to
 only view the results, and cluster leaders get to only alter the parts
 that are relevant to their cluster.
+
+
+
+
 *** Framework choice
 Django was chosen, as it is a python library, and we wanted to solve
 this problem in python.  The django framework is a kitchen sink
@@ -259,20 +400,29 @@ Django uses the Model Template View (MTV) development pattern.
  - V is the views which is the business logic layer.
 
 In the diagram in 
-#+attr_latex: with=30em
+#+attr_latex: width=10em
 #+BEGIN_DITAA  mtv-django -r -S -E
-
-           +------+
-           | {io} |
-    +----->| View |-------+
-    |      +------+       |
-    |                     |
-    |                     |
-    |                     v
-+---+---+           +-----+----+
-| {s}   |           | {d}      |
-| Model |           | Template |
-+-------+           +----------+
++----------+
+| {d}      |
+| Template |
+| cC02     |
++---+------+
+    ^
+    |
+    |
++---+--+
+| {io} |
+| View |
+| cBLU |
++---+--+
+    ^              
+    |              
+    |              
++---+---+           
+| {s}   |
+| Model |
+| c888  |
++-------+           
 
 #+END_DITAA
 
