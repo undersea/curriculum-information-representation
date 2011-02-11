@@ -259,25 +259,76 @@ Django uses the Model Template View (MTV) development pattern.
  - V is the views which is the business logic layer.
 
 In the diagram in 
-#+attr_latex: with=30em
-#+BEGIN_DITAA  mtv-django -r -S -E
 
-           +------+
-           | {io} |
-    +----->| View |-------+
-    |      +------+       |
-    |                     |
-    |                     |
-    |                     v
-+---+---+           +-----+----+
-| {s}   |           | {d}      |
-| Model |           | Template |
-+-------+           +----------+
+#+attr_latex: width=30em
+#+BEGIN_DITAA  mtv-django -r -S -E
+ +----------+
+ | {d}      |
+ | Template |
+ +-----+----+
+       ^
+       |
+   +---+--+
+   | {io} |
+   | View |
+   +---+--+
+       ^
+       |
+       |
+   +---+---+           
+   | {s}   |           
+   | Model |           
+   +-------+           
+#+END_DITAA
+
+#+attr_latex: width=30em
+#+BEGIN_DITAA cluster_leader_to_seat_manager -r -S -E
+
+ +---------+
+ | Cluster |
+ | Leader  |<-------+
+ | {d}     |        |
+ +---------+        |
+                    v
+                 +---------+                       
+                 | Cluster |                       
+ +---------+     | Leader  |                  
+ | Cluster |     | View    |       +---------+
+ | Leader  |<--->| {io}    |<----->| Workload|
+ | {d}     |     +---------+       |  DB     |
+ +---------+        ^              | {s}     |
+                    |              +---------+
+ +---------+        |                  ^
+ | Cluster |        |                  |
+ | Leader  |<-------+                  |
+ | {d}     |        |                  v
+ +---------+        |              +---------+
+     +              |              | Manager |
+                    |              | View    |
+     +              |              | {io}    |
+                    |              +---------+
+     +              |                  ^
+ +---------+        |                  |
+ | Cluster |        |                  |
+ | Leader  |<-------+                  v
+ | {d}     |                       +---------+
+ +---------+                       | Manager |
+                                   | {d}     |
+                                   |         |
+                                   +---------+
+#+END_DITAA
+
+*** Database and importing of data
+
+#+BEGIN_DITAA workload_er -r -S -E
+
++------+      +--------+
+| Paper|>---<<|Offering|
++------+      +--------+
 
 #+END_DITAA
 
 
-*** Database and importing of data
 *** Feature choice
 *** Code optimisation
 ** Conclusion
