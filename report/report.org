@@ -13,6 +13,9 @@
 #+LINK_HOME: 
 #+XSLT: 
 
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1em}
+
 * Introduction
 
 
@@ -125,6 +128,193 @@ a programme on their computer or have it available anywhere on the intranet?
 What other technologies to I have to interact with and how can I
 minimise this interaction?
 *** What functionality do I implement
+The original idea was to use data from other databases found around
+Massey to fill the Workload database tables.  It was supposed to be
+directly imported by the application.  The proved to be not possible
+due to security concerns.  They wouldn't give me access.  There was to
+be two databases used, on being the COS database and the other was the
+Postgraduate database. Direct access to the COS database has so far
+been denied, however I have not pushed the issue, as this is a
+situation I individually can't do anything about.  I therefore decided
+to use csv imports instead. Each csv file represents a table in the
+Workload database, how the files are created is not my concern.  I
+know they can be created. I am able to access the Postgraduate
+database, the problem is it is a MS Access database file.  I am
+running the application on a CentOS server which does not run MS
+Access.  There is a solution however,  I found a set of programs under
+the name MDBTools.  This allows read only access to the database
+tables in the Postgraduate database.  Futher there is a way of
+accessing MS Access files using ODBC through the UnixODBC.  There is
+also a python package called pyodbc, which allows me to what is
+defined in the ODBC config files in python, with the ability to
+execute SQL statements against this database.
+
+The plan as shown in the diagram below is to mount //www-ist/seatdb$/
+on /mnt/seatdb.  This would give access to the MS Access files
+PostgradData.mdb and SEAT2008.mdb which contains the staff table that
+is needed to associate staff with postgraduate students.
+
+The MDB Tools would give read only access to the data in these MS
+Access files mentioned above.  There is a ODBC implementation for MDB
+Tools which can be used by UnixODBC.
+
+First tell UnixODBC about the driver in the file odbcinst.ini, usually
+found in the \//etc\// directory.  The name of the driver is put at
+the top between the square braces. Below it a description is given,
+and most important where to find the driver.
+
+#+BEGIN_EXAMPLE
+[MDBToolsODBC]
+Description = MDB Tools ODBC
+Driver = /usr/lib/libmdbodbc.so.0
+#+END_EXAMPLE
+
+Then create a Data Source Name (DSN) for each of the databases I want
+to use.  They contain a name in between the square braces, a
+description of what it is, the driver that was specified in
+odbcinst.ini, and finally the path to the MS Access file.  Here we
+have two DSN entries, one for the Postgradute database and the other
+for the SEAT 2008 database which contains the needed staff information.
+
+#+begin_example
+[postgrad]
+Description = Microsoft Access Postgrad DB
+Driver = MDBToolsODBC
+Database = /mnt/seatdb/PostgradData.mdb
+
+[staff]
+Description = Microsoft Access SEAT2008 DB
+Driver = MDBToolsODBC
+Database = /mnt/seatdb/SEAT2008.mdb
+#+end_example
+
+
+
+
+
+#+BEGIN_DITAA postgrad_db_access -r -S -E
+
++----------+
+| Workload |
+| DB       |
+| {s}      |
+| c888     |
+| (MYSQL)  |
++----------+
+     ^
+     |
++----------+
+| Python   |
+| pyodbc   |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| Unix     |
+| ODBC     |
+| {io}     |
+| cBLU     |
++----------+      |
+     ^
+     |
++----------+
+| MDB Tools|
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++-----------+
+| Postgrad  |
+| DB        |
+| {s}       |
+| c888      |
+|(MS Access)|
++-----------+
+#+END_DITAA
+
+The mounting of the Samba share is a risky move.  You are relying on
+the connection being maintained.  This cannot be counted upon and if
+the connection is lost, the application may not know this, and will
+fall down when it does try.  There is no way for it to reconnect under
+the environment that it is installed on.  However connecting to the
+database via tcp to a MSSQL server, would not have these problems.
+This would also eliminate the dependency on MDB Tools, removing a
+possible fail point.  It does not overcome connection problems like if
+the server goes down, but if something goes wrong, the application may
+be able to remedy the situation by trying again.
+Since this involves having to mount a samba share and then access the
+DB file it was suggested that I connect to it via MSSQL.  Then speak
+to it in SQL avoiding the extra step of using MDB Tools.  Not only
+does this
+
+#+BEGIN_DITAA postgrad_db_mssql -r -S -E
+
++----------+
+| Workload |
+| DB       |
+| {s}      |
+| c888     |
+| (MYSQL)  |
++----------+
+     ^
+     |
++----------+
+| Python   |
+| pyodbc   |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| Unix     |
+| ODBC     |
+| {io}     |
+| cBLU     |
++----------+
+     ^
+     |
++----------+
+| FreeTDS  |
+| ODBC     |
+| {io}     |
+| cBLU     | 
++----------+  
+     ^
+     |
++----------+
+| Postgrad |
+| DB       |
+| {s}      |
+| c888     |
+| (MSSQL)  |
++----------+
+#+END_DITAA
+
+
+
+
+
+There are 3 views or users of this system.
+ - Manager
+ - Cluster leader
+ - Staff
+
+Each has a different set of functions available to them.
+
+The manager is like a cut down implementation of a superuser.  They
+have overall access to all the data needed to obtain the Workload
+stats.  They even have limited ability to modify some of the data like
+Teaching Allocations, and is the only one able to import fresh data
+into the database.
+
+
+
+
+
 How flexible do you want it?  What does it need to do and what extra
 features can you justify adding to it
 
@@ -247,6 +437,10 @@ they have done, and honest.  The restriction I imposed are those of
 write access.  Administrators get access to everything, Staff get to
 only view the results, and cluster leaders get to only alter the parts
 that are relevant to their cluster.
+
+
+
+
 *** Framework choice
 Django was chosen, as it is a python library, and we wanted to solve
 this problem in python.  The django framework is a kitchen sink
@@ -320,11 +514,29 @@ In the diagram in
 
 *** Database and importing of data
 
-#+BEGIN_DITAA workload_er -r -S -E
-
-+------+      +--------+
-| Paper|>---<<|Offering|
-+------+      +--------+
+#+attr_latex: width=10em
+#+BEGIN_DITAA  mtv-django -r -S -E
++----------+
+| {d}      |
+| Template |
+| cC02     |
++---+------+
+    ^
+    |
+    |
++---+--+
+| {io} |
+| View |
+| cBLU |
++---+--+
+    ^              
+    |              
+    |              
++---+---+           
+| {s}   |
+| Model |
+| c888  |
++-------+           
 
 #+END_DITAA
 
