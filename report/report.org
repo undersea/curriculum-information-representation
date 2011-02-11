@@ -13,6 +13,9 @@
 #+LINK_HOME: 
 #+XSLT: 
 
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1em}
+
 * Introduction
 
 
@@ -146,6 +149,48 @@ also a python package called pyodbc, which allows me to what is
 defined in the ODBC config files in python, with the ability to
 execute SQL statements against this database.
 
+The plan as shown in the diagram below is to mount //www-ist/seatdb$/
+on /mnt/seatdb.  This would give access to the MS Access files
+PostgradData.mdb and SEAT2008.mdb which contains the staff table that
+is needed to associate staff with postgraduate students.
+
+The MDB Tools would give read only access to the data in these MS
+Access files mentioned above.  There is a ODBC implementation for MDB
+Tools which can be used by UnixODBC.
+
+First tell UnixODBC about the driver in the file odbcinst.ini, usually
+found in the \//etc\// directory.  The name of the driver is put at
+the top between the square braces. Below it a description is given,
+and most important where to find the driver.
+
+#+BEGIN_EXAMPLE
+[MDBToolsODBC]
+Description = MDB Tools ODBC
+Driver = /usr/lib/libmdbodbc.so.0
+#+END_EXAMPLE
+
+Then create a Data Source Name (DSN) for each of the databases I want
+to use.  They contain a name in between the square braces, a
+description of what it is, the driver that was specified in
+odbcinst.ini, and finally the path to the MS Access file.  Here we
+have two DSN entries, one for the Postgradute database and the other
+for the SEAT 2008 database which contains the needed staff information.
+
+#+begin_example
+[postgrad]
+Description = Microsoft Access Postgrad DB
+Driver = MDBToolsODBC
+Database = /mnt/seatdb/PostgradData.mdb
+
+[staff]
+Description = Microsoft Access SEAT2008 DB
+Driver = MDBToolsODBC
+Database = /mnt/seatdb/SEAT2008.mdb
+#+end_example
+
+
+
+
 
 #+BEGIN_DITAA postgrad_db_access -r -S -E
 
@@ -230,6 +275,14 @@ does this
 | {io}     |
 | cBLU     |
 +----------+
+     ^
+     |
++----------+
+| FreeTDS  |
+| ODBC     |
+| {io}     |
+| cBLU     | 
++----------+  
      ^
      |
 +----------+
