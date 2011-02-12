@@ -454,8 +454,8 @@ Django uses the Model Template View (MTV) development pattern.
 
 In the diagram in 
 
-#+attr_latex: width=30em
-#+BEGIN_DITAA  mtv-django -r -S -E
+
+#+BEGIN_DITAA  mtv_django -r -S -E
  +----------+
  | {d}      |
  | Template |
@@ -480,7 +480,7 @@ In the diagram in
 
  +---------+
  | Cluster |
- | Leader  |<-------+
+ | Leader  |--------+
  | {d}     |        |
  +---------+        |
                     v
@@ -488,23 +488,23 @@ In the diagram in
                  | Cluster |                       
  +---------+     | Leader  |                  
  | Cluster |     | View    |       +---------+
- | Leader  |<--->| {io}    |<----->| Workload|
+ | Leader  |---->| {io}    |------>| Workload|
  | {d}     |     +---------+       |  DB     |
  +---------+        ^              | {s}     |
                     |              +---------+
- +---------+        |                  ^
+ +---------+        |                  |
  | Cluster |        |                  |
- | Leader  |<-------+                  |
+ | Leader  |--------+                  |
  | {d}     |        |                  v
  +---------+        |              +---------+
      +              |              | Manager |
                     |              | View    |
      +              |              | {io}    |
                     |              +---------+
-     +              |                  ^
+     +              |                  |
  +---------+        |                  |
  | Cluster |        |                  |
- | Leader  |<-------+                  v
+ | Leader  |--------+                  v
  | {d}     |                       +---------+
  +---------+                       | Manager |
                                    | {d}     |
