@@ -295,7 +295,9 @@ does this
 #+END_DITAA
 
 
-
+To get this to work I had to modify the pyodbc module code.  It was
+returning the wrong values for integer and double values, and the text
+had unwanted characters at the end of the strings returned.  
 
 
 There are 3 views or users of this system.
@@ -309,7 +311,9 @@ The manager is like a cut down implementation of a superuser.  They
 have overall access to all the data needed to obtain the Workload
 stats.  They even have limited ability to modify some of the data like
 Teaching Allocations, and is the only one able to import fresh data
-into the database.
+into the database.  This includes the Postgraduate database.
+
+
 
 
 
