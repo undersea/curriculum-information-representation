@@ -170,7 +170,7 @@ Driver = /usr/lib/libmdbodbc.so.0
 #+END_EXAMPLE
 
 Then create a Data Source Name (DSN) for each of the databases I want
-to use.  They contain a name in between the square braces, a
+to use.  This is put into the file odbc.ini.  They contain a name in between the square braces, a
 description of what it is, the driver that was specified in
 odbcinst.ini, and finally the path to the MS Access file.  Here we
 have two DSN entries, one for the Postgradute database and the other
