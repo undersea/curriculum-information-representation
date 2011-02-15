@@ -70,6 +70,40 @@ this to Glenda who also puts this into the spreadsheet application.
 The entire process is time consuming and error prone, and mistakes
 can take a long time to be fixed.
 
+Figure
+#+latex: \ref{fig:excel}
+shows a simplified view of the current process.  Each cluster produces
+a list of their staff members roles, like how much of a paper they
+teach, who is the coordinators of papers.  These get sent to the
+manger who then inputs this data into a spreadsheet.  At the same time
+a list of postgraduates is produced from the postgraduate database,
+which includes, who supervises them, and how much supervision the
+staff member in question supplies in the form of a percentage.  This
+also gets sent to the manager who inputs these into the spreadsheet.
+The spreadsheet does some calculations and produces a set of workload
+hours for each staff member.  These include a break down of what makes
+up this final number.
+
+The entire process is time consuming and tedious, also the spreadsheet
+is to complicated, and is reaching the maximum amount of data it will
+accept, and show results for.  My job is to replace this with a more
+robust application, which requires a lot less time and effort to
+produce the same results.
+
+#+attr_latex: width=30em
+#+CAPTION: Simplified view of the existing process
+#+LABEL: fig:excel
+#+BEGIN_DITAA workload_process -r -S -E
++---------------+          +-------------------+        +--------------+
+| Cluster Staff |          | Excel Spreadsheet |        | Postgraduate |
+| Roles         | -------> |                   | <----- | Supervision  |
+| {io}          |          | {s}               |        | {io}         |
+| cBLU          |          | c888              |        | cBLU         |
++---------------+          +-------------------+        +--------------+
+#+END_DITAA
+
+
+
 *** How can a application be more flexible than the spreadsheet solution
 What do we mean by flexible?  What form can this take and why should
 we do this?
@@ -109,6 +143,15 @@ styling.
 *** What programming platform do I use?
 What language and does it matter?  Which works best for the scenario I
 choose?  Is a compiled system a good choice?
+
+This is a critical question.  The key points you should be looking at
+is
+ - What is the target OS and thus what resources do you have
+   available?
+ - If the resource is missing, can it be added?
+ - Can the features required of this application be satisfied by the
+   chosen platform?
+
 *** Where is it going to be deployed?
 This is important, as it decides what options are available to you and
 poses its own challenges.
@@ -295,7 +338,9 @@ does this
 #+END_DITAA
 
 
-
+To get this to work I had to modify the pyodbc module code.  It was
+returning the wrong values for integer and double values, and the text
+had unwanted characters at the end of the strings returned.  
 
 
 There are 3 views or users of this system.
@@ -309,7 +354,9 @@ The manager is like a cut down implementation of a superuser.  They
 have overall access to all the data needed to obtain the Workload
 stats.  They even have limited ability to modify some of the data like
 Teaching Allocations, and is the only one able to import fresh data
-into the database.
+into the database.  This includes the Postgraduate database.
+
+
 
 
 
