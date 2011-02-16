@@ -206,14 +206,19 @@ found in the \//etc\// directory.  The name of the driver is put at
 the top between the square braces. Below it a description is given,
 and most important where to find the driver.
 
-odbcinst.ini
----------------------------------
+
+#+LaTeX: \begin{figure}[htb]
+#+LaTeX: \centering
 #+BEGIN_EXAMPLE
 [MDBToolsODBC]
 Description = MDB Tools ODBC
 Driver = /usr/lib/libmdbodbc.so.0
 #+END_EXAMPLE
------------------------------
+#+LaTeX: \caption{\label{fig:odbcinst} odbcinst.ini}
+#+LaTeX: \end{figure}
+
+
+
 Then create a Data Source Name (DSN) for each of the databases I want
 to use.  This is put into the file odbc.ini.  They contain a name in between the square braces, a
 description of what it is, the driver that was specified in
@@ -221,8 +226,10 @@ odbcinst.ini, and finally the path to the MS Access file.  Here we
 have two DSN entries, one for the Postgradute database and the other
 for the SEAT 2008 database which contains the needed staff information.
 
-odbc.ini
------
+
+
+#+LaTeX: \begin{figure}[htb]
+#+LaTeX: \centering
 #+begin_example
 [postgrad]
 Description = Microsoft Access Postgrad DB
@@ -234,7 +241,9 @@ Description = Microsoft Access SEAT2008 DB
 Driver = MDBToolsODBC
 Database = /mnt/seatdb/SEAT2008.mdb
 #+end_example
------
+#+LaTeX: \caption{\label{fig:odbc} odbc.ini}
+#+LaTeX: \end{figure}
+
 
 
 
@@ -284,6 +293,8 @@ Database = /mnt/seatdb/SEAT2008.mdb
 +-----------+
 #+END_DITAA
 
+
+
 The mounting of the Samba share is a risky move.  You are relying on
 the connection being maintained.  This cannot be counted upon and if
 the connection is lost, the application may not know this, and will
@@ -298,6 +309,8 @@ Since this involves having to mount a samba share and then access the
 DB file it was suggested that I connect to it via MSSQL.  Then speak
 to it in SQL avoiding the extra step of using MDB Tools.  Not only
 does this
+
+
 
 #+attr_latex: width=10em
 #+CAPTION: Accessing the Postgraduate Database using FreeTDS ODBC
@@ -580,7 +593,7 @@ In the diagram in
 #+END_DITAA
 
 
-#+attr_latex: width=30em
+#+attr_latex: width=40em
 #+CAPTION: The Workload data entry process
 #+LABEL: fig:workloadprocess
 [[./images/workload_process.png]]
