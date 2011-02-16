@@ -1,17 +1,17 @@
 #+TITLE:     The management of databases for a large organisation
 #+AUTHOR:    James Hurford
-#+EMAIL:     
-#+DESCRIPTION: 
-#+KEYWORDS: 
+#+EMAIL:
+#+DESCRIPTION:
+#+KEYWORDS:
 #+LANGUAGE:  en
 #+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
-#+XSLT: 
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
 
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1em}
@@ -48,7 +48,7 @@ The task is to create a application to take in:
 This process gets it's information from 2 databases.  One being the
 postgraduate database, and the other a local custom built MySQL
 database.  All the information needed is stored on the local MySQL
-database, with 
+database, with
 
 
 It could also be used as a tool to indicate where resources are needed
@@ -163,7 +163,7 @@ access the data produced by this application are academic staff, and managers
 and cluster leaders. The Workload of other academic staff, should be
 visible to each other.  Academic staff should only be able to view
 data, and alter their personal information, but not anything else.
-Cluster leaders should be able to alter 
+Cluster leaders should be able to alter
 *** How to represent it to users
 What do users respond best to and do you want to force them to install
 a programme on their computer or have it available anywhere on the intranet?
@@ -333,8 +333,8 @@ does this
 | FreeTDS  |
 | ODBC     |
 | {io}     |
-| cBLU     | 
-+----------+  
+| cBLU     |
++----------+
      ^
      |
 +----------+
@@ -349,7 +349,7 @@ does this
 
 To get this to work I had to modify the pyodbc module code.  It was
 returning the wrong values for integer and double values, and the text
-had unwanted characters at the end of the strings returned.  
+had unwanted characters at the end of the strings returned.
 
 
 There are 3 views or users of this system.
@@ -451,9 +451,9 @@ version.  (Diagrams needed of both systems used)
 +----------+
 | Workload |
 | Stats    |
-| {d}      | 
+| {d}      |
 | cC02     |
-+-----+----+  
++-----+----+
       ^
       |
 +-----+------+
@@ -511,7 +511,7 @@ Django uses the Model Template View (MTV) development pattern.
  - T is the templates which is the presentation layer.
  - V is the views which is the business logic layer.
 
-In the diagram in 
+In the diagram in
 
 #+attr_latex: width=10em
 #+CAPTION: The Django model
@@ -530,10 +530,10 @@ In the diagram in
        ^
        |
        |
-   +---+---+           
-   | {s}   |           
-   | Model |           
-   +-------+           
+   +---+---+
+   | {s}   |
+   | Model |
+   +-------+
 #+END_DITAA
 
 #+attr_latex: width=30em
@@ -541,39 +541,51 @@ In the diagram in
 #+LABEL: fig:clusterdataflow
 #+BEGIN_DITAA cluster_leader_to_seat_manager -r -S -E
 
- +---------+
- | Cluster |
- | Leader  |--------+
- | {d}     |        |
- +---------+        |
-                    v
-                 +---------+                       
-                 | Cluster |                       
- +---------+     | Leader  |                  
- | Cluster |     | View    |       +---------+
- | Leader  |---->| {io}    |------>| Workload|
- | {d}     |     +---------+       |  DB     |
- +---------+        ^              | {s}     |
-                    |              +---------+
- +---------+        |                  |
- | Cluster |        |                  |
- | Leader  |--------+                  |
- | {d}     |        |                  v
- +---------+        |              +---------+
-     +              |              | Manager |
-                    |              | View    |
-     +              |              | {io}    |
-                    |              +---------+
-     +              |                  |
- +---------+        |                  |
- | Cluster |        |                  |
- | Leader  |--------+                  v
- | {d}     |                       +---------+
- +---------+                       | Manager |
-                                   | {d}     |
-                                   |         |
-                                   +---------+
+ +---------+       +---------+
+ | Cluster |       | Cluster |
+ | Leader  +------>+ Leader  +------------------+
+ | {d}     |       | View    |                  |
+ | cC02    |       | {io}cBLU|                  |
+ +---------+       +---------+                  |
+                                                |
+                                                |
+                                                |
+ +---------+       +---------+                  V
+ | Cluster |       | Cluster |             +----+-----+
+ | Leader  +------>+ Leader  +------------>+ Workload |
+ | {d}     |       | View    |             | DB       |
+ | cC02    |       | {io}cBLU|             | c888     |
+ +---------+       +---------+        +--->+ {s}      |
+                                      |    +----------+
+ +---------+       +---------+        |          |
+ | Cluster |       | Cluster |        |          |
+ | Leader  +------>+ Leader  +--------+          |
+ | {d}     |       | View    |        |          |
+ | cC02    |       | {io}cBLU|        |          V
+ +---------+       +---------+        |      +---+-----+
+     .                 .              |      | Manager |
+     .                 .              |      | View    |
+     .                 .              |      |{io}cBLU |
+     .                 .              |      +---+-----+
+     .                 .              |          |
+ +---------+       +---------+        |          |
+ | Cluster |       | Cluster |        |          |
+ | Leader  +------>+ Leader  +--------+          |
+ | {d}     |       | View    |                   V
+ | cC02    |       |{io}cBLU |               +---+-----+
+ +---------+       +---------+               | Manager |
+                                             | {d}     |
+                                             | cC02    |
+                                             +---------+
 #+END_DITAA
+
+
+#+attr_latex: width=30em
+#+CAPTION: The Workload data entry process
+#+LABEL: fig:workloadprocess
+[[./images/workload_process.png]]
+
+
 
 *** Database and importing of data
 
@@ -589,6 +601,29 @@ In the diagram in
 ** Solutions chosen
 *** Web Representation
 *** Constraints Satisfaction
+#+attr_latex: width=30em
+#+CAPTION: The decision process for determining programme selection options
+#+LABEL: fig:decisionprocess
+#+BEGIN_DITAA decision-process-diagram -r -S -E
+               +---------+   +----------+   +----------+   +--------------+
+               | Major   |   | Leads to |   | Degree   |   | Valid        |
+               | Paper   |   | Paper    |   | Paper    |   | Degree       |
+               | List    |   | DB       |   | List     |   | Paper        |
+               | {s}c888 |   | {s}c888  |   | {s} c888 |   | Combinations |
+               |         |   |          |   |          |   | {s}c888      |
+               +----+----+   +----+-----+   +----------+   +--------------+
+                    |    |        |         |              |
+                    |    +----+   |         |              |
+                    |         |   |         |              |
+                    V         V   V         V              V
++----------+   +----+-----+   +---+---------+  +-----------+--+
+| Student  |   | Select   |   | Create      |  | Determine    |
+| Academic |   | Best     |   | Paper       |  | Valid        |
+| Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
+| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
+|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
++----------+   +----------+   +-------------+  +--------------+
+#+END_DITAA
 *** Database use.
 *** Programming library choice
 *** Programming language choice
@@ -596,5 +631,8 @@ In the diagram in
 *** Using python to run C++ code
 Python can import C libraries using ctypes and run C functions.
 *** How to represent and encode the problem
+
+
+
 ** Conclusion
 Conclusion is here
