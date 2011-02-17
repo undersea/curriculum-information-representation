@@ -13,6 +13,8 @@
 #+LINK_HOME:
 #+XSLT:
 
+
+
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1em}
 
@@ -170,7 +172,24 @@ a programme on their computer or have it available anywhere on the intranet?
 *** Where do I get my data from and how do I store it
 What other technologies to I have to interact with and how can I
 minimise this interaction?
-*** What functionality do I implement
+
+The Postgraduate database is a MS Access database, which is a Windows
+only product and the application is being run on a Linux CentOS
+server.  I have to be able to access this from Linux, and that is not
+easy.  I did some searching and found various unhelpful dead ends,
+when I came across this post on unixODBC-support
+\cite{unixODBC} form.  The information I got was that there
+are three ways of doing this.
+ 1) Share the folder containing the MS Access file and access it using MDBTools
+ 2) Create a link from a MS SQL Server to the MS Access file and use a
+    MS SQL Server ODBC driver.
+ 3) Create a ODBC-ODBC bridge in which you install the ODBC service on
+    the Windows machine, which uses a ODBC driver for MS Access, and
+    use a ODBC driver on the Linux server which can talk to the remote
+    server.
+
+
+**** What functionality do I implement
 The original idea was to use data from other databases found around
 Massey to fill the Workload database tables.  It was supposed to be
 directly imported by the application.  The proved to be difficult,
@@ -420,7 +439,7 @@ display your pages, and the javascript implementation will have
 different behaviors, like IE is pedantic about have variable declared
 with the var tag.
 
-*** Responsiveness of application
+**** Responsiveness of application
 How do you overcome the problem of doing lots of IO and calculations
 at once?  How fast does it have to be and how can you optimise it.
 
@@ -497,18 +516,18 @@ version.  (Diagrams needed of both systems used)
 
 #+END_DITAA
 
-** Solutions
-*** Method of development
+*** Solutions
+**** Method of development
 Web based application developed in python using the django framework.
 Needs to be able to run in a web server environment.  Apache is being
 used, with the module wsgi. mod_python could also be used, but
 development and support for mod_python doesn't exist anymore, and wsgi
 is recommended anyway.
-*** Deploying the application
+**** Deploying the application
 Theoretically it could be deployed on any OS which has a web server
 that can run python. However it was decided to run it on a Centos
 Server under the SEAT domain.
-*** Security
+**** Security
 While it is an issue is not a high priority.  We have been
 given the impression that the staff in SEAT are open about the hours
 they have done, and honest.  The restriction I imposed are those of
@@ -519,7 +538,7 @@ that are relevant to their cluster.
 
 
 
-*** Framework choice
+**** Framework choice
 Django was chosen, as it is a python library, and we wanted to solve
 this problem in python.  The django framework is a kitchen sink
 approach, for web development with a model (show model diagram).
@@ -609,12 +628,12 @@ In the diagram in
 
 
 
-*** Database and importing of data
+**** Database and importing of data
 
 
-*** Feature choice
-*** Code optimisation
-** Conclusion
+**** Feature choice
+**** Code optimisation
+*** Conclusion
 
 * Paper Planner
 ** The Problem

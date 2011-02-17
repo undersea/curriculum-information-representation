@@ -1,5 +1,12 @@
 \begin{thebibliography}{1}
 
+\bibitem{unixODBC}
+Martin~J. Evans.
+\newblock Acessing remote access db, February 2011.
+\newblock URL:
+  \texttt{http://mailman.unixodbc.org/pipermail/unixodbc-support/2008-March/00%
+1682.html}.
+
 \bibitem{COBA01}
 Miguel A.~Salido Luis~Catillo, Daniel~Borrajo and Angelo Oddi, editors.
 \newblock {\em Planning, Scheduling and Constraint Satisfaction: From Theory to
