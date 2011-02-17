@@ -620,9 +620,50 @@ In the diagram in
 ** The Problem
 *** How to represent it to users
 *** How to solve it
+This was going to be a complete application, but it was realised that
+there was not enough time to do everything, so the Use case shown in
+figure \ref{fig:usecase1} was adopted, and this would be the scenario that would be
+solved using constraints satisfaction.
+
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+begin_example
+A Student does their first year of study at university.  They pass a
+number of papers.  They have not decided upon a major yet, but they
+want to know what their options are.  They want to know what major
+suits their choice of papers so far the best, and what are the
+possible paper combinations they can have for their future programme
+of study.  These combinations must be valid for the choice of degree
+and major, and allows them to complete their degree if done.  
+#+end_example
+#+LaTeX: \caption{\label{fig:usecase1} Use case for student having done one year of study}
+#+LaTeX: \end{figure}
+
+
+
+One of the strategies taken was to have a look and see what books
+there are on the subject, in regard to the problem.  The books
+available are almost non existent, except for one book that was a
+collection of articles which sounded like they might be solving a
+similar problem was "Planning, Scheduling and Constraint Satisfaction:
+to Practice." \cite{COBA01}.  However the problem they were
+attempting to solve, were not close enough to the Paper Planner
+problem.
+
+
+
 ** Solutions chosen
-*** Web Representation
-*** Constraints Satisfaction
+The solution come up with, as shown in figure
+\ref{fig:decisionprocess}, aims at being simple.  The problem of a
+large search space has been addressed by narrowing down the search by
+using a simple algorithm of counting the number of papers done that
+are in the major schedule for each major available, and the major that
+has the academic record has the most papers, is the chosen set that is
+used to create a leads to tree.  This tree is then used as the search
+space for the constraints satisfaction part.  The rules are based upon
+the minimum required papers to satisfy the degree requirements and the
+minimum to satisfy the major requirements.  
 #+attr_latex: width=30em
 #+CAPTION: The decision process for determining programme selection options
 #+LABEL: fig:decisionprocess
@@ -646,6 +687,8 @@ In the diagram in
 |          |   |          |   | {io}cBLU    |  | {io} cBLU    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
+*** Web Representation
+*** Constraints Satisfaction
 *** Database use.
 *** Programming library choice
 *** Programming language choice
@@ -658,3 +701,6 @@ Python can import C libraries using ctypes and run C functions.
 
 ** Conclusion
 Conclusion is here
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
