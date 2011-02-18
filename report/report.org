@@ -173,6 +173,18 @@ a programme on their computer or have it available anywhere on the intranet?
 What other technologies to I have to interact with and how can I
 minimise this interaction?
 
+The problem that is being faced here is several things.  The biggest
+problem is what are you allowed to access?  If one of the sources uses
+a different technology, how can you interact with this technology to
+extract the data that you need?  Are there any changes that need to
+take place to enable you to use that source, on the sources end?
+
+Politics plays a important part in determining what you can get access
+to.  If someone disagrees with what you want, and they have the power
+to deny you, then you will hit a brick wall.  The only source of data
+that you can count on is the data that is inputted via the programme.  
+
+
 The Postgraduate database is a MS Access database, which is a Windows
 only product and the application is being run on a Linux CentOS
 server.  I have to be able to access this from Linux, and that is not
@@ -660,6 +672,46 @@ and major, and allows them to complete their degree if done.
 #+LaTeX: \end{figure}
 
 
+The first thing that was looked at was what software support there is
+for Constraints Satisfaction Problems (CSP).  There were criteria under
+which the library would be used, in a effort to stay in the language of
+choice, python, as much as possible, the library had to be written in
+either C/C++ or python.  C/C++ was considered as python can use these
+libraries through either the module ctypes or in the form of a
+specially written C module, using Python C API.  If it was written
+as a C module for python, that could lead to it only being usable by a
+Python interpreter written in C.  The choice was to make the
+environment used as configurable as possible, so cytpes was chosen, as
+in theory, any Python interpreter, no matter what language they are
+written in has a ctypes implementation, as ctypes has become part of
+the set of standard modules since (citation needed here).
+
+
+Gecode was looked at and was the choice for implementing the
+CSP, as it is a mature library, with one of the
+authors claiming that it is relatively bug free.  Also there seemed to
+be quiet a few references to Gecode in the forms that were looked at.
+Thus there should be plenty of examples on how to solve various
+problems using Gecode.
+
+So To use this library there needs to be some research done on how to
+use it.  There is a provided manual called "Modeling and Programming
+with Gecode" (MPG) \cite{MPG1}.  The approach was to read as much of
+this manual MPG as is needed to implement the solution come up with to
+solve the problem.
+
+
+While reading this document, some of the examples were gone through to
+figure out how Gecode encodes CSP.
+
+
+In Figure \ref{fig:GecodeArch} The Gecode Model Archatechture you have
+3 layers, the Model, 
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Gecode Model Archatechture
+#+LABEL: fig:GecodeArch
+[[./images/gecode-model.png]]
 
 One of the strategies taken was to have a look and see what books
 there are on the subject, in regard to the problem.  The books

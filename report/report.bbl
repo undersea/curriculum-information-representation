@@ -1,16 +1,22 @@
 \begin{thebibliography}{1}
 
-\bibitem{unixODBC}
-Martin~J. Evans.
-\newblock Acessing remote access db, February 2011.
-\newblock URL:
-  \texttt{http://mailman.unixodbc.org/pipermail/unixodbc-support/2008-March/00%
-1682.html}.
-
 \bibitem{COBA01}
-Miguel A.~Salido Luis~Catillo, Daniel~Borrajo and Angelo Oddi, editors.
+Luis Catillo, Daniel Borrajo, Miguel~A. Salido, and Angelo Oddi, editors.
 \newblock {\em Planning, Scheduling and Constraint Satisfaction: From Theory to
   Practice}.
 \newblock IOS Press, Neuwe Henweg 6B, 1013 BG Amsterdam, The Netherlands, 2005.
+
+\bibitem{unixODBC}
+Martin J.~Evans <martin.evans~at easysoft.com>.
+\newblock [unixodbc-support] acessing remote access db, March 2008.
+\newblock accessed February 18, 2011 URL:
+  \texttt{http://mailman.unixodbc.org/pipermail/unixodbc-support/2008-March/00%
+1682.html}.
+
+\bibitem{MPG1}
+Christian Schulte, Guido Tack, and Mikael~Z. Lagerkvist.
+\newblock Modeling and programming with gecode, October 2010.
+\newblock accessed November, 2011 URL:
+  \texttt{http://www.gecode.org/doc/3.4.2/MPG.pdf}.
 
 \end{thebibliography}
