@@ -672,8 +672,15 @@ and major, and allows them to complete their degree if done.
 #+LaTeX: \end{figure}
 
 
-The first thing that was looked at was what software support there is
-for Constraints Satisfaction Problems (CSP).  There were criteria under
+
+The first priority was to learn what are Constraints Satisfaction
+Problems.  To do this I looked on line and found a definition with a
+example, in this case it was the map colours problem.  
+
+
+
+What software support there is for Constraints Satisfaction Problems
+(CSP) was looked at.  There were criteria under
 which the library would be used, in a effort to stay in the language of
 choice, python, as much as possible, the library had to be written in
 either C/C++ or python.  C/C++ was considered as python can use these
