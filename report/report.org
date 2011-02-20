@@ -511,8 +511,38 @@ Postgraduate database.  The page is shown in figure
 #+ATTR_LaTeX: width=30em
 #+CAPTION: The add a administration instance interface
 #+LABEL: fig:postgradpage
-[[./images/admin_postgrad_supervision.png]]
+[[./images/add_admin_instance.png]]
 
+The programme list hasn't much changed except, now there is the extra
+campus menu.  You can add or delete the programs through a couple of
+links at the top circled in figure \ref{fig:programlist} with the add
+a programme shown in figure \ref{fig:addprogram}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The programme list page with the add and delete links circled.
+#+LABEL: fig:programlist
+[[./images/admin_programme_list.png]]
+
+figure \ref{fig:addprogram}
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The programme addition page
+#+LABEL: fig:addprogram
+[[./images/admin_add_programme.png]]
+
+figure \ref{fig:adddegree}
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Add a degree page which make sit available to add to a programme of study
+#+LABEL: fig:adddegree
+[[./images/admin_add_degree.png]]
+
+figure \ref{fig:addprogrammajor}
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Add a Major page which make sit available to add to a programme of study
+#+LABEL: fig:addprogrammajor
+[[./images/admin_add_major.png]]
 
 
 *** How can a application be more flexible than the spreadsheet solution
