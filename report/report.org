@@ -47,14 +47,131 @@ The task is to create a application to take in:
       + What percentage of supervision they give and thus how many of
         those hours do they get.
 
-This process gets it's information from 2 databases.  One being the
-postgraduate database, and the other a local custom built MySQL
-database.  All the information needed is stored on the local MySQL
-database, with
+The original idea was to get the information from three sources.  The
+COS database, the Postgraduate database and a local MySQL database.
+The COS database it turned out was not directly available to me, as
+the College of Sciences security policy disallowed it.  The
+Postgraduate database is available, thanks to cooperation from Lisa
+Lightband, however it is in the form of a MS Access file.  The local
+MySQL database is the only one that can be counted upon at all times,
+as this is fully in the control of the Workload application.
 
 
-It could also be used as a tool to indicate where resources are needed
-the most, if a extra staff member is needed.
+The needed data is Academic Staff details, the papers they
+teach, the papers they coordinate as either a global or local
+coordinator.  There is also the administration roles of each of the
+staff members, with each role being worth a set number of hours.  Not
+only that bu each staff member has postgraduate students, which they
+are supervising.
+
+
+This data needs to be stored somewhere, whether that be on a offline
+site, such as a external database or a locally run database.  The
+problem with external data sources is, the application is relying on a
+unknown quantity.  The server, containing the data, could be down and
+thus the application is unusable while this server is down. There are
+also the overhead cost of having to download the required information
+on demand.  The preference is to store everything that is needed on
+the same server, or a nearby server under the same domain, that can be
+relied upon.
+
+The database design then seemed like the best place to start, as this
+is what the entire application relies upon.  Therefore the design was
+undertaken, and the initial design, as shown in figure \ref{fig:db1}.
+
+It was decided that, since there is more than one offering of a paper,
+like different semesters, campus, mode like extramural, that there
+should be a table which contains global information that applies to
+all instances.  This would be called Paper.  This would include things
+like, paper code, its title,number of points it is worth and who
+overseas the paper content called a global coordinator.
+
+
+Each paper has a offering called PaperExist, which is a localised
+instance of a paper.  This would have the information like its
+location, the mode it is being offered under, what semester it is
+being offered in and who overseas the running of this instance.
+
+Each PaperExist has a number of students enrolled in it.  A separate
+entity of Enrolled was chosen.  The idea was that each year a new
+Enrolled instance was created for the offering.  This would provide
+historic data on this paper.  This was enabled by the use of a year
+field.  The year field was later abandoned, but the entity was kept.
+The reason being, the historical data would be stored by archiving the
+year, and having a year field only increased the complexity of the
+database, and was not needed in the end.  However the entity had
+already been created, and it was more effort than it was worth to
+integrate it into PaperExist.
+
+
+The Staff entity represented a academic staff member.  It provided a
+means of identifying the individual, so that the eventual Workload
+hours that were calculated could be accredited to this individual.
+This is the entity that the entire database revolves around.  It
+contains identifying information, like name, cluster, and home campus.
+
+Then there is TeachingAllocation.  This entity defines how
+much of a paper offering (PaperExist) they teach.  This is expressed
+in the form of a percentage of the coarse.  The essential parts are,
+the PaperExist identifier, the Staff identifier and the percentage of
+the coarse the staff member teaches.
+
+
+There is a Campus entity which gives a list of what campuses there are
+and is used extensively as there are a lot of PaperExist and Staff
+entries which rely on this one.
+
+
+LocalCoord entity is really a proxy for Staff.  It is a way of making
+it obvious what is happening.  However it became obvious later that it
+was not needed, but the way it is set up makes no real difference to
+the application.  It would not benefit from getting rid of the
+LocalCoord proxy.
+
+
+ProjectPaper was initially set up to be a proxy to PaperExist.  This
+was to be a way to designate if a paper was a project or not.  This
+was to be proving to complicated later.  It is easier to designate the
+paper as project or not in the Paper entity.
+
+
+The ProjectpaperInstance is set up to act a bit like
+TeachingAllocation, but for project papers, with the staff member
+being identified here along with how many students they are
+supervising.  This was later changed to ProjectPaperSupervision, to
+make it a bit more obvious what was going on.
+
+
+Each staff member has certain administration roles they must for
+full.  These might be seats on a organisation like IEEE or simple just
+being head of school.  Each of the roles is worth a certain number of
+workload hours each year.  The entities which deal with this are
+AdminInstance, which is a instance of the entity administration role
+as designated by AdminRole.  The AdminRole consists of the title of
+the role and the number of hours it is worth.  AdminInstance consists
+of a Staff identifier and a AdminRole identifier.  It also has a
+description to give the opportunity to give a bit more detail about the
+role instance if it is felt necessary.
+
+
+Then there is the Postgrad entity.  This is a representation of a
+postgraduate student.  It contains details like their student id,
+their name, the id of the PostgradDegree they are undertaking.  The
+PostgradDegree contains the name of a degree plus how many hours it is
+worth. From here they are referenced by the all important
+PostgradSupervision. This entity links the postgraduate student with
+their supervisor. This would be a identifier to a Staff entity
+instance as well as one to the Postgrad entity.
+
+
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The initial database design
+#+LABEL: fig:db1
+[[./images/WorkloadDB1.png]]
+
+
+
 
 
 *** What it is that this application is replacing
@@ -104,6 +221,298 @@ produce the same results.
 +---------------+          +-------------------+        +--------------+
 #+END_DITAA
 
+** How to represent it to users?
+It was decided to do this application as a web application.  This meant
+it could be OS independent, as far as the person who was accessing it
+is concerned, don't have to worry about installing it on many
+machines, just one.  All the user needs is a modern browser with css
+and javascript enabled.   The downside is that the different browsers
+behave differently to each other in terms of how they display things
+and what they are capable of running.
+
+
+A prototype was asked for, and the prototype was developed purely in
+html, css and javascript.  All the data needed was store as javascript
+objects.
+
+At the time there was only two types of user considered.  The Workload
+process was still a bit of a mystery.  It was thought that all the
+input was done by the manager.  The other users were just ordinary
+staff, and all they needed was a way to verify that their data was
+correct.  So the two types of users were a administrator and staff.
+
+First the user is presented with a log-in screen as shown in figure
+\ref{fig:protologin}.  They would enter their lo-gin name and since
+this was a prototype, the password field was just there for show.
+What they got next depended on what user name they entered.  If they
+entered 'admin' as the user name, then the administrator contents page
+will be presented to them.  This is shown in figure
+\ref{fig:protocontents}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Prototype Login Screen
+#+LABEL: fig:protologin
+[[./images/prototype/index.png]]
+
+From the contents page shown in figure \ref{fig:protocontents}, you
+have several menu choices.  You could go to the list of papers to view
+and edit their details, shown in figure \ref{fig:paperlist}.  Here you
+have the option of editing the title as shown in figure
+\ref{fig:papernameedit}, the global coordinator in figure
+\ref{fig:papermenu}, the local coordinator, and the paper offering
+intercept.  None of these options had any effect, as the next time you
+view this page they would be back again to where they were before.
+Some of the functionality did not work, but this was a prototype after
+all.  You will note at the top, to the left is a back link, for going
+back to the contents page, and a log out link at the top right.  The
+log out will always be there, but the back link will only be there if
+the user is not viewing the contents page.
+
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Administrator Contents page
+#+LABEL: fig:protocontents
+[[./images/prototype/admin-contents.png]]
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Paper List
+#+LABEL: fig:paperlist
+[[./images/prototype/paper_list2.png]]
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Editing the paper name
+#+LABEL: fig:papernameedit
+[[./images/prototype/paper_list_text_edit.png]]
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: Editing the global coordinator
+#+LABEL: fig:papermenu
+[[./images/prototype/paper_list_coord_menu.png]]
+
+The view staff menu option takes you to a staff list page, shown in
+figure \ref{fig:staffworkload} with the staff identifiers like name,
+cluster and campus.  It also contains a Workload hours column, which
+is supposed to represent the total workload hours for that staff
+member for the year.  In this case it is a random number generated by
+javascript.  The list can be filtered using the filter drop down menus
+at the top of the table, for cluster, campus and class.
+
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The staff workload hours list
+#+LABEL: fig:staffworkload
+[[./images/prototype/staff_list.png]]
+
+
+In figure \ref{fig:adminroles} the administration roles for each staff
+member are shown, again with the option of filtering staff by cluster,
+campus and class.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Administration roles list
+#+LABEL: fig:adminroles
+[[./images/prototype/admin_roles.png]]
+
+
+Postgraduate supervision list is shown in figure \ref{fig:postgrad},
+with the usual filters of cluster, campus and class.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Postgraduate Supervision instances list
+#+LABEL: fig:postgrad
+[[./images/prototype/postgrad_supervision.png]]
+
+While not strictly part of Workload, a programme paper list by year
+was created.  This gave a list of all the papers for a degree by the
+year they would normally be offered by this degree.  This is shown in
+figure \ref{fig:programmelist}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Degree Programme List
+#+LABEL: fig:programmelist
+[[./images/prototype/programme_list.png]]
+
+
+Now if you go back to the log in page and log in as a normal user you
+get a users details listed, shown in figure \ref{fig:userpage}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The individual staff users view
+#+LABEL: fig:userpage
+[[./images/prototype/user_details.png]]
+
+
+It could also be used as a tool to indicate where resources are needed
+the most, if a extra staff member is needed.
+
+
+The first iteration of the Workload application was created, based
+upon the prototype.  A few changes were made, like in the staff list
+in figure \ref{fig:staffworkload}, which a break down of the total
+workload hours was asked for in the form of hours gained from papers,
+postgraduate supervision, and administration roles, with the total
+being the last column.  A demo was shown to the cluster leaders, and
+it was there that the need for a third user was discovered.  It seems
+that cluster leaders need to be able to simultaneously edit the paper
+offerings that involve any of their staff members.  This raises a
+concurrency problem, if a paper offering involves staff from more than
+one cluster, whose data do we accept and how do we enable the
+simultaneous editing of papers.  The answer that was come up was we
+don't.  We instead create copies of the offerings for each cluster and
+allow them to edit them to their hearts content.  When they have
+finished, they commit the changes to the database, and all papers
+except those that have staff from different clusters, get overwritten
+with the new data entered by the cluster leader.  Those that have
+staff from more than one cluster, get flagged for approval by the
+manager, who then either chooses the one they like and use that one or
+reject it for reediting.  The new ER diagram for this database is
+shown in figure \ref{fig:db2}.  
+
+The format of the paper list page was not liked by all, and thus for
+cluster leader editing of papers has been abandoned in favour of a new
+cluster paper editor.  It was felt that the spreadsheet was a good
+model for editing offering details.  This is shown in figure
+\ref{fig:clusterview}.  You will notice that one of the table cells is
+got a red border.  This is to highlight the fact that users can edit
+this cell.  The hover event was being used to change a element type
+into a editable input and then back to what it was before.  This was
+causing to many layout problems as the element changed from one thing
+to another the browser was having to recalculate the page layout and
+having this happen as you passed the mouse over each element was less
+than desirable, so hence the red highlight, and now to edit it, you
+have to click it.  An example of what happens if a element is clicked
+is shown in figure \ref{fig:clustermenu}.  We would like to have a way of saying more
+explicitly, edit me, but our hands are tied and we have to work within
+what javascript, css and html will allow us to do.
+
+
+#+ATTR_LaTeX: width=30em
+#+LABEL: fig:clusterview
+#+CAPTION: The new cluster paper offering editor.
+[[./images/cluster_paper_edit_view.png]]
+
+#+ATTR_LaTeX: width=30em
+#+LABEL: fig:clustermanu
+#+CAPTION: The new cluster paper offering editor showing the semester element being edited with a drop down menu.
+[[./images/cluster_paper_semester_edit_view.png]]
+
+This solution required some changes to the database schema. The
+differences, shown in figure ref{fig:db2}, in this diagram is the 
+removal of ProjectPaper, which is now determined by a boolean flag in
+the Paper entity, and ProjectPaperInstance is now called
+ProjectPaperSupervision.  There is the addition of PaperCopy,
+PaperExistCopy, and TeachingAllocationCopy.  These are copies with
+pointers to the originals, and a field to indicate which cluster they
+belong to.  The Update entity is there to hold information on if a
+clusters papers have been committed, thus whether they will show up on
+the Managers cluster view page.  There was the idea to allow the
+altering of Paper details, but that has been abandoned for the moment
+due to time constraints and priorities.  The priority is to ge the
+PaperExistCopy editing to work, as this is the most important part.  
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The new improved database
+#+LABEL: fig:db2
+[[./images/WorkloadDB2.png]]
+
+
+In fact there was a few changes in the web interface for all users, as
+well as the ones already mentioned.  The log in page has not changed
+much except that you need a password as well as a user name.  This log
+in page is shown in figure \ref{fig:newlogin}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The new log in page
+#+LABEL: fig:newlogin
+[[./images/login_page.png]]
+
+If logged in as administrator (or manager) you get this menu, as shown
+in figure \ref{fig:adminmenu}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The new contents page for the administrator
+#+LABEL: fig:adminmenu
+[[./images/admin_index.png]]
+
+
+The administrator still gets the paper edit page, but even that has
+been modified.The original non prototype design was using javascript
+to render almost everything.  This was a real bottleneck for page
+loading speed.  Javascript, it seems is a little inefficient when it
+comes to rendering components on mass into a web page.  This was
+overcome by turning the paper list into a single expandable row as
+shown in figure \ref{fig:adminpaperedit}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The new expandable paper edit page for the administrator.
+#+LABEL: fig:adminpaperedit
+[[./images/admin_paper_edit_view.png]]
+
+
+Administration roles, shown in figure \ref{fig:adminadminroles}, have the same look except that now there are ways
+of adding both roles and instances.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Administration roles interface
+#+LABEL: fig:adminadminroles
+[[./images/admin_adminroles.png]]
+
+
+You can add a administration role as shown in figure
+\ref{fig:addadminrole}.  To get to this point there is a link at the
+top of the administration roles page as highlighted by figure
+\ref{fig:adminadminroles2}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Administration roles interface with add a role link circled
+#+LABEL: fig:adminadminroles2
+[[./images/admin_adminroles2.png]]
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Administration role addition interface
+#+LABEL: fig:addadminrole
+[[./images/add_admin_role.png]]
+
+Not only can you add a role, but for every staff member you can add or
+delete a instance of a role as shown in \ref{fig:adminadminroles3} and
+the add a instance as shown in figure \ref{fig:addadmininstance}.  In
+this instance you have three editing controls, the top one being a
+drop down menu containing all the administration roles available for
+this administration instance, the second one is the staff member in
+question, and the last is just a test entry box for adding a
+description to this instance.  The second control seems
+a bit odd to be able to select a different staff member when the staff
+member in question is already known.  This still needs work, but it
+does do the job it was created for.  Delete has the immediate effect
+of removing the instance in question from the database.  These changes
+are all immediately shown in the displayed page.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The Administration roles interface with add and delete a staff instance links circled
+#+LABEL: fig:adminadminroles3
+[[./images/admin_adminroles3.png]]
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The add a administration instance interface
+#+LABEL: fig:addadmininstance
+[[./images/add_admin_instance.png]]
+
+
+The postgraduate page shows the staff members along with their
+supervised postgraduate students.  If they have none then it will say
+so.  Postgraduate supervision, is the one place where no editing of
+data takes place in this application.  The postgraduate supervision
+data is sourced from the Postgraduate database, which is managed by a
+external source.  However the data is still stored locally on the
+Workload database, to save time in downloading the data from the
+Postgraduate database.  The page is shown in figure
+\ref{fig:postgradpage}.
+
+#+ATTR_LaTeX: width=30em
+#+CAPTION: The add a administration instance interface
+#+LABEL: fig:postgradpage
+[[./images/admin_postgrad_supervision.png]]
+
 
 
 *** How can a application be more flexible than the spreadsheet solution
@@ -114,18 +523,6 @@ For SEAT Management to more efficiently do their job they would
 benefit from a application which streamlines the data input process
 and minimises the amount of intervention that is needed to produce the
 required reports.  I planned to remove a few steps from this process.
-
-
-*** How to represent it to users?
-What form will this take?  What sort of format will be used?
-
-It was decided to do this application as a web application.  This meant
-it could be OS independent, as far as the person who was accessing it
-is concerned, don't have to worry about installing it on many
-machines, just one.  All the user needs is a modern browser with css
-and javascript enabled.   The downside is that the different browsers
-behave differently to each other in terms of how they display things
-and what they are capable of running.
 
 ** Challenges
 *** What question do you ask first?
@@ -646,6 +1043,8 @@ In the diagram in
 **** Feature choice
 **** Code optimisation
 *** Conclusion
+
+
 
 * Paper Planner
 ** The Problem
