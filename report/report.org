@@ -555,7 +555,7 @@ goes to the previous page, with the new choice now being available for
 selection.  If Cancel is clicked then the previous page is loaded,
 without any new additions to the database.
 
-Looking back to figure \ref{fig:clusterview}, the cluster leaders
+Looking at figure \ref{fig:clusterview}, the cluster leaders
 cluster view you will see that there is a couple of entries that are
 in red.  These are the offerings which have Teaching Allocations which
 do not add up to one hundred.  This gives the user a visual warning
@@ -567,7 +567,17 @@ decided to round the totals.  This has the effect of if the total is
 99.9 then the rounding will bring them up to one hundred.  This allows
 allocations to be of odd values like a third.
 
-
+In figure \ref{fig:clusterview2} the "Revert to last save" and "Commit
+Changes" button are circled.  The "Revert to last save" button will
+revert the cluster paper data to what it is in the Paper, PaperExist
+and TeachingAllocation entities in the database.  New copies will be
+created of these and will replace any changes that have been made with
+the previous values.  A dialog will prompt you to confirm this action,
+in case this was done by mistake.  The "Commit Changes" button, will
+copy the changes to the entities these copies are of, unless the
+PaperExist has staff members from more than one cluster.  These will
+be kept around for the administrator to check and either approve or
+reject.  
 
 
 *** How can a application be more flexible than the spreadsheet solution
