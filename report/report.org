@@ -189,19 +189,17 @@ this to Glenda who also puts this into the spreadsheet application.
 The entire process is time consuming and error prone, and mistakes
 can take a long time to be fixed.
 
-Figure
-#+latex: \ref{fig:excel}
-shows a simplified view of the current process.  Each cluster produces
-a list of their staff members roles, like how much of a paper they
-teach, who is the coordinators of papers.  These get sent to the
-manger who then inputs this data into a spreadsheet.  At the same time
-a list of postgraduates is produced from the postgraduate database,
-which includes, who supervises them, and how much supervision the
-staff member in question supplies in the form of a percentage.  This
-also gets sent to the manager who inputs these into the spreadsheet.
-The spreadsheet does some calculations and produces a set of workload
-hours for each staff member.  These include a break down of what makes
-up this final number.
+Figure \ref{fig:excel} shows a simplified view of the current process.
+Each cluster produces a list of their staff members roles, like how
+much of a paper they teach, who is the coordinators of papers.  These
+get sent to the manger who then inputs this data into a spreadsheet.
+At the same time a list of postgraduates is produced from the
+postgraduate database, which includes, who supervises them, and how
+much supervision the staff member in question supplies in the form of
+a percentage.  This also gets sent to the manager who inputs these
+into the spreadsheet. The spreadsheet does some calculations and
+produces a set of workload hours for each staff member.  These include
+a break down of what makes up this final number.
 
 The entire process is time consuming and tedious, also the spreadsheet
 is to complicated, and is reaching the maximum amount of data it will
@@ -523,26 +521,53 @@ a programme shown in figure \ref{fig:addprogram}.
 #+LABEL: fig:programlist
 [[./images/admin_programme_list.png]]
 
-figure \ref{fig:addprogram}
+Figure \ref{fig:addprogram} shows the page for adding a programme to
+the list.  This is the combination of degree and major.  Some degrees
+do not have majors, so the major part can be left blank.
 
 #+ATTR_LaTeX: width=30em
 #+CAPTION: The programme addition page
 #+LABEL: fig:addprogram
 [[./images/admin_add_programme.png]]
 
-figure \ref{fig:adddegree}
+Figure \ref{fig:adddegree} shows the degree add page which asks you
+for a short name of the degree and the full name for the records.  The
+short name is the part that will show up in any drop down menus fro
+this degree.
 
 #+ATTR_LaTeX: width=30em
-#+CAPTION: Add a degree page which make sit available to add to a programme of study
+#+CAPTION: Add a degree page which makes it available to add to a programme of study
 #+LABEL: fig:adddegree
 [[./images/admin_add_degree.png]]
 
-figure \ref{fig:addprogrammajor}
+Figure \ref{fig:addprogrammajor} show the add major page, which is
+similar to add a degree, except this is for a major.
 
 #+ATTR_LaTeX: width=30em
 #+CAPTION: Add a Major page which make sit available to add to a programme of study
 #+LABEL: fig:addprogrammajor
 [[./images/admin_add_major.png]]
+
+With all these dialogs for creating a new programme of study, there are
+buttons at the bottom for in the form of Add and Cancel.  If Add is
+clicked then the choice is entered into the database and the browser
+goes to the previous page, with the new choice now being available for
+selection.  If Cancel is clicked then the previous page is loaded,
+without any new additions to the database.
+
+Looking back to figure \ref{fig:clusterview}, the cluster leaders
+cluster view you will see that there is a couple of entries that are
+in red.  These are the offerings which have Teaching Allocations which
+do not add up to one hundred.  This gives the user a visual warning
+that the teaching allocations for that offering need adjusting.  This
+brings up the awkward situation of how does the application handle
+situations where the allocations are a third.  If added together this
+will not add up to one hundred.  After a little thought, it was
+decided to round the totals.  This has the effect of if the total is
+99.9 then the rounding will bring them up to one hundred.  This allows
+allocations to be of odd values like a third.
+
+
 
 
 *** How can a application be more flexible than the spreadsheet solution
