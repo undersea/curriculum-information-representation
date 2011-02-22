@@ -1,11 +1,13 @@
 #+TITLE:     The management of databases for a large organisation
 #+AUTHOR:    James Hurford
 #+EMAIL:
-#+DESCRIPTION:
+#+TEXT:  Research Report
+#+TEXT: [TABLE-OF-CONTENTS]
+#+DESCRIPTION: Reasearch Report
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -165,7 +167,7 @@ instance as well as one to the Postgrad entity.
 
 
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The initial database design
 #+LABEL: fig:db1
 [[./images/WorkloadDB1.png]]
@@ -207,7 +209,7 @@ accept, and show results for.  My job is to replace this with a more
 robust application, which requires a lot less time and effort to
 produce the same results.
 
-#+attr_latex: width=30em
+#+attr_latex: width=30em,placement=[H]
 #+CAPTION: Simplified view of the existing process
 #+LABEL: fig:excel
 #+BEGIN_DITAA workload_process -r -S -E
@@ -219,7 +221,7 @@ produce the same results.
 +---------------+          +-------------------+        +--------------+
 #+END_DITAA
 
-** How to represent it to users?
+*** How to represent it to users?
 It was decided to do this application as a web application.  This meant
 it could be OS independent, as far as the person who was accessing it
 is concerned, don't have to worry about installing it on many
@@ -247,7 +249,7 @@ entered 'admin' as the user name, then the administrator contents page
 will be presented to them.  This is shown in figure
 \ref{fig:protocontents}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Prototype Login Screen
 #+LABEL: fig:protologin
 [[./images/prototype/index.png]]
@@ -267,22 +269,22 @@ log out will always be there, but the back link will only be there if
 the user is not viewing the contents page.
 
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Administrator Contents page
 #+LABEL: fig:protocontents
 [[./images/prototype/admin-contents.png]]
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Paper List
 #+LABEL: fig:paperlist
 [[./images/prototype/paper_list2.png]]
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Editing the paper name
 #+LABEL: fig:papernameedit
 [[./images/prototype/paper_list_text_edit.png]]
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Editing the global coordinator
 #+LABEL: fig:papermenu
 [[./images/prototype/paper_list_coord_menu.png]]
@@ -296,7 +298,7 @@ javascript.  The list can be filtered using the filter drop down menus
 at the top of the table, for cluster, campus and class.
 
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The staff workload hours list
 #+LABEL: fig:staffworkload
 [[./images/prototype/staff_list.png]]
@@ -306,7 +308,7 @@ In figure \ref{fig:adminroles} the administration roles for each staff
 member are shown, again with the option of filtering staff by cluster,
 campus and class.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Administration roles list
 #+LABEL: fig:adminroles
 [[./images/prototype/admin_roles.png]]
@@ -315,7 +317,7 @@ campus and class.
 Postgraduate supervision list is shown in figure \ref{fig:postgrad},
 with the usual filters of cluster, campus and class.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Postgraduate Supervision instances list
 #+LABEL: fig:postgrad
 [[./images/prototype/postgrad_supervision.png]]
@@ -325,7 +327,7 @@ was created.  This gave a list of all the papers for a degree by the
 year they would normally be offered by this degree.  This is shown in
 figure \ref{fig:programmelist}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Degree Programme List
 #+LABEL: fig:programmelist
 [[./images/prototype/programme_list.png]]
@@ -334,7 +336,7 @@ figure \ref{fig:programmelist}.
 Now if you go back to the log in page and log in as a normal user you
 get a users details listed, shown in figure \ref{fig:userpage}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The individual staff users view
 #+LABEL: fig:userpage
 [[./images/prototype/user_details.png]]
@@ -379,23 +381,27 @@ to another the browser was having to recalculate the page layout and
 having this happen as you passed the mouse over each element was less
 than desirable, so hence the red highlight, and now to edit it, you
 have to click it.  An example of what happens if a element is clicked
-is shown in figure \ref{fig:clustermenu}.  We would like to have a way of saying more
+is shown in figure \ref{fig:clusterview}.  We would like to have a way of saying more
 explicitly, edit me, but our hands are tied and we have to work within
 what javascript, css and html will allow us to do.
 
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+LABEL: fig:clusterview
 #+CAPTION: The new cluster paper offering editor.
 [[./images/cluster_paper_edit_view.png]]
 
-#+ATTR_LaTeX: width=30em
+
+----
+
+
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+LABEL: fig:clustermanu
 #+CAPTION: The new cluster paper offering editor showing the semester element being edited with a drop down menu.
 [[./images/cluster_paper_semester_edit_view.png]]
 
 This solution required some changes to the database schema. The
-differences, shown in figure ref{fig:db2}, in this diagram is the 
+differences, shown in figure \ref{fig:db2}, in this diagram is the 
 removal of ProjectPaper, which is now determined by a boolean flag in
 the Paper entity, and ProjectPaperInstance is now called
 ProjectPaperSupervision.  There is the addition of PaperCopy,
@@ -406,9 +412,12 @@ clusters papers have been committed, thus whether they will show up on
 the Managers cluster view page.  There was the idea to allow the
 altering of Paper details, but that has been abandoned for the moment
 due to time constraints and priorities.  The priority is to ge the
-PaperExistCopy editing to work, as this is the most important part.  
+PaperExistCopy editing to work, as this is the most important part.
+The ability to manipulate staff values like TeachingAllocation and
+PaperExist, are the priority.  These are the main entities used to
+determine a staff members workload hours.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The new improved database
 #+LABEL: fig:db2
 [[./images/WorkloadDB2.png]]
@@ -419,7 +428,7 @@ well as the ones already mentioned.  The log in page has not changed
 much except that you need a password as well as a user name.  This log
 in page is shown in figure \ref{fig:newlogin}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The new log in page
 #+LABEL: fig:newlogin
 [[./images/login_page.png]]
@@ -427,7 +436,7 @@ in page is shown in figure \ref{fig:newlogin}.
 If logged in as administrator (or manager) you get this menu, as shown
 in figure \ref{fig:adminmenu}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The new contents page for the administrator
 #+LABEL: fig:adminmenu
 [[./images/admin_index.png]]
@@ -441,7 +450,7 @@ comes to rendering components on mass into a web page.  This was
 overcome by turning the paper list into a single expandable row as
 shown in figure \ref{fig:adminpaperedit}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The new expandable paper edit page for the administrator.
 #+LABEL: fig:adminpaperedit
 [[./images/admin_paper_edit_view.png]]
@@ -450,7 +459,7 @@ shown in figure \ref{fig:adminpaperedit}.
 Administration roles, shown in figure \ref{fig:adminadminroles}, have the same look except that now there are ways
 of adding both roles and instances.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Administration roles interface
 #+LABEL: fig:adminadminroles
 [[./images/admin_adminroles.png]]
@@ -461,12 +470,12 @@ You can add a administration role as shown in figure
 top of the administration roles page as highlighted by figure
 \ref{fig:adminadminroles2}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Administration roles interface with add a role link circled
 #+LABEL: fig:adminadminroles2
 [[./images/admin_adminroles2.png]]
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Administration role addition interface
 #+LABEL: fig:addadminrole
 [[./images/add_admin_role.png]]
@@ -485,12 +494,12 @@ does do the job it was created for.  Delete has the immediate effect
 of removing the instance in question from the database.  These changes
 are all immediately shown in the displayed page.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Administration roles interface with add and delete a staff instance links circled
 #+LABEL: fig:adminadminroles3
 [[./images/admin_adminroles3.png]]
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The add a administration instance interface
 #+LABEL: fig:addadmininstance
 [[./images/add_admin_instance.png]]
@@ -506,7 +515,7 @@ Workload database, to save time in downloading the data from the
 Postgraduate database.  The page is shown in figure
 \ref{fig:postgradpage}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The add a administration instance interface
 #+LABEL: fig:postgradpage
 [[./images/add_admin_instance.png]]
@@ -516,7 +525,7 @@ campus menu.  You can add or delete the programs through a couple of
 links at the top circled in figure \ref{fig:programlist} with the add
 a programme shown in figure \ref{fig:addprogram}.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The programme list page with the add and delete links circled.
 #+LABEL: fig:programlist
 [[./images/admin_programme_list.png]]
@@ -525,28 +534,29 @@ Figure \ref{fig:addprogram} shows the page for adding a programme to
 the list.  This is the combination of degree and major.  Some degrees
 do not have majors, so the major part can be left blank.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The programme addition page
 #+LABEL: fig:addprogram
 [[./images/admin_add_programme.png]]
 
 Figure \ref{fig:adddegree} shows the degree add page which asks you
 for a short name of the degree and the full name for the records.  The
-short name is the part that will show up in any drop down menus fro
+short name is the part that will show up in any drop down menus for
 this degree.
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: Add a degree page which makes it available to add to a programme of study
 #+LABEL: fig:adddegree
 [[./images/admin_add_degree.png]]
 
-Figure \ref{fig:addprogrammajor} show the add major page, which is
+Figure \ref{fig:progmajor2} show the add major page, which is
 similar to add a degree, except this is for a major.
 
-#+ATTR_LaTeX: width=30em
-#+CAPTION: Add a Major page which make sit available to add to a programme of study
-#+LABEL: fig:addprogrammajor
-[[./images/admin_add_major.png]]
+
+
+
+
+
 
 With all these dialogs for creating a new programme of study, there are
 buttons at the bottom for in the form of Add and Cancel.  If Add is
@@ -567,6 +577,12 @@ decided to round the totals.  This has the effect of if the total is
 99.9 then the rounding will bring them up to one hundred.  This allows
 allocations to be of odd values like a third.
 
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add a Major page which make sit available to add to a programme of study
+#+LABEL: fig:progmajor2
+[[./images/admin_add_major.png]]
+
 In figure \ref{fig:clusterview2} the "Revert to last save" and "Commit
 Changes" button are circled.  The "Revert to last save" button will
 revert the cluster paper data to what it is in the Paper, PaperExist
@@ -577,7 +593,250 @@ in case this was done by mistake.  The "Commit Changes" button, will
 copy the changes to the entities these copies are of, unless the
 PaperExist has staff members from more than one cluster.  These will
 be kept around for the administrator to check and either approve or
-reject.  
+reject.  The administrators interface to this is displayed in figure
+\ref{fig:adminclusterview2}.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Cluster leader paper edit view
+#+LABEL: fig:clusterview2
+[[./images/cluster_paper_edit_view2.png]]
+
+
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The administrator cluster paper view
+#+LABEL: fig:adminclusterview2
+[[./images/admin_cluster_view.png]]
+
+
+
+Circled in red, in figure \ref{fig:adminclusterview3a}, are two area,
+one being the "Accept all" button, the second is the green tick and
+red cross in the first row.  These ticks and crosses appear on  each
+row.  They have click events associated with them, the tick is the
+accept that offering event, and the cross is reject this offering
+event.  One of the criteria for this application was that there be a
+button to accept all the entries, so the administrator does not have
+to go through every offering individually.  This is where the "Accept
+all" comes in.  When this is clicked, all the entries are assumed to
+be correct, so the lot is copied over to the originals.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Administrator cluster view with accept, delete and accept all circled
+#+LABEL: fig:adminclusterview3a
+[[./images/admin_cluster_view2.png]]
+
+
+When clicking the "Accept all" button, which offering do you use.  It
+really does not matter if the assumption is that they are all
+correct.  The easiest solution is to just use the first entry for
+every possible cluster offering solution.
+
+
+
+
+
+
+The accept or reject options for each cluster offering, shown in figure
+\ref{fig:adminclusterview3a}, provides a couple of problems.  The first
+is if a offering which has entries for several clusters.  If you click
+accept on one of them, what happens to the rest?  The solution chosen
+was to assume that the administrator, when clicking on the particular
+offering, does not want any of the other possible solutions.  In this
+case, the remaining are deleted and only the one accepted is copied
+over the original entity. The second is if a offering is rejected,
+again what happens to the rest.  The problem is there maybe errors, as
+in teaching allocations do not add up to 100.  The other is the
+offerings could give conflicting values.  The other situation is if
+none of the cluster offerings from the various clusters involved in
+that offering, are correct.  The scenario could be a combination of
+these situations.  The decision as to what happens here has not been
+resolved yet, but there is two solutions that have been thought of.
+The first is if one is rejected, they are all rejected, the second is
+just that cluster offering is rejected.  The only problem with either
+of these solutions, is how do you let the cluster leaders know what is
+going on as they will see their possible conflicting entry in the
+cluster leader paper view list whether it has been rejected or not.
+When committed, all the solutions that only involve that cluster get
+copied over the original, the offerings that involve more than one
+cluster stay in the list.  One solution is to assume that
+communication is done outside the application, like email.  There are
+various other ways of indicating this rejection, The cluster leader
+still needs to know to look, so communication needs to take place
+outside the application, but the offending offering could be coloured
+to indicate this rejection, or a pop up could be used to alert the
+cluster leader when the page is loaded.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The configure site contents page
+#+LABEL: fig:config
+[[./images/admin_config_view.png]]
+
+Now the configure site menu item, when clicked takes you to another
+contents page.  This is a list of the various items that can be
+configured.  This is shown in figure \ref{fig:config}.
+
+The paper edit list has been shifted to this menu, shown in figure
+\ref{fig:seat-paper-list}.  The interface has been changed to only
+list the paper meta data, like paper code, title, points and global
+coordinator.  To edit the paper offerings you click on the circled
+expand arrow.  To delete it and all its offerings, click the delete
+option also circled.  To add a new paper click the circled top right link.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The paper edit page
+#+LABEL: fig:seat-paper-list
+[[./images/SEAT_paper_list.png]]
+
+
+If the expand button is clicked the row will expand to show all
+offerings along with their teaching allocations that are associated
+with this paper.  This is shown in figure
+\ref{fig:seat-paper-list-expand}.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The paper edit page, with the expand button having been clicked.
+#+LABEL: fig:seat-paper-list-expand
+[[./images/SEAT_paper_list_expand.png]]
+
+
+All the same editing events happen as was explained in the prototype,
+except you now have to click the elements to edit them as hover was
+causing to many layout problems as the mouse moved over them.  The
+problem being that when the element gets changed to a editable
+element, it changes the layout of the page, and also when the hover
+out event happens, it connects to the server to update the field, even
+if nothing has changed.  That was not desirable, so instead, if a edit
+is wanted then you have to click it.  The ability of the element to be
+edited, is hinted at by the change in colour of the text.  This is
+immediately obvious to someone who has never used the system before,
+but there are only so many things you can do to alert people of these
+options over a web application.
+
+
+The next item in the configuration menu, figure \ref{fig:config} is
+"Add Staff".  When clicked this leads to a page with a form in it,
+shown in figure \ref{fig:addstaff}.  The form allows for the entry of
+the first and last names.  The initials, which are usually three
+letters, and must be unique to the individual, as this is one of the
+methods of identifying the staff member.  What cluster they belong to
+and what campus they are based at.  A Full Time Equivalent (FTE)
+number from 0 to 1.0 to represent how full time this staff member is.
+Also what class they are in, which indicates if they are a reasearcher
+of just a plain teacher.  All these fields are needed and if one is
+left out then the following will be displayed, shown in figure
+\ref{fig:addstaff-missing} on a commit attempt. 
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add staff page.
+#+LABEL: fig:addstaff
+[[./images/new_staff.png]]
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add staff page which has be commited without filling the required entries
+#+LABEL: fig:addstaff-missing
+[[./images/new_staff-missing.png]]
+
+
+The next link in the configuration page (figure \ref{fig:config}) is
+the Designate cluster leader page.  The reason for this page, is to
+allow the administrator to designate who is a cluster leader.  They do
+that by clicking the tick box.  This also has the fuction of showing
+who is and who is not a cluster leader.  The cluster this person is a
+leader of, if the check box is checked, is the cluster they belong
+to.  If necessary, the list can be filtered down by the use of the
+drop down menu at the top of the page.  This only filters by cluster,
+which has been decided is enough.  More filters could be added, but
+they would not really add anymore to the already available filter by
+cluster option. This is shown in figure \ref{fig:designateleader}.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Cluster leader designation page
+#+LABEL: fig:designateleader
+[[./images/cluster_leader_management.png]]
+
+The next in our list of configure links is "Upload data".  This page
+when loaded, as seen in figure \ref{fig:datasetup}, is a form with
+several fields, enabling comma separate value (csv) files to be
+uploaded.  The data in these files is used to populate the database
+with data, which can be used to calculate the staff workloads, and it
+even includes the staff to be allocated workload hours to.  This page
+is meant for the initial setup of the application and is still a work
+in progress.  The biggest initial problem you face is how do you get
+information into the database, this is meant to be a stopgap measure
+until a better method can be thought of.  The files that I have used
+so far have been extracted from the Workload spreadsheet, and turned
+into a csv file.  The problem with this is that the some of the data
+extracted fails referential integrity.  For the moment it will do, and
+any missing data can be added manually.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Data upload page
+#+LABEL: fig:datasetup
+[[./images/data_setup.png]]
+
+
+The next item is "Archive site".  One of the requirements was to be
+able to archive a years data so that in future it may be compared with
+the current, and also be used as a backup.  I chose to create a
+archive file for each entity needed, and save it in json format.  The
+reason for choosing this format is that the application is being run
+on a Django framework, and Django has a simple means of populating the
+tables using any file in json format.  This is a builtin method, that
+can be invoked by just placing the files in the required place and
+running a script that comes with every Django application.  In figure
+\ref{fig:archive} is a list of the files created by this function.
+You will note that every one of the files names, before the extension,
+ends with the date.  This is so that it becomes a real historical
+archive, allowing for the years workload data from several archives
+ago, which could be years, loaded into the database.  The other
+advantage to using json is that it can potentially be used in
+javascript, allowing for none workload applications to use this data
+for whatever reason they decide.
+
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+BEGIN_EXAMPLE
+auth_user-2011.2.22.json           db_paper-2011.2.22.json
+db_admininstance-2011.2.22.json    db_paperexist-2011.2.22.json
+db_adminrole-2011.2.22.json        db_postgrad-2011.2.22.json
+db_campus-2011.2.22.json           db_postgraddegree-2011.2.22.json
+db_cluster-2011.2.22.json          db_postgradsupervision-2011.2.22.json
+db_coefficients-2011.2.22.json     db_projectpapersupervision-2011.2.22.json
+db_degree-2011.2.22.json           db_staff-2011.2.22.json
+db_degreemajor-2011.2.22.json      db_staffuser-2011.2.22.json
+db_degreepaperlist-2011.2.22.json  db_stdpoints-2011.2.22.json
+db_enrolled-2011.2.22.json         db_teachingallocation-2011.2.22.json
+db_major-2011.2.22.json
+#+END_EXAMPLE
+#+LaTeX: \caption{\label{fig:archive} A list of files created by the archive function}
+#+LaTeX: \end{figure}
+
+
+Then there is the "Synchronise Postgraduate Data" item.  This when
+clicks connects with the Postgraduate database and update the local
+Postgrad,  PostgradSupervision and PostgradMajor tables.  The
+application could connect every time a calculation is needed, but it
+is felt that doing this involves extra overhead, and not only that the
+entities have already been set up.
+
+
+"Change Password" is the last item in the list.  This allows the
+Administrator to change the password for their log in.  Figure
+\ref{fig:password} shows the page that is loaded for this.  This page
+is one of the built in Django pages for changing passwords.  It was
+easier using this than setting up one ourselves.  The problem with
+this is the layout and navigation technique is slightly different, as
+they use breadcrumbs, the rest of the site does not.
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Change Password page
+#+LABEL: fig:password
+[[./images/password_change.png]]
+
+
+
 
 
 *** How can a application be more flexible than the spreadsheet solution
@@ -615,6 +874,78 @@ is
  - If the resource is missing, can it be added?
  - Can the features required of this application be satisfied by the
    chosen platform?
+
+The programming language chosen to do this application is Python.  It
+is to be a web served application, running under a Unix environment,
+running Apache web server.  Apache has modules that allow it to run
+python code. There are various other http servers that can serve
+python scripts.  The main one that has been used for this application
+is Apache running mod_wsgi. In figure \ref{fig:wsgi} is the wsgi
+script that has been used to run this Django application. In figure
+\ref{fig:apache} is the apache set up for mod_wsgi.
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+begin_example
+
+<IfDefine WSGI>
+LoadModule wsgi_module modules/mod_wsgi.so
+
+WSGIScriptAlias / /var/www/localhost/wsgi/workload.wsgi
+
+<Directory /var/www/localhost/wsgi>
+Options ExecCGI MultiViews
+MultiviewsMatch Handlers
+
+AddHandler cgi-script .cgi
+AddHandler wsgi-script .wsgi
+
+Order allow,deny
+Allow from all
+</Directory>
+
+</IfDefine>
+
+#+end_example
+#+LaTeX: \caption{\label{fig:apache} A example of the apache config file for setting up the mod_wsgi module to run as the sole application on this server}
+#+LaTeX: \end{figure}
+
+
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+-----------------------------------------------------------
+#+begin_src python
+import os, sys
+
+#find the root directory which this script is in
+ROOT=os.path.dirname(__file__)
+
+#append that to the path which python uses to find modules
+sys.path.append(ROOT)
+
+#set the environment variable which tells Django where to find its all
+#important settings module
+os.environ['DJANGO_SETTINGS_MODULE']='workload.settings'
+
+#import the django needed module
+import django.core.handlers.wsgi
+
+#create the wsgi application from the Django wsgi handlers
+application = django.core.handlers.wsgi.WSGIHandler()
+#+end_src
+-----------------------------------------------------------
+#+LaTeX: \caption{\label{fig:wsgi} A example of a wsgi script used by Apache mod_wsgi to run this Django application}
+#+LaTeX: \end{figure}
+
+WSGI is not the only way to run Django applications, it could be run
+from within a jython environment, using FastCGI and more.  As long as
+the web server can run python, a django application can be deployed on it.
+
+*** Django
+**** What is Django
+Django is a python web framework.  It is a 
+**** What are it features that are used by this application
 
 *** Where is it going to be deployed?
 This is important, as it decides what options are available to you and
@@ -703,7 +1034,7 @@ a description is given, and most important where to find the driverfor
 this ODBC instance.
 
 
-#+LaTeX: \begin{figure}[htb]
+#+LaTeX: \begin{figure}[H]
 #+LaTeX: \centering
 #+BEGIN_EXAMPLE
 [MDBToolsODBC]
@@ -726,7 +1057,7 @@ staff information.
 
 
 
-#+LaTeX: \begin{figure}[htb]
+#+LaTeX: \begin{figure}[H]
 #+LaTeX: \centering
 #+begin_example
 [postgrad]
@@ -745,7 +1076,7 @@ Database = /mnt/seatdb/SEAT2008.mdb
 
 
 
-#+attr_latex: width=10em
+#+attr_latex: width=10em,placement=[H]
 #+CAPTION: Accessing the Postgraduate Database using MDB Tools ODBC
 #+LABEL: fig:mdbodbc
 #+BEGIN_DITAA postgrad_db_access -r -S -E
@@ -811,7 +1142,7 @@ does this
 
 
 
-#+attr_latex: width=10em
+#+attr_latex: width=10em,placement=[H]
 #+CAPTION: Accessing the Postgraduate Database using FreeTDS ODBC
 #+LABEL: fig:freetds
 #+BEGIN_DITAA postgrad_db_mssql -r -S -E
@@ -956,7 +1287,7 @@ users expect a quick response to queries, so I implemented it on the
 server side.  It was still slow, but faster than the javascript
 version.  (Diagrams needed of both systems used)
 
-#+attr_latex: width=10em
+#+attr_latex: width=10em,placement=[H]
 #+CAPTION: Determining the page content from the the client side using javascript
 #+LABEL: fig:clientside
 #+BEGIN_DITAA client-side -r -S -E
@@ -1017,15 +1348,31 @@ Django was chosen, as it is a python library, and we wanted to solve
 this problem in python.  The django framework is a kitchen sink
 approach, for web development with a model (show model diagram).
 
+"Django is a high-level Python Web framework that encourages rapid
+development and clean, pragmatic design." \cite{django1}
 
-Django uses the Model Template View (MTV) development pattern.
+"Django focuses on automating as much as possible and adhering to the
+DRY principle." \cite{django1}
+
+DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
+
+
+Django has some tutorials on how to write a Django application from
+scratch on line \cite{django1}.
+
+Django uses the Model Template View (MTV) development pattern shown in
+figure \ref{fig:mtv}.
  - M is the model which is the data access layer.
  - T is the templates which is the presentation layer.
  - V is the views which is the business logic layer.
 
-In the diagram in
+This is important in realising how this application has been
+designed.  You get the database (models) with all the data needed, you
+have the views, which process this data and turn it into information,
+which is then taken by the templates which decide how this information
+is going to be displayed and what is going to be displayed.
 
-#+attr_latex: width=10em
+#+attr_latex: width=10em,placement=[H]
 #+CAPTION: The Django model
 #+LABEL: fig:mtv
 #+BEGIN_DITAA  mtv_django -r -S -E
@@ -1051,7 +1398,61 @@ In the diagram in
    +-------+
 #+END_DITAA
 
-#+attr_latex: width=30em
+When Django was chosen, it was purely to save effort and time in the
+development of routines to handle the data.  It enables the creation
+of models, which are database entities, and handles the creation of
+the tables in the database for you and any queries, inserts and
+updates of this database.  It has a few official databases
+that it can work with, those being MySQL, PostGRESQL, PostGRESQL
+psycopg2, SQLLite and Oricle.  Others are available, but these are
+unofficial.  The database chosen was MySQL.
+
+To talk in Django terms, Django consists of a project, which contains
+all the configuration information for setting up you site, over
+several files. Within this project is one or more, what Django refers
+to as applications.
+
+"Projects vs. apps
+
+What's the difference between a project and an app? An app is a Web application that does something -- e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
+" \cite{django2}.
+
+The tables were designed on paper and implemented as Django Models. An
+example Model is shown in figure \ref{fig:model}.  Figure
+\ref{fig:model} will be turned into a table called db_adminrole.  This
+model was written in the db application, thus unless told otherwise,
+Django will prepend each models name with the aplication name to
+create the table name for a model.  The fields of this table will be
+title and hours, of types that as valid for the database engine used
+which reflect the data types defined in the model.  Since a primary
+key was not specified, one will be created and called id of integer
+type and if possible will be auto incrementing.  The title field will
+be a string type with a character length of 200, and it must be
+unique.
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+-----------------------------------------------------------
+#+begin_src python
+from django.db import models
+
+class AdminRole(models.Model):
+    title = models.CharField(max_length=200, unique=True)
+    hours = models.IntegerField()
+
+#+end_src
+#+LaTeX: \caption{\label{fig:model} An example django model}
+#+LaTeX: \end{figure}
+
+
+The Workload process is shown in figure \ref{fig:clusterdataflow}.
+The Cluster leaders input their changes.  This is done, over time,
+simultaneously.  Each cluster leader works on the papers that their
+staff members teach or coordinate on.  This all gets commited to the
+Workload database.  The manager then retrieves that data that was
+submitted by the cluster leaders.
+
+#+attr_latex: width=30em,placement=[H]
 #+CAPTION: The flow of workload data from Cluster leaders to the SEAT manager
 #+LABEL: fig:clusterdataflow
 #+BEGIN_DITAA cluster_leader_to_seat_manager -r -S -E
@@ -1095,7 +1496,19 @@ In the diagram in
 #+END_DITAA
 
 
-#+attr_latex: width=40em
+this Workload process is broken down into a flowchart shown in figure
+\ref{fig:workloadprocess}.  The data is entered by the cluster
+leaders.  They keep adjusting until they are all satisfied that it is
+correct.  This process involves the cluster pages shown in figure
+\ref{fig:clusterview} for the cluster leaders, and figure
+\ref{fig:clusterview2}.  The process refers mainly to the papers which
+have more than one cluster involved in them, as the different clusters
+could disagree on the details.  Once everyone is happy then the data
+is committed to the workload data, which is the original data that was
+worked on.  From there a report is viewed, which is the result of the
+changes.
+
+#+attr_latex: width=40em,placement=[H]
 #+CAPTION: The Workload data entry process
 #+LABEL: fig:workloadprocess
 [[./images/workload_process.png]]
@@ -1103,7 +1516,17 @@ In the diagram in
 
 
 **** Database and importing of data
-
+It has already been mentioned about where the data.  The original idea
+was that the data be retrieved from external databases.  One of these
+sources was the CoS database. Since there are security concerns on
+their part, it was not possible to fully develop a facility to do
+this.  The decision was made to drop the CoS database for the moment
+and just enter the data from existing available sources.  One of the
+most reliable sources was the existing Workload spreadsheet that this
+application is replacing.  This was a lengthy process that involved
+cutting pasting and reformatting of data, then converting to comma
+separated value files.  A set of import functions was created to
+handle these files, and the page in figure \ref{
 
 **** Feature choice
 **** Code optimisation
@@ -1179,7 +1602,7 @@ figure out how Gecode encodes CSP.
 In Figure \ref{fig:GecodeArch} The Gecode Model Archatechture you have
 3 layers, the Model, 
 
-#+ATTR_LaTeX: width=30em
+#+ATTR_LaTeX: width=30em,placement=[H]
 #+CAPTION: The Gecode Model Archatechture
 #+LABEL: fig:GecodeArch
 [[./images/gecode-model.png]]
@@ -1206,7 +1629,7 @@ used to create a leads to tree.  This tree is then used as the search
 space for the constraints satisfaction part.  The rules are based upon
 the minimum required papers to satisfy the degree requirements and the
 minimum to satisfy the major requirements.  
-#+attr_latex: width=30em
+#+attr_latex: width=30em,placement=[H]
 #+CAPTION: The decision process for determining programme selection options
 #+LABEL: fig:decisionprocess
 #+BEGIN_DITAA decision-process-diagram -r -S -E
@@ -1229,14 +1652,33 @@ minimum to satisfy the major requirements.
 |          |   |          |   | {io}cBLU    |  | {io} cBLU    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
-*** Web Representation
 *** Constraints Satisfaction
+
 *** Database use.
 *** Programming library choice
 *** Programming language choice
 ** Challenges
 *** Using python to run C++ code
-Python can import C libraries using ctypes and run C functions.
+Python can import C libraries using ctypes package and run C
+functions.  There are a lot of CSP libraries that are written in C or
+C++.  This is one method that can be used to use these libraries.
+Gecode is a C++ library, and it was seriously looked at how it can be
+used by python.
+
+A solution searcher must be written in C++, then compiled into a
+dynamic library which python can then load and run function from.  The
+problem with C++ is that it mangles the names of functions making it
+unusable by python as the code used to load this library was written
+to load C libraries.  This posses the question of how do you then use
+this C++ code.  Fortunately there has been a solution for a long
+time.  The 'extern "C"' can be used on blocks of code or functions to
+tell the C++ compiler not to mangle the names of the items in this
+block and thus enabling C code to use it.  Using this one can then
+write a C function that calls the C++ code that you want to run.  This
+in turn is accessible to the C import library, which is used by
+pythons ctypes package.
+
+
 *** How to represent and encode the problem
 
 
@@ -1246,3 +1688,5 @@ Conclusion is here
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
+
+# LocalWords:  prepend

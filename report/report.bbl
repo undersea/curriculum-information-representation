@@ -1,10 +1,19 @@
 \begin{thebibliography}{1}
 
+\bibitem{django1}
+Django.
+\newblock Accessed February, 2011 URL: \texttt{http://www.djangoproject.com/}.
+
 \bibitem{COBA01}
 Luis Catillo, Daniel Borrajo, Miguel~A. Salido, and Angelo Oddi, editors.
 \newblock {\em Planning, Scheduling and Constraint Satisfaction: From Theory to
   Practice}.
 \newblock IOS Press, Neuwe Henweg 6B, 1013 BG Amsterdam, The Netherlands, 2005.
+
+\bibitem{DRY1}
+Dont repeat yourself.
+\newblock Accessed February, 2011 URL:
+  \texttt{http://c2.com/cgi/wiki?DontRepeatYourself}.
 
 \bibitem{unixODBC}
 Martin J.~Evans <martin.evans~at easysoft.com>.
