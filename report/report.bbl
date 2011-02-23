@@ -11,9 +11,14 @@ Luis Catillo, Daniel Borrajo, Miguel~A. Salido, and Angelo Oddi, editors.
 \newblock IOS Press, Neuwe Henweg 6B, 1013 BG Amsterdam, The Netherlands, 2005.
 
 \bibitem{DRY1}
-Dont repeat yourself.
+Don't repeat yourself.
 \newblock Accessed February, 2011 URL:
   \texttt{http://c2.com/cgi/wiki?DontRepeatYourself}.
+
+\bibitem{django2}
+Writing your first django app, part 1.
+\newblock Accessed February, 2011, URL
+  \texttt{http://docs.djangoproject.com/en/1.2/intro/tutorial01/}.
 
 \bibitem{unixODBC}
 Martin J.~Evans <martin.evans~at easysoft.com>.
