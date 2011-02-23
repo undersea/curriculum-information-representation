@@ -24,13 +24,15 @@
 
 
 * Workload
-** The Problem
+
+** Introduction
 The application is replacing a spreadsheet, which required lots of
 input from various parties, and require collation of all these inputs
 into one spreadsheet.  We wanted a application which users could all
 input into one source, thus saving time and effort in collating the
 data. This was to take the form of a web application.
 
+** The Problem
 Workload is a measure of how many virtual hours each staff member is
 going to be doing for the coming year. The purpose of Workload is to
 spread the workload as fairly among the staff.  It is a artificial
@@ -57,12 +59,21 @@ The task is to create a application to take in:
 
 The original idea was to get the information from three sources.  The
 COS database, the Postgraduate database and a local MySQL database.
-The COS database it turned out was not directly available to me, as
-the College of Sciences security policy disallowed it.  The
-Postgraduate database is available, thanks to cooperation from Lisa
-Lightband, however it is in the form of a MS Access file.  The local
-MySQL database is the only one that can be counted upon at all times,
-as this is fully in the control of the Workload application.
+The CoS database would be used to populate the local databases with
+information on papers, and staff.  The Postgraduate database can
+provide information on the postgraduate supervision and be used to
+populate the requisite tables in the local database.  The reason for
+using a local database to store everything is a performance related
+issue.  It was felt that having to make repeated requests over a local
+intranet would be time consuming.  Also the having a local database or
+even just a single remote database would free up network resources.
+The COS database it turned out was not directly available to the
+application anyway, as the College of Sciences security policy
+disallowed it.  The Postgraduate database is available, thanks to
+cooperation from Lisa Lightband, however it is in the form of a MS
+Access file.  The local MySQL database is the only one that can be
+counted upon at all times, as this is fully in the control of the
+Workload application.
 
 
 The needed data is Academic Staff details, the papers they
@@ -85,10 +96,10 @@ relied upon.
 
 The database design then seemed like the best place to start, as this
 is what the entire application relies upon.  Therefore the design was
-undertaken, and the initial design, as shown in figure \ref{fig:db1}.
+undertaken, as shown in figure \ref{fig:db1}.
 
 It was decided that, since there is more than one offering of a paper,
-like different semesters, campus, mode like extramural, that there
+like different semesters, campus, mode, like extramural, that there
 should be a table which contains global information that applies to
 all instances.  This would be called Paper.  This would include things
 like, paper code, its title,number of points it is worth and who
@@ -105,11 +116,11 @@ entity of Enrolled was chosen.  The idea was that each year a new
 Enrolled instance was created for the offering.  This would provide
 historic data on this paper.  This was enabled by the use of a year
 field.  The year field was later abandoned, but the entity was kept.
-The reason being, the historical data would be stored by archiving the
-year, and having a year field only increased the complexity of the
+The reason for dropping the year field, was that the historical data would be stored by archiving the
+table.  This seemed like abetter option.  Having a year field only increased the complexity of the
 database, and was not needed in the end.  However the entity had
-already been created, and it was more effort than it was worth to
-integrate it into PaperExist.
+already been created, and to integrate it into PaperExist did not seem
+worth the effort.
 
 
 The Staff entity represented a academic staff member.  It provided a
@@ -179,53 +190,6 @@ instance as well as one to the Postgrad entity.
 [[./images/WorkloadDB1.png]]
 
 
-
-
-
-*** What it is that this application is replacing
-Currently a Excel spreadsheet is being used to store the input data
-and calculate and display the results.  The current solutions is to
-complex and needs a easier method for inputting the data.  The amount
-of data inputted is coming near to the limit of how much Excel can
-take.
-
-Currently cluster leaders put together the workload hour report for
-their cluster.  They then pass that information onto Glenda who then
-inputs the data into a spreadsheet application.  Micheal also compiles
-a report of the postgraduate hours for each staff member and sends
-this to Glenda who also puts this into the spreadsheet application.
-The entire process is time consuming and error prone, and mistakes
-can take a long time to be fixed.
-
-Figure \ref{fig:excel} shows a simplified view of the current process.
-Each cluster produces a list of their staff members roles, like how
-much of a paper they teach, who is the coordinators of papers.  These
-get sent to the manger who then inputs this data into a spreadsheet.
-At the same time a list of postgraduates is produced from the
-postgraduate database, which includes, who supervises them, and how
-much supervision the staff member in question supplies in the form of
-a percentage.  This also gets sent to the manager who inputs these
-into the spreadsheet. The spreadsheet does some calculations and
-produces a set of workload hours for each staff member.  These include
-a break down of what makes up this final number.
-
-The entire process is time consuming and tedious, also the spreadsheet
-is to complicated, and is reaching the maximum amount of data it will
-accept, and show results for.  My job is to replace this with a more
-robust application, which requires a lot less time and effort to
-produce the same results.
-
-#+attr_latex: width=30em,placement=[H]
-#+CAPTION: Simplified view of the existing process
-#+LABEL: fig:excel
-#+BEGIN_DITAA workload_process -r -S -E
-+---------------+          +-------------------+        +--------------+
-| Cluster Staff |          | Excel Spreadsheet |        | Postgraduate |
-| Roles         | -------> |                   | <----- | Supervision  |
-| {io}          |          | {s}               |        | {io}         |
-| cBLU          |          | c888              |        | cBLU         |
-+---------------+          +-------------------+        +--------------+
-#+END_DITAA
 
 *** How to represent it to users?
 It was decided to do this application as a web application.  This meant
@@ -1001,9 +965,7 @@ Cluster leaders should be able to alter
 *** How to represent it to users
 What do users respond best to and do you want to force them to install
 a programme on their computer or have it available anywhere on the intranet?
-*** Where do I get my data from and how do I store it
-What other technologies to I have to interact with and how can I
-minimise this interaction?
+*** Where do I get my data from and what technical problems do I face?
 
 The problem that is being faced here is several things.  The biggest
 problem is what are you allowed to access?  If one of the sources uses
@@ -1011,19 +973,13 @@ a different technology, how can you interact with this technology to
 extract the data that you need?  Are there any changes that need to
 take place to enable you to use that source, on the sources end?
 
-Politics plays a important part in determining what you can get access
-to.  If someone disagrees with what you want, and they have the power
-to deny you, then you will hit a brick wall.  The only source of data
-that you can count on is the data that is inputted via the programme.  
-
-
 The Postgraduate database is a MS Access database, which is a Windows
-only product and the application is being run on a Linux CentOS
-server.  I have to be able to access this from Linux, and that is not
-easy.  I did some searching and found various unhelpful dead ends,
-when I came across this post on unixODBC-support
-\cite{unixODBC} form.  The information I got was that there
-are three ways of doing this.
+only product and the application itself, is being run on a Linux CentOS
+server.  I have to be able to access the Postgraduate MS Access file
+data from Linux, but it is not easy.  I did some searching and found
+various unhelpful dead ends, until I came across this post on the
+unixODBC-support \cite{unixODBC} form.  The information I got was that
+there are three ways to get data from a MS Access database file from linux.
  1) Share the folder containing the MS Access file and access it using MDBTools
  2) Create a link from a MS SQL Server to the MS Access file and use a
     MS SQL Server ODBC driver.
@@ -1033,18 +989,22 @@ are three ways of doing this.
     server.
 
 
-**** What functionality do I implement
+*** What functionality do I implement
 The original idea was to use data from other databases found around
 Massey to fill the Workload database tables.  It was supposed to be
 directly imported by the application.  The proved to be difficult,
 due to security concerns.  Massey is reluctant to allow access to
-data directly.  There was to be two databases used, on being the COS
+data directly.  There was to be two databases used, on being the CoS
 database and the other was the Postgraduate database. Direct access to
-the COS database has so far been denied, however I have not pushed the
+the CoS database has so far been denied, however I have not pushed the
 issue, as this is a situation I individually can't do anything about.
 I therefore decided to use csv imports instead. Each csv file
 represents a table in the Workload database, how the files are created
-is not my concern.  I know they can be created.
+is not my concern.  The way I did it was to extract the relavant rows
+from the spreadsheet and turn these entries into csv files.  I did one
+for staff, papers, teaching allocations and enrollments.  I then
+imported the staff followed by the papers followed by teaching
+allocations then finally enrollments.
 
 Access to the Postgraduate database file is possible, the problem is
 it is a MS Access database file.  I am running the application on a
@@ -1112,7 +1072,12 @@ Database = /mnt/seatdb/SEAT2008.mdb
 #+LaTeX: \caption{\label{fig:odbc} odbc.ini}
 #+LaTeX: \end{figure}
 
-
+There is a package for python to allow python to use odbc called
+pyodbc.  This package is not perfect and the source code for this
+package had to be edited to get it to work for this application, but
+it did save time by implementing the odbc calls for us, it was just
+getting values from the database which made sense that was causing the
+problems. The connection layers are shown in figure \ref{fig:mdbodbc}.
 
 
 #+attr_latex: width=10em,placement=[H]
@@ -1168,16 +1133,19 @@ The mounting of the Samba share is a risky move.  You are relying on
 the connection being maintained.  This cannot be counted upon and if
 the connection is lost, the application may not know this, and will
 fall down when it does try.  There is no way for it to reconnect under
-the environment that it is installed on.  However connecting to the
-database via tcp to a MSSQL server, would not have these problems.
+the environment that it is installed on.  The network policy of the
+administrator for the server it is to be run on does not want to give
+the application the ability to mount shares.  However connecting to the
+database via tcp to a MS SQL or ODBC server, would not have these problems.
 This would also eliminate the dependency on MDB Tools, removing a
 possible fail point.  It does not overcome connection problems like if
 the server goes down, but if something goes wrong, the application may
 be able to remedy the situation by trying again.
 Since this involves having to mount a samba share and then access the
-DB file it was suggested that I connect to it via MSSQL.  Then speak
-to it in SQL avoiding the extra step of using MDB Tools.  Not only
-does this
+DB file it was suggested that I connect to it via MS SQL.  Then speak
+to it in SQL avoiding the extra step of using MDB Tools.  The new
+connection layer is shown in figure \ref{fig:freetds} using FreeTDS
+which can directly talk to a MS SQL server.
 
 
 
@@ -1229,9 +1197,6 @@ does this
 #+END_DITAA
 
 
-To get this to work I had to modify the pyodbc module code.  It was
-returning the wrong values for integer and double values, and the text
-had unwanted characters at the end of the strings returned.
 
 
 There are 3 views or users of this system.
@@ -1555,7 +1520,7 @@ changes.
 
 
 **** Database and importing of data
-It has already been mentioned about where the data.  The original idea
+It has already been mentioned about where the data comes from.  The original idea
 was that the data be retrieved from external databases.  One of these
 sources was the CoS database. Since there are security concerns on
 their part, it was not possible to fully develop a facility to do
@@ -1565,7 +1530,14 @@ most reliable sources was the existing Workload spreadsheet that this
 application is replacing.  This was a lengthy process that involved
 cutting pasting and reformatting of data, then converting to comma
 separated value files.  A set of import functions was created to
-handle these files, and the page in figure \ref{
+handle these files, and the page in figure \ref{fig:import}
+
+#+attr_latex: width=30em,placement=[H]
+#+CAPTION: The data csv file upload page
+#+LABEL: fig:import
+[[./images/admin_upload_data.png]]
+
+
 
 **** Feature choice
 **** Code optimisation
@@ -1725,7 +1697,20 @@ pythons ctypes package.
 ** Conclusion
 Conclusion is here
 
+# check spelling
+* Acknowledgments
+ I would like to thank these people for their help
+ + Stephen Marsland
+ + Hans Guesgen
+ + Glenda Kirk
+ + Michelle Wagnar
+ + Patrick Rynhart
+ + Hubb Bakar
+ + Giovanni Moretti
+ + Lisa Lightband
+ 
+
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
-# LocalWords:  prepend
+# LocalWords:  prepend Bakar
