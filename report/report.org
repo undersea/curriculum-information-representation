@@ -842,6 +842,33 @@ they use breadcrumbs, the rest of the site does not.
 [[./images/password_change.png]]
 
 
+If a normal staff member, logs in they get a report on their
+individual workload hours.  This is broken down into the components
+that make up the workload hours.  This is shown in figure
+\ref{fig:staffreport}.  They are broken into the hours gained from
+coordinating and teaching papers, with a total of the hours gained
+from the papers the staff member is involved in.  The hours for
+supervising postgraduates, including the postgraduates details and is
+and how many hours they get for each student and a total for all
+postgraduates supervised.  Last of all the hours gained from
+administration jobs is given, with a breakdown of what the jobs are a
+description, if one is given, and the hours gained for this role.  The
+total for all the administration roles is given at the end.  At the
+very bottom is the total workload hours for the staff member.  The aim
+of this page, is to allow the staff member to check to see if their
+details and hours are correct.  They ca change some of their personal
+details by clicking on the element and typing in the changes in the
+text b field that appears, and when they move the mouse out of the
+filed, it reverts back to what it was, a <span> element, and update
+their details on the database through a ajax connection. First and
+last name, their cluster and the campus they are attached to can be
+edited on this page.  This page is viewable by others, and if you are
+a administrator or cluster leader, you can also edit their FTE and class.
+This is a feature that was not available in the old spreadsheet
+system.  There is also a link to the page to view other staff members
+workload hours, which is the same view shown in figure
+\ref{fig:staffreport}
+
 #+CAPTION: The staff report page
 #+LABEL: fig:staffreport
 #+attr_latex: width=30em,placement=[H]
