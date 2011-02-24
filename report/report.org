@@ -25,12 +25,22 @@
 
 * Workload
 
+
+
+
+
 ** Introduction
 The application is replacing a spreadsheet, which required lots of
 input from various parties, and require collation of all these inputs
 into one spreadsheet.  We wanted a application which users could all
 input into one source, thus saving time and effort in collating the
 data. This was to take the form of a web application.
+
+
+For SEAT Management to more efficiently do their job they would
+benefit from a application which streamlines the data input process
+and minimises the amount of intervention that is needed to produce the
+required reports.  I planned to remove a few steps from this process.
 
 ** The Problem
 Workload is a measure of how many virtual hours each staff member is
@@ -191,7 +201,7 @@ instance as well as one to the Postgrad entity.
 
 
 
-*** How to represent it to users?
+*** How to represent it to users2?
 It was decided to do this application as a web application.  This meant
 it could be OS independent, as far as the person who was accessing it
 is concerned, don't have to worry about installing it on many
@@ -200,7 +210,7 @@ and javascript enabled.   The downside is that the different browsers
 behave differently to each other in terms of how they display things
 and what they are capable of running.
 
-
+**** The Prototype
 A prototype was asked for, and the prototype was developed purely in
 html, css and javascript.  All the data needed was store as javascript
 objects.
@@ -312,9 +322,7 @@ get a users details listed, shown in figure \ref{fig:userpage}.
 [[./images/prototype/user_details.png]]
 
 
-It could also be used as a tool to indicate where resources are needed
-the most, if a extra staff member is needed.
-
+**** Prototype implementation and changes undertaken
 
 The first iteration of the Workload application was created, based
 upon the prototype.  A few changes were made, like in the staff list
@@ -521,11 +529,6 @@ this degree.
 
 Figure \ref{fig:progmajor2} show the add major page, which is
 similar to add a degree, except this is for a major.
-
-
-
-
-
 
 
 With all these dialogs for creating a new programme of study, there are
@@ -837,135 +840,7 @@ workload hours, which is the same view shown in figure
 #+LABEL: fig:staffreport
 #+attr_latex: width=30em,placement=[H]
 [[./images/staff_workload_report.png]]
-
-
-
-
-
-*** How can a application be more flexible than the spreadsheet solution
-What do we mean by flexible?  What form can this take and why should
-we do this?
-
-For SEAT Management to more efficiently do their job they would
-benefit from a application which streamlines the data input process
-and minimises the amount of intervention that is needed to produce the
-required reports.  I planned to remove a few steps from this process.
-
-** Challenges
-*** What question do you ask first?
-*** What methods of development do I use?
-Is there one which suits a individual best?  How does one keep
-themselves motivated?  Do you use a version control system?  What
-system and does it matter?
-
-
-Produced a prototype of the application in html, css and javascript.
-Was not the optimal choice, but it demonstrated my initial ideas.  I
-then took this prototype and showed it to Glenda, Stephen and Hans,
-who approved of it.  I then went ahead and implemented it in python,
-using the django framework, along with some javascript, and css
-styling.
-
-*** What programming platform do I use?
-What language and does it matter?  Which works best for the scenario I
-choose?  Is a compiled system a good choice?
-
-This is a critical question.  The key points you should be looking at
-is
- - What is the target OS and thus what resources do you have
-   available?
- - If the resource is missing, can it be added?
- - Can the features required of this application be satisfied by the
-   chosen platform?
-
-The programming language chosen to do this application is Python.  It
-is to be a web served application, running under a Unix environment,
-running Apache web server.  Apache has modules that allow it to run
-python code. There are various other http servers that can serve
-python scripts.  The main one that has been used for this application
-is Apache running mod_wsgi. In figure \ref{fig:wsgi} is the wsgi
-script that has been used to run this Django application. In figure
-\ref{fig:apache} is the apache set up for mod_wsgi.
-
-#+LaTeX: \begin{figure}[H]
-#+LaTeX: \centering
-#+begin_example
-
-<IfDefine WSGI>
-LoadModule wsgi_module modules/mod_wsgi.so
-
-WSGIScriptAlias / /var/www/localhost/wsgi/workload.wsgi
-
-<Directory /var/www/localhost/wsgi>
-Options ExecCGI MultiViews
-MultiviewsMatch Handlers
-
-AddHandler cgi-script .cgi
-AddHandler wsgi-script .wsgi
-
-Order allow,deny
-Allow from all
-</Directory>
-
-</IfDefine>
-
-#+end_example
-#+LaTeX: \caption{\label{fig:apache} A example of the apache config file for setting up the mod_wsgi module to run as the sole application on this server}
-#+LaTeX: \end{figure}
-
-
-
-#+LaTeX: \begin{figure}[H]
-#+LaTeX: \centering
------------------------------------------------------------
-#+begin_src python
-import os, sys
-
-#find the root directory which this script is in
-ROOT=os.path.dirname(__file__)
-
-#append that to the path which python uses to find modules
-sys.path.append(ROOT)
-
-#set the environment variable which tells Django where to find its all
-#important settings module
-os.environ['DJANGO_SETTINGS_MODULE']='workload.settings'
-
-#import the django needed module
-import django.core.handlers.wsgi
-
-#create the wsgi application from the Django wsgi handlers
-application = django.core.handlers.wsgi.WSGIHandler()
-#+end_src
------------------------------------------------------------
-#+LaTeX: \caption{\label{fig:wsgi} A example of a wsgi script used by Apache mod_wsgi to run this Django application}
-#+LaTeX: \end{figure}
-
-WSGI is not the only way to run Django applications, it could be run
-from within a jython environment, using FastCGI and more.  As long as
-the web server can run python, a django application can be deployed on it.
-
-*** Django
-**** What is Django
-Django is a python web framework.  It is a 
-**** What are it features that are used by this application
-
-*** Where is it going to be deployed?
-This is important, as it decides what options are available to you and
-poses its own challenges.
-*** Security
-How important is security, and how doe you overcome these problems?
-
-Security seems to be a concern.  The only ones who should be able to
-access the data produced by this application are academic staff, and managers
-and cluster leaders. The Workload of other academic staff, should be
-visible to each other.  Academic staff should only be able to view
-data, and alter their personal information, but not anything else.
-Cluster leaders should be able to alter
-*** How to represent it to users
-What do users respond best to and do you want to force them to install
-a programme on their computer or have it available anywhere on the intranet?
-*** Where do I get my data from and what technical problems do I face?
+** Where do I get my data from and what technical problems do I face?
 
 The problem that is being faced here is several things.  The biggest
 problem is what are you allowed to access?  If one of the sources uses
@@ -989,6 +864,219 @@ there are three ways to get data from a MS Access database file from linux.
     server.
 
 
+**** Security
+While it is an issue is not a high priority.  We have been
+given the impression that the staff in SEAT are open about the hours
+they have done, and honest.  The restrictions that have been imposed
+are those of write access.  Administrators get access to everything,
+Staff get to only view the results, and cluster leaders get to only
+alter the parts that are relevant to their cluster.
+
+**** Method of development
+Web based application developed in python using the django framework.
+Needs to be able to run in a web server environment.  Apache is being
+used, with the module wsgi. mod_python could also be used, but
+development and support for mod_python doesn't exist anymore, and wsgi
+is recommended anyway.
+**** Deploying the application
+Theoretically it could be deployed on any OS which has a web server
+that can run python. However it was decided to run it on a Centos
+Server under the SEAT domain.
+
+**** Framework choice
+Django was chosen, as it is a python library, and we wanted to solve
+this problem in python.  The django framework is a kitchen sink
+approach, for web development with a model (show model diagram).
+
+"Django is a high-level Python Web framework that encourages rapid
+development and clean, pragmatic design." \cite{django1}
+
+"Django focuses on automating as much as possible and adhering to the
+DRY principle." \cite{django1}
+
+DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
+
+
+Django has some tutorials on how to write a Django application from
+scratch on line \cite{django1}.
+
+Django uses the Model Template View (MTV) development pattern shown in
+figure \ref{fig:mtv}.
+ - M is the model which is the data access layer.
+ - T is the templates which is the presentation layer.
+ - V is the views which is the business logic layer.
+
+This is important in realising how this application has been
+designed.  You get the database (models) with all the data needed, you
+have the views, which process this data and turn it into information,
+which is then taken by the templates which decide how this information
+is going to be displayed and what is going to be displayed.
+
+#+attr_latex: width=10em,placement=[H]
+#+CAPTION: The Django model
+#+LABEL: fig:mtv
+#+BEGIN_DITAA  mtv_django -r -S -E
+ +----------+
+ | {d}      |
+ | Template |
+ | cC02     |
+ +-----+----+
+       ^
+       |
+   +---+--+
+   | {io} |
+   | View |
+   | cBLU |
+   +---+--+
+       ^
+       |
+       |
+   +---+---+
+   | {s}   |
+   | Model |
+   | c888  |
+   +-------+
+#+END_DITAA
+
+When Django was chosen, it was purely to save effort and time in the
+development of routines to handle the data.  It enables the creation
+of models, which are database entities, and handles the creation of
+the tables in the database for you and any queries, inserts and
+updates of this database.  It has a few official databases
+that it can work with, those being MySQL, PostGRESQL, PostGRESQL
+psycopg2, SQLLite and Oricle.  Others are available, but these are
+unofficial.  The database chosen was MySQL.
+
+To talk in Django terms, Django consists of a project, which contains
+all the configuration information for setting up you site, over
+several files. Within this project is one or more, what Django refers
+to as applications.
+
+"Projects vs. apps
+
+What's the difference between a project and an app? An app is a Web application that does something -- e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
+" \cite{django2}.
+
+The tables were designed on paper and implemented as Django Models. An
+example Model is shown in figure \ref{fig:model}.  Figure
+\ref{fig:model} will be turned into a table called db_adminrole.  This
+model was written in the db application, thus unless told otherwise,
+Django will prepend each models name with the aplication name to
+create the table name for a model.  The fields of this table will be
+title and hours, of types that as valid for the database engine used
+which reflect the data types defined in the model.  Since a primary
+key was not specified, one will be created and called id of integer
+type and if possible will be auto incrementing.  The title field will
+be a string type with a character length of 200, and it must be
+unique.
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+-----------------------------------------------------------
+#+begin_src python
+from django.db import models
+
+class AdminRole(models.Model):
+    title = models.CharField(max_length=200, unique=True)
+    hours = models.IntegerField()
+
+#+end_src
+#+LaTeX: \caption{\label{fig:model} An example django model}
+#+LaTeX: \end{figure}
+
+
+The Workload process is shown in figure \ref{fig:clusterdataflow}.
+The Cluster leaders input their changes.  This is done, over time,
+simultaneously.  Each cluster leader works on the papers that their
+staff members teach or coordinate on.  This all gets commited to the
+Workload database.  The manager then retrieves that data that was
+submitted by the cluster leaders.
+
+#+attr_latex: width=30em,placement=[H]
+#+CAPTION: The flow of workload data from Cluster leaders to the SEAT manager
+#+LABEL: fig:clusterdataflow
+#+BEGIN_DITAA cluster_leader_to_seat_manager -r -S -E
+
+ +---------+       +---------+
+ | Cluster |       | Cluster |
+ | Leader  +------>+ Leader  +------------------+
+ | {d}     |       | View    |                  |
+ | cC02    |       | {io}cBLU|                  |
+ +---------+       +---------+                  |
+                                                |
+                                                |
+                                                |
+ +---------+       +---------+                  V
+ | Cluster |       | Cluster |             +----+-----+
+ | Leader  +------>+ Leader  +------------>+ Workload |
+ | {d}     |       | View    |             | DB       |
+ | cC02    |       | {io}cBLU|             | c888     |
+ +---------+       +---------+        +--->+ {s}      |
+                                      |    +----------+
+ +---------+       +---------+        |          |
+ | Cluster |       | Cluster |        |          |
+ | Leader  +------>+ Leader  +--------+          |
+ | {d}     |       | View    |        |          |
+ | cC02    |       | {io}cBLU|        |          V
+ +---------+       +---------+        |      +---+-----+
+     .                 .              |      | Manager |
+     .                 .              |      | View    |
+     .                 .              |      |{io}cBLU |
+     .                 .              |      +---+-----+
+     .                 .              |          |
+ +---------+       +---------+        |          |
+ | Cluster |       | Cluster |        |          |
+ | Leader  +------>+ Leader  +--------+          |
+ | {d}     |       | View    |                   V
+ | cC02    |       |{io}cBLU |               +---+-----+
+ +---------+       +---------+               | Manager |
+                                             | {d}     |
+                                             | cC02    |
+                                             +---------+
+#+END_DITAA
+
+
+this Workload process is broken down into a flowchart shown in figure
+\ref{fig:workloadprocess}.  The data is entered by the cluster
+leaders.  They keep adjusting until they are all satisfied that it is
+correct.  This process involves the cluster pages shown in figure
+\ref{fig:clusterview} for the cluster leaders, and figure
+\ref{fig:clusterview2}.  The process refers mainly to the papers which
+have more than one cluster involved in them, as the different clusters
+could disagree on the details.  Once everyone is happy then the data
+is committed to the workload data, which is the original data that was
+worked on.  From there a report is viewed, which is the result of the
+changes.
+
+#+attr_latex: width=40em,placement=[H]
+#+CAPTION: The Workload data entry process
+#+LABEL: fig:workloadprocess
+[[./images/workload_process.png]]
+
+
+
+**** Database and importing of data
+It has already been mentioned about where the data comes from.  The original idea
+was that the data be retrieved from external databases.  One of these
+sources was the CoS database. Since there are security concerns on
+their part, it was not possible to fully develop a facility to do
+this.  The decision was made to drop the CoS database for the moment
+and just enter the data from existing available sources.  One of the
+most reliable sources was the existing Workload spreadsheet that this
+application is replacing.  This was a lengthy process that involved
+cutting pasting and reformatting of data, then converting to comma
+separated value files.  A set of import functions was created to
+handle these files, and the page in figure \ref{fig:import}
+
+#+attr_latex: width=30em,placement=[H]
+#+CAPTION: The data csv file upload page
+#+LABEL: fig:import
+[[./images/admin_upload_data.png]]
+
+
+
+**** Feature choice
+**** Code optimisation
 *** What functionality do I implement
 The original idea was to use data from other databases found around
 Massey to fill the Workload database tables.  It was supposed to be
@@ -1326,223 +1414,109 @@ version.  (Diagrams needed of both systems used)
 #+END_DITAA
 
 *** Solutions
-**** Method of development
-Web based application developed in python using the django framework.
-Needs to be able to run in a web server environment.  Apache is being
-used, with the module wsgi. mod_python could also be used, but
-development and support for mod_python doesn't exist anymore, and wsgi
-is recommended anyway.
-**** Deploying the application
-Theoretically it could be deployed on any OS which has a web server
-that can run python. However it was decided to run it on a Centos
-Server under the SEAT domain.
-**** Security
-While it is an issue is not a high priority.  We have been
-given the impression that the staff in SEAT are open about the hours
-they have done, and honest.  The restriction I imposed are those of
-write access.  Administrators get access to everything, Staff get to
-only view the results, and cluster leaders get to only alter the parts
-that are relevant to their cluster.
+*** Conclusion
+
+** Challenges
+*** What methods of development do I use?
+Is there one which suits a individual best?  How does one keep
+themselves motivated?  Do you use a version control system?  What
+system and does it matter?
 
 
+Produced a prototype of the application in html, css and javascript.
+Was not the optimal choice, but it demonstrated my initial ideas.  I
+then took this prototype and showed it to Glenda, Stephen and Hans,
+who approved of it.  I then went ahead and implemented it in python,
+using the django framework, along with some javascript, and css
+styling.
+
+*** What programming platform do I use?
+What language and does it matter?  Which works best for the scenario I
+choose?  Is a compiled system a good choice?
+
+This is a critical question.  The key points you should be looking at
+is
+ - What is the target OS and thus what resources do you have
+   available?
+ - If the resource is missing, can it be added?
+ - Can the features required of this application be satisfied by the
+   chosen platform?
+
+The programming language chosen to do this application is Python.  It
+is to be a web served application, running under a Unix environment,
+running Apache web server.  Apache has modules that allow it to run
+python code. There are various other http servers that can serve
+python scripts.  The main one that has been used for this application
+is Apache running mod_wsgi. In figure \ref{fig:wsgi} is the wsgi
+script that has been used to run this Django application. In figure
+\ref{fig:apache} is the apache set up for mod_wsgi.
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+begin_example
+
+<IfDefine WSGI>
+LoadModule wsgi_module modules/mod_wsgi.so
+
+WSGIScriptAlias / /var/www/localhost/wsgi/workload.wsgi
+
+<Directory /var/www/localhost/wsgi>
+Options ExecCGI MultiViews
+MultiviewsMatch Handlers
+
+AddHandler cgi-script .cgi
+AddHandler wsgi-script .wsgi
+
+Order allow,deny
+Allow from all
+</Directory>
+
+</IfDefine>
+
+#+end_example
+#+LaTeX: \caption{\label{fig:apache} A example of the apache config file for setting up the mod_wsgi module to run as the sole application on this server}
+#+LaTeX: \end{figure}
 
 
-**** Framework choice
-Django was chosen, as it is a python library, and we wanted to solve
-this problem in python.  The django framework is a kitchen sink
-approach, for web development with a model (show model diagram).
-
-"Django is a high-level Python Web framework that encourages rapid
-development and clean, pragmatic design." \cite{django1}
-
-"Django focuses on automating as much as possible and adhering to the
-DRY principle." \cite{django1}
-
-DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
-
-
-Django has some tutorials on how to write a Django application from
-scratch on line \cite{django1}.
-
-Django uses the Model Template View (MTV) development pattern shown in
-figure \ref{fig:mtv}.
- - M is the model which is the data access layer.
- - T is the templates which is the presentation layer.
- - V is the views which is the business logic layer.
-
-This is important in realising how this application has been
-designed.  You get the database (models) with all the data needed, you
-have the views, which process this data and turn it into information,
-which is then taken by the templates which decide how this information
-is going to be displayed and what is going to be displayed.
-
-#+attr_latex: width=10em,placement=[H]
-#+CAPTION: The Django model
-#+LABEL: fig:mtv
-#+BEGIN_DITAA  mtv_django -r -S -E
- +----------+
- | {d}      |
- | Template |
- | cC02     |
- +-----+----+
-       ^
-       |
-   +---+--+
-   | {io} |
-   | View |
-   | cBLU |
-   +---+--+
-       ^
-       |
-       |
-   +---+---+
-   | {s}   |
-   | Model |
-   | c888  |
-   +-------+
-#+END_DITAA
-
-When Django was chosen, it was purely to save effort and time in the
-development of routines to handle the data.  It enables the creation
-of models, which are database entities, and handles the creation of
-the tables in the database for you and any queries, inserts and
-updates of this database.  It has a few official databases
-that it can work with, those being MySQL, PostGRESQL, PostGRESQL
-psycopg2, SQLLite and Oricle.  Others are available, but these are
-unofficial.  The database chosen was MySQL.
-
-To talk in Django terms, Django consists of a project, which contains
-all the configuration information for setting up you site, over
-several files. Within this project is one or more, what Django refers
-to as applications.
-
-"Projects vs. apps
-
-What's the difference between a project and an app? An app is a Web application that does something -- e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
-" \cite{django2}.
-
-The tables were designed on paper and implemented as Django Models. An
-example Model is shown in figure \ref{fig:model}.  Figure
-\ref{fig:model} will be turned into a table called db_adminrole.  This
-model was written in the db application, thus unless told otherwise,
-Django will prepend each models name with the aplication name to
-create the table name for a model.  The fields of this table will be
-title and hours, of types that as valid for the database engine used
-which reflect the data types defined in the model.  Since a primary
-key was not specified, one will be created and called id of integer
-type and if possible will be auto incrementing.  The title field will
-be a string type with a character length of 200, and it must be
-unique.
 
 #+LaTeX: \begin{figure}[H]
 #+LaTeX: \centering
 -----------------------------------------------------------
 #+begin_src python
-from django.db import models
+import os, sys
 
-class AdminRole(models.Model):
-    title = models.CharField(max_length=200, unique=True)
-    hours = models.IntegerField()
+#find the root directory which this script is in
+ROOT=os.path.dirname(__file__)
 
+#append that to the path which python uses to find modules
+sys.path.append(ROOT)
+
+#set the environment variable which tells Django where to find its all
+#important settings module
+os.environ['DJANGO_SETTINGS_MODULE']='workload.settings'
+
+#import the django needed module
+import django.core.handlers.wsgi
+
+#create the wsgi application from the Django wsgi handlers
+application = django.core.handlers.wsgi.WSGIHandler()
 #+end_src
-#+LaTeX: \caption{\label{fig:model} An example django model}
+-----------------------------------------------------------
+#+LaTeX: \caption{\label{fig:wsgi} A example of a wsgi script used by Apache mod_wsgi to run this Django application}
 #+LaTeX: \end{figure}
 
+WSGI is not the only way to run Django applications, it could be run
+from within a jython environment, using FastCGI and more.  As long as
+the web server can run python, a django application can be deployed on it.
 
-The Workload process is shown in figure \ref{fig:clusterdataflow}.
-The Cluster leaders input their changes.  This is done, over time,
-simultaneously.  Each cluster leader works on the papers that their
-staff members teach or coordinate on.  This all gets commited to the
-Workload database.  The manager then retrieves that data that was
-submitted by the cluster leaders.
+*** Django
+**** What is Django
+Django is a python web framework.  It is a 
+**** What are it features that are used by this application
 
-#+attr_latex: width=30em,placement=[H]
-#+CAPTION: The flow of workload data from Cluster leaders to the SEAT manager
-#+LABEL: fig:clusterdataflow
-#+BEGIN_DITAA cluster_leader_to_seat_manager -r -S -E
-
- +---------+       +---------+
- | Cluster |       | Cluster |
- | Leader  +------>+ Leader  +------------------+
- | {d}     |       | View    |                  |
- | cC02    |       | {io}cBLU|                  |
- +---------+       +---------+                  |
-                                                |
-                                                |
-                                                |
- +---------+       +---------+                  V
- | Cluster |       | Cluster |             +----+-----+
- | Leader  +------>+ Leader  +------------>+ Workload |
- | {d}     |       | View    |             | DB       |
- | cC02    |       | {io}cBLU|             | c888     |
- +---------+       +---------+        +--->+ {s}      |
-                                      |    +----------+
- +---------+       +---------+        |          |
- | Cluster |       | Cluster |        |          |
- | Leader  +------>+ Leader  +--------+          |
- | {d}     |       | View    |        |          |
- | cC02    |       | {io}cBLU|        |          V
- +---------+       +---------+        |      +---+-----+
-     .                 .              |      | Manager |
-     .                 .              |      | View    |
-     .                 .              |      |{io}cBLU |
-     .                 .              |      +---+-----+
-     .                 .              |          |
- +---------+       +---------+        |          |
- | Cluster |       | Cluster |        |          |
- | Leader  +------>+ Leader  +--------+          |
- | {d}     |       | View    |                   V
- | cC02    |       |{io}cBLU |               +---+-----+
- +---------+       +---------+               | Manager |
-                                             | {d}     |
-                                             | cC02    |
-                                             +---------+
-#+END_DITAA
-
-
-this Workload process is broken down into a flowchart shown in figure
-\ref{fig:workloadprocess}.  The data is entered by the cluster
-leaders.  They keep adjusting until they are all satisfied that it is
-correct.  This process involves the cluster pages shown in figure
-\ref{fig:clusterview} for the cluster leaders, and figure
-\ref{fig:clusterview2}.  The process refers mainly to the papers which
-have more than one cluster involved in them, as the different clusters
-could disagree on the details.  Once everyone is happy then the data
-is committed to the workload data, which is the original data that was
-worked on.  From there a report is viewed, which is the result of the
-changes.
-
-#+attr_latex: width=40em,placement=[H]
-#+CAPTION: The Workload data entry process
-#+LABEL: fig:workloadprocess
-[[./images/workload_process.png]]
-
-
-
-**** Database and importing of data
-It has already been mentioned about where the data comes from.  The original idea
-was that the data be retrieved from external databases.  One of these
-sources was the CoS database. Since there are security concerns on
-their part, it was not possible to fully develop a facility to do
-this.  The decision was made to drop the CoS database for the moment
-and just enter the data from existing available sources.  One of the
-most reliable sources was the existing Workload spreadsheet that this
-application is replacing.  This was a lengthy process that involved
-cutting pasting and reformatting of data, then converting to comma
-separated value files.  A set of import functions was created to
-handle these files, and the page in figure \ref{fig:import}
-
-#+attr_latex: width=30em,placement=[H]
-#+CAPTION: The data csv file upload page
-#+LABEL: fig:import
-[[./images/admin_upload_data.png]]
-
-
-
-**** Feature choice
-**** Code optimisation
-*** Conclusion
-
+*** Where is it going to be deployed?
+This is important, as it decides what options are available to you and
+poses its own challenges.
 
 
 * Paper Planner
