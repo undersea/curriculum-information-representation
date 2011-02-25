@@ -5,8 +5,8 @@
 #+DESCRIPTION: 
 #+KEYWORDS: 
 #+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -48,21 +48,88 @@ a set of predetermined metrics.
 
 The task is to create a application to take in:
 
-+ For each paper offered
+- For each paper offered
 
   + For each person teaching this paper how much of the paper they
     are teaching.
   + who the global coordinator is
   + who the local coordinator is
 
-+ The Admin roles for each of the members of staff and how much
+- The Admin roles for each of the members of staff and how much
   the admin roles are worth in Workload hours.
-+ For each staff
+- For each staff
   + Which postgraduate they are supervising
     + how much supervision in percentage terms they are giving
     + Given that each postgraduate degree is worth different hours
       + What percentage of supervision they give and thus how many of
         those hours do they get.
+
+** The process
+The problem was described as each staff member has various jobs and
+responsibilities.  For each of these jobs and responsibilities they
+get awarded Workload hours, based upon a formula.  The way in which
+Workload hours are assigned was described in a word document called
+"Standard Hours Formula (Amended January 2006)."  This gave a formula
+for calculating standard hours for a paper shown in figure
+\ref{fig:formula}.  A table was also provided which gave the
+coefficients for each teaching input shown in table \ref{table:coefficients}.
+
+#+BEGIN_LATEX
+\begin{figure}
+#+END_LATEX
+#+begin_example
+Standard Hours = Intercept*paper points/12.5  
+                 + (Slope*no. of students)
+                 - (144/no. of students)  
+#+end_example
+#+BEGIN_LATEX
+\caption{\label{fig:formula} The standard hours formula used to
+calculate a standard hour component}
+\end{figure}
+#+END_LATEX
+
+
+#+CAPTION: Coefficients table
+#+LABEL: table:coefficients
+|---------------------+--------+-----------+-------|
+| Input               | Points | Intercept | Slope |
+|---------------------+--------+-----------+-------|
+| Undergraduate paper |   12.5 |     287.5 |     4 |
+| Project paper       |     25 |         0 |    50 |
+| Honours project     |     25 |         0 |    50 |
+| DipApplSc           |     25 |         0 |    50 |
+| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
+| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
+| PhD (1st Sup)       |    100 |         0 |   100 |
+| PhD (2nd Sup)       |    100 |         0 |    50 |
+|---------------------+--------+-----------+-------|
+
+
+
+
+There is also the spreadsheet used called "Std\_hrs\_2010\_14.xlsx."
+This gave a example of what numbers should be produced for each of the
+papers given the number of enrolled.  The formula application was to
+complex to use except as a way of checking the answers when applying
+the formula to a given paper, or any of the other components that are
+used to create the total Workload hours for each member of staff.
+when the formula in figure \ref{fig:formula} using the coefficients
+found in table \ref{table:coefficients} was applied to a undergraduate
+paper using the number of students enrolled that year and the paper
+points from that paper, the answer did not agree with the answer seen
+in the spreadsheet.  After a while it was realised that the reason
+they were not agreeing was that the formula in figure
+\ref{fig:formula} is out of date.  When this document "Standard Hours
+Formula (Amended January 2006)" was written in 2006, papers were worth
+12.5 points each.  It was summised that the intercept is how much a
+single semester paper is worth.  If a paper is a double semester paper
+then the  "paper points/12.5" part of the formula would calculate to
+two and so the intercept would then be multiplied by two, thus
+represent the intercept of a double semester paper. 
+
+
+
+* Design
 
 The original idea was to get the information from three sources.  The
 COS database, the Postgraduate database and a local MySQL database.
