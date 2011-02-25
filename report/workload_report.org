@@ -121,7 +121,7 @@ in the spreadsheet.  After a while it was realised that the reason
 they were not agreeing was that the formula in figure
 \ref{fig:formula} is out of date.  When this document "Standard Hours
 Formula (Amended January 2006)" was written in 2006, papers were worth
-12.5 points each.  It was summised that the intercept is how much a
+12.5 points each.  It was surmised that the intercept is how much a
 single semester paper is worth.  If a paper is a double semester paper
 then the  "paper points/12.5" part of the formula would calculate to
 two and so the intercept would then be multiplied by two, thus
