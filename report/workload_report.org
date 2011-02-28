@@ -59,6 +59,19 @@ The task is to create a application to take in:
     + Given that each postgraduate degree is worth different hours
       + What percentage of supervision they give and thus how many of
         those hours do they get.
+** How to deliver the application.
+What form the programme will take is a important step.  The clients
+were not sure what exactly they wanted in terms of how the programme
+is delivered.  It could be a standard desktop application, with
+standard buttons, and windows.  It could be a console driven
+application.  It could also be a web driven application.  In one of
+the initial meetings it was suggested that the application could be a
+web served application.  This was a popular choice as it overcame the
+problems of what OS it could be developed on, and remove the need to
+install the application on every machine that wants to use it.  The
+idea was already to have a central database to connect to and this
+seemed like a good extra logical step in that direction. In fact the
+server could be run on the same server as the database.
 
 ** Calculating Workload hours
 How workload hours had to be the first priority in developing this
@@ -1446,6 +1459,8 @@ urlpatterns = patterns('',
 #+LaTeX: \caption{\label{fig:urls} An example content of a Django urls.py file}
 #+LaTeX: \end{figure}
 
+
+
 **** Workload process
 The Workload process is shown in figure \ref{fig:clusterdataflow}.
 The Cluster leaders input their changes.  This is done, over time,
@@ -1875,10 +1890,20 @@ version.  (Diagrams needed of both systems used)
 
 #+END_DITAA
 
-*** Solutions
-*** Conclusion
 
 ** Challenges
+*** Programming language
+There are many languages that could be chosen from.  The challenge is
+to find one which
+ - the language is understood by the programmer who has to write this
+   application
+ - has the functionality that makes life easier, like libraries
+   which make doing certain routines easier such as database access
+ - is well supported by a organisation, whether that be a community or
+   a large organisation such as Oracle.
+
+C or C++ were considered, but there did not seem to be much support
+for 
 *** What programming platform do I use?
 What language and does it matter?  Which works best for the scenario I
 choose?  Is a compiled system a good choice?
@@ -1894,11 +1919,12 @@ is
 The programming language chosen to do this application is Python.  It
 is to be a web served application, running under a Unix environment,
 running Apache web server.  Apache has modules that allow it to run
-python code. There are various other http servers that can serve
-python scripts.  The main one that has been used for this application
+python code. The main one that has been used for this application
 is Apache running mod\_wsgi. In figure \ref{fig:wsgi} is the wsgi
 script that has been used to run this Django application. In figure
-\ref{fig:apache} is the apache set up for mod\_wsgi.
+\ref{fig:apache} is the apache set up for mod\_wsgi.  This is not the
+end script but it is a example of what was used during development to
+run and test the application.
 
 
 
@@ -1964,11 +1990,8 @@ WSGI is not the only way to run Django applications, it could be run
 from within a jython environment, using FastCGI and more.  As long as
 the web server can run python, a django application can be deployed on it.
 
-*** Django
-**** What is Django
-Django is a python web framework.  It is a 
-**** What are it features that are used by this application
-
+I did consider running the application using jython, under glassfish
+or apapche tomcat, but 
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
