@@ -64,14 +64,17 @@ What form the programme will take is a important step.  The clients
 were not sure what exactly they wanted in terms of how the programme
 is delivered.  It could be a standard desktop application, with
 standard buttons, and windows.  It could be a console driven
-application.  It could also be a web driven application.  In one of
-the initial meetings it was suggested that the application could be a
-web served application.  This was a popular choice as it overcame the
-problems of what OS it could be developed on, and remove the need to
-install the application on every machine that wants to use it.  The
-idea was already to have a central database to connect to and this
-seemed like a good extra logical step in that direction. In fact the
-server could be run on the same server as the database.
+application.  It could also be a web driven application.
+
+In one of the initial meetings it was suggested that the application
+could be a web served application.  This was a popular choice as it
+overcame the problems of what OS it could be developed on, and remove
+the need to install the application on every machine that wants to use
+it.  The idea was already to have a central database to connect to and
+this seemed like a good extra logical step in that direction. In fact
+the server could be run on the same server as the database.
+
+
 
 ** Calculating Workload hours
 How workload hours had to be the first priority in developing this
@@ -1990,9 +1993,15 @@ WSGI is not the only way to run Django applications, it could be run
 from within a jython environment, using FastCGI and more.  As long as
 the web server can run python, a django application can be deployed on it.
 
-I did consider running the application using jython, under glassfish
-or apapche tomcat, but 
+Running the application using jython, under glassfish or apapche
+tomcat was considered.
 
+*** Serving to different web browsers
+There are many different web browsers used by people in today's
+world.  Each one will display the html delivered to it differently,
+and each has a different implementation of css and javascript.  Each
+factor influences the way the page is displayed, and the way that the
+user interact with the application.  
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
