@@ -2044,14 +2044,31 @@ The support for Firefox was easy, as that is the browser that is used
 to develop the site due to the availabiltiy of development tools like
 Firebug, and the javascript console.  It was easy to find errors in javascript
 for Firefox as a result.
-\bibliographystyle{plain}
-\bibliography{bibliography}
 
-# LocalWords:  prepend Bakar
+
+
 *** Making the application configurable
 The application requirement of being configurable was addressed under
 the following assumption.  The discrete coefficient variable must be
 able to be changed in the future.  I forfull this requirement by
 creating a model called Coefficients, and another for the standard
 points value of a paper called StdPoints.  These would take the form
-of tables in a database, probably called db_coefficients and db_stdpoints.
+of tables in a database, probably called db_coefficients and
+db_stdpoints.  There are shown in table \ref{table:coefficients}.  The
+values can be changed, but not the input.
+
+
+#+CAPTION: Table of coefficients
+#+LABEL: table:coefficients
+|---------------------+--------+-----------+-------|
+| input               | points | intercept | slope |
+|---------------------+--------+-----------+-------|
+| undergrad           |     15 |     287.5 |     4 |
+| project             |     30 |         0 |    50 |
+| local\_coordinator  |     15 |         3 |   0.1 |
+| global\_coordinator |     15 |        12 |  0.05 |
+|---------------------+--------+-----------+-------|
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+# LocalWords:  prepend Bakar
