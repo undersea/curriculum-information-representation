@@ -59,6 +59,10 @@ The task is to create a application to take in:
     + Given that each postgraduate degree is worth different hours
       + What percentage of supervision they give and thus how many of
         those hours do they get.
+- The application must be configurable
+  + This could be done by a expert, so it doesn't have to be addressed
+    in the user interface, it could be simply a config file.
+
 ** How to deliver the application.
 What form the programme will take is a important step.  The clients
 were not sure what exactly they wanted in terms of how the programme
@@ -1998,11 +2002,56 @@ tomcat was considered.
 
 *** Serving to different web browsers
 There are many different web browsers used by people in today's
-world.  Each one will display the html delivered to it differently,
-and each has a different implementation of css and javascript.  Each
-factor influences the way the page is displayed, and the way that the
-user interact with the application.  
+world.  The problem is that each browser handles display of html, use
+of css, and execution of javascript differently.  
+
+To overcome these problem certain steps had to be taken. One was to
+stick to w3c html and css standards.  The other was to make sure that
+javascript worked in all major browser platforms.  Internet Explorer,
+Safari and Mozilla Firefox were chosen to be developed for.  These are
+the three main browsers that are expected to be used to view this
+application.  
+
+It is hard to test for browsers that do not run on the
+platform that you are developing in, and since the environment is
+Ubuntu, Internet Explorer can not be run, making it hard to test the
+application on Internet Explorer.  There are two ways Internet
+Explorer could be tested.  One is to run Microsoft Windows in a
+virtual environment on the developing machine. The other is to test
+the site from a different machine, running Microsoft Windows.  The
+choice was to test it using Internet Explorer from a different machine
+running Microsoft Windows as that required the least effort.  However
+debuging javascript and css errors was hard due to there being no
+tools or even feedback from the browser about what went wrong, if
+anything did.  You only realised that something went wrong when you
+loaded the page and tried to run things like javascript events.  The
+only way that was reliable in tracking down errors in Internet
+Explorer 6 was to comment out sections of code until the javascript
+ran, to isolate where the problem was happening, and hope you can
+identify the part that is not working.
+
+Safari was easier, as the engine used is called Webkit and there are
+several browsers for linux which use Webkit, one of them being
+Epiphany, which recently switched to using Webkit.  You can be
+reasonable certain that if Epiphany can display the page and execute
+the javascript without any problems then so can Safari.  Still in the
+browser there is no way of finding out what went wrong with the
+javascript if anything does go wrong, so it ends up being a process of
+narrowing down where the error occurs, examining the code, and seeing
+if you can spot what is causing the problem.
+
+The support for Firefox was easy, as that is the browser that is used
+to develop the site due to the availabiltiy of development tools like
+Firebug, and the javascript console.  It was easy to find errors in javascript
+for Firefox as a result.
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
 # LocalWords:  prepend Bakar
+*** Making the application configurable
+The application requirement of being configurable was addressed under
+the following assumption.  The discrete coefficient variable must be
+able to be changed in the future.  I forfull this requirement by
+creating a model called Coefficients, and another for the standard
+points value of a paper called StdPoints.  These would take the form
+of tables in a database, probably called db_coefficients and db_stdpoints.
