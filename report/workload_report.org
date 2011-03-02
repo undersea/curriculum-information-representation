@@ -63,6 +63,9 @@ The task is to create a application to take in:
   + This could be done by a expert, so it doesn't have to be addressed
     in the user interface, it could be simply a config file.
 
+Can this be done, using a single point of access for all, but serve
+many at the same time?
+
 ** How to deliver the application.
 What form the programme will take is a important step.  The clients
 were not sure what exactly they wanted in terms of how the programme
