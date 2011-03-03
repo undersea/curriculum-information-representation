@@ -2072,6 +2072,9 @@ values can be changed, but not the input.
 | global\_coordinator |     15 |        12 |  0.05 |
 |---------------------+--------+-----------+-------|
 
+
+
+
 \bibliographystyle{plain}
 \bibliography{bibliography}
 # LocalWords:  prepend Bakar
