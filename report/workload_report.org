@@ -35,6 +35,9 @@ benefit from a application which streamlines the data input process
 and minimises the amount of intervention that is needed to produce the
 required reports.  I planned to remove a few steps from this process.
 
+
+
+
 ** The Problem
 Workload is a measure of how many virtual hours each staff member is
 going to be doing for the coming year. The purpose of Workload is to
@@ -2073,6 +2076,17 @@ values can be changed, but not the input.
 |---------------------+--------+-----------+-------|
 
 
+** Conclusion
+The spreadsheet has been replaced.  The collation of data is
+automatically done by the application due to the nature of being one
+interface used by many.
+
+The intervention by management is reduced using this system.  The data
+input is streamlined through the use of a web interface.
+
+
+
+* Conclusion
 
 
 \bibliographystyle{plain}

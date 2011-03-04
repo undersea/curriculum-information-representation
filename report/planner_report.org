@@ -1,32 +1,23 @@
-#+TITLE:     The management of databases for a large organisation
-#+AUTHOR:    James Hurford
-#+EMAIL:
-#+TEXT:  Research Report
-#+TEXT: [TABLE-OF-CONTENTS]
-#+DESCRIPTION: Reasearch Report
-#+KEYWORDS:
-#+LANGUAGE:  en
-#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-#+EXPORT_SELECT_TAGS: export
-#+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:
-#+LINK_HOME:
-#+XSLT:
-
-
-
-#+LaTeX_HEADER: \setlength{\parindent}{0pt}
-#+LaTeX_HEADER: \setlength{\parskip}{1em}
-
-* Introduction
-
 
 * Paper Planner
 ** The Problem
 *** How to represent it to users
-*** How to solve it
+*** Ideas on the user interface
+**** Multi story floor plan
+     The building represents the programme.  Years are represented by levels in a building. Each level contains rooms representing papers.  Stairs from rooms can indicate a links between one paper and another at different levels.  Stairs can go up or down.
+**** Atom view               
+     Each atom is a programme.  The nucleus is the programme name, with each electron being a paper.  Each paper can spin around the nucleus at differing orbits with the lowest one being year 1, going up to year 2, etc.
+**** Line graph              
+     Lines represent path taken, showing where papers intersect
+**** Jigsaw puzzle           
+     Puzzle is programme, and pieces are papers, connected to prerequisites and corequisites.
+**** Self Organising map     
+   + Papers are positioned in the plan in a algorithmic approche using AI and graph theory techniques.
+   + Maybe uses idea from jigsaw puzzle and use the connections as limiters
+**** Templates
+***** A degree is a template via which you can create the programme from
+      [[./images/drawing.png]]
+**** How to solve it
 This was going to be a complete application, but it was realised that
 there was not enough time to do everything, so the Use case shown in
 figure \ref{fig:usecase1} was adopted, and this would be the scenario that would be
@@ -178,19 +169,14 @@ library, which is used by pythons ctypes package.
 Conclusion is here
 
 # check spelling
-* Acknowledgments
- I would like to thank these people for their help
- + Stephen Marsland
- + Hans Guesgen
- + Glenda Kirk
- + Michelle Wagnar
- + Patrick Rynhart
- + Hubb Bakar
- + Giovanni Moretti
- + Lisa Lightband
- 
+* Programme Planner
+** Introduction
+An idea was investigated as to can a tool be made to help students
+plan their coarse of study for their degree.  This would take the form
+of list of sets of possible papers, with each set being a programme of
+study.
 
-\bibliographystyle{plain}
-\bibliography{bibliography}
+The proposal is to try and solve this problem using a constraints
+satisfaction.  Also a define what the user interface would look like.
 
-# LocalWords:  prepend Bakar
+
