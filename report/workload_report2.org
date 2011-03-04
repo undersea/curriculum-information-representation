@@ -1,0 +1,15 @@
+
+* Introduction
+** What
+** Why
+** Overview
+* Design perspectives
+** Web
+** Python
+** Database connectivity
+** Concurrency / Multiple views
+** Security / Multiple access
+** Redesign phase (following user presentation)
+** Testing
+* Implementation (Overview of features and pitfalls?)
+* Learning outcomes (What I learned and what I would do differently)
