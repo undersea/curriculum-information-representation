@@ -1405,7 +1405,7 @@ unofficial.  The database chosen was MySQL.
 To talk in Django terms, Django consists of a project, which contains
 all the configuration information for setting up you site, over
 several files. Within this project is one or more, what Django refers
-to as applications \cite{django2}.
+to as applications \cite{django1}.
 
 #+begin_quote 
 Projects vs. apps

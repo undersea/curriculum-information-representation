@@ -1,15 +1,225 @@
+#+TITLE:     Workload Report
+#+AUTHOR:    James Hurford
+#+EMAIL:     terrasea@gmail.com
+#+DATE:      
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+
+
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1em}
+
 
 * Introduction
 ** What
+   This is a application which calculates Workload hours for members
+   of Massey University School of Engineering and Technology (SEAT)
+   staff.  It replaces a existing spreadsheet solution.  It involves
+   many users inputting data into one source, and from this data
+   calculates the Workload hours of the staff involved and displays
+   the result.
 ** Why
+   The current solution requires input into a single spreadsheet
+   collated from data from many different sources, usually copies of
+   the same spreadsheet.  The process is complicated and time
+   consuming.
 ** Overview
+   Workload hours are a abstract measurement of how much work is being
+   done by a staff member.  It is a management tool designed to allow
+   decisions to be made as to how work is distributed amongst staff
+   members.
 * Design perspectives
 ** Web
+   The application is to be a web served application.  The reason for
+   this is to avoid the need to install it on every computer that
+   needs access to this application, with the only requirement being
+   that the computer has some sort of web browser installed.  This
+   also avoids the need to develop several different versions for each
+   operating system installed computers that are part of the SEAT
+   network.
 ** Python
+   The application is to be developed in Python \cite{python1}, using
+   the Django \cite{django1} framework.
+
+   Python \cite{python1} is a high level scripting language with a large
+   set of libraries available to it as part of the standard Python
+   library.
+
+   "Django is a high-level Python Web framework that encourages rapid
+   development and clean, pragmatic design." \cite{django1}
+
+   "Django focuses on automating as much as possible and adhering to the
+   DRY principle." \cite{django1}
+
+   DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
+
+
+   Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
+   prefers to use Model Template View (MTV) as a way of describing
+   their framework.
+
+   Django uses the MTV development pattern shown in figure \ref{fig:mtv}.
+    - M is the model which is the data access layer.
+    - T is the templates which is the presentation layer.
+    - V is the views which is the business logic layer.
+
+   This is important in realising how this application has been
+   designed.  You get the database (models) with all the data needed, you
+   have the views, which process this data and turn it into information,
+   which is then taken by the templates which decide how this information
+   is going to be displayed and what is going to be displayed.
+
+#+attr_latex: width=20em,placement=[H]
+#+CAPTION: The Django model
+#+LABEL: fig:mtv
+#+BEGIN_DITAA  mtv_django -r -S -E
+ +----------+      +--------------+
+ | {d}      |      | {d}          |
+ | Template |------| Presentation |
+ | cC02     |      | cC02         |
+ +-----+----+      +-------+------+
+       ^                   ^
+       |                   |
+   +---+--+        +-------+------+
+   | {io} |        | {io}         |
+   | View |--------| Business cBLU|
+   | cBLU |        | Logic Layer  |
+   +---+--+        +-------+------+
+       ^                   ^
+       |                   |
+       |                   |
+   +---+---+       +-------+------+
+   | {s}   |       | {s}          |
+   | Model |-------| Data Access  |
+   | c888  |       | Layer c888   |
+   +-------+       +--------------+
+#+END_DITAA
+
+   It has a few official databases that it can work with, those being
+   MySQL, PostGRESQL, PostGRESQL psycopg2, SQLLite and Oracle.  Others
+   are available, but these are unofficial.
+
+   To talk in Django terms, Django consists of a project, which contains
+   all the configuration information for setting up you site, over
+   several files. Within this project is one or more, what Django refers
+   to as applications \cite{django1}.
+
+   #+begin_quote 
+   Projects vs. apps
+
+   What's the difference between a project and an app? An app is a Web
+   application that does something -- e.g., a Weblog system, a database
+   of public records or a simple poll app. A project is a collection of
+   configuration and apps for a particular Web site. A project can
+   contain multiple apps. An app can be in multiple projects.
+   #+end_quote 
+
 ** Database connectivity
+   The application must have a way of storing and retrieving the data
+   it needs to calculate Workload hours.  To achieve this databases
+   are to be used.  All the information is to be stored on a local
+   database with connections to others to retrieve specific information
+   needed.
+
+   It needs to interact with Microsoft Access from GNU/Linux.  In the
+   web forum unixODBC-support\cite{unixODBC} Martin J. Evans  says
+   there are three ways to get data from a MS Access database file
+   from GNU/Linux.
+    1) Share the folder containing the MS Access file and access it
+       using MDBTools 
+    2) Create a link from a MS SQL Server to the MS Access file and use a
+       MS SQL Server ODBC driver.
+    3) Create a ODBC-ODBC bridge in which you install the ODBC service on
+       the Windows machine, which uses a ODBC driver for MS Access, and
+       use a ODBC driver on the Linux server which can talk to the remote
+       server.
 ** Concurrency / Multiple views
+   The application must be able to deal with having several people
+   accessing the database at once.  Concurrent access to this data
+   must be dealt with.
+
+   There are three views or users of this system.
+    - Manager
+    - Cluster leader
+    - Staff
+
+   Each has a different set of functions available to them.
+
+    + The manager should be able to access for all clusters
+      - a overview of total staff workload hours which includes hours
+        gained from papers, postgraduate supervision, and administration roles.
+      - a breakdown of the administration roles held by staff and the
+        hours they gain from this.
+      - a breakdown of the postgraduate students that are supervised by
+        staff and how many hours they get from each student
+      - a programme list of papers offered by degrees listed by the year
+        they are offered
+      - a means by which they can manage which staff teach, coordinate
+        papers, what administrative roles they hold.
+      - make archives of the current database
+
+    + The cluster leader can access the same options that the manager
+      can access, but only for their cluster.
+
+    + the individual staff member who is not a cluster leader, or a
+      manager. They can edit personal details like first name, and
+      last name. They can access only their workload information in a
+      read only format, with a breakdown of what their total workload
+      hours are made up of.
+      - Papers
+      - Administration roles
+      - Postgraduate supervision
+      
+    
+  Editing of data, must be able to be done at the same time. This is where
+  the concurrency problem comes in.  A means by which data can be
+  edited from several sources at once must be found.
+
 ** Security / Multiple access
+   Security is minor for this application.  Write access is the
+   primary concern here.  Within the organisation the information of
+   one cluster is open to the other.
+
 ** Redesign phase (following user presentation)
+   After developing a initial design the application was presented to
+   the cluster leaders at a meeting.  It was discovered that the
+   interface was not to their liking and needed redesigning.
 ** Testing
-* Implementation (Overview of features and pitfalls?)
-* Learning outcomes (What I learned and what I would do differently)
+* Implementation 
+  (Overview of features and pitfalls?)
+  
+  
+** Database
+   Most of what the application needs to do is handled by Django through
+   its Model interface.  Some of the operations however are not covered by
+   Django, since Django can not handle more that one data source at
+   once.
+
+   The main database engine used shall be MySQL.  Django supports this
+   so no third party libraries to make MySQL available through Django
+   are needed.  The other database that has to be read from is the
+   postgraduate database.  The Postgraduate database is a Microsoft
+   Access database file.  Getting the data from this database was
+   going to be a challenge.  
+
+   The first option has been chosen, due to being the only reliable
+   available method.  The last two options require more privileges
+   than are available to this project.
+
+* Learning outcomes 
+  (What I learned and what I would do differently)
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+
+
