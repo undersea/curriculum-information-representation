@@ -37,6 +37,9 @@
    done by a staff member.  It is a management tool designed to allow
    decisions to be made as to how work is distributed amongst staff
    members.
+
+   
+
 * Design perspectives
 ** Web
    The application is to be a web served application.  The reason for
@@ -142,10 +145,11 @@
        the Windows machine, which uses a ODBC driver for MS Access, and
        use a ODBC driver on the Linux server which can talk to the remote
        server.
+
 ** Concurrency / Multiple views
    The application must be able to deal with having several people
    accessing the database at once.  Concurrent access to this data
-   must be dealt with.
+   must be addressed.
 
    There are three views or users of this system.
     - Manager
@@ -183,7 +187,7 @@
   Editing of data, must be able to be done at the same time. This is where
   the concurrency problem comes in.  A means by which data can be
   edited from several sources at once must be found.  An idea was to
-  avoid having multiple people editing the 
+  avoid having multiple people editing the same paper at once.  
 
 ** Security / Multiple access
    Security is minor for this application.  Write access is the
