@@ -379,14 +379,7 @@ spreadsheet \cite{stdhours2}.
    also avoids the need to develop several different versions for each
    operating system installed computers that are part of the SEAT
    network.
-** Python
-   The application is to be developed in Python \cite{python1}, using
-   the Django \cite{django1} framework.
-
-   Python \cite{python1} is a high level scripting language with a large
-   set of libraries available to it as part of the standard Python
-   library.
-
+** Django
    "Django is a high-level Python Web framework that encourages rapid
    development and clean, pragmatic design." \cite{django1}
 
@@ -394,7 +387,6 @@ spreadsheet \cite{stdhours2}.
    DRY principle." \cite{django1}
 
    DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
-
 
    Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
    prefers to use Model Template View (MTV) as a way of describing
@@ -407,9 +399,9 @@ spreadsheet \cite{stdhours2}.
 
    This is important in realising how this application has been
    designed.  You get the database (models) with all the data needed, you
-   have the views, which process this data and turn it into information,
-   which is then taken by the templates which decide how this information
-   is going to be displayed and what is going to be displayed.
+   have the views, which process the data, which is then taken by the
+   templates which decide how this data is going to be displayed and
+   what is going to be displayed.
 
 #+attr_latex: width=20em,placement=[H]
 #+CAPTION: The Django model
@@ -444,7 +436,7 @@ spreadsheet \cite{stdhours2}.
    To talk in Django terms, Django consists of a project, which contains
    all the configuration information for setting up you site, over
    several files. Within this project is one or more, what Django refers
-   to as applications \cite{django1}.
+   to as, applications \cite{django1}.
 
    #+begin_quote 
    Projects vs. apps
@@ -455,6 +447,14 @@ spreadsheet \cite{stdhours2}.
    configuration and apps for a particular Web site. A project can
    contain multiple apps. An app can be in multiple projects.
    #+end_quote 
+** Python
+   Python \cite{python1} is a high level scripting language with a large
+   set of libraries available to it as part of the standard Python
+   library.  It is needed by Django \cite{django1}, and is easy to
+   read, so easy maintainence. 
+
+   The application is to be developed in Python \cite{python1}, using
+   the Django \cite{django1} framework.
 
 ** Database connectivity
    The application must have a way of storing and retrieving the data
