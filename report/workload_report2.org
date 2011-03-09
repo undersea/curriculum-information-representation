@@ -5,7 +5,7 @@
 #+DESCRIPTION: 
 #+KEYWORDS: 
 #+LANGUAGE:  en
-#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:4 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -28,16 +28,346 @@
    calculates the Workload hours of the staff involved and displays
    the result.
 ** Why
-   The current solution requires input into a single spreadsheet
-   collated from data from many different sources, usually copies of
-   the same spreadsheet.  The process is complicated and time
-   consuming.
-** Overview
    Workload hours are a abstract measurement of how much work is being
    done by a staff member.  It is a management tool designed to allow
    decisions to be made as to how work is distributed amongst staff
    members.
 
+   The current solution requires input into a single spreadsheet
+   collated from data from many different sources, usually copies of
+   the same spreadsheet.  The process is complicated and time
+   consuming.  A different solution is to be developed.
+
+** Overview
+*** Calculating Workload hours
+A couple of documents were provided by Mrs Glenda Kirk, one
+being the actual spreadsheet \cite{stdhours2} that this application is replacing and
+the other is a document \cite{stdhours1} describing the workload formula and a few note
+on how it is applied.
+
+**** The standard hours formula
+The problem was described as each staff member has various jobs and
+responsibilities.  For each of these jobs and responsibilities they
+get awarded Workload hours, based upon a formula.  The way in which
+Workload hours are assigned was described in a word document called
+"Standard Hours Formula" \cite{stdhours1}.  This gave a formula
+for calculating standard hours for a paper shown in figure
+\ref{fig:formula}.  A table was also provided which gave the
+coefficients for each teaching input shown in table \ref{table:coefficients}.
+
+#+begin_html 
+<div id="fig:formula2" class="figure">
+#+end_html
+#+BEGIN_LATEX
+\begin{figure}[H]
+\centering
+#+END_LATEX
+#+begin_example
+Standard Hours = Intercept*paper points/15
+                 + (Slope*no. of students)
+                 - (144/no. of students) 
+
+#+end_example
+
+#+BEGIN_LATEX
+\caption{\label{fig:formula} The standard hours formula used to
+calculate a standard hour component}
+\end{figure}
+#+END_LATEX
+#+begin_html 
+</div>
+#+end_html
+
+
+#+ATTR_LATEX: width=40em, placement=[H]
+#+CAPTION: A graph showing how many hour you get for a certain number of student for coordinating a paper
+#+LABEL: fig:formulagraph
+#+source: papergraph
+#+begin_src python :file ./images/papergraph.png :exports results
+  import pylab
+  
+  
+  y2 = list()
+  y3 = list()
+    
+  pylab.figure(1)
+  studnumbers = range(1,100)
+  
+  for x in studnumbers:
+      tmp2 = 12*15/15+(0.05*x) #global coord
+      tmp3 = 3*15/15+(0.1*x) #local coord
+      y2.append(tmp2)
+      y3.append(tmp3)
+  pylab.xlabel('Number of students')
+  pylab.ylabel('Workload hours')
+  #pylab.plot(studnumbers, y)
+  pylab.plot(studnumbers, y2, label='Global coord')
+  pylab.plot(studnumbers, y3, 'r^', label='Local coord')
+  pylab.legend(loc=0)
+  pylab.title('Student numbers and how much workload hours are gained')
+  filename='images/papergraph.png'
+  pylab.savefig(filename, format='png')
+#+end_src
+
+#+results: papergraph
+[[file:./images/papergraph.png]]
+
+
+#+ATTR_LATEX: width=40em, placement=[H]
+#+CAPTION: A graph showing how many hour you get for a certain number of students for teaching a paper
+#+LABEL: fig:formulagraph2
+#+source: papergraph2
+#+begin_src python :file ./images/papergraph2.png :exports results
+  import pylab
+  
+  y = list()
+  
+  pylab.figure(1)
+  studnumbers = range(1,100)
+  for x in studnumbers:
+      tmp = 287.5*15/15+(4*x)-(144/x)
+      y.append(tmp)
+  pylab.xlabel('Number of students')
+  pylab.ylabel('Workload hours')
+  pylab.plot(studnumbers, y)
+  
+  pylab.title('Student numbers and how much workload hours are gained')
+  filename='images/papergraph2.png'
+  pylab.savefig(filename, format='png')
+#+end_src
+
+
+
+
+#+ATTR_LaTeX: placement=[H]
+#+CAPTION: The Coefficients table used to supply the values that are plugged into the standard hours formula
+#+LABEL: table:coefficients2
+|---------------------+--------+-----------+-------|
+| Input               | Points | Intercept | Slope |
+|---------------------+--------+-----------+-------|
+| Undergraduate paper |     15 |     287.5 |     4 |
+| Project paper       |     30 |         0 |    50 |
+| Honours project     |     30 |         0 |    50 |
+| DipApplSc           |     30 |         0 |    50 |
+| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
+| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
+| PhD (1st Sup)       |    100 |         0 |   100 |
+| PhD (2nd Sup)       |    100 |         0 |    50 |
+|---------------------+--------+-----------+-------|
+
+
+**** Teaching allocation hours
+The standard hours formula calculates how many hours a paper is worth
+for that given year with the students enrolled in it that year.  Each
+staff member who teaches this paper gets a share of these standard
+hours that were calculate.  It is determined how much of the paper
+they teach in percentage terms, and this percentage is the percentage
+of the total standard hours this paper provides for that year.  an
+example is provided in figure \ref{fig:example1}.
+
+#+BEGIN_LATEX
+\begin{figure}[H]
+\centering
+#+END_LATEX
+#+begin_example
+no. of students = 10
+paper points = 15
+Intercept = 287.5
+Slope = 4
+
+standard hours = 287.5*15/15
+                 + (4*10)
+                 - (144/10)
+               = 313.1
+
+staff1 teach allocation = 60%
+staff2 teach allocation = 40%
+
+staff1 gets 313.1*(60/100) = 187.86 standard hours
+staff2 gets 313.1*(40/100) = 125.24 standard hours
+#+end_example
+#+BEGIN_LATEX
+\caption{\label{fig:example1} An example of how the standard hours are
+used to calculate a staff members teaching hours}
+\end{figure}
+#+END_LATEX
+
+
+
+**** Coordinator hours
+
+For each paper it is recognised as having two coordinators.  The
+global coordinator and the local coordinator.  The global coordinator
+"overseas paper direction, paper content, cross campus equivalence
+etc" \cite{stdhours1}.  The local coordinator "coordinates the paper
+on an individual campus" \cite{stdhours1}.  The coordination of this
+paper has a intercept of 15 and a slope of 0.15.  These are split
+between the local and global coordinator.  This is shown in table
+\ref{table:coord}.
+
+
+#+ATTR_LaTeX: placement=[H]
+#+CAPTION: Table showing the intercept and slope used for local and global coordinators
+#+LABEL: table:coord
+|-----------+-------------+-------------+-------|
+|           | Global      | Local       |       |
+|           | Coordinator | Coordinator | Total |
+|-----------+-------------+-------------+-------|
+| Intercept | 12          | 3           | 15    |
+| Slope     | 0.05        | 0.1         | 0.15  |
+|-----------+-------------+-------------+-------|
+
+
+The formula shown in figure \ref{fig:formula3} is different to the
+normal teaching standard hours formula.  The samll class modifier was
+not used.
+
+#+BEGIN_LATEX
+\begin{figure}[H]
+\centering
+#+END_LATEX
+#+begin_example 
+coordinator standard hours = Intercept*paper points/15
+                             + (Slope*no. of students)
+#+end_example
+#+BEGIN_LATEX
+\caption{\label{fig:formula3} The corrected standard hours formula
+used to calculate coordinator standard hours}
+\end{figure}
+#+END_LATEX
+
+
+**** Other modifiers used to calculate standard hours
+- *Off campus modifier:*
+    A loading modifier of 1.25 is applied to the intercept for papers
+    delivered by staff whose home campus is located elsewhere.
+- *Same teaching material:*
+    If the material taught in two papers is the same then the intercept is
+    only included once.
+- *Duplicate Teaching:*
+    If a staff is teaching similar material in two papers, the the
+    intercept is applied only once for both and a modifier of 1.5 is
+    applied to this intercept.
+
+
+**** Project papers
+Project papers have how many workload hours they are worth calculated
+just like a normal undergraduate paper, like the formula in figure
+\ref{fig:formula}.  The difference is that the staff involved
+supervise a set number of students, instead of teaching a percentage
+of the paper, and thus get the hours that the portion of the total
+enrolled students is worth.  The intercept for undergraduate project
+papers is 40 and it has a slope of 0.  Thus if there are 10 enrolled
+students, and the staff member was supervising 1 of them then the
+hours they would get 2.56 workload hours.  Assuming that this is a
+paper of 15 points in value. 
+
+\begin{equation}
+40*15/15+(0*10)-(144/10) = 25.6
+25.6*(1/10) = 2.56
+\end{equation}
+
+Postgraduate project papers are also calculated given the formula from
+figure \ref{fig:formula}.  Their points value, intercept and slope
+are given in table \ref{table:coefficients2}.
+
+**** Postgraduate supervision
+Staff members maybe supervising postgraduate students.  This
+supervision is worth workload hours, but how many the staff member
+gets depends on what postgraduate degree the postgraduate is doing and
+how much supervision this staff member is giving the postgraduate
+student. 
+
+The spreadsheet implementation uses a set of cells that contain the
+workload hours that each degree is worth.  The extracted table, shown
+in table \ref{table:pghours}, has one column with the shortened degree
+name and next to that degree in the next column is the total hours.
+
+
+#+ATTR_LaTeX: placement=[H]
+#+CAPTION: The extracted postgraduate workload hours
+#+LABEL: table:pghours
+|---------------+-----|
+| ApplSc(Hons)  |  50 |
+| DipApplSc     |  50 |
+| PGDipTech     | 100 |
+| PGDipApplSc   | 100 |
+| PGDipEng      | 100 |
+| DipTech       | 100 |
+| DipMIO        | 100 |
+| GradDip       | 100 |
+| GDipTech      | 100 |
+| GCertScTech   |   0 |
+| Exchange      |   0 |
+| MApplSc       | 100 |
+| MInfSc        | 100 |
+| MPhil         | 100 |
+| MSc           | 100 |
+| MDairySc&Tech | 100 |
+| MTech         | 100 |
+| ME            | 100 |
+| PGDip         |  50 |
+| PhD           | 150 |
+|---------------+-----|
+
+#+BEGIN_LATEX
+\begin{figure}[H]
+\centering
+#+END_LATEX
+A staff member has a postgraduate student doing a MSc. 
+The staff member does 50% of the supervision for this student.  MSc is worth 100
+workload hours.  50% of 100 is 50 so the staff member gets awarded 50
+workload hours for supervising this student.  The other staff member
+also provides 50% of the supervision for this student and gets awarded
+the other 50% of the workload hours available for supervising this
+student which is also 50 workload hours.
+#+BEGIN_LATEX
+\caption{\label{fig:pgequation}A example of how the postgraduate hours
+are divided between two supervisors}
+\end{figure}
+#+END_LATEX
+
+**** Administration roles
+Administration roles held by staff are also worth some workload
+hours.  Each role is worth a set number of hours and could include
+things like being a member of IEEE.
+
+Every staff member gets a administration allowance of 90 workload
+hours.
+
+The document "Standard Hours Formula" \cite{stdhours1} states various
+categories of administration roles, but it comes down to a role
+description which has a set number of hours associated with it.  The
+spreadsheet \cite{stdhours2} handles it by having a look up table of the roles along
+with their hours.  Table \ref{table:admin1} showing this has been extracted from the
+spreadsheet \cite{stdhours2}.
+
+
+#+ATTR_LaTeX: placement=[H]
+#+CAPTION: Table from spreadsheet showing the workload hour values of a set of administration roles
+#+LABEL: table:admin1
+|-----------------------+--------------|
+| Committee             |        Hours |
+|-----------------------+--------------|
+| A Class Cmttee        | Case by Case |
+| Admin Allowance       |           90 |
+| Assoc Head AL         |          169 |
+| Assoc Head PN         |           84 |
+| Assoc Head WN         |          169 |
+| B Class Cmttee        |           40 |
+| C Class Cmttee        |           20 |
+| Cluster Leader        |          337 |
+| Deputy Cluster Leader |          169 |
+| HOS                   |         1113 |
+| IEEE                  |          169 |
+| International         |          169 |
+| Major Leader          |          135 |
+| Marketing Director    |          337 |
+| PG Director           |          422 |
+| Research Director     |          253 |
+| Tech Services Manager |          337 |
+| Undergrad Director    |          675 |
+|-----------------------+--------------|
    
 
 * Design perspectives
