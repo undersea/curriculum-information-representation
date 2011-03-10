@@ -371,6 +371,15 @@ spreadsheet \cite{stdhours2}.
    
 
 * Design perspectives
+** Open source
+The aim was to develop on linux, using open source libraries as much
+as possible to do the job.  This put some big restrictions on the
+possible solutions, and in some cases left this project with only one
+choice.  Most of the applications challenges were problems which did
+not have to interact with proprietary applications.  The one it did
+have to deal with was Microsoft Access.  The other problem was how to
+make it viewable on a proprietary operating system like Microsoft
+Windows.
 ** Web
    The application is to be a web served application.  The reason for
    this is to avoid the need to install it on every computer that
@@ -458,15 +467,22 @@ spreadsheet \cite{stdhours2}.
 
 ** Database connectivity
    The application must have a way of storing and retrieving the data
-   it needs to calculate Workload hours.  To achieve this databases
+   it needs to calculate Workload hours.  To achieve this relational databases
    are to be used.  All the information is to be stored on a local
    database with connections to others to retrieve specific information
    needed.
 
-   It needs to interact with Microsoft Access from GNU/Linux.  In the
-   web forum unixODBC-support\cite{unixODBC} Martin J. Evans  says
-   there are three ways to get data from a MS Access database file
-   from GNU/Linux.
+   There are two databases involved here, the local database which holds
+   all information and the SEAT Postgraduate database.  The local
+   database shall be a MySQL database, which Django has support for.
+   The other database, which is used to update the postgraduate
+   tables, is a Microsoft Access database.
+
+   Since the application is being run on a GNU/Linux server a way to
+   connect to the SEAT Postgraduate database has to found.  In the web
+   forum unixODBC-support\cite{unixODBC} Martin J. Evans says there
+   are three ways to get data from a MS Access database file from
+   GNU/Linux.
     1) Share the folder containing the MS Access file and access it
        using MDBTools 
     2) Create a link from a MS SQL Server to the MS Access file and use a
@@ -475,6 +491,46 @@ spreadsheet \cite{stdhours2}.
        the Windows machine, which uses a ODBC driver for MS Access, and
        use a ODBC driver on the Linux server which can talk to the remote
        server.
+
+   The MDBTools option was choosen.  MDBTools has a ODBC driver
+   library.  It was decided to use this in conjunction with a Python
+   library called pyodbc \cite{pyodbc1}.  The options for what Python
+   libraries to use for accessing ODBC were limited, and at the time
+   of development pyodbc was the only one found that was open source
+   and allowed a connection to a ODBC DSN source written entirely in
+   Python. 
+
+   The pyodbc libary is written in C++. It adheres to the "Python Database
+   API Specification v2.0" \cite{pydb2}.
+*** Problems with pyodbc
+    The library pyodbc had problems however, but with some
+    modifications to the code, it was possible to rely on the modified
+    version of this library.
+
+
+    
+
+
+    The problem stemmed from the functions
+    that get data from the results of the query and convert them into the
+    appropriate data type for python.  The entire library depends on unix
+    ODBC C libary.  Its use of the function SQLGetData(...) is flawed, in
+    that the results being returned for floating point values are
+    incorrect.  SQLGetData(...) can in theory, retrieve the data and
+    convert it into the equivalent data type specified by the database
+    table column type.  
+
+    In the environment that it was being run, it did
+    not behave in the way, one assumes, that the author of the code
+    thought.  This gave us results like, if the database entry was a
+    integer of value 290 the returned result was 3160370, or a double
+    value of 40.0 being returned as 6.9524415266644334e-310.
+
+
+    We found that getting the data as a string value gave us a accurate
+    answer represented in a string format.  One could then convert this to
+    the appropriate type with a Python convenience C function like for
+    integers like PyLong_FromString(...).  
 
 ** Concurrency / Multiple views
    The application must be able to deal with having several people
