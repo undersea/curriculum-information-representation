@@ -506,19 +506,23 @@ Windows.
     The library pyodbc had problems however, but with some
     modifications to the code, it was possible to rely on the modified
     version of this library.
-
-
     
 
+    The problem stemmed from the functions that get data from the
+    results of the query and convert them into the appropriate data
+    type for python.  The entire library depends on unix ODBC C
+    library.  It uses various function calls which interact with unix ODBC,
+    one of these fetches a single value from a row and transforms it
+    into the appropriate data type.  Like if a field in a table is a
+    Integer then the appropriate function transforms it into a Python
+    Integer type.  To fetch the value at a particular position in the
+    fetched row pyodbc uses the ODBC function SQLGetData(...).
 
-    The problem stemmed from the functions
-    that get data from the results of the query and convert them into the
-    appropriate data type for python.  The entire library depends on unix
-    ODBC C libary.  Its use of the function SQLGetData(...) is flawed, in
+    Its use of the function SQLGetData(...) is flawed, in
     that the results being returned for floating point values are
     incorrect.  SQLGetData(...) can in theory, retrieve the data and
     convert it into the equivalent data type specified by the database
-    table column type.  
+    table column type.
 
     In the environment that it was being run, it did
     not behave in the way, one assumes, that the author of the code
