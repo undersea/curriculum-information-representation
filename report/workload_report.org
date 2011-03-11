@@ -1446,7 +1446,7 @@ class AdminRole(models.Model):
 
 
 **** URL Patterns
-Django also has a unique way of handling URLs.  Every application in a
+Django has a unique way of handling URLs.  Every application in a
 Django project has a file called 'urls.py'.  It defines a object
 called urlpatterns, which is a mapping of URL patterns, which are
 regular expressions and Python callback functions \cite{djangourls}.

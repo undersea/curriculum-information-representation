@@ -1,18 +1,18 @@
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com
-#+DATE:      
-#+DESCRIPTION: 
-#+KEYWORDS: 
+#+DATE:
+#+DESCRIPTION:
+#+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:4 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
-#+XSLT: 
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
 
 
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
@@ -55,7 +55,7 @@ for calculating standard hours for a paper shown in figure
 \ref{fig:formula}.  A table was also provided which gave the
 coefficients for each teaching input shown in table \ref{table:coefficients}.
 
-#+begin_html 
+#+begin_html
 <div id="fig:formula2" class="figure">
 #+end_html
 #+BEGIN_LATEX
@@ -65,7 +65,7 @@ coefficients for each teaching input shown in table \ref{table:coefficients}.
 #+begin_example
 Standard Hours = Intercept*paper points/15
                  + (Slope*no. of students)
-                 - (144/no. of students) 
+                 - (144/no. of students)
 
 #+end_example
 
@@ -74,7 +74,7 @@ Standard Hours = Intercept*paper points/15
 calculate a standard hour component}
 \end{figure}
 #+END_LATEX
-#+begin_html 
+#+begin_html
 </div>
 #+end_html
 
@@ -85,14 +85,14 @@ calculate a standard hour component}
 #+source: papergraph
 #+begin_src python :file ./images/papergraph.png :exports results
   import pylab
-  
-  
+
+
   y2 = list()
   y3 = list()
-    
+
   pylab.figure(1)
   studnumbers = range(1,100)
-  
+
   for x in studnumbers:
       tmp2 = 12*15/15+(0.05*x) #global coord
       tmp3 = 3*15/15+(0.1*x) #local coord
@@ -141,7 +141,7 @@ calculate a standard hour component}
 
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: The Coefficients table used to supply the values that are plugged into the standard hours formula
-#+LABEL: table:coefficients2
+#+LABEL: table:coefficients
 |---------------------+--------+-----------+-------|
 | Input               | Points | Intercept | Slope |
 |---------------------+--------+-----------+-------|
@@ -226,7 +226,7 @@ not used.
 \begin{figure}[H]
 \centering
 #+END_LATEX
-#+begin_example 
+#+begin_example
 coordinator standard hours = Intercept*paper points/15
                              + (Slope*no. of students)
 #+end_example
@@ -260,7 +260,7 @@ enrolled students is worth.  The intercept for undergraduate project
 papers is 40 and it has a slope of 0.  Thus if there are 10 enrolled
 students, and the staff member was supervising 1 of them then the
 hours they would get 2.56 workload hours.  Assuming that this is a
-paper of 15 points in value. 
+paper of 15 points in value.
 
 \begin{equation}
 40*15/15+(0*10)-(144/10) = 25.6
@@ -276,7 +276,7 @@ Staff members maybe supervising postgraduate students.  This
 supervision is worth workload hours, but how many the staff member
 gets depends on what postgraduate degree the postgraduate is doing and
 how much supervision this staff member is giving the postgraduate
-student. 
+student.
 
 The spreadsheet implementation uses a set of cells that contain the
 workload hours that each degree is worth.  The extracted table, shown
@@ -314,7 +314,7 @@ name and next to that degree in the next column is the total hours.
 \begin{figure}[H]
 \centering
 #+END_LATEX
-A staff member has a postgraduate student doing a MSc. 
+A staff member has a postgraduate student doing a MSc.
 The staff member does 50% of the supervision for this student.  MSc is worth 100
 workload hours.  50% of 100 is 50 so the staff member gets awarded 50
 workload hours for supervising this student.  The other staff member
@@ -368,7 +368,7 @@ spreadsheet \cite{stdhours2}.
 | Tech Services Manager |          337 |
 | Undergrad Director    |          675 |
 |-----------------------+--------------|
-   
+
 
 * Design perspectives
 ** Open source
@@ -388,6 +388,15 @@ Windows.
    also avoids the need to develop several different versions for each
    operating system installed computers that are part of the SEAT
    network.
+
+** Python
+   Python \cite{python1} is a high level scripting language with a large
+   set of libraries available to it as part of the standard Python
+   library.  It is needed by Django \cite{django1}, and is easy to
+   read, so easy maintainence.
+
+   The application is to be developed in Python \cite{python1}, using
+   the Django \cite{django1} framework.
 ** Django
    "Django is a high-level Python Web framework that encourages rapid
    development and clean, pragmatic design." \cite{django1}
@@ -447,7 +456,7 @@ Windows.
    several files. Within this project is one or more, what Django refers
    to as, applications \cite{django1}.
 
-   #+begin_quote 
+   #+begin_quote
    Projects vs. apps
 
    What's the difference between a project and an app? An app is a Web
@@ -455,15 +464,108 @@ Windows.
    of public records or a simple poll app. A project is a collection of
    configuration and apps for a particular Web site. A project can
    contain multiple apps. An app can be in multiple projects.
-   #+end_quote 
-** Python
-   Python \cite{python1} is a high level scripting language with a large
-   set of libraries available to it as part of the standard Python
-   library.  It is needed by Django \cite{django1}, and is easy to
-   read, so easy maintainence. 
+   #+end_quote
 
-   The application is to be developed in Python \cite{python1}, using
-   the Django \cite{django1} framework.
+The basic way Django handles requests is shown diagramatically in
+figure \ref{fig:djprocess}.  A request for a URL is made.  Django
+looks up this URL pattern and maps this to a view, which then using a
+template, renders the html to the requesting browser.
+
+#+attr_latex: width=30em,placement=[H]
+#+CAPTION: The Django Process from URL Request to rendering to browser
+#+LABEL: fig:djprocess
+#+BEGIN_DITAA django-process -r -S -E
++----------+        +------------+        +-----------+      +------------+
+| URL      |        |  URL       |        | Mapped    |      | Template   |
+| Request  +------->+  Pattern   +------->+ View      +----->+ Rendering  |
+|          |        |  Lookup    |        | Execution |      | To Browser |
++----------+        +------------+        +-----------+      +------------+
+#+END_DITAA
+
+
+Django has a unique way of handling URLs.  Every application in a
+Django project has a file called 'urls.py'.  It defines a object
+called urlpatterns, which is a mapping of URL patterns, which are
+regular expressions and Python callback functions \cite{django1}.
+Part of the URL for that application is the name of the application.
+For example if a application is called 'frog', then all URLs with frog
+at the beginning of the URL string will be referencing the 'frog'
+application. Figure \ref{fig:urls} shows a brief example urls.py file
+contents. When a browser requests a page with the URL
+http://localhost/frog/prince/ it will be given the output of the
+project.frog.views shown in figure \ref{fig:djview} modules index function.
+
+
+-----
+#+LaTeX: \begin{figure}[H]
+#+begin_src python
+from django.conf.urls.defaults import patterns
+
+urlpatterns = patterns('',
+    (r'^prince/$', 'project.frog.views.index'),
+)
+#+end_src
+#+LaTeX: \caption{\label{fig:urls} An example content of a Django urls.py file}
+#+LaTeX: \end{figure}
+-----
+
+The project.views.index function, in figure \ref{fig:djview}, then
+takes this request and processes it, passing the results to a template
+shown in figure \ref{fig:djtemplate}, which then renders the html to
+the browser.
+
+
+
+-----
+#+LaTeX: \begin{figure}[H]
+#+begin_src python
+  
+  from django.shortcuts import render_to_response
+  from project.frog.models import Frog
+  
+  def index(request):
+      #do some processing getting all records from the Frog model
+      #with results stored in frog
+
+      frogs = Frogs.objects.all()
+  
+      #render this to a template called index.html passing to it the
+      #records from the Frog model as part of a dictionary (the second parameter)
+
+      return render_to_response('index.html', {'frogs':frogs})
+  
+#+end_src
+#+LaTeX: \caption{\label{fig:djview} The project.frog.views.index function}
+#+LaTeX: \end{figure}
+-----
+
+The template, shown in figure \ref{fig:djtemplate} uses the dictionary to create a list of variables in this
+case it is called 'frog' which is the records from the Frog model.
+The records in this example are iterated through with each record
+being outputed as the text of a html div tag.  As you can see anything
+between {% %} is a Django template tag, which is processed by Djangos
+template renderer.
+
+-----
+#+LaTeX: \begin{figure}[H]
+#+begin_src html
+  <html>
+    <head>
+      <title>Frogs</title>
+    </head>
+    <body>
+      {% for frog in frogs %}
+      <div>{% frog %}</div>
+      {% endfor %}
+    </body>
+  </html>
+#+end_src
+#+LaTeX: \caption{\label{fig:djtemplate} The index.html template}
+#+LaTeX: \end{figure}
+-----
+
+To get a full description of what is happening here see the Django
+documentation \cite{django1}.
 
 ** Database connectivity
    The application must have a way of storing and retrieving the data
@@ -484,7 +586,7 @@ Windows.
    are three ways to get data from a MS Access database file from
    GNU/Linux.
     1) Share the folder containing the MS Access file and access it
-       using MDBTools 
+       using MDBTools
     2) Create a link from a MS SQL Server to the MS Access file and use a
        MS SQL Server ODBC driver.
     3) Create a ODBC-ODBC bridge in which you install the ODBC service on
@@ -498,44 +600,85 @@ Windows.
    libraries to use for accessing ODBC were limited, and at the time
    of development pyodbc was the only one found that was open source
    and allowed a connection to a ODBC DSN source written entirely in
-   Python. 
+   Python.
 
    The pyodbc libary is written in C++. It adheres to the "Python Database
    API Specification v2.0" \cite{pydb2}.
-*** Problems with pyodbc
-    The library pyodbc had problems however, but with some
-    modifications to the code, it was possible to rely on the modified
-    version of this library.
-    
-
-    The problem stemmed from the functions that get data from the
-    results of the query and convert them into the appropriate data
-    type for python.  The entire library depends on unix ODBC C
-    library.  It uses various function calls which interact with unix ODBC,
-    one of these fetches a single value from a row and transforms it
-    into the appropriate data type.  Like if a field in a table is a
-    Integer then the appropriate function transforms it into a Python
-    Integer type.  To fetch the value at a particular position in the
-    fetched row pyodbc uses the ODBC function SQLGetData(...).
-
-    Its use of the function SQLGetData(...) is flawed, in
-    that the results being returned for floating point values are
-    incorrect.  SQLGetData(...) can in theory, retrieve the data and
-    convert it into the equivalent data type specified by the database
-    table column type.
-
-    In the environment that it was being run, it did
-    not behave in the way, one assumes, that the author of the code
-    thought.  This gave us results like, if the database entry was a
-    integer of value 290 the returned result was 3160370, or a double
-    value of 40.0 being returned as 6.9524415266644334e-310.
+*** Problems encountered
+**** pyodbc
+     The library pyodbc had problem.  In the environment that
+     it was being run, it did not behave in the way, one assumes, that
+     the author of the code thought.  This gave us results like, if the
+     database entry was a integer of value 290 the returned result was
+     3160370, or a double value of 40.0 being returned as
+     6.9524415266644334e-310.
 
 
-    We found that getting the data as a string value gave us a accurate
-    answer represented in a string format.  One could then convert this to
-    the appropriate type with a Python convenience C function like for
-    integers like PyLong_FromString(...).  
+     The problem stemmed from the functions that get data from the
+     results of the query and convert them into the appropriate data
+     type for python.  The entire library depends on unix ODBC C
+     library.  It uses various function calls which interact with unix ODBC,
+     one of these fetches a single value from a row and transforms it
+     into the appropriate data type.  Like if a field in a table is a
+     Integer then the appropriate function transforms it into a Python
+     Integer type.  To fetch the value at a particular position in the
+     fetched row pyodbc uses the ODBC function SQLGetData(...).
 
+     Its use of the function SQLGetData(...) is flawed, in
+     that the results being returned for floating point values are
+     incorrect.  SQLGetData(...) can in theory, retrieve the data and
+     convert it into the equivalent data type specified by the database
+     table column type.
+
+     With some modifications to the code, it was possible to rely on
+     the modified version of this library.  We found that getting the
+     data as a string value gave us a accurate answer represented in a
+     string format.  One could then convert this to the appropriate
+     type with a Python convenience C function like for integers like
+     PyLong_FromString(...).
+
+     That was all that was needed to make pyodbc to produce the expected
+     accurate results.
+**** MDBTools
+     Using the MDBTools odbc driver has problems that with certain
+     queries, it caused the application to throw a segmentation
+     fault.  There is no more information than that, and it only
+     happens when fetching data from a certain table, in this case it
+     was the Staff table in the SEAT2008.mdb file.  On one computer it
+     would work perfectly, but only if the query used excluded all
+     those except for academic staff.  This was on a computer separate
+     from the SEAT intranet.  When used on a different machine,
+     connected to the SEAT intranet, it would segment fault, no matter
+     what query was used, but it was the same table, so something
+     about that table is causing MDBTools problems.  It was hoped
+     there was a newer version of MDBTools that has resolved this
+     problem, but it was found that MDBTools is no longer being
+     actively developed, and has not been for two years at the time of
+     writing this report.
+
+     While it is possible to get a hold of the source, finding and
+     fixing the bug, may be beyond the means available to the current
+     developer. It may require knowledge of Microsoft Access which is
+     not available to the developer of this application.
+
+     Other tools were looked for, but only a Java library, called
+     Jackcess \cite{jackess1}, could be found.  This would increase the complexity of
+     the application, unless it was run under a jython environment.
+     This situation was a undesirable one. The developer did not want
+     to use Java as a solution for this problem.  To use Jython would
+     introduce Java into Python code, which would cause it not to be
+     portable to other Python environments.
+
+     One easy solution, if it is only happening when accessing the Staff
+     table, is to include the information needed in the Staff table held in
+     the local database, which is the LoginName field of the SEAT2008 Staff
+     table.  This is needed to identify the supervisor of a postgraduate
+     from the SuperviseStudent table in PostgradData.mdb.  The
+     solution has yet to be implemented, and that would mean altering
+     the Staff table in the Workload database and adding the extra
+     field for LoginName.
+
+     This problem is still unresolved.
 ** Concurrency / Multiple views
    The application must be able to deal with having several people
    accessing the database at once.  Concurrent access to this data
@@ -572,27 +715,38 @@ Windows.
       - Papers
       - Administration roles
       - Postgraduate supervision
-      
-    
+
+
   Editing of data, must be able to be done at the same time. This is where
   the concurrency problem comes in.  A means by which data can be
   edited from several sources at once must be found.  An idea was to
-  avoid having multiple people editing the same paper at once.  
+  avoid having multiple people editing the same paper at once.
 
 ** Security / Multiple access
-   Security is minor for this application.  Write access is the
-   primary concern here.  Within the organisation the information of
-   one cluster is open to the other.
+   Security is a minor issue for this application.  Write access is the
+   primary concern here.  It does not seem like it is a major issue,
+   but the data is still treated as sensitive. Within the organisation
+   the information of one cluster is open to the other.  They seem to
+   like to see what the other is doing and is not worried if another
+   cluster member does see thier information.
 
 ** Redesign phase (following user presentation)
    After developing a initial design the application was presented to
-   the cluster leaders at a meeting.  It was discovered that the
-   interface was not to their liking and needed redesigning.
+   the cluster leaders at a meeting.  They were given a preview of
+   how they could interact with the application.
+
+
+   The application tree view model prototype was not liked. It was
+   discovered they liked the way that Microsoft Excell allowed one to
+   edit the data about teaching allocations and paper coordination. 
+
+   A major redesign was undertaken for how the cluster leaders can
+   edit the teaching allocations and paper coordinations was undertaken.
 ** Testing
-* Implementation 
+* Implementation
   (Overview of features and pitfalls?)
-  
-  
+
+
 ** Database
    Most of what the application needs to do is handled by Django through
    its Model interface.  Some of the operations however are not covered by
@@ -604,13 +758,13 @@ Windows.
    are needed.  The other database that has to be read from is the
    postgraduate database.  The Postgraduate database is a Microsoft
    Access database file.  Getting the data from this database was
-   going to be a challenge.  
+   going to be a challenge.
 
    The first option has been chosen, due to being the only reliable
    available method.  The last two options require more privileges
    than are available to this project.
 
-* Learning outcomes 
+* Learning outcomes
   (What I learned and what I would do differently)
 
 \bibliographystyle{plain}
