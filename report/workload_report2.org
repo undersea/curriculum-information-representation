@@ -79,63 +79,6 @@ calculate a standard hour component}
 #+end_html
 
 
-#+ATTR_LATEX: width=40em, placement=[H]
-#+CAPTION: A graph showing how many hour you get for a certain number of student for coordinating a paper
-#+LABEL: fig:formulagraph
-#+source: papergraph
-#+begin_src python :file ./images/papergraph.png :exports results
-  import pylab
-
-
-  y2 = list()
-  y3 = list()
-
-  pylab.figure(1)
-  studnumbers = range(1,100)
-
-  for x in studnumbers:
-      tmp2 = 12*15/15+(0.05*x) #global coord
-      tmp3 = 3*15/15+(0.1*x) #local coord
-      y2.append(tmp2)
-      y3.append(tmp3)
-  pylab.xlabel('Number of students')
-  pylab.ylabel('Workload hours')
-  #pylab.plot(studnumbers, y)
-  pylab.plot(studnumbers, y2, label='Global coord')
-  pylab.plot(studnumbers, y3, 'r^', label='Local coord')
-  pylab.legend(loc=0)
-  pylab.title('Student numbers and how much workload hours are gained')
-  filename='images/papergraph.png'
-  pylab.savefig(filename, format='png')
-#+end_src
-
-
-#+ATTR_LATEX: width=40em, placement=[H]
-#+CAPTION: A graph showing how many hour you get for a certain number of students for teaching a paper
-#+LABEL: fig:formulagraph2
-#+source: papergraph2
-#+begin_src python :file ./images/papergraph2.png :exports results
-  import pylab
-  
-  y = list()
-  
-  pylab.figure(1)
-  studnumbers = range(1,100)
-  for x in studnumbers:
-      tmp = 287.5*15/15+(4*x)-(144/x)
-      y.append(tmp)
-  pylab.xlabel('Number of students')
-  pylab.ylabel('Workload hours')
-  pylab.plot(studnumbers, y)
-  
-  pylab.title('Student numbers and how much workload hours are gained')
-  filename='images/papergraph2.png'
-  pylab.savefig(filename, format='png')
-#+end_src
-
-
-
-
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: The Coefficients table used to supply the values that are plugged into the standard hours formula
 #+LABEL: table:coefficients
@@ -266,7 +209,7 @@ paper of 15 points in value.
 
 Postgraduate project papers are also calculated given the formula from
 figure \ref{fig:formula}.  Their points value, intercept and slope
-are given in table \ref{table:coefficients2}.
+are given in table \ref{table:coefficients}.
 
 **** Postgraduate supervision
 Staff members maybe supervising postgraduate students.  This
