@@ -109,9 +109,6 @@ calculate a standard hour component}
   pylab.savefig(filename, format='png')
 #+end_src
 
-#+results: papergraph
-[[file:./images/papergraph.png]]
-
 
 #+ATTR_LATEX: width=40em, placement=[H]
 #+CAPTION: A graph showing how many hour you get for a certain number of students for teaching a paper
