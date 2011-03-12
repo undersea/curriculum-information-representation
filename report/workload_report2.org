@@ -312,14 +312,10 @@ spreadsheet \cite{stdhours2}.
 
 * Design perspectives
 ** Open source
-The aim was to develop on linux, using open source libraries as much
-as possible to do the job.  This put some big restrictions on the
-possible solutions, and in some cases left this project with only one
-choice.  Most of the applications challenges were problems which did
-not have to interact with proprietary applications.  The one it did
-have to deal with was Microsoft Access.  The other problem was how to
-make it viewable on a proprietary operating system like Microsoft
-Windows.
+   The aim was to develop on linux, using open source libraries as much
+   as possible to do the job.  This put some big restrictions on the
+   possible solutions, and in some cases left this project with only one
+   choice.  The biggest challenge was dealing with Microsoft Access.
 ** Web
    The application is to be a web served application.  The reason for
    this is to avoid the need to install it on every computer that
@@ -328,12 +324,55 @@ Windows.
    also avoids the need to develop several different versions for each
    operating system installed computers that are part of the SEAT
    network.
+** Javascript
+   Javascript is the client programming language used to make the web
+   pages more dynamic.
+*** Problems encountered
+    Javascript posed problems in that each of the different web
+    browsers have different implementations of the javascript engine.
+    What may work with one browser may not work with another.  For
+    example the following code will work in Firefox, but will not work
+    in Internet Explorer.
+    
+    #+source: jsvar
+    #+begin_src javascript
+      tmp = 8;
+      alert(tmp);
+    #+end_src
+    
+    Internet Explorer expects any variable to be declared using the
+    var keyword.  Any browser based upon Webkit such as Safari were
+    the most strict when it comes to what they will accept.
+  
+    The development of javascript for this application had to undergo
+    a few critical changes to make sure the code worked in all major
+    browsers. The following rules had to be adopted.
+    1) Always use var to declare variables
+    2) Avoid the use of a few keywords, like delete
+    3) If creating a array list, do not put a comma after the last element
 
+    This list of rules does not cover every compatibility issue, but
+    they were the major ones encountered.
+** jQuery
+   The client side javascript was to use the jQuery \cite{jquery1} library.  Using
+   jQuery allows the project to overcome and ignore most of the other
+   compatibility issues due to the fact that jQuery already deals with
+   different versions of javascript in the background.
+
+   #+begin_quote 
+   jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
+   #+end_quote
+   jQuery \cite{jquery1}.
+
+** CSS
+   CSS is to be used to customise the look and formatting of the
+   documents displayed by the web browser.
 ** Python
-   Python \cite{python1} is a high level scripting language with a large
+   Python \cite{python1} is to be the programming language used on the
+   server to rendered the HTML to the web browser. Python \cite{python1} is a high level scripting language with a large
    set of libraries available to it as part of the standard Python
    library.  It is needed by Django \cite{django1}, and is easy to
-   read, so easy maintainence.
+   read, so easy maintenance.
 
    The application is to be developed in Python \cite{python1}, using
    the Django \cite{django1} framework.
@@ -712,3 +751,5 @@ documentation \cite{django1}.
 
 
 
+
+# LocalWords:  customise
