@@ -367,12 +367,22 @@ spreadsheet \cite{stdhours2}.
 ** CSS
    CSS is to be used to customise the look and formatting of the
    documents displayed by the web browser.
+*** Problems encountered
+    CSS is handled differently by different browsers.  Some of the CSS
+    styles chosen, work perfectly in Firefox, but fail to work in
+    Internet Explorer.  There is nothing that can be done about the
+    incompatibilities, but one can either flag the problem as
+    unimportant, like not centring, or not use it.  The policy chosen
+    by this project is to make sure that the pages produced adhered to
+    CSS version 2.0.  This standard is not supported by Internet
+    Explorer 6, but later versions are assumed to adhere to this
+    standard.
 ** Python
    Python \cite{python1} is to be the programming language used on the
    server to rendered the HTML to the web browser. Python \cite{python1} is a high level scripting language with a large
    set of libraries available to it as part of the standard Python
-   library.  It is needed by Django \cite{django1}, and is easy to
-   read, so easy maintenance.
+   library.  It is needed by Django \cite{django1}. Python is easy to
+   read, so easy to maintain.
 
    The application is to be developed in Python \cite{python1}, using
    the Django \cite{django1} framework.
@@ -445,37 +455,37 @@ spreadsheet \cite{stdhours2}.
    contain multiple apps. An app can be in multiple projects.
    #+end_quote
 
-The basic way Django handles requests is shown diagramatically in
-figure \ref{fig:djprocess}.  A request for a URL is made.  Django
-looks up this URL pattern and maps this to a view, which then using a
-template, renders the html to the requesting browser.
-
-#+attr_latex: width=30em,placement=[H]
-#+CAPTION: The Django Process from URL Request to rendering to browser
-#+LABEL: fig:djprocess
-#+BEGIN_DITAA django-process -r -S -E
-+----------+        +------------+        +-----------+      +------------+
-| URL      |        |  URL       |        | Mapped    |      | Template   |
-| Request  +------->+  Pattern   +------->+ View      +----->+ Rendering  |
-|          |        |  Lookup    |        | Execution |      | To Browser |
-+----------+        +------------+        +-----------+      +------------+
-#+END_DITAA
-
-
-Django has a unique way of handling URLs.  Every application in a
-Django project has a file called 'urls.py'.  It defines a object
-called urlpatterns, which is a mapping of URL patterns, which are
-regular expressions and Python callback functions \cite{django1}.
-Part of the URL for that application is the name of the application.
-For example if a application is called 'frog', then all URLs with frog
-at the beginning of the URL string will be referencing the 'frog'
-application. Figure \ref{fig:urls} shows a brief example urls.py file
-contents. When a browser requests a page with the URL
-http://localhost/frog/prince/ it will be given the output of the
-project.frog.views shown in figure \ref{fig:djview} modules index function.
+   The basic way Django handles requests is shown diagramatically in
+   figure \ref{fig:djprocess}.  A request for a URL is made.  Django
+   looks up this URL pattern and maps this to a view, which then using a
+   template, renders the html to the requesting browser.
+   
+   #+attr_latex: width=30em,placement=[H]
+   #+CAPTION: The Django Process from URL Request to rendering to browser
+   #+LABEL: fig:djprocess
+   #+BEGIN_DITAA django-process -r -S -E
+   +----------+        +------------+        +-----------+      +------------+
+   | URL      |        |  URL       |        | Mapped    |      | Template   |
+   | Request  +------->+  Pattern   +------->+ View      +----->+ Rendering  |
+   |          |        |  Lookup    |        | Execution |      | To Browser |
+   +----------+        +------------+        +-----------+      +------------+
+   #+END_DITAA
 
 
------
+   Django has a unique way of handling URLs.  Every application in a
+   Django project has a file called 'urls.py'.  It defines a object
+   called urlpatterns, which is a mapping of URL patterns, which are
+   regular expressions and Python callback functions \cite{django1}.
+   Part of the URL for that application is the name of the application.
+   For example if a application is called 'frog', then all URLs with frog
+   at the beginning of the URL string will be referencing the 'frog'
+   application. Figure \ref{fig:urls} shows a brief example urls.py file
+   contents. When a browser requests a page with the URL
+   http://localhost/frog/prince/ it will be given the output of the
+   project.frog.views shown in figure \ref{fig:djview} modules index function.
+
+
+   -----
 #+LaTeX: \begin{figure}[H]
 #+begin_src python
 from django.conf.urls.defaults import patterns
@@ -752,4 +762,4 @@ documentation \cite{django1}.
 
 
 
-# LocalWords:  customise
+# LocalWords:  customise centring
