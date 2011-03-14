@@ -718,39 +718,6 @@ documentation \cite{django1}.
    the information of one cluster is open to the other.  They seem to
    like to see what the other is doing and is not worried if another
    cluster member does see thier information.
-
-** Redesign phase (following user presentation)
-   After developing a initial design the application was presented to
-   the cluster leaders at a meeting.  They were given a preview of
-   how they could interact with the application.
-
-
-   The application tree view model prototype was not liked. It was
-   discovered they liked the way that Microsoft Excell allowed one to
-   edit the data about teaching allocations and paper coordination. 
-
-   A major redesign was undertaken for how the cluster leaders can
-   edit the teaching allocations and paper coordinations was
-   undertaken.  Peviously the interface had been based upon a tree
-   like stucture, with nodes showing the paper, which expand to show
-   paper offerings and teaching allocations.  The cluster leaders, I
-   think, did not like this, and seemed to like the way they were able
-   to edit the relavent sections in the spreadsheet.  So the new
-   interface gained some of the functionality of the spreadsheet. This
-   is shown in figure \ref{fig:redesign:clusterview}. The old view is
-   shown in figure \ref{fig:redesign:oldview}.
-   
-
-   #+ATTR_LaTeX: width=\textwidth, placement=[H]
-   #+CAPTION: Cluster leader paper edit view in spreadsheet style
-   #+LABEL: fig:redesign:clusterview
-   [[./images/cluster_paper_edit_view.png]]
-   
-
-   #+ATTR_LaTeX: width=\textwidth, placement=[H]
-   #+CAPTION: The old way cluster leaders were to edit their papers
-   #+LABEL: fig:redesign:oldview
-   [[./images/admin_offering_teach_edit_view.png]]
 ** Application configuration
 The application is required to be configurable and is operating under
 the following assumption.  The discrete coefficient variable must be
@@ -779,6 +746,39 @@ experience.
 | local\_coordinator  |     15 |         3 |   0.1 |
 | global\_coordinator |     15 |        12 |  0.05 |
 |---------------------+--------+-----------+-------|
+
+* Redesign phase (following user presentation)
+  After developing a initial design the application was presented to
+  the cluster leaders at a meeting.  They were given a preview of
+  how they could interact with the application.
+
+
+  The application tree view model prototype was not liked. It was
+  discovered they liked the way that Microsoft Excell allowed one to
+  edit the data about teaching allocations and paper coordination. 
+
+  A major redesign was undertaken for how the cluster leaders can
+  edit the teaching allocations and paper coordinations was
+  undertaken.  Peviously the interface had been based upon a tree
+  like stucture, with nodes showing the paper, which expand to show
+  paper offerings and teaching allocations.  The cluster leaders, I
+  think, did not like this, and seemed to like the way they were able
+  to edit the relavent sections in the spreadsheet.  So the new
+  interface gained some of the functionality of the spreadsheet. This
+  is shown in figure \ref{fig:redesign:clusterview}. The old view is
+  shown in figure \ref{fig:redesign:oldview}.
+  
+
+  #+ATTR_LaTeX: width=\textwidth, placement=[H]
+  #+CAPTION: Cluster leader paper edit view in spreadsheet style
+  #+LABEL: fig:redesign:clusterview
+  [[./images/cluster_paper_edit_view.png]]
+  
+
+  #+ATTR_LaTeX: width=\textwidth, placement=[H]
+  #+CAPTION: The old way cluster leaders were to edit their papers
+  #+LABEL: fig:redesign:oldview
+  [[./images/admin_offering_teach_edit_view.png]]
 ** Testing
    At every stage of development, testing took place.  There were no
    automated tests, even though they are possible, due to the developers
@@ -825,7 +825,67 @@ functionality required, like javascript, which could be of a different
 version to the one that the site was developed for.  Also javascript
 seems to be a lot slower to process data than the server side scripts
 are.
+
+Do mass processing of data on the server side.  Only use javascript to
+process or retrieve small amounts of data.
+
+The efficiency of algorithms will have more impact on the
+loading time of dynamic pages than the choice of languages.  The
+loading time of a page was reduced by following the following rules,
+based upon "Python Patterns - An Optimization Anecdote"
+\cite{optimising1}.
+
+#+begin_quote 
+    + Rule number one: only optimize when there is a proven speed bottleneck. Only optimize the innermost loop. (This rule is independent of Python, but it doesn't hurt repeating it, since it can save a lot of work. :-)
+    + Small is beautiful. Given Python's hefty charges for bytecode instructions and variable look-up, it rarely pays off to add extra tests to save a little bit of work.
+    + Use intrinsic operations. An implied loop in map() is faster than an explicit for loop; a while loop with an explicit loop counter is even slower.
+    + Avoid calling functions written in Python in your inner loop. This includes lambdas. In-lining the inner loop can save a lot of time.
+    + Local variables are faster than globals; if you use a global constant in a loop, copy it to a local variable before the loop. And in Python, function names (global or built-in) are also global constants!
+    + Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function!
+    + Check your algorithms for quadratic behavior. But notice that a more complex algorithm only pays off for large N - for small N, the complexity doesn't pay off. In our case, 256 turned out to be small enough that the simpler version was still a tad faster. Your mileage may vary - this is worth investigating.
+    + And last but not least: collect data. Python's excellent profile module can quickly show the bottleneck in your code. if you're considering different versions of an algorithm, test it in a tight loop using the time.clock() function. 
+#+end_quote
+
+There is still the possibility of using C compiled code to speed up
+the response time, as python being a interpreted language, does run
+slower than C.  That would be the next step in optimising the response
+time of the application.
+
 ** Javascript compatability
+Javascript is implemented differently across different browsers.
+jQuery helped overcome most of the issues, but there were rules that
+need to be adhered to make sure your code works in most major
+browsers.
+  1) Always use var to declare variables
+  2) Avoid the use of a few keywords, like delete
+  3) If creating a array list, do not put a comma after the last element
+
+The first and the third rules are for Internet Explorer, but the
+second is true particularly for any browser based on Webkit, like
+Safari.
+
+Using jQuery from the start avoided most of the other possible
+incompatabilities, to the extent that no other issues other than the
+ones previously mentioned were encountered.
+
+
+This application relies on javascript, so if it is turned off then
+hardly anything will work.  Currently nothing is done in response to
+this situation. In future, a warning message, telling the user this,
+produced on the server side, would be shown.  Other than this there is
+nothing that can be done, if the browser has javascript turned off.
+
+** CSS
+Not much can be done if a browser can't implement CSS, but you can
+make sure that the CSS used adheres to a certain standard.  The
+decision to make sure that CSS was compatible with version 2.0 was
+about the extent that the compatibility issues were addressed.
+Further work could eb done to detect which version of CSS the browser
+implements, and look at what can be done to overcome any display
+issues created if it does implement the CSS version that has been
+used.  If this was to be done again, then a message warning of this
+problem would be shown, and a possible solution displayed, like
+upgrade your browser, or install another browser.
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
