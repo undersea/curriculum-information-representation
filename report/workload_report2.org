@@ -887,6 +887,15 @@ used.  If this was to be done again, then a message warning of this
 problem would be shown, and a possible solution displayed, like
 upgrade your browser, or install another browser.
 
+** Cocurrency / Multiple views
+Most of the concurrency issues have been avoided.  The only possible
+issue that could cause real problems, is if two cluster leaders from
+the same cluster logged in and started editing the papers.  Most of
+the time this curcumstance would not happen, but it could.  A possible
+solution is to either implement concurrency solutions like locks, or
+if there are two cluster leaders of the same cluster, logged on, to
+logg both of them off with a warning message.
+
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
