@@ -2061,7 +2061,9 @@ creating a model called Coefficients, and another for the standard
 points value of a paper called StdPoints.  These would take the form
 of tables in a database, probably called db_coefficients and
 db_stdpoints.  There are shown in table \ref{table:coefficients}.  The
-values can be changed, but not the input.
+values can be changed, but while the input can be changed, if it is,
+would break the system.  The functions that do the calculations use
+inputs as the primary key lookup value.
 
 
 #+CAPTION: Table of coefficients

@@ -354,10 +354,10 @@ spreadsheet \cite{stdhours2}.
     This list of rules does not cover every compatibility issue, but
     they were the major ones encountered.
 ** jQuery
-   The client side javascript was to use the jQuery \cite{jquery1} library.  Using
-   jQuery allows the project to overcome and ignore most of the other
-   compatibility issues due to the fact that jQuery already deals with
-   different versions of javascript in the background.
+   jQuery \cite{jquery1} makes for a uniform javascript api across most of the major
+   browsers, like IE and Firefox.  This simplifies the development of web
+   applications and reduces the number of issues that come from having
+   more than one brand of web browser accessing the site.
 
    #+begin_quote 
    jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
@@ -730,10 +730,67 @@ documentation \cite{django1}.
    edit the data about teaching allocations and paper coordination. 
 
    A major redesign was undertaken for how the cluster leaders can
-   edit the teaching allocations and paper coordinations was undertaken.
+   edit the teaching allocations and paper coordinations was
+   undertaken.  Peviously the interface had been based upon a tree
+   like stucture, with nodes showing the paper, which expand to show
+   paper offerings and teaching allocations.  The cluster leaders, I
+   think, did not like this, and seemed to like the way they were able
+   to edit the relavent sections in the spreadsheet.  So the new
+   interface gained some of the functionality of the spreadsheet. This
+   is shown in figure \ref{fig:redesign:clusterview}. The old view is
+   shown in figure \ref{fig:redesign:oldview}.
+   
+
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: Cluster leader paper edit view in spreadsheet style
+   #+LABEL: fig:redesign:clusterview
+   [[./images/cluster_paper_edit_view.png]]
+   
+
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: The old way cluster leaders were to edit their papers
+   #+LABEL: fig:redesign:oldview
+   [[./images/admin_offering_teach_edit_view.png]]
+** Application configuration
+The application is required to be configurable and is operating under
+the following assumption.  The discrete coefficient variable must be
+able to be changed in the future.  I forfull this requirement by
+creating a model called Coefficients, and another for the standard
+points value of a paper called StdPoints.  These would take the form
+of tables in a database, probably called db_coefficients and
+db_stdpoints.  There are shown in table \ref{table:coefficients}.  The
+values can be changed, but while the input can be changed, if it is,
+would break the system.  The functions that do the calculations use
+inputs as the primary key lookup value.
+
+
+The part that can not be changed is the formulas themselves.  To
+change these, someone needs to alter the formulas in the formula
+module.  This would require someone with Python programming
+experience.
+
+#+CAPTION: Table of coefficients
+#+LABEL: table:coefficients
+|---------------------+--------+-----------+-------|
+| input               | points | intercept | slope |
+|---------------------+--------+-----------+-------|
+| undergrad           |     15 |     287.5 |     4 |
+| project             |     30 |         0 |    50 |
+| local\_coordinator  |     15 |         3 |   0.1 |
+| global\_coordinator |     15 |        12 |  0.05 |
+|---------------------+--------+-----------+-------|
 ** Testing
+   At every stage of development, testing took place.  There were no
+   automated tests, even though they are possible, due to the developers
+   inexperience in testing web applications.
+
+
+   At every stage, a checklist of features and operations were tested by
+   hand.  A checkbox list of inputs and results were checked for pass or
+   crossed for fail.
+
 * Implementation
-  (Overview of features and pitfalls?)
+  
 
 
 ** Database
@@ -755,6 +812,20 @@ documentation \cite{django1}.
 
 * Learning outcomes
   (What I learned and what I would do differently)
+** Responsiveness
+There are two places to process the data and one place to display the
+results. You can use client side scripts, like javascript to process
+the data, and it can be processed on the server side.  The more data
+that is processed on the server side the less people that it can
+handle at once.  Also doing it all on the server side means the pages
+have to be reloaded every time a new choice is made.  The client side
+processing of data, takes some of the load off the server, but it has
+the downside, of relying on the clients browser to have the
+functionality required, like javascript, which could be of a different
+version to the one that the site was developed for.  Also javascript
+seems to be a lot slower to process data than the server side scripts
+are.
+** Javascript compatability
 
 \bibliographystyle{plain}
 \bibliography{bibliography}
