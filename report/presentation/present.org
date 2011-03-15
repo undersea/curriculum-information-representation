@@ -222,6 +222,48 @@ take to achieve their degree.
 
 *** A tool to aid the planning and selecting of a degree programme
 
-*** 
+*** Give the student a narrowed down choice of sets of papers for each degree
+
+* Use case
+*** A Student does their first year of study at university.  
+*** They pass a number of papers.
+*** They have not decided upon a major yet
+*** They want to know what their options are.
+*** They want to know what major suits their choice of papers so far the best
+*** What are the possible paper combinations 
+*** These combinations must be valid for the choice of degree
+*** Must allow them to complete their degree if done.
+
+* Ideas on the user interface
+** Multi story floor plan
+** Atom view
+** Line graph
+** Jigsaw puzzle
+** Self Organising map
+** Templates
+
+* Flowchart
+
+#+BEGIN_DITAA decision-process-diagram -r -S -E
+               +---------+   +----------+   +----------+   +--------------+
+               | Major   |   | Leads to |   | Degree   |   | Valid        |
+               | Paper   |   | Paper    |   | Paper    |   | Degree       |
+               | List    |   | DB       |   | List     |   | Paper        |
+               | {s}c888 |   | {s}c888  |   | {s} c888 |   | Combinations |
+               |         |   |          |   |          |   | {s}c888      |
+               +----+----+   +----+-----+   +----------+   +--------------+
+                    |    |        |         |              |
+                    |    +----+   |         |              |
+                    |         |   |         |              |
+                    V         V   V         V              V
++----------+   +----+-----+   +---+---------+  +-----------+--+
+| Student  |   | Select   |   | Create      |  | Determine    |
+| Academic |   | Best     |   | Paper       |  | Valid        |
+| Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
+| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
+|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
++----------+   +----------+   +-------------+  +--------------+
+#+END_DITAA
+
 
 # LocalWords:  optimisation
