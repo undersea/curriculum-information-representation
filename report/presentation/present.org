@@ -1,6 +1,6 @@
 #+SETUPFILE: htmlslidy.org
 
-#+BIND: org-export-html-preamble org-htmlslidy-html-preamble-function 
+
 
 #+TITLE: Database applications in a large organisation
 #+AUTHOR: James Hurford
@@ -8,31 +8,84 @@
 
 * Introduction
 ** The presentation encompasses two projects
-*** Workload
+*** *Workload*
 A Web based application for calculating Workload hours for academic staff
-*** Student Programme Planner
+*** *Student Programme Planner*
 A application to aid in the planning of a students programme of study
 for their entire degree.  This only covers the papers they may want to
 take to achieve their degree.
 
 * Plan for presentation
 
-** Go over the Workload application
-
-** Talk about the Programme planner
+** Workload application
+*** What it is and why it is needed
+*** The technology and issues faced
+*** What was learned and what would be done differently
+** Student Programme planner
+*** What it is and why is it needed
+*** The technology and issues faced
+*** What was learned and what would be done differently
 
 * Workload
-
+** What is Workload
+  + A measurement tool used to calculate workload hours
 ** What are workload hours?
   + A way of measuring the overall workload of a individual staff member,
     cluster group and all SEAT staff.
-
     - 1900 workload hours each
+      + Teaching Allocations
+      + Coordination of papers
+      + Supervision of postgraduates
+      + Administration roles
 
   + Management tool to aid in the distribution of work over the whole
     of SEAT.
 
   + It is a abstract measurement not meant to represent actual hours
+
+
+
+* Workload Formula
+
+** 2 formula for workload
+
+*** Workload formula
+
+**** hours = intercept*paper points/15+(slope*no. of students)-(144/no. of students)
+
+*** Paper Coordinator Workload formula
+
+**** hours = intercept*paper points/15+(slope*no. of students)
+
+** Project papers, Postgraduate Supervision and Administration roles formula
+
+*** Undergraduate Project paper
+
+**** Workload hours for paper * (students supervised/no. of students)
+
+*** Postgraduate Supervision
+
+**** Postgraduate degree hours * (percentage of supervision/100)
+
+*** Administration roles hours
+
+**** Administration role hours
+
+* Coefficients
+
+
+|---------------------+--------+-----------+-------|
+| Input               | Points | Intercept | Slope |
+|---------------------+--------+-----------+-------|
+| Undergraduate paper |     15 |     287.5 |     4 |
+| Project paper       |     30 |         0 |    50 |
+| Honours project     |     30 |         0 |    50 |
+| DipApplSc           |     30 |         0 |    50 |
+| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
+| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
+| PhD (1st Sup)       |    100 |         0 |   100 |
+| PhD (2nd Sup)       |    100 |         0 |    50 |
+|---------------------+--------+-----------+-------|
 
 * Current workload tool
 
@@ -40,6 +93,135 @@ take to achieve their degree.
 
     - Is complicated and hard to use
     - Time consuming to collate data
-    - The amount of data it can store is coming to the maximum
+    - The amount of data it can store is coming to the maximum Excel
+      can take
 
 
+* The new Workload Application
+
+** Open source
+
+** Configurable
+
+** Responsive
+
+** Web application
+*** Client side
+**** jQuery
+**** Ajax
+**** HTML
+**** CSS
+
+*** Server side
+**** Python
+**** Django
+**** MySQL
+**** Microsoft Access
+
+* Concurrency and Security
+
+** 3 types of users
+
+** How concurrency issues were avoided
+
+** How important is it?
+
+* Reflections
+
+** Django
+
+*** MTV view
+
+**** Places structure on your application
+
+*** Models
+
+**** Allow you to develop database tables independent of specific DB
+
+**** Easier to create tables
+
+*** In general
+
+**** Saves time and energy for most basic tasks
+**** Documentation is still lacking in some areas
+
+* Reflections
+** W3C standards
+
+*** Reduces incompatibility problems
+*** Doesn't eliminate all problems
+
+** jQuery
+
+*** Eliminates most Javascript browser incompatibilities
+
+*** Simplifies process of creating web application
+
+* Reflections
+
+** Javascript
+
+*** Need to test on multiple browsers
+
+**** Debugging tools across all platforms desirable
+
+*** Internet Explorer and Webkit based browsers
+
+**** Very strict on what they will accept
+
+*** Firefox
+
+**** Is very forgiving
+
+** CSS
+
+*** A must in modern web applications
+*** Can't alter form controls of Firefox
+
+* Reflections
+
+** Response optimisation
+
+*** Look at algorithm first
+
+   - Only optimise inner most loop
+   - Use as few calls and checks as possible
+   - Use intrinsic operations like map() to simulate loops
+   - avoid using functions written in python in inner most loop
+   - use local variables
+     - faster than using global
+     - copy global to local if needed
+   - use map(), filter() or reduce() to replace loops
+     - only if using built-in functions
+     - use a loop with in-line code otherwise
+
+
+*** Look at C code if that fails
+
+* Reflections
+
+** Workload hours process
+
+*** Formulas need clarification
+
+*** Process needs documenting
+
+** Database
+
+*** Postgraduate database
+
+**** Needs cleaning up
+
+*** Local DB Data input
+
+**** Setup of DB needs improvement
+
+* Student Programme Planner
+
+** What does Student Programme Planner do?
+
+*** A tool to aid the planning and selecting of a degree programme
+
+*** 
+
+# LocalWords:  optimisation
