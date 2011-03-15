@@ -1,0 +1,45 @@
+#+SETUPFILE: htmlslidy.org
+
+#+BIND: org-export-html-preamble org-htmlslidy-html-preamble-function 
+
+#+TITLE: Database applications in a large organisation
+#+AUTHOR: James Hurford
+
+
+* Introduction
+** The presentation encompasses two projects
+*** Workload
+A Web based application for calculating Workload hours for academic staff
+*** Student Programme Planner
+A application to aid in the planning of a students programme of study
+for their entire degree.  This only covers the papers they may want to
+take to achieve their degree.
+
+* Plan for presentation
+
+** Go over the Workload application
+
+** Talk about the Programme planner
+
+* Workload
+
+** What are workload hours?
+  + A way of measuring the overall workload of a individual staff member,
+    cluster group and all SEAT staff.
+
+    - 1900 workload hours each
+
+  + Management tool to aid in the distribution of work over the whole
+    of SEAT.
+
+  + It is a abstract measurement not meant to represent actual hours
+
+* Current workload tool
+
+** Microsoft Excel Spreadsheet application
+
+    - Is complicated and hard to use
+    - Time consuming to collate data
+    - The amount of data it can store is coming to the maximum
+
+

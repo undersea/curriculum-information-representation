@@ -896,6 +896,20 @@ solution is to either implement concurrency solutions like locks, or
 if there are two cluster leaders of the same cluster, logged on, to
 logg both of them off with a warning message.
 
+** Look and feel of pages
+Getting pages to look the same across browsers is very difficult
+when using the HTML markup, even with the aid of CSS and javascript.
+The best you can do is make sure the components appear in the same
+place, using simalar colours.  The shape of the form controls are out
+of your hand and in most browsers can not be manipulated very easily
+with CSS.  Firefox for example, uses native controls like checkboxes,
+and does not allow CSS to alter the look of this control.  There are
+methods, which can be used to make it look the way you want it.  These
+hacks are not desirable, as they add another unstable element into the
+page display.  One way that was found to control the look of controls
+was not to use them, but to display images, and add javascript events
+to them.
+
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
