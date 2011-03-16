@@ -1,10 +1,5 @@
 #+SETUPFILE: htmlslidy.org
 
-#+begin_src emacs-lisp :exports none
-  
-  
-#+End_src
-
 
 #+TITLE: Managing staff
 #+AUTHOR: James Hurford
