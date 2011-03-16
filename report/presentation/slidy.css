@@ -7,6 +7,13 @@
    http://www.w3.org/Consortium/Legal/copyright-documents
    http://www.w3.org/Consortium/Legal/copyright-software
 */
+
+div.large img
+{ 
+  width: 600pt;
+  height: 300pt;
+}
+
 body
 {
   margin: 0 0 0 0;

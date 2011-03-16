@@ -2,35 +2,25 @@
 
 
 
-#+TITLE: Database applications in a large organisation
+
+#+TITLE: Managing staff
 #+AUTHOR: James Hurford
 
 
 * Introduction
-** The presentation encompasses two projects
+** My project involves two projects
 *** *Workload*
-A Web based application for calculating Workload hours for academic staff
+A Web based application for managing academic staff
 *** *Student Programme Planner*
-A application to aid in the planning of a students programme of study
+An application to aid in the planning of a students programme of study
 for their entire degree.  This only covers the papers they may want to
 take to achieve their degree.
 
-* Plan for presentation
-
-** Workload application
-*** What it is and why it is needed
-*** The technology and issues faced
-*** What was learned and what would be done differently
-** Student Programme planner
-*** What it is and why is it needed
-*** The technology and issues faced
-*** What was learned and what would be done differently
-
 * Workload
-** What is Workload
-  + A measurement tool used to calculate workload hours
+** Workload is
+  + A measurement tool used to monitor staff workloads
 ** What are workload hours?
-  + A way of measuring the overall workload of a individual staff member,
+  + A way of approximating the fairness of a individual staff member,
     cluster group and all SEAT staff.
     - 1900 workload hours each
       + Teaching Allocations
@@ -43,60 +33,87 @@ take to achieve their degree.
 
   + It is a abstract measurement not meant to represent actual hours
 
+* Original idea
 
 
-* Workload Formula
+#+BEGIN_DITAA workload-process3 -r -S -E
++-----------------------------------------------------------------------------+
+|  +-------------+        +---------------+        +-------------+            |
+|  | Workload    |        | Postgraduate  |        | CoS Data    |            |
+|  |  Data       |        |   Data        |        |             |            |
+|  |             |        |               |        |             |            |
+|  +-----+-------+        +-------+-------+        +------+------+            |
++--------|------------------------|-----------------------|-------------------+
+         +------------------+     |      +----------------+
+                            |     |      |
+                            V     V      V
++-----------+             +-+-----+------+-+      +--->Summary
+| Cluster   |   'new'     |  Web           |      |
+| Leader    +------------>+  Interface     +------+--->Cluster
+|           |  teaching   |                |      |
+|           | allocation  |                |      +--->Personal
++-----------+             +----------------+
+                                  ^                   
+                                  |
+                                  |
+                                  V
+                           +------+-----+
+                           |            |
+                           |  Admin     |
+                           |            |
+                           +------------+
 
-** 2 formula for workload
 
-*** Workload formula
+#+END_DITAA
 
-**** hours = intercept*paper points/15+(slope*no. of students)-(144/no. of students)
+* Reality
+#+BEGIN_DITAA workload-process2 -r -S -E
++-----------------------------------------------------------------------------+
+|  +-------------+        +---------------+        +-------------+            |
+|  | Workload    |        | Postgraduate  |        |-----------  |            |
+|  |  Data       |        |   Data        |        |             |            |
+|  |             |        |               |        |             |            |
+|  +-----+-------+        +-------+-------+        +------+------+            |
++--------|------------------------|-----------------------|-------------------+
+         +------------------+     |      +----------------+
+                            |     |      |
+                            V     V      V
++-----------+             +-+-----+------+-+      +--->Summary
+| Cluster   |   'new'     |  Web           |      |
+| Leader    +------------>+  Interface     +------+--->Cluster
+|           |  teaching   |                |      |
+|           | allocation  |                |      +--->Personal
++-----------+             +----------------+
+                                  ^
+                                  |
+                                  V
+                           +------+-----+
+                           |            |
+                           |  Admin     |
+                           |            |
+                           +------------+
 
-*** Paper Coordinator Workload formula
 
-**** hours = intercept*paper points/15+(slope*no. of students)
-
-** Project papers, Postgraduate Supervision and Administration roles formula
-
-*** Undergraduate Project paper
-
-**** Workload hours for paper * (students supervised/no. of students)
-
-*** Postgraduate Supervision
-
-**** Postgraduate degree hours * (percentage of supervision/100)
-
-*** Administration roles hours
-
-**** Administration role hours
-
-* Coefficients
+#+END_DITAA
 
 
-|---------------------+--------+-----------+-------|
-| Input               | Points | Intercept | Slope |
-|---------------------+--------+-----------+-------|
-| Undergraduate paper |     15 |     287.5 |     4 |
-| Project paper       |     30 |         0 |    50 |
-| Honours project     |     30 |         0 |    50 |
-| DipApplSc           |     30 |         0 |    50 |
-| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
-| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
-| PhD (1st Sup)       |    100 |         0 |   100 |
-| PhD (2nd Sup)       |    100 |         0 |    50 |
-|---------------------+--------+-----------+-------|
+
 
 * Current workload tool
 
-** Microsoft Excel Spreadsheet application
 
+** Microsoft Excel Spreadsheet application
+#+begin_html
+<div class="large">
+#+end_html
+  [[./spreadsheet.png]]
+#+begin_html
+</div>
+#+end_html
     - Is complicated and hard to use
     - Time consuming to collate data
     - The amount of data it can store is coming to the maximum Excel
       can take
-
-
 * The new Workload Application
 
 ** Open source
@@ -225,12 +242,12 @@ take to achieve their degree.
 *** Give the student a narrowed down choice of sets of papers for each degree
 
 * Use case
-*** A Student does their first year of study at university.  
+*** A Student does their first year of study at university.
 *** They pass a number of papers.
 *** They have not decided upon a major yet
 *** They want to know what their options are.
 *** They want to know what major suits their choice of papers so far the best
-*** What are the possible paper combinations 
+*** What are the possible paper combinations
 *** These combinations must be valid for the choice of degree
 *** Must allow them to complete their degree if done.
 
