@@ -2,11 +2,7 @@
 
 #+begin_src emacs-lisp :exports none
   
-  (defun image_handler(src par-open)
-   (save-match-data
-     (format "<img class='large' src='%s'/>" src)
-     ))
-  (add-hook 'org-export-html-format-image 'image_handler)
+  
 #+End_src
 
 
@@ -26,19 +22,11 @@ take to achieve their degree.
 * Workload
 ** Workload is
   + A measurement tool used to monitor staff workloads
-** What are workload hours?
-  + A way of approximating the fairness of a individual staff member,
-    cluster group and all SEAT staff.
-    - 1900 workload hours each
-      + Teaching Allocations
-      + Coordination of papers
-      + Supervision of postgraduates
-      + Administration roles
 
   + Management tool to aid in the distribution of work over the whole
     of SEAT.
 
-  + It is a abstract measurement not meant to represent actual hours
+  + It is an abstract measurement not meant to represent actual hours
 
 * Original idea
 
@@ -58,7 +46,7 @@ take to achieve their degree.
 | Cluster   |   'new'     |  Web           |      |
 | Leader    +------------>+  Interface     +------+--->Cluster
 |           |  teaching   |                |      |
-|           | allocation  |                |      +--->Personal
+|           | allocations |                |      +--->Personal
 +-----------+             +----------------+
                                   ^                   
                                   |
@@ -89,7 +77,7 @@ take to achieve their degree.
 | Cluster   |   'new'     |  Web           |      |
 | Leader    +------------>+  Interface     +------+--->Cluster
 |           |  teaching   |                |      |
-|           | allocation  |                |      +--->Personal
+|           | allocations |                |      +--->Personal
 +-----------+             +----------------+
                                   ^
                                   |
@@ -123,12 +111,6 @@ take to achieve their degree.
       can take
 * The new Workload Application
 
-** Open source
-
-** Configurable
-
-** Responsive
-
 ** Web application
 *** Client side
 **** jQuery
@@ -141,6 +123,8 @@ take to achieve their degree.
 **** Django
 **** MySQL
 **** Microsoft Access
+** Configurable
+** Responsive
 
 * Concurrency and Security
 
