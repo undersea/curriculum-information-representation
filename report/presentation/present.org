@@ -1,6 +1,13 @@
 #+SETUPFILE: htmlslidy.org
 
-
+#+begin_src emacs-lisp :exports none
+  
+  (defun image_handler(src par-open)
+   (save-match-data
+     (format "<img class='large' src='%s'/>" src)
+     ))
+  (add-hook 'org-export-html-format-image 'image_handler)
+#+End_src
 
 
 #+TITLE: Managing staff
