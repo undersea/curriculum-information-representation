@@ -1,31 +1,51 @@
 #+SETUPFILE: htmlslidy.org
 
 
-#+TITLE: Managing staff
-#+AUTHOR: James Hurford
+
+#+TITLE: Managing staff workloads
+#+AUTHOR: by James Hurford <p>Supervisor Stephen Marsland</p>
 
 
 * Introduction
 ** My project involves two projects
 *** *Workload*
-A Web based application for managing academic staff
+A Web based application for managing academic staff workload
 *** *Student Programme Planner*
 An application to aid in the planning of a students programme of study
-for their entire degree.  This only covers the papers they may want to
-take to achieve their degree.
+for their entire degree.
+
+#+BEGIN_HTML
+<div class="centre">
+#+END_HTML
+[[./clock.jpg]]
+#+BEGIN_HTML
+</div>
+#+END_HTML
+
 
 * Workload
-** Workload is
-  + A measurement tool used to monitor staff workloads
+  + A measurement tool used to monitor staff workloads.
 
   + Management tool to aid in the distribution of work over the whole
     of SEAT.
 
-  + It is an abstract measurement not meant to represent actual hours
+  + 
+#+BEGIN_HTML
+<div class="centre2">
+#+END_HTML
+[[./clock.png]]
+#+BEGIN_HTML
+</div>
+#+END_HTML
 
-* Original idea
 
+* Data IO
 
+#+BEGIN_HTML
+<div>
+<div class="diagram">
+#+END_HTML
+** *Fantasy*
 #+BEGIN_DITAA workload-process3 -r -S -E
 +-----------------------------------------------------------------------------+
 |  +-------------+        +---------------+        +-------------+            |
@@ -55,24 +75,33 @@ take to achieve their degree.
 
 
 #+END_DITAA
+#+BEGIN_HTML
+</div>
+#+END_HTML
 
-* Reality
+
+
+
+#+BEGIN_HTML
+<div class="diagram2">
+#+END_HTML
+** *Reality*
 #+BEGIN_DITAA workload-process2 -r -S -E
 +-----------------------------------------------------------------------------+
-|  +-------------+        +---------------+        +-------------+            |
-|  | Workload    |        | Postgraduate  |        |-----------  |            |
-|  |  Data       |        |   Data        |        |             |            |
-|  |             |        |               |        |             |            |
-|  +-----+-------+        +-------+-------+        +------+------+            |
-+--------|------------------------|-----------------------|-------------------+
-         +------------------+     |      +----------------+
-                            |     |      |
-                            V     V      V
-+-----------+             +-+-----+------+-+      +--->Summary
+|  +-------------+        +---------------+                                   |
+|  | Workload    |        | Postgraduate  |                                   |
+|  |  Data       |        |   Data        |                                   |
+|  |             |        |               |                                   |
+|  +-----+-------+        +-------+-------+                                   |
++--------|------------------------|-------------------------------------------+
+         +------------------+     |      
+                            |     |      
+                            V     V      
++-----------+             +-+-----+--------+      +--->Summary
 | Cluster   |   'new'     |  Web           |      |
 | Leader    +------------>+  Interface     +------+--->Cluster
 |           |  teaching   |                |      |
-|           | allocations |                |      +--->Personal
+|           | allocations |                |      +---Personal
 +-----------+             +----------------+
                                   ^
                                   |
@@ -86,13 +115,15 @@ take to achieve their degree.
 
 #+END_DITAA
 
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
+
+* Current workload tool.
 
 
-
-* Current workload tool
-
-
-** Microsoft Excel Spreadsheet application
+** Microsoft Excel Spreadsheet application.
 #+begin_html
 <div class="large">
 #+end_html
@@ -100,11 +131,14 @@ take to achieve their degree.
 #+begin_html
 </div>
 #+end_html
-    - Is complicated and hard to use
-    - Time consuming to collate data
-    - The amount of data it can store is coming to the maximum Excel
-      can take
+    - Is complicated and hard to use.
+    - Time consuming to collate data.
+    - The amount of data stored is coming to the maximum.
 * The new Workload Application
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 
 ** Web application
 *** Client side
@@ -121,131 +155,53 @@ take to achieve their degree.
 ** Configurable
 ** Responsive
 
-* Concurrency and Security
+
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
+
+
+* Access, Concurrency and Security
 
 ** 3 types of users
-
+ + Administrator
+ + Cluster leader
+ + Ordinary Staff
 ** How concurrency issues were avoided
-
-** How important is it?
-
-* Reflections
-
-** Django
-
-*** MTV view
-
-**** Places structure on your application
-
-*** Models
-
-**** Allow you to develop database tables independent of specific DB
-
-**** Easier to create tables
-
-*** In general
-
-**** Saves time and energy for most basic tasks
-**** Documentation is still lacking in some areas
-
-* Reflections
-** W3C standards
-
-*** Reduces incompatibility problems
-*** Doesn't eliminate all problems
-
-** jQuery
-
-*** Eliminates most Javascript browser incompatibilities
-
-*** Simplifies process of creating web application
-
-* Reflections
-
-** Javascript
-
-*** Need to test on multiple browsers
-
-**** Debugging tools across all platforms desirable
-
-*** Internet Explorer and Webkit based browsers
-
-**** Very strict on what they will accept
-
-*** Firefox
-
-**** Is very forgiving
-
-** CSS
-
-*** A must in modern web applications
-*** Can't alter form controls of Firefox
-
-* Reflections
-
-** Response optimisation
-
-*** Look at algorithm first
-
-   - Only optimise inner most loop
-   - Use as few calls and checks as possible
-   - Use intrinsic operations like map() to simulate loops
-   - avoid using functions written in python in inner most loop
-   - use local variables
-     - faster than using global
-     - copy global to local if needed
-   - use map(), filter() or reduce() to replace loops
-     - only if using built-in functions
-     - use a loop with in-line code otherwise
-
-
-*** Look at C code if that fails
-
-* Reflections
-
-** Workload hours process
-
-*** Formulas need clarification
-
-*** Process needs documenting
-
-** Database
-
-*** Postgraduate database
-
-**** Needs cleaning up
-
-*** Local DB Data input
-
-**** Setup of DB needs improvement
-
+ + Cluster Copy
+ + Administrator control
+ + Otherwise not critical
+** How important is security?
+ + Password access
+ + No secrets between staff
+ + Write access
 * Student Programme Planner
 
 ** What does Student Programme Planner do?
 
-*** A tool to aid the planning and selecting of a degree programme
+*** A tool to aid the planning and selecting of a degree.
 
-*** Give the student a narrowed down choice of sets of papers for each degree
+*** Give the student a narrowed down choice of sets of papers for each degree.
 
-* Use case
+* Scenario.
 *** A Student does their first year of study at university.
-*** They pass a number of papers.
-*** They have not decided upon a major yet
-*** They want to know what their options are.
-*** They want to know what major suits their choice of papers so far the best
-*** What are the possible paper combinations
-*** These combinations must be valid for the choice of degree
-*** Must allow them to complete their degree if done.
+*** Have not decided upon a major yet.
+*** Want to know what their options are.
+*** Want to know what major suits their choice of papers the best.
+*** Want to know the possible paper combinations.
+**** These combinations must be valid for the choice of degree.
+**** Must allow them to complete their degree if done.
 
 * Ideas on the user interface
-** Multi story floor plan
-** Atom view
-** Line graph
-** Jigsaw puzzle
-** Self Organising map
-** Templates
+** Multistory floor plan.
+** Atom view.
+** Line graph.
+** Jigsaw puzzle.
+** Self Organising map.
 
-* Flowchart
+
+* What was the planned process?
 
 #+BEGIN_DITAA decision-process-diagram -r -S -E
                +---------+   +----------+   +----------+   +--------------+
@@ -268,5 +224,8 @@ take to achieve their degree.
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
 
+* Thank you
 
-# LocalWords:  optimisation
+** Questions?
+
+# LocalWords:  optimisation Marsland
