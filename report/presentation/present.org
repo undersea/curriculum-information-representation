@@ -7,6 +7,10 @@
 
 
 * Introduction
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 ** My project involves two projects
 *** *Workload*
 A Web based application for managing academic staff workload
@@ -17,18 +21,27 @@ for their entire degree.
 [[./clock.png]]
 
 
-
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 * Workload
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
   + A measurement tool used to monitor staff workloads.
 
   + Management tool to aid in the distribution of work over the whole
     of SEAT.
 
-  + 
 
 [[./clock.png]]
 
-
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 
 * Data IO
 
@@ -109,7 +122,6 @@ for their entire degree.
 
 * Current workload tool.
 
-
 ** Microsoft Excel Spreadsheet application.
 #+begin_html
 <div class="large">
@@ -121,6 +133,7 @@ for their entire degree.
     - Is complicated and hard to use.
     - Time consuming to collate data.
     - The amount of data stored is coming to the maximum.
+
 * The new Workload Application
 #+BEGIN_HTML
 <div class="centre2">
@@ -150,7 +163,10 @@ for their entire degree.
 
 
 * Access, Concurrency and Security
-
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 ** 3 types of users
  + Administrator
  + Cluster leader
@@ -163,15 +179,30 @@ for their entire degree.
  + Password access
  + No secrets between staff
  + Write access
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 * Student Programme Planner
-
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 ** What does Student Programme Planner do?
 
 *** A tool to aid the planning and selecting of a degree.
 
 *** Give the student a narrowed down choice of sets of papers for each degree.
 
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 * Scenario.
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 *** A Student does their first year of study at university.
 *** Have not decided upon a major yet.
 *** Want to know what their options are.
@@ -180,14 +211,25 @@ for their entire degree.
 **** These combinations must be valid for the choice of degree.
 **** Must allow them to complete their degree if done.
 
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 * Ideas on the user interface
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 ** Multistory floor plan.
 ** Atom view.
 ** Line graph.
 ** Jigsaw puzzle.
 ** Self Organising map.
 
-
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
 * What was the planned process?
 
 #+BEGIN_DITAA decision-process-diagram -r -S -E
@@ -210,9 +252,15 @@ for their entire degree.
 |          |   |          |   | {io}cBLU    |  | {io} cBLU    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
-
 * Thank you
-
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
 ** Questions?
 
 # LocalWords:  optimisation Marsland
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML

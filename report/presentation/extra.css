@@ -58,8 +58,8 @@ div.centre2
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  width: 700px;
-  border: solid;
+  width: 1000px;
+  border: none;
 }
 
 div p
@@ -71,7 +71,7 @@ div p
   position: relative;
   width: 850px;
   height: 600px;
-  border: solid;
+  border: none;
   botton: 200px;
 }
 
