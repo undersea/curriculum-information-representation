@@ -3,41 +3,44 @@ div.diagram
   position: absolute;
   top: 200px;
   left: 5px;
-  border: none;
+  border: solid;
 }
 
 
 div.diagram p
 { 
-  width: 500px;
+  width: 600px;
   border: none;
 }
 
-div.diagram img
+div.diagram p img
 { 
-  width: 500px;
-  height: 300px;
-  
+  width: 600px;
+  height: 400px;
+  top: 0px;
 }
 
-div.diagram2 p
-{ 
-  width: 500px;
-  border: none;
-}
 
-div.diagram2 img
+div.diagram2 p img
 { 
-  width: 500px;
-  height: 300px;
+  width: 600px;
+  height: 400px;
+  top: 0px;
 }
 
 div.diagram2
 { 
   position: absolute;
-  /*left: 10pt;*/
-  right: 0px;
+  left: 710px;
+  
   top: 200px;
+  border: solid;
+}
+
+
+div.diagram2 p
+{ 
+  width: 600px;
   border: none;
 }
 
@@ -63,7 +66,28 @@ div p
 { 
   margin-left: auto;
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   position: relative;
-  width: 175px;
+  width: 850px;
+  height: 600px;
   border: solid;
+  botton: 200px;
+}
+
+
+div p img
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+    top: 100px;
+}
+
+.footer img
+{
+    position: absolute;
+    bottom: 200px;
 }

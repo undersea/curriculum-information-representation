@@ -3,7 +3,7 @@
 
 
 #+TITLE: Managing staff workloads
-#+AUTHOR: by James Hurford <p>Supervisor Stephen Marsland</p>
+#+AUTHOR: <br/><br/><p><div>by James Hurford</div> <div>Supervisor Stephen Marsland</div></p>
 
 
 * Introduction
@@ -14,13 +14,8 @@ A Web based application for managing academic staff workload
 An application to aid in the planning of a students programme of study
 for their entire degree.
 
-#+BEGIN_HTML
-<div class="centre">
-#+END_HTML
-[[./clock.jpg]]
-#+BEGIN_HTML
-</div>
-#+END_HTML
+[[./clock.png]]
+
 
 
 * Workload
@@ -30,13 +25,9 @@ for their entire degree.
     of SEAT.
 
   + 
-#+BEGIN_HTML
-<div class="centre2">
-#+END_HTML
+
 [[./clock.png]]
-#+BEGIN_HTML
-</div>
-#+END_HTML
+
 
 
 * Data IO
@@ -77,12 +68,6 @@ for their entire degree.
 #+END_DITAA
 #+BEGIN_HTML
 </div>
-#+END_HTML
-
-
-
-
-#+BEGIN_HTML
 <div class="diagram2">
 #+END_HTML
 ** *Reality*
@@ -119,6 +104,8 @@ for their entire degree.
 </div>
 </div>
 #+END_HTML
+
+
 
 * Current workload tool.
 
