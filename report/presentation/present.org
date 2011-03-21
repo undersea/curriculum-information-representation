@@ -18,106 +18,11 @@ A Web based application for managing academic staff workload
 An application to aid in the planning of a students programme of study
 for their entire degree.
 
-[[./clock.png]]
-
-
-#+BEGIN_HTML
+[[./tdmanager.gif]]                                   
+#+BEGIN_HTML                                                 
 </div>
 </div>
 #+END_HTML
-* Workload
-#+BEGIN_HTML
-<div class="centre2">
-<div>
-#+END_HTML
-  + A measurement tool used to monitor staff workloads.
-
-  + Management tool to aid in the distribution of work over the whole
-    of SEAT.
-
-
-[[./clock.png]]
-
-#+BEGIN_HTML
-</div>
-</div>
-#+END_HTML
-
-* Data IO
-
-#+BEGIN_HTML
-<div>
-<div class="diagram">
-#+END_HTML
-** *Fantasy*
-#+BEGIN_DITAA workload-process3 -r -S -E
-+-----------------------------------------------------------------------------+
-|  +-------------+        +---------------+        +-------------+            |
-|  | Workload    |        | Postgraduate  |        | CoS Data    |            |
-|  |  Data       |        |   Data        |        |             |            |
-|  |             |        |               |        |             |            |
-|  +-----+-------+        +-------+-------+        +------+------+            |
-+--------|------------------------|-----------------------|-------------------+
-         +------------------+     |      +----------------+
-                            |     |      |
-                            V     V      V
-+-----------+             +-+-----+------+-+      +--->Summary
-| Cluster   |   'new'     |  Web           |      |
-| Leader    +------------>+  Interface     +------+--->Cluster
-|           |  teaching   |                |      |
-|           | allocations |                |      +--->Personal
-+-----------+             +----------------+
-                                  ^                   
-                                  |
-                                  |
-                                  V
-                           +------+-----+
-                           |            |
-                           |  Admin     |
-                           |            |
-                           +------------+
-
-
-#+END_DITAA
-#+BEGIN_HTML
-</div>
-<div class="diagram2">
-#+END_HTML
-** *Reality*
-#+BEGIN_DITAA workload-process2 -r -S -E
-+-----------------------------------------------------------------------------+
-|  +-------------+        +---------------+                                   |
-|  | Workload    |        | Postgraduate  |                                   |
-|  |  Data       |        |   Data        |                                   |
-|  |             |        |               |                                   |
-|  +-----+-------+        +-------+-------+                                   |
-+--------|------------------------|-------------------------------------------+
-         +------------------+     |      
-                            |     |      
-                            V     V      
-+-----------+             +-+-----+--------+      +--->Summary
-| Cluster   |   'new'     |  Web           |      |
-| Leader    +------------>+  Interface     +------+--->Cluster
-|           |  teaching   |                |      |
-|           | allocations |                |      +---Personal
-+-----------+             +----------------+
-                                  ^
-                                  |
-                                  V
-                           +------+-----+
-                           |            |
-                           |  Admin     |
-                           |            |
-                           +------------+
-
-
-#+END_DITAA
-
-#+BEGIN_HTML
-</div>
-</div>
-#+END_HTML
-
 
 
 * Current workload tool.
@@ -130,9 +35,34 @@ for their entire degree.
 #+begin_html
 </div>
 #+end_html
-    - Is complicated and hard to use.
-    - Time consuming to collate data.
-    - The amount of data stored is coming to the maximum.
+* 
+   - Is complicated and hard to use.
+   - Time consuming to collate data.
+   - The amount of data stored is coming to the maximum.
+
+* Data IO
+
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
+[[./workload-process.png]]
+#+BEGIN_HTML
+</div>
+
+#+END_HTML
+* Consultation
+** Prototype demonstrated to cluster leaders
+** Design changes took place
+* Sample Cluster leader paper edit view
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
+
+[[./cluster_paper_edit_view.png]]
+
+#+BEGIN_HTML
+</div>
+#+END_HTML
 
 * The new Workload Application
 #+BEGIN_HTML
@@ -146,7 +76,6 @@ for their entire degree.
 **** Ajax
 **** HTML
 **** CSS
-
 *** Server side
 **** Python
 **** Django
@@ -160,7 +89,6 @@ for their entire degree.
 </div>
 </div>
 #+END_HTML
-
 
 * Access, Concurrency and Security
 #+BEGIN_HTML
@@ -203,34 +131,22 @@ for their entire degree.
 <div class="centre2">
 <div>
 #+END_HTML
-*** A Student does their first year of study at university.
-*** Have not decided upon a major yet.
-*** Want to know what their options are.
-*** Want to know what major suits their choice of papers the best.
-*** Want to know the possible paper combinations.
-**** These combinations must be valid for the choice of degree.
-**** Must allow them to complete their degree if done.
+** Jim has done one year of study.
+  - Did the following
+    + 159.101
+    + 159.102
+    + 160.101
+    + 160.102
+    + 161.101
+    + 158.100
+    + 119.117
+    + 178.100
+*** Jim doesn't know what major to do, or even what is available.  He brings up the planner tool and is presented with...
 
-#+BEGIN_HTML
-</div>
-</div>
-#+END_HTML
-* Ideas on the user interface
-#+BEGIN_HTML
-<div class="centre2">
-<div>
-#+END_HTML
-** Multistory floor plan.
-** Atom view.
-** Line graph.
-** Jigsaw puzzle.
-** Self Organising map.
-
-#+BEGIN_HTML
-</div>
-</div>
-#+END_HTML
 * What was the planned process?
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
 
 #+BEGIN_DITAA decision-process-diagram -r -S -E
                +---------+   +----------+   +----------+   +--------------+
@@ -252,6 +168,18 @@ for their entire degree.
 |          |   |          |   | {io}cBLU    |  | {io} cBLU    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
+
+#+BEGIN_HTML
+</div>
+#+END_HTML
+
+* Outcomes
+** The workload process is streamlined
+** Makes it easier for cluster leaders and the administrator
+** Takes less time to collate data
+** Backups are possible
+** Postgraduate supervision updates easier
+
 * Thank you
 #+BEGIN_HTML
 <div class="centre2">
