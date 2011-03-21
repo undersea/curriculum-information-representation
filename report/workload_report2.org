@@ -15,6 +15,8 @@
 #+XSLT:
 
 
+#+DRAWERS: FIGURE
+
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1em}
 
@@ -55,6 +57,7 @@ for calculating standard hours for a paper shown in figure
 \ref{fig:formula}.  A table was also provided which gave the
 coefficients for each teaching input shown in table \ref{table:coefficients}.
 
+:FIGURE:
 #+begin_html
 <div id="fig:formula2" class="figure">
 #+end_html
@@ -63,12 +66,14 @@ coefficients for each teaching input shown in table \ref{table:coefficients}.
 \centering
 #+END_LATEX
 #+begin_example
+:END:
 Standard Hours = Intercept*paper points/15
                  + (Slope*no. of students)
                  - (144/no. of students)
 
 #+end_example
 
+:FIGURE:
 #+BEGIN_LATEX
 \caption{\label{fig:formula} The standard hours formula used to
 calculate a standard hour component}
@@ -82,6 +87,7 @@ calculate a standard hour component}
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: The Coefficients table used to supply the values that are plugged into the standard hours formula
 #+LABEL: table:coefficients
+:END:
 |---------------------+--------+-----------+-------|
 | Input               | Points | Intercept | Slope |
 |---------------------+--------+-----------+-------|
@@ -105,11 +111,13 @@ they teach in percentage terms, and this percentage is the percentage
 of the total standard hours this paper provides for that year.  an
 example is provided in figure \ref{fig:example1}.
 
+:FIGURE:
 #+BEGIN_LATEX
 \begin{figure}[H]
 \centering
 #+END_LATEX
 #+begin_example
+:END:
 no. of students = 10
 paper points = 15
 Intercept = 287.5
@@ -125,13 +133,14 @@ staff2 teach allocation = 40%
 
 staff1 gets 313.1*(60/100) = 187.86 standard hours
 staff2 gets 313.1*(40/100) = 125.24 standard hours
+:FIGURE:
 #+end_example
 #+BEGIN_LATEX
 \caption{\label{fig:example1} An example of how the standard hours are
 used to calculate a staff members teaching hours}
 \end{figure}
 #+END_LATEX
-
+:END:
 
 
 **** Coordinator hours
@@ -145,10 +154,11 @@ paper has a intercept of 15 and a slope of 0.15.  These are split
 between the local and global coordinator.  This is shown in table
 \ref{table:coord}.
 
-
+:FIGURE:
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: Table showing the intercept and slope used for local and global coordinators
 #+LABEL: table:coord
+:END:
 |-----------+-------------+-------------+-------|
 |           | Global      | Local       |       |
 |           | Coordinator | Coordinator | Total |
@@ -161,21 +171,23 @@ between the local and global coordinator.  This is shown in table
 The formula shown in figure \ref{fig:formula3} is different to the
 normal teaching standard hours formula.  The samll class modifier was
 not used.
-
+:FIGURE:
 #+BEGIN_LATEX
 \begin{figure}[H]
 \centering
 #+END_LATEX
 #+begin_example
+:END:
 coordinator standard hours = Intercept*paper points/15
                              + (Slope*no. of students)
+:FIGURE:
 #+end_example
 #+BEGIN_LATEX
 \caption{\label{fig:formula3} The corrected standard hours formula
 used to calculate coordinator standard hours}
 \end{figure}
 #+END_LATEX
-
+:END:
 
 **** Other modifiers used to calculate standard hours
 - *Off campus modifier:*
@@ -201,12 +213,14 @@ papers is 40 and it has a slope of 0.  Thus if there are 10 enrolled
 students, and the staff member was supervising 1 of them then the
 hours they would get 2.56 workload hours.  Assuming that this is a
 paper of 15 points in value.
-
+:FIGURE:
 \begin{equation}
+:END:
 40*15/15+(0*10)-(144/10) = 25.6
 25.6*(1/10) = 2.56
+:FIGURE:
 \end{equation}
-
+:END:
 Postgraduate project papers are also calculated given the formula from
 figure \ref{fig:formula}.  Their points value, intercept and slope
 are given in table \ref{table:coefficients}.
@@ -223,10 +237,11 @@ workload hours that each degree is worth.  The extracted table, shown
 in table \ref{table:pghours}, has one column with the shortened degree
 name and next to that degree in the next column is the total hours.
 
-
+:FIGURE:
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: The extracted postgraduate workload hours
 #+LABEL: table:pghours
+:END:
 |---------------+-----|
 | ApplSc(Hons)  |  50 |
 | DipApplSc     |  50 |
@@ -249,11 +264,12 @@ name and next to that degree in the next column is the total hours.
 | PGDip         |  50 |
 | PhD           | 150 |
 |---------------+-----|
-
+:FIGURE:
 #+BEGIN_LATEX
 \begin{figure}[H]
 \centering
 #+END_LATEX
+:END:
 A staff member has a postgraduate student doing a MSc.
 The staff member does 50% of the supervision for this student.  MSc is worth 100
 workload hours.  50% of 100 is 50 so the staff member gets awarded 50
@@ -261,12 +277,13 @@ workload hours for supervising this student.  The other staff member
 also provides 50% of the supervision for this student and gets awarded
 the other 50% of the workload hours available for supervising this
 student which is also 50 workload hours.
+:FIGURE:
 #+BEGIN_LATEX
 \caption{\label{fig:pgequation}A example of how the postgraduate hours
 are divided between two supervisors}
 \end{figure}
 #+END_LATEX
-
+:END:
 **** Administration roles
 Administration roles held by staff are also worth some workload
 hours.  Each role is worth a set number of hours and could include
@@ -282,10 +299,11 @@ spreadsheet \cite{stdhours2} handles it by having a look up table of the roles a
 with their hours.  Table \ref{table:admin1} showing this has been extracted from the
 spreadsheet \cite{stdhours2}.
 
-
+:FIGURE:
 #+ATTR_LaTeX: placement=[H]
 #+CAPTION: Table from spreadsheet showing the workload hour values of a set of administration roles
 #+LABEL: table:admin1
+:END:
 |-----------------------+--------------|
 | Committee             |        Hours |
 |-----------------------+--------------|
@@ -334,7 +352,6 @@ spreadsheet \cite{stdhours2}.
     example the following code will work in Firefox, but will not work
     in Internet Explorer.
     
-    #+source: jsvar
     #+begin_src javascript
       tmp = 8;
       alert(tmp);
@@ -409,11 +426,12 @@ spreadsheet \cite{stdhours2}.
    have the views, which process the data, which is then taken by the
    templates which decide how this data is going to be displayed and
    what is going to be displayed.
-
+:FIGURE:
 #+attr_latex: width=20em,placement=[H]
 #+CAPTION: The Django model
 #+LABEL: fig:mtv
 #+BEGIN_DITAA  mtv_django -r -S -E
+:END:
  +----------+      +--------------+
  | {d}      |      | {d}          |
  | Template |------| Presentation |
@@ -434,8 +452,9 @@ spreadsheet \cite{stdhours2}.
    | Model |-------| Data Access  |
    | c888  |       | Layer c888   |
    +-------+       +--------------+
+:FIGURE:
 #+END_DITAA
-
+:END:
    It has a few official databases that it can work with, those being
    MySQL, PostGRESQL, PostGRESQL psycopg2, SQLLite and Oracle.  Others
    are available, but these are unofficial.
@@ -445,7 +464,9 @@ spreadsheet \cite{stdhours2}.
    several files. Within this project is one or more, what Django refers
    to as, applications \cite{django1}.
 
+   :FIGURE:
    #+begin_quote
+   :END:
    Projects vs. apps
 
    What's the difference between a project and an app? An app is a Web
@@ -453,24 +474,27 @@ spreadsheet \cite{stdhours2}.
    of public records or a simple poll app. A project is a collection of
    configuration and apps for a particular Web site. A project can
    contain multiple apps. An app can be in multiple projects.
+   :FIGURE:
    #+end_quote
-
+   :END:
    The basic way Django handles requests is shown diagramatically in
    figure \ref{fig:djprocess}.  A request for a URL is made.  Django
    looks up this URL pattern and maps this to a view, which then using a
    template, renders the html to the requesting browser.
-   
+   :FIGURE:
    #+attr_latex: width=30em,placement=[H]
    #+CAPTION: The Django Process from URL Request to rendering to browser
    #+LABEL: fig:djprocess
    #+BEGIN_DITAA django-process -r -S -E
+   :END:
    +----------+        +------------+        +-----------+      +------------+
    | URL      |        |  URL       |        | Mapped    |      | Template   |
    | Request  +------->+  Pattern   +------->+ View      +----->+ Rendering  |
    |          |        |  Lookup    |        | Execution |      | To Browser |
    +----------+        +------------+        +-----------+      +------------+
+   :FIGURE:
    #+END_DITAA
-
+   :END:
 
    Django has a unique way of handling URLs.  Every application in a
    Django project has a file called 'urls.py'.  It defines a object
@@ -486,16 +510,21 @@ spreadsheet \cite{stdhours2}.
 
 
    -----
+:FIGURE:
 #+LaTeX: \begin{figure}[H]
+:END:
 #+begin_src python
 from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('',
     (r'^prince/$', 'project.frog.views.index'),
 )
+
 #+end_src
+:FIGURE:
 #+LaTeX: \caption{\label{fig:urls} An example content of a Django urls.py file}
 #+LaTeX: \end{figure}
+:END:
 -----
 
 The project.views.index function, in figure \ref{fig:djview}, then
@@ -506,7 +535,9 @@ the browser.
 
 
 -----
+:FIGURE:
 #+LaTeX: \begin{figure}[H]
+:END:
 #+begin_src python
   
   from django.shortcuts import render_to_response
@@ -524,8 +555,10 @@ the browser.
       return render_to_response('index.html', {'frogs':frogs})
   
 #+end_src
+:FIGURE:
 #+LaTeX: \caption{\label{fig:djview} The project.frog.views.index function}
 #+LaTeX: \end{figure}
+:END:
 -----
 
 The template, shown in figure \ref{fig:djtemplate} uses the dictionary to create a list of variables in this
@@ -536,7 +569,9 @@ between {% %} is a Django template tag, which is processed by Djangos
 template renderer.
 
 -----
+:FIGURE:
 #+LaTeX: \begin{figure}[H]
+:END:
 #+begin_src html
   <html>
     <head>
@@ -549,8 +584,10 @@ template renderer.
     </body>
   </html>
 #+end_src
+:FIGURE:
 #+LaTeX: \caption{\label{fig:djtemplate} The index.html template}
 #+LaTeX: \end{figure}
+:END:
 -----
 
 To get a full description of what is happening here see the Django
@@ -735,9 +772,10 @@ The part that can not be changed is the formulas themselves.  To
 change these, someone needs to alter the formulas in the formula
 module.  This would require someone with Python programming
 experience.
-
+:FIGURE:
 #+CAPTION: Table of coefficients
 #+LABEL: table:coefficients
+:END:
 |---------------------+--------+-----------+-------|
 | input               | points | intercept | slope |
 |---------------------+--------+-----------+-------|
@@ -768,31 +806,514 @@ experience.
   is shown in figure \ref{fig:redesign:clusterview}. The old view is
   shown in figure \ref{fig:redesign:oldview}.
   
-
+  :FIGURE:
   #+ATTR_LaTeX: width=\textwidth, placement=[H]
   #+CAPTION: Cluster leader paper edit view in spreadsheet style
   #+LABEL: fig:redesign:clusterview
+  :END:
   [[./images/cluster_paper_edit_view.png]]
   
-
+  :FIGURE:
   #+ATTR_LaTeX: width=\textwidth, placement=[H]
   #+CAPTION: The old way cluster leaders were to edit their papers
   #+LABEL: fig:redesign:oldview
+  :END:
   [[./images/admin_offering_teach_edit_view.png]]
 ** Testing
    At every stage of development, testing took place.  There were no
    automated tests, even though they are possible, due to the developers
-   inexperience in testing web applications.
-
-
-   At every stage, a checklist of features and operations were tested by
-   hand.  A checkbox list of inputs and results were checked for pass or
+   inexperience in testing web applications.  However, at every stage,
+   a checklist of features and operations were tested by hand.  A
+   checkbox list of inputs and results were checked for pass or
    crossed for fail.
 
 * Implementation
-  
+This log
+in page is shown in figure \ref{fig:newlogin}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The new log in page
+#+LABEL: fig:newlogin
+:END:
+[[./images/login_page.png]]
+
+If logged in as administrator (or manager) you get this menu, as shown
+in figure \ref{fig:adminmenu}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The new contents page for the administrator
+#+LABEL: fig:adminmenu
+:END:
+[[./images/admin_index.png]]
 
 
+The administrator still gets the paper edit page, but even that has
+been modified.The original non prototype design was using javascript
+to render almost everything.  This was a real bottleneck for page
+loading speed.  Javascript, it seems is a little inefficient when it
+comes to rendering components on mass into a web page.  This was
+overcome by turning the paper list into a single expandable row as
+shown in figure \ref{fig:adminpaperedit}.
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The new expandable paper edit page for the administrator.
+#+LABEL: fig:adminpaperedit
+:END:
+[[./images/admin_paper_edit_view.png]]
+
+
+Administration roles, shown in figure \ref{fig:adminadminroles}, have the same look except that now there are ways
+of adding both roles and instances.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The Administration roles interface
+#+LABEL: fig:adminadminroles
+:END:
+[[./images/admin_adminroles.png]]
+
+
+You can add a administration role as shown in figure
+\ref{fig:addadminrole}.  To get to this point there is a link at the
+top of the administration roles page as highlighted by figure
+\ref{fig:adminadminroles2}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The Administration roles interface with add a role link circled
+#+LABEL: fig:adminadminroles2
+:END:
+[[./images/admin_adminroles2.png]]
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The Administration role addition interface
+#+LABEL: fig:addadminrole
+:END:
+[[./images/add_admin_role.png]]
+
+Not only can you add a role, but for every staff member you can add or
+delete a instance of a role as shown in \ref{fig:adminadminroles3} and
+the add a instance as shown in figure \ref{fig:addadmininstance}.  In
+this instance you have three editing controls, the top one being a
+drop down menu containing all the administration roles available for
+this administration instance, the second one is the staff member in
+question, and the last is just a test entry box for adding a
+description to this instance.  The second control seems
+a bit odd to be able to select a different staff member when the staff
+member in question is already known.  This still needs work, but it
+does do the job it was created for.  Delete has the immediate effect
+of removing the instance in question from the database.  These changes
+are all immediately shown in the displayed page.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The Administration roles interface with add and delete a staff instance links circled
+#+LABEL: fig:adminadminroles3
+:END:
+[[./images/admin_adminroles3.png]]
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The add a administration instance interface
+#+LABEL: fig:addadmininstance
+:END:
+[[./images/add_admin_instance.png]]
+
+
+The postgraduate page shows the staff members along with their
+supervised postgraduate students.  If they have none then it will say
+so.  Postgraduate supervision, is the one place where no editing of
+data takes place in this application.  The postgraduate supervision
+data is sourced from the Postgraduate database, which is managed by a
+external source.  However the data is still stored locally on the
+Workload database, to save time in downloading the data from the
+Postgraduate database.  The page is shown in figure
+\ref{fig:postgradpage}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The add a administration instance interface
+#+LABEL: fig:postgradpage
+:END:
+[[./images/add_admin_instance.png]]
+
+The programme list hasn't much changed except, now there is the extra
+campus menu.  You can add or delete the programs through a couple of
+links at the top circled in figure \ref{fig:programlist} with the add
+a programme shown in figure \ref{fig:addprogram}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The programme list page with the add and delete links circled.
+#+LABEL: fig:programlist
+:END:
+[[./images/admin_programme_list.png]]
+
+Figure \ref{fig:addprogram} shows the page for adding a programme to
+the list.  This is the combination of degree and major.  Some degrees
+do not have majors, so the major part can be left blank.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The programme addition page
+#+LABEL: fig:addprogram
+:END:
+[[./images/admin_add_programme.png]]
+
+Figure \ref{fig:adddegree} shows the degree add page which asks you
+for a short name of the degree and the full name for the records.  The
+short name is the part that will show up in any drop down menus for
+this degree.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add a degree page which makes it available to add to a programme of study
+#+LABEL: fig:adddegree
+:END:
+[[./images/admin_add_degree.png]]
+
+Figure \ref{fig:progmajor2} show the add major page, which is
+similar to add a degree, except this is for a major.
+
+
+With all these dialogs for creating a new programme of study, there are
+buttons at the bottom for in the form of Add and Cancel.  If Add is
+clicked then the choice is entered into the database and the browser
+goes to the previous page, with the new choice now being available for
+selection.  If Cancel is clicked then the previous page is loaded,
+without any new additions to the database.
+
+Looking at figure \ref{fig:clusterview2}, the cluster leaders
+cluster view you will see that there is a couple of entries that are
+in red.  These are the offerings which have Teaching Allocations which
+do not add up to one hundred.  This gives the user a visual warning
+that the teaching allocations for that offering need adjusting.  This
+brings up the awkward situation of how does the application handle
+situations where the allocations are a third.  If added together this
+will not add up to one hundred.  After a little thought, it was
+decided to round the totals.  This has the effect of if the total is
+99.9 then the rounding will bring them up to one hundred.  This allows
+allocations to be of odd values like a third.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add a Major page which make sit available to add to a programme of study
+#+LABEL: fig:progmajor2
+:END:
+[[./images/admin_add_major.png]]
+
+In figure \ref{fig:clusterview2} the "Revert to last save" and "Commit
+Changes" button are circled.  The "Revert to last save" button will
+revert the cluster paper data to what it is in the Paper, PaperExist
+and TeachingAllocation entities in the database.  New copies will be
+created of these and will replace any changes that have been made with
+the previous values.  A dialog will prompt you to confirm this action,
+in case this was done by mistake.  The "Commit Changes" button, will
+copy the changes to the entities these copies are of, unless the
+PaperExist has staff members from more than one cluster.  These will
+be kept around for the administrator to check and either approve or
+reject.  The administrators interface to this is displayed in figure
+\ref{fig:adminclusterview2}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Cluster leader paper edit view
+#+LABEL: fig:clusterview2
+:END:
+[[./images/cluster_paper_edit_view2.png]]
+
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The administrator cluster paper view
+#+LABEL: fig:adminclusterview2
+:END:
+[[./images/admin_cluster_view.png]]
+
+
+
+Circled in red, in figure \ref{fig:adminclusterview3a}, are two area,
+one being the "Accept all" button, the second is the green tick and
+red cross in the first row.  These ticks and crosses appear on  each
+row.  They have click events associated with them, the tick is the
+accept that offering event, and the cross is reject this offering
+event.  One of the criteria for this application was that there be a
+button to accept all the entries, so the administrator does not have
+to go through every offering individually.  This is where the "Accept
+all" comes in.  When this is clicked, all the entries are assumed to
+be correct, so the lot is copied over to the originals.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Administrator cluster view with accept, delete and accept all circled
+#+LABEL: fig:adminclusterview3a
+:END:
+[[./images/admin_cluster_view2.png]]
+
+
+When clicking the "Accept all" button, which offering do you use.  It
+really does not matter if the assumption is that they are all
+correct.  The easiest solution is to just use the first entry for
+every possible cluster offering solution.
+
+
+
+
+
+
+The accept or reject options for each cluster offering, shown in figure
+\ref{fig:adminclusterview3a}, provides a couple of problems.  The first
+is if a offering which has entries for several clusters.  If you click
+accept on one of them, what happens to the rest?  The solution chosen
+was to assume that the administrator, when clicking on the particular
+offering, does not want any of the other possible solutions.  In this
+case, the remaining are deleted and only the one accepted is copied
+over the original entity. The second is if a offering is rejected,
+again what happens to the rest.  The problem is there maybe errors, as
+in teaching allocations do not add up to 100.  The other is the
+offerings could give conflicting values.  The other situation is if
+none of the cluster offerings from the various clusters involved in
+that offering, are correct.  The scenario could be a combination of
+these situations.  The decision as to what happens here has not been
+resolved yet, but there is two solutions that have been thought of.
+The first is if one is rejected, they are all rejected, the second is
+just that cluster offering is rejected.  The only problem with either
+of these solutions, is how do you let the cluster leaders know what is
+going on as they will see their possible conflicting entry in the
+cluster leader paper view list whether it has been rejected or not.
+When committed, all the solutions that only involve that cluster get
+copied over the original, the offerings that involve more than one
+cluster stay in the list.  One solution is to assume that
+communication is done outside the application, like email.  There are
+various other ways of indicating this rejection, The cluster leader
+still needs to know to look, so communication needs to take place
+outside the application, but the offending offering could be coloured
+to indicate this rejection, or a pop up could be used to alert the
+cluster leader when the page is loaded.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The configure site contents page
+#+LABEL: fig:config
+:END:
+[[./images/admin_config_view.png]]
+
+Now the configure site menu item, when clicked takes you to another
+contents page.  This is a list of the various items that can be
+configured.  This is shown in figure \ref{fig:config}.
+
+The paper edit list has been shifted to this menu, shown in figure
+\ref{fig:seat-paper-list}.  The interface has been changed to only
+list the paper meta data, like paper code, title, points and global
+coordinator.  To edit the paper offerings you click on the circled
+expand arrow.  To delete it and all its offerings, click the delete
+option also circled.  To add a new paper click the circled top right link.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The paper edit page
+#+LABEL: fig:seat-paper-list
+:END:
+[[./images/SEAT_paper_list.png]]
+
+
+If the expand button is clicked the row will expand to show all
+offerings along with their teaching allocations that are associated
+with this paper.  This is shown in figure
+\ref{fig:seat-paper-list-expand}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The paper edit page, with the expand button having been clicked.
+#+LABEL: fig:seat-paper-list-expand
+:END:
+[[./images/SEAT_paper_list_expand.png]]
+
+
+All the same editing events happen as was explained in the prototype,
+except you now have to click the elements to edit them as hover was
+causing to many layout problems as the mouse moved over them.  The
+problem being that when the element gets changed to a editable
+element, it changes the layout of the page, and also when the hover
+out event happens, it connects to the server to update the field, even
+if nothing has changed.  That was not desirable, so instead, if a edit
+is wanted then you have to click it.  The ability of the element to be
+edited, is hinted at by the change in colour of the text.  This is
+immediately obvious to someone who has never used the system before,
+but there are only so many things you can do to alert people of these
+options over a web application.
+
+
+The next item in the configuration menu, figure \ref{fig:config} is
+"Add Staff".  When clicked this leads to a page with a form in it,
+shown in figure \ref{fig:addstaff}.  The form allows for the entry of
+the first and last names.  The initials, which are usually three
+letters, and must be unique to the individual, as this is one of the
+methods of identifying the staff member.  What cluster they belong to
+and what campus they are based at.  A Full Time Equivalent (FTE)
+number from 0 to 1.0 to represent how full time this staff member is.
+Also what class they are in, which indicates if they are a reasearcher
+of just a plain teacher.  All these fields are needed and if one is
+left out then the following will be displayed, shown in figure
+\ref{fig:addstaff-missing} on a commit attempt. 
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add staff page.
+#+LABEL: fig:addstaff
+:END:
+[[./images/new_staff.png]]
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Add staff page which has be commited without filling the required entries
+#+LABEL: fig:addstaff-missing
+:END:
+[[./images/new_staff-missing.png]]
+
+
+The next link in the configuration page (figure \ref{fig:config}) is
+the Designate cluster leader page.  The reason for this page, is to
+allow the administrator to designate who is a cluster leader.  They do
+that by clicking the tick box.  This also has the fuction of showing
+who is and who is not a cluster leader.  The cluster this person is a
+leader of, if the check box is checked, is the cluster they belong
+to.  If necessary, the list can be filtered down by the use of the
+drop down menu at the top of the page.  This only filters by cluster,
+which has been decided is enough.  More filters could be added, but
+they would not really add anymore to the already available filter by
+cluster option. This is shown in figure \ref{fig:designateleader}.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Cluster leader designation page
+#+LABEL: fig:designateleader
+:END:
+[[./images/cluster_leader_management.png]]
+
+The next in our list of configure links is "Upload data".  This page
+when loaded, as seen in figure \ref{fig:datasetup}, is a form with
+several fields, enabling comma separate value (csv) files to be
+uploaded.  The data in these files is used to populate the database
+with data, which can be used to calculate the staff workloads, and it
+even includes the staff to be allocated workload hours to.  This page
+is meant for the initial setup of the application and is still a work
+in progress.  The biggest initial problem you face is how do you get
+information into the database, this is meant to be a stopgap measure
+until a better method can be thought of.  The files that I have used
+so far have been extracted from the Workload spreadsheet, and turned
+into a csv file.  The problem with this is that the some of the data
+extracted fails referential integrity.  For the moment it will do, and
+any missing data can be added manually.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Data upload page
+#+LABEL: fig:datasetup
+:END:
+[[./images/data_setup.png]]
+
+
+The next item is "Archive site".  One of the requirements was to be
+able to archive a years data so that in future it may be compared with
+the current, and also be used as a backup.  I chose to create a
+archive file for each entity needed, and save it in json format.  The
+reason for choosing this format is that the application is being run
+on a Django framework, and Django has a simple means of populating the
+tables using any file in json format.  This is a builtin method, that
+can be invoked by just placing the files in the required place and
+running a script that comes with every Django application.  In figure
+\ref{fig:archive} is a list of the files created by this function.
+You will note that every one of the files names, before the extension,
+ends with the date.  This is so that it becomes a real historical
+archive, allowing for the years workload data from several archives
+ago, which could be years, loaded into the database.  The other
+advantage to using json is that it can potentially be used in
+javascript, allowing for none workload applications to use this data
+for whatever reason they decide.
+
+:FIGURE:
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+BEGIN_EXAMPLE
+:END:
+auth_user-2011.2.22.json           db_paper-2011.2.22.json
+db_admininstance-2011.2.22.json    db_paperexist-2011.2.22.json
+db_adminrole-2011.2.22.json        db_postgrad-2011.2.22.json
+db_campus-2011.2.22.json           db_postgraddegree-2011.2.22.json
+db_cluster-2011.2.22.json          db_postgradsupervision-2011.2.22.json
+db_coefficients-2011.2.22.json     db_projectpapersupervision-2011.2.22.json
+db_degree-2011.2.22.json           db_staff-2011.2.22.json
+db_degreemajor-2011.2.22.json      db_staffuser-2011.2.22.json
+db_degreepaperlist-2011.2.22.json  db_stdpoints-2011.2.22.json
+db_enrolled-2011.2.22.json         db_teachingallocation-2011.2.22.json
+db_major-2011.2.22.json
+:FIGURE:
+#+END_EXAMPLE
+#+LaTeX: \caption{\label{fig:archive} A list of files created by the archive function}
+#+LaTeX: \end{figure}
+:END:
+
+Then there is the "Synchronise Postgraduate Data" item.  This when
+clicks connects with the Postgraduate database and update the local
+Postgrad,  PostgradSupervision and PostgradMajor tables.  The
+application could connect every time a calculation is needed, but it
+is felt that doing this involves extra overhead, and not only that the
+entities have already been set up.
+
+
+"Change Password" is the last item in the list.  This allows the
+Administrator to change the password for their log in.  Figure
+\ref{fig:password} shows the page that is loaded for this.  This page
+is one of the built in Django pages for changing passwords.  It was
+easier using this than setting up one ourselves.  The problem with
+this is the layout and navigation technique is slightly different, as
+they use breadcrumbs, the rest of the site does not.
+
+:FIGURE:
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: Change Password page
+#+LABEL: fig:password
+:END:
+[[./images/password_change.png]]
+
+
+If a normal staff member, logs in they get a report on their
+individual workload hours.  This is broken down into the components
+that make up the workload hours.  This is shown in figure
+\ref{fig:staffreport}.  They are broken into the hours gained from
+coordinating and teaching papers, with a total of the hours gained
+from the papers the staff member is involved in.  The hours for
+supervising postgraduates, including the postgraduates details and is
+and how many hours they get for each student and a total for all
+postgraduates supervised.  Last of all the hours gained from
+administration jobs is given, with a breakdown of what the jobs are a
+description, if one is given, and the hours gained for this role.  The
+total for all the administration roles is given at the end.  At the
+very bottom is the total workload hours for the staff member.  The aim
+of this page, is to allow the staff member to check to see if their
+details and hours are correct.  They ca change some of their personal
+details by clicking on the element and typing in the changes in the
+text b field that appears, and when they move the mouse out of the
+filed, it reverts back to what it was, a <span> element, and update
+their details on the database through a ajax connection. First and
+last name, their cluster and the campus they are attached to can be
+edited on this page.  This page is viewable by others, and if you are
+a administrator or cluster leader, you can also edit their FTE and class.
+This is a feature that was not available in the old spreadsheet
+system.  There is also a link to the page to view other staff members
+workload hours, which is the same view shown in figure
+\ref{fig:staffreport}
+
+:FIGURE:
+#+CAPTION: The staff report page
+#+LABEL: fig:staffreport
+#+attr_latex: width=30em,placement=[H]
+:END:
+[[./images/staff_workload_report.png]]
 ** Database
    Most of what the application needs to do is handled by Django through
    its Model interface.  Some of the operations however are not covered by
@@ -835,7 +1356,9 @@ loading time of a page was reduced by following the following rules,
 based upon "Python Patterns - An Optimization Anecdote"
 \cite{optimising1}.
 
+:FIGURE:
 #+begin_quote 
+:END:
     + Rule number one: only optimize when there is a proven speed bottleneck. Only optimize the innermost loop. (This rule is independent of Python, but it doesn't hurt repeating it, since it can save a lot of work. :-)
     + Small is beautiful. Given Python's hefty charges for bytecode instructions and variable look-up, it rarely pays off to add extra tests to save a little bit of work.
     + Use intrinsic operations. An implied loop in map() is faster than an explicit for loop; a while loop with an explicit loop counter is even slower.
@@ -843,8 +1366,13 @@ based upon "Python Patterns - An Optimization Anecdote"
     + Local variables are faster than globals; if you use a global constant in a loop, copy it to a local variable before the loop. And in Python, function names (global or built-in) are also global constants!
     + Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function!
     + Check your algorithms for quadratic behavior. But notice that a more complex algorithm only pays off for large N - for small N, the complexity doesn't pay off. In our case, 256 turned out to be small enough that the simpler version was still a tad faster. Your mileage may vary - this is worth investigating.
-    + And last but not least: collect data. Python's excellent profile module can quickly show the bottleneck in your code. if you're considering different versions of an algorithm, test it in a tight loop using the time.clock() function. 
+    + And last but not least: collect data. Python's excellent profile
+      module can quickly show the bottleneck in your code. if you're
+      considering different versions of an algorithm, test it in a
+      tight loop using the time.clock() function. 
+:FIGURE:
 #+end_quote
+:END:
 
 There is still the possibility of using C compiled code to speed up
 the response time, as python being a interpreted language, does run
@@ -910,6 +1438,7 @@ page display.  One way that was found to control the look of controls
 was not to use them, but to display images, and add javascript events
 to them.
 
+:FIGURE:
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
@@ -917,3 +1446,4 @@ to them.
 
 
 # LocalWords:  customise centring
+:END:
