@@ -26,12 +26,15 @@
 #+BEGIN_abstract
 \begin{abstract}
 This project asks the question, can you split up data in a meaningful
-way, to different groups of people?  A web based application for
-managing academic staff workloads will be developed, which will
-demonstrate this is possible. It will achieve this aim by using
+way, to different groups of people?  It will achieve this aim by using
 several different techniques.  These involve human computer
 interaction (HCI), processing of data, and web based authentication.
 
+A web based application for managing academic staff workloads will be
+developed, which will demonstrate this is possible.  It will collect
+data together and display data according to which group of people you
+belong to.  It demonstrates the display of data, restriction of write
+and read access relevant to that group.
 \end{abstract}
 #+END_abstract
 
