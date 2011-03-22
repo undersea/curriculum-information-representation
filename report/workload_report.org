@@ -1,3 +1,5 @@
+#+BIND: org-export-latex-title-command ""
+
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com

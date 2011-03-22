@@ -1,3 +1,25 @@
+#+BIND: org-export-latex-title-command "\\maketitle"
+
+#+BEGIN_LaTeX_HEADER
+\def\maketitle{%
+  \null
+  \thispagestyle{empty}%
+  \vfill
+  \begin{center}\leavevmode
+    \normalfont
+    {\LARGE \@title\par}%
+    \vskip 1cm
+    {\Large \@author\par}%
+    \vskip 1cm
+    {\Large \@date\par}%
+  \end{center}%
+  \vfill
+  \null
+  \cleardoublepage
+  }
+
+#+END_LaTeX_HEADER
+
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com
