@@ -1,24 +1,5 @@
 #+BIND: org-export-latex-title-command "\\maketitle"
 
-#+BEGIN_LaTeX_HEADER
-\def\maketitle{%
-  \null
-  \thispagestyle{empty}%
-  \vfill
-  \begin{center}\leavevmode
-    \normalfont
-    {\LARGE \@title\par}%
-    \vskip 1cm
-    {\Large \@author\par}%
-    \vskip 1cm
-    {\Large \@date\par}%
-  \end{center}%
-  \vfill
-  \null
-  \cleardoublepage
-  }
-
-#+END_LaTeX_HEADER
 
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
@@ -44,6 +25,22 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper]
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1em}
+#+LaTeX_HEADER \def\maketitle{%
+#+LaTeX_HEADER  \null
+#+LaTeX_HEADER  \thispagestyle{empty}%
+#+LaTeX_HEADER  \vfill
+#+LaTeX_HEADER  \begin{center}\leavevmode
+#+LaTeX_HEADER    \normalfont
+#+LaTeX_HEADER    {\LARGE \@title\par}%
+#+LaTeX_HEADER    \vskip 1cm
+#+LaTeX_HEADER    {\Large \@author\par}%
+#+LaTeX_HEADER    \vskip 1cm
+#+LaTeX_HEADER    {\Large \@date\par}%
+#+LaTeX_HEADER  \end{center}%
+#+LaTeX_HEADER  \vfill
+#+LaTeX_HEADER  \null
+#+LaTeX_HEADER  \cleardoublepage
+#+LaTeX_HEADER  }
 
 #+BEGIN_abstract
 \begin{abstract}
