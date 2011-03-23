@@ -1,5 +1,5 @@
 #+BIND: org-export-latex-title-command "\\maketitle"
-
+#+BIND: org-export-latex-default-packages-alist ""
 
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
@@ -25,22 +25,15 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper]
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1em}
-#+LaTeX_HEADER \def\maketitle{%
-#+LaTeX_HEADER  \null
-#+LaTeX_HEADER  \thispagestyle{empty}%
-#+LaTeX_HEADER  \vfill
-#+LaTeX_HEADER  \begin{center}\leavevmode
-#+LaTeX_HEADER    \normalfont
-#+LaTeX_HEADER    {\LARGE \@title\par}%
-#+LaTeX_HEADER    \vskip 1cm
-#+LaTeX_HEADER    {\Large \@author\par}%
-#+LaTeX_HEADER    \vskip 1cm
-#+LaTeX_HEADER    {\Large \@date\par}%
-#+LaTeX_HEADER  \end{center}%
-#+LaTeX_HEADER  \vfill
-#+LaTeX_HEADER  \null
-#+LaTeX_HEADER  \cleardoublepage
-#+LaTeX_HEADER  }
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \usepackage{graphicx}
+#+LaTeX_HEADER: \usepackage{wrapfig}
+#+LaTeX_HEADER: \usepackage{fixltx2e}
+#+LaTeX_HEADER: \usepackage[utf8]{inputenc}
+#+LaTeX_HEADER: \usepackage[T1]{fontenc}
+#+LaTeX_HEADER: \usepackage{longtable}
+#+LaTeX_HEADER: \usepackage{float}
+
 
 #+BEGIN_abstract
 \begin{abstract}
