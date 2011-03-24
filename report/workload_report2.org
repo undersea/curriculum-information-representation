@@ -775,7 +775,7 @@ was not to simulate them, using HTML elements, along with javascript
 events.  This was done in the cluster view of the site.
 
 :HIDDEN:
-Add screen-shot here
+Add screen-shot here  
 :END:
 
 
