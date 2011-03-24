@@ -1,5 +1,4 @@
 #+BIND: org-export-latex-title-command "\\maketitle"
-#+BIND: org-export-latex-default-packages-alist ""
 
 #+TITLE:     Workload Report
 #+AUTHOR:    James Hurford
@@ -23,16 +22,6 @@
 
 
 #+LaTeX_CLASS_OPTIONS: [a4paper]
-#+LaTeX_HEADER: \setlength{\parindent}{0pt}
-#+LaTeX_HEADER: \setlength{\parskip}{1em}
-#+LaTeX_HEADER: \usepackage{hyperref}
-#+LaTeX_HEADER: \usepackage{graphicx}
-#+LaTeX_HEADER: \usepackage{wrapfig}
-#+LaTeX_HEADER: \usepackage{fixltx2e}
-#+LaTeX_HEADER: \usepackage[utf8]{inputenc}
-#+LaTeX_HEADER: \usepackage[T1]{fontenc}
-#+LaTeX_HEADER: \usepackage{longtable}
-#+LaTeX_HEADER: \usepackage{float}
 
 
 #+BEGIN_abstract
