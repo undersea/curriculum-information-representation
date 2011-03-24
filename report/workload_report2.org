@@ -20,8 +20,12 @@
 
 #+STARTUP: hidestars
 
+#+DRAWERS: HIDDEN PROPERTIES STATE HIDDENTEXT
 
-#+LaTeX_CLASS_OPTIONS: [a4paper]
+#+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
+#+LaTeX_HEADER: \setlength{\parindent}{0.6cm}
+#+LaTeX_HEADER: \setlength{\parskip}{0.5cm}
+
 
 
 #+BEGIN_abstract
@@ -49,36 +53,44 @@ and read access relevant to that group.
   split up into different views and using a central database will make
   the process less time consuming and more responsive to changes.
 
-  This is a tool to manage staff teaching allocations.  It shows how
-  much they are doing and helps decide if they are doing to much or to
-  little teaching.  Teaching allocations are their workload, thus this
-  shows how much workload they are doing for each year.  From this
-  data decisions can be made if staff can take on more work, or if
-  they are taking on to much.
+  A tool to manage staff teaching allocations will be developed.  How
+  much they are doing will be shown.  This helps decide if they are doing to much or to
+  little teaching.
 
-  With the large amount of data available for managing
-  workloads of groups of staff in an organisation, a means to
-  disseminate this data is needed.  Currently a spreadsheet
-  application has been used to perform this task.  While the amount of
-  data is small, using the spreadsheet worked.  This approach does not
-  scale well. The means of gathering this information was painfully slow and time consuming.
-  The spreadsheet application was also complicated and hard to use.  A
-  new way of gathering the data together and disseminating the results
-  has to be found.
+  Currently a spreadsheet application, shown in figure
+  \ref{fig:spreadsheet}, has been used to disseminate 
+  the data across different groups.  This approach does not
+  scale well. The means of gathering this information is painfully
+  slow and time consuming. The spreadsheet application is also
+  complicated and hard to use.  A new way of gathering the data
+  together and disseminating the results is being examined to overcome
+  the stated problems.
 
-  
+  #+ATTR_LATEX: width=\textwidth,placement=[H]
+  #+CAPTION: The current spreadsheet application
+  #+LABEL: fig:spreadsheet
+  [[./images/spreadsheet.png]]
+
+  This project attempts to develop a web served, database
+  backed application. Dissemination of the information according to which
+  group a user belongs to is attempted.  The proposed application tries to overcome the problem of
+  gathering the data by using a central database which everyone enters
+  information into from various places around SEAT, using a web
+  interface.  It also tries and reduce the amount of data entered by
+  using other already existing sources of information.
 
   
 
   
    
 * Design perspectives
-** Open source
+:HIDDEN:
+--** Open source
    The aim was to develop on linux, using open source libraries as much
    as possible to do the job.  This put some big restrictions on the
    possible solutions, and in some cases left this project with only one
    choice.  The biggest challenge was dealing with Microsoft Access.
-** Web
+--** Web
    The application is to be a web served application.  The reason for
    this is to avoid the need to install it on every computer that
    needs access to this application, with the only requirement being
@@ -86,10 +98,10 @@ and read access relevant to that group.
    also avoids the need to develop several different versions for each
    operating system installed computers that are part of the SEAT
    network.
-** Javascript
+--** Javascript
    Javascript is the client programming language used to make the web
    pages more dynamic.
-*** Problems encountered
+--*** Problems encountered
     Javascript posed problems in that each of the different web
     browsers have different implementations of the javascript engine.
     What may work with one browser may not work with another.  For
@@ -114,7 +126,7 @@ and read access relevant to that group.
 
     This list of rules does not cover every compatibility issue, but
     they were the major ones encountered.
-** jQuery
+--** jQuery
    jQuery \cite{jquery1} makes for a uniform javascript api across most of the major
    browsers, like IE and Firefox.  This simplifies the development of web
    applications and reduces the number of issues that come from having
@@ -125,10 +137,10 @@ and read access relevant to that group.
    #+end_quote
    jQuery \cite{jquery1}.
 
-** CSS
+--** CSS
    CSS is to be used to customise the look and formatting of the
    documents displayed by the web browser.
-*** Problems encountered
+--*** Problems encountered
     CSS is handled differently by different browsers.  Some of the CSS
     styles chosen, work perfectly in Firefox, but fail to work in
     Internet Explorer.  There is nothing that can be done about the
@@ -138,7 +150,7 @@ and read access relevant to that group.
     CSS version 2.0.  This standard is not supported by Internet
     Explorer 6, but later versions are assumed to adhere to this
     standard.
-** Python
+--** Python
    Python \cite{python1} is to be the programming language used on the
    server to rendered the HTML to the web browser. Python \cite{python1} is a high level scripting language with a large
    set of libraries available to it as part of the standard Python
@@ -147,7 +159,7 @@ and read access relevant to that group.
 
    The application is to be developed in Python \cite{python1}, using
    the Django \cite{django1} framework.
-** Django
+--** Django
    "Django is a high-level Python Web framework that encourages rapid
    development and clean, pragmatic design." \cite{django1}
 
@@ -337,7 +349,7 @@ template renderer.
 To get a full description of what is happening here see the Django
 documentation \cite{django1}.
 
-** Database connectivity
+--** Database connectivity
    The application must have a way of storing and retrieving the data
    it needs to calculate Workload hours.  To achieve this relational databases
    are to be used.  All the information is to be stored on a local
@@ -374,8 +386,8 @@ documentation \cite{django1}.
 
    The pyodbc libary is written in C++. It adheres to the "Python Database
    API Specification v2.0" \cite{pydb2}.
-*** Problems encountered
-**** pyodbc
+--*** Problems encountered
+--**** pyodbc
      The library pyodbc had problem.  In the environment that
      it was being run, it did not behave in the way, one assumes, that
      the author of the code thought.  This gave us results like, if the
@@ -409,7 +421,7 @@ documentation \cite{django1}.
 
      That was all that was needed to make pyodbc to produce the expected
      accurate results.
-**** MDBTools
+--**** MDBTools
      Using the MDBTools odbc driver has problems that with certain
      queries, it caused the application to throw a segmentation
      fault.  There is no more information than that, and it only
@@ -449,7 +461,7 @@ documentation \cite{django1}.
      field for LoginName.
 
      This problem is still unresolved.
-** Concurrency / Multiple views
+--** Concurrency / Multiple views
    The application must be able to deal with having several people
    accessing the database at once.  Concurrent access to this data
    must be addressed.
@@ -492,14 +504,14 @@ documentation \cite{django1}.
   edited from several sources at once must be found.  An idea was to
   avoid having multiple people editing the same paper at once.
 
-** Security / Multiple access
+--** Security / Multiple access
    Security is a minor issue for this application.  Write access is the
    primary concern here.  It does not seem like it is a major issue,
    but the data is still treated as sensitive. Within the organisation
    the information of one cluster is open to the other.  They seem to
    like to see what the other is doing and is not worried if another
    cluster member does see thier information.
-** Application configuration
+--** Application configuration
 The application is required to be configurable and is operating under
 the following assumption.  The discrete coefficient variable must be
 able to be changed in the future.  I forfull this requirement by
@@ -528,6 +540,16 @@ experience.
 | local\_coordinator  |     15 |         3 |   0.1 |
 | global\_coordinator |     15 |        12 |  0.05 |
 |---------------------+--------+-----------+-------|
+
+:END:
+This project uses the following technologies.
+ - Python
+ - Django
+ - MySQL
+ - ODBC
+ - jQuery
+ - Ajax
+ - HTML and CSS
 
 * Redesign phase (following user presentation)
   After developing a initial design the application was presented to
