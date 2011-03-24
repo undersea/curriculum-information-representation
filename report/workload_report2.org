@@ -45,7 +45,18 @@ and read access relevant to that group.
 * Introduction
   With the large amount of data available on a problem, is it possible
   to split this data up in a meaningful way, to different groups of
-  people?  With the large amount of data available for managing
+  people?  This report will demonstrate how the data is
+  split up into different views and using a central database will make
+  the process less time consuming and more responsive to changes.
+
+  This is a tool to manage staff teaching allocations.  It shows how
+  much they are doing and helps decide if they are doing to much or to
+  little teaching.  Teaching allocations are their workload, thus this
+  shows how much workload they are doing for each year.  From this
+  data decisions can be made if staff can take on more work, or if
+  they are taking on to much.
+
+  With the large amount of data available for managing
   workloads of groups of staff in an organisation, a means to
   disseminate this data is needed.  Currently a spreadsheet
   application has been used to perform this task.  While the amount of
@@ -53,8 +64,12 @@ and read access relevant to that group.
   scale well. The means of gathering this information was painfully slow and time consuming.
   The spreadsheet application was also complicated and hard to use.  A
   new way of gathering the data together and disseminating the results
-  has to be found.  This project is a attempt to solve the problems
-  raised by this process.  
+  has to be found.
+
+  
+
+  
+
   
    
 * Design perspectives
