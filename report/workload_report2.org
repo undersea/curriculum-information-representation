@@ -589,18 +589,17 @@ This project uses the following technologies.
    the server side of this application.
 ** MySQL
    MySQL was the database engine used to store the data used by the
-   application.
-   
+   application.   
 ** Microsoft Access
    This is a external source which has been imposed on this
    application. It holds all the postgraduate supervision data is
    kept, which is part of what makes up the final workload figure of
-   staff. 
+   staff.
 ** ODBC
    ODBC is used as a means of extracting the data from the Microsoft
    Access database.  ODBC is access from python via a python library
    called pyodbc.  This hooks into unixODBC, which in turn uses a
-   MDBTools driver to read data from the Postgraduate database.  
+   MDBTools ODBC driver to read data from the Postgraduate database.  
 ** Javascript
    On the client side Javascript is used to make the pages dynamic.
    jQuery \cite{jquery1} is the Javascript library used to make
@@ -667,6 +666,7 @@ This project uses the following technologies.
 * Learning outcomes
   (What I learned and what I would do differently)
 ** Responsiveness
+*** Data processing
 There are two places to process the data and one place to display the
 results. You can use client side scripts, like javascript to process
 the data, and it can be processed on the server side.  The more data
@@ -678,10 +678,18 @@ the downside, of relying on the clients browser to have the
 functionality required, like javascript, which could be of a different
 version to the one that the site was developed for.  Also javascript
 seems to be a lot slower to process data than the server side scripts
-are.
+are in browsers like Firefox.
 
-Do mass processing of data on the server side.  Only use javascript to
-process or retrieve small amounts of data.
+As a result of Javascript being to slow, data processing by Javascript
+was removed.  Javascript has been reduced to fetching small pieces of
+data via Ajax, and displaying them in the page.  This means that most
+of the processing is done by the server.  However the number of time
+bulk processing of data is done is reduced, as the pages get
+redisplayed as little as possible, with the use of Ajax. thus do mass
+processing of data on the server side.  Only use javascript to process
+or retrieve small amounts of data. 
+
+*** Algorithm efficiency
 
 The efficiency of algorithms will have more impact on the
 loading time of dynamic pages than the choice of languages.  The
@@ -691,6 +699,7 @@ based upon "Python Patterns - An Optimization Anecdote"
 
 
 #+begin_quote 
+If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want. If there isn't one, here are some guidelines for loop optimization: 
 
     + Rule number one: only optimize when there is a proven speed bottleneck. Only optimize the innermost loop. (This rule is independent of Python, but it doesn't hurt repeating it, since it can save a lot of work. :-)
     + Small is beautiful. Given Python's hefty charges for bytecode instructions and variable look-up, it rarely pays off to add extra tests to save a little bit of work.
@@ -704,13 +713,9 @@ based upon "Python Patterns - An Optimization Anecdote"
       considering different versions of an algorithm, test it in a
       tight loop using the time.clock() function. 
 
+--- http://www.python.org/doc/essays/list2str.html
+
 #+end_quote
-
-
-There is still the possibility of using C compiled code to speed up
-the response time, as python being a interpreted language, does run
-slower than C.  That would be the next step in optimising the response
-time of the application.
 
 ** Javascript compatability
 Javascript is implemented differently across different browsers.
@@ -737,17 +742,11 @@ produced on the server side, would be shown.  Other than this there is
 nothing that can be done, if the browser has javascript turned off.
 
 ** CSS
-Not much can be done if a browser can't implement CSS, but you can
-make sure that the CSS used adheres to a certain standard.  The
-decision to make sure that CSS was compatible with version 2.0 was
-about the extent that the compatibility issues were addressed.
-
-Further work could be done to detect which version of CSS the browser
-implements, and look at what can be done to overcome any display
-issues created if it does implement the CSS version that has been
-used.  If this was to be done again, then a message warning of this
-problem would be shown, and a possible solution displayed, like
-upgrade your browser, or install another browser.
+The best defense a web developer has against different browser
+implementations of CSS, is to stick to standards and hope that the
+browser being used adheres to these standards.  The differences are
+otherwise to vast to keep track, and most of the development time
+would be spent on resolving these differences.
 
 ** Cocurrency / Multiple views
 Most of the concurrency issues have been avoided.  The only possible
