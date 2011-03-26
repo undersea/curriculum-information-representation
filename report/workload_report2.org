@@ -7,7 +7,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:5 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -17,6 +17,39 @@
 #+XSLT:
 
 
+
+#+begin_src emacs-lisp :results silent :exports none
+  (add-to-list 'org-export-latex-classes
+          '("file-class"
+             "\\documentclass{scrartcl}
+             \\makeatletter
+               \\def\\maketitle{%
+                  \\null
+                 \\thispagestyle{empty}%
+                 \\vfill
+                 \\begin{center}\\leavevmode
+                   \\normalfont
+                   {\\LARGE \\@title\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@author\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@date\\par}%
+                 \\end{center}%
+                 \\vfill
+                 \\null
+               \\cleardoublepage
+               }
+             \\makeatother"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+             ))
+#+end_src
+
+
+#+LaTeX_CLASS: file-class
 
 #+STARTUP: hidestars
 
@@ -777,12 +810,24 @@ events.  This was done in the cluster view of the site.
 Add screen-shot here  
 :END:
 
-
-\bibliographystyle{plain}
-\bibliography{bibliography}
-
-
-
+** Problems with Paper List page
+   In the original design a paper list page was created.  This view
+   was a expandable tree with the paper code, title, points value and
+   global coordinator being displayed for each paper.  You could
+   expand this to show the paper offerings along with the teaching
+   allocations of each offering.  The problem was that in expanding
+   the view to include that papers offerings and teaching allocations,
+   the size of the output would be changed, and thus the browser would
+   have to redisplay the page.  This often meant that the view would
+   suddenly go somewhere else and the viewer would have to scroll up
+   or down to find the expanded paper.  This part was fixed with the
+   addition of href anchors.  This only worked for expanding the paper
+   view, but when it was collapsed, the page would scroll to a
+   location somewhere below the paper that was just collapsed.  This
+   is a real problem, as even href anchors don't seem to fix this.  
 
 # LocalWords:  customise centring
+
+#+LATEX: \bibliographystyle{plain}
+#+LATEX: \bibliography{bibliography}
 
