@@ -795,7 +795,10 @@ once.  One resets the information to the way it was before, two
 commits the changes to the database.  Both nave confirm dialogs
 associated with them.
 
-In the cluster leader view, a way of editing teaching allocations for offerings
+How many teachers does a paper offering need?  This is a important question to
+ask, when designing a user interface, which can add and remove
+teachers.  It seems that normally there is a maximum of three teachers
+a paper offering has.  Using this information
 
 
 * Redesign phase (following user presentation)
