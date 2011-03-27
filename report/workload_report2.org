@@ -576,7 +576,7 @@ experience.
 
 :END:
 ** Technologies used
-This project uses the following technologies.
+   This project uses the following technologies.
 *** Django
    Django is a web framework written in Python.  It is designed to
    allow rapid development of web sites.
@@ -654,31 +654,148 @@ This project uses the following technologies.
 
     
 ** Overall design
-Figure \ref{fig:dataflow} shows a general flow of where data is
-sourced from and what is being output.  The original idea was to get
-data from three sources, a database containing the workload data, the
-postgraduate data and data from College of Sciences (CoS).  The
-workload database would contain the teaching allocation data,
-paper coordinator details, and so on.  The postgraduate database
-contains data on staff supervision of postgraduate students.  The CoS
-database contains data on the staff, and provides most of the
-information needed on papers.
 
-Unfortunately the CoS database information is restricted and thus not
-available to this project.  This means the information now has to be
-manually entered.  The new data flow diagram is shown in figure
-\ref{fig:dataflow2}.
+*** Ideal world
+    Figure \ref{fig:dataflow} shows a general flow of where data is
+    sourced from and what is being output.  The original idea was to get
+    data from three sources.  A database containing the workload data, the
+    postgraduate data and data from College of Sciences (CoS).  The
+    workload database would contain the teaching allocation data,
+    paper coordinator details, and so on.  The postgraduate database
+    contains data on staff supervision of postgraduate students.  The CoS
+    database contains data on the staff, and provides most of the
+    information needed on papers.
 
 #+attr_latex: width=\textwidth
 #+LABEL: fig:dataflow
 #+CAPTION: Ideal Data IO for the workload process
-[[file:images/workload-process-ideal.png]]
-
+    [[file:images/workload-process-ideal.png]]
+*** Data source problems
+    Unfortunately the CoS database information is restricted and thus not
+    available to this project.  This means the information now has to be
+    manually entered.  The new data flow diagram is shown in figure
+    \ref{fig:dataflow2}.
 
 #+attr_latex: width=\textwidth
 #+LABEL: fig:dataflow2
 #+CAPTION: Actual Data IO for the workload process
-[[file:images/workload-process.png]]
+    [[file:images/workload-process.png]]
+*** User Interface
+    The major constraints of this project is the user interface.  The
+    application is web served and the interaction takes place in a web
+    browser.  The problem faced here is the incompatibilities across
+    different browsers.  Finding HTML, CSS and Javascript which works in
+    all major browsers is a challenge.  
+
+    The idea was to make the pages look like reports, but make parts
+    of them editable.  This was overcome using jQuery, to alter the
+    HTML DOM on the fly, using event triggers like click and hover on
+    HTML elements.  This replaces a HTML element like <span> with a
+    <form> element like <input>. The <input> element is editable, and
+    when the mouse leaves this element, turns into a <span> element.
+    The span element that is left contains the updated information.
+    When the mouse pointer leaves the <input> element, a hover out
+    event is triggered, which uses Ajax, through jQuery, to connect
+    with the server and send it the update, which the server then uses
+    to update the appropriate field in the database.  The process is
+    shown in figure \ref{fig:edit-process}.
+
+#+attr_latex: width=15cm
+#+LABEL: fig:edit-process
+#+CAPTION: The flow of events that happen when editing displayed data.
+    [[file:images/edit-process.png]]
+
+
+
+
+    Creating a interface which is usable and familiar to the users is the
+    other challenge faced.  To create this interface a set of assumptions
+    has to be made about the user of this system.  These are
+     - They know how to navigate a site using hyperlinks.
+     - They know how to fill out and submit on-line forms
+     - They have used a spreadsheet before.
+     - They need to be shown how to use the features, and what to look
+       for.
+    The previous system was a spreadsheet, and the site loosely
+    models itself on this spreadsheet, or the tabular view.  The
+    cluster view is an example of the spreadsheet model as shown in figure
+    \ref{fig:redesign:clusterview}.  This loosely mimics the view that is
+    shown in figure \ref{fig:spreadsheet-teaching}.  Everything is
+    grouped by category and where workload hours are being displayed,
+    totals are shown at every stage.
+
+#+attr_latex: width=\textwidth
+#+LABEL: fig:spreadsheet-teaching
+#+CAPTION: The standard hours formula spreadsheet worksheet showing papers and teaching allocations
+    [[file:images/spreadsheet-teaching.png]]
+
+    The cluster leader view is editable, just like a spreadsheet, with
+    columns and rows.  Each cell that, when the mouse passes over,
+    will be highlighted with blue.  This indicates the cell is
+    editable.  This is shown in figure
+    \ref{fig:cluster-view-row-highlighted}.  To edit it the user must
+    click the mouse on this cell, which brings up a appropriate
+    control, which the user can edit the value with.
+
+#+attr_latex: width=\textwidth
+#+LABEL: fig:cluster-view-row-highlighted
+#+CAPTION: A row from the cluster viewwith a cell being highlighted to indicate it is editable.
+[[file:images/cluster-view-row-highlighted.png]]
+
+Unlike the spreadsheet, this view does not require the user to
+remember the legal entry values.  In the case of editing the
+campus, coordinators, semester, mode, and staff in the teaching
+allocations, a drop down menu would appear when the element is
+clicked.  An example of this is shown in figure
+\ref{fig:cluster-view-dropdown}.
+
+#+attr_latex: width=\textwidth
+#+LABEL: fig:cluster-view-dropdown
+#+CAPTION: An example of a drop down menu used to edit a field in cluster leaders view.  Also of note is the fact this is a staff list and has ordered the staff names according to cluster, then ordered by surname.
+[[file:images/cluster-view-dropdown.png]]
+
+Another fact about the controls, like the drop down menus used, is
+that they were all created from a mixture of server side Python using
+Django, Ajax and Javascript.  The Python side script returns text, in
+the form of JSON, which is then evaluated by Javascript to form the
+HTML form element, which are then inserted into the HTML DOM on
+demand.  This process could take place many times, each time with
+fresh data.  The process is shown in figure
+\ref{fig:control-creation}.
+
+#+attr_latex: width=10cm
+#+LABEL: fig:control-creation
+#+CAPTION: The process that takes place to create a form control like a drop down menu of staff.
+[[file:images/form-control-creation.png]]
+
+
+The staff menu has all staff in seat listed.  This creates a problem,
+for finding a staff in this huge list can be a problem.  The order of
+the names is changed to help solve this problem.  They are ordered
+according to what cluster they belong to, then ordered by surname.  This has the effect of grouping the
+staff according to what cluster they belong to.  The menu entries are
+filled with first the cluster they belong to, followed by their
+initials, then their first name, followed by their last name. Making
+it obvious what cluster each staff member belongs to in the drop down
+menu makes it possible to figure out at a glance which cluster they
+belong to. Thus making finding a particular staff from a cluster is
+easier.  Figure \ref{fig:cluster-view-dropdown} gives a glimpse of
+this.
+
+It was also important to give visual prompts, warning the user of an
+dangerous action or telling them that something is wrong.  For all
+events, if a error has happened then the user is informed of this.  It
+is not always possible to give messages which tell the user exactly
+what has gone wrong, but effort has gone into at least informing them
+of a error.  Some actions also have confirm messages, but only to
+action which affect lots of items at once, like in the cluster leader
+view, shown in figure \ref{fig:cluster-commit}.  The red circles, one
+and two, are such events which have an effect on lots of items all at
+once.  One resets the information to the way it was before, two
+commits the changes to the database.  Both nave confirm dialogs
+associated with them.
+
+In the cluster leader view, a way of editing teaching allocations for offerings
 
 
 * Redesign phase (following user presentation)
