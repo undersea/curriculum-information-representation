@@ -578,7 +578,7 @@ experience.
 ** Technologies used
    This project uses the following technologies.
 *** Django
-   Django is a web framework written in Python.  It is designed to
+   Django \cite{django1} is a web framework written in Python.  It is designed to
    allow rapid development of web sites.
 
    Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
@@ -619,7 +619,7 @@ experience.
 #+END_DITAA
    
 *** Python
-    Python is needed by Django.  It is the programming language used on
+    Python \cite{python1} is needed by Django.  It is the programming language used on
     the server side of this application.
 *** MySQL
     MySQL was the database engine used to store the data used by the
@@ -795,28 +795,29 @@ experience.
     [[file:images/edit-process.png]]
 
 
-
-
-    Creating a interface which is usable and familiar to the users is the
-    other challenge faced.  To create this interface a set of assumptions
-    has to be made about the user of this system.  These are
-     - They know how to navigate a site using hyperlinks.
-     - They know how to fill out and submit on-line forms
-     - They have used a spreadsheet before.
-     - They need to be shown how to use the features, and what to look
-       for.
     The previous system was a spreadsheet, and the site loosely
     models itself on this spreadsheet, or the tabular view.  The
     cluster view is an example of the spreadsheet model as shown in figure
     \ref{fig:redesign:clusterview}.  This loosely mimics the view that is
-    shown in figure \ref{fig:spreadsheet-teaching}.  Everything is
-    grouped by category and where workload hours are being displayed,
-    totals are shown at every stage.
+    shown in figure \ref{fig:spreadsheet-teaching}.  
+
 
 #+attr_latex: width=\textwidth
 #+LABEL: fig:spreadsheet-teaching
 #+CAPTION: The standard hours formula spreadsheet worksheet showing papers and teaching allocations
-    [[file:images/spreadsheet-teaching.png]]
+[[file:images/spreadsheet-teaching.png]]
+
+    Everything is grouped by category and where workload hours are
+    being displayed, totals are shown at every stage.  An example of
+    this grouping is shown in figure \ref{fig:staff_list}.
+
+
+
+#+attr_latex: width=\textwidth
+#+LABEL: fig:staff_list
+#+CAPTION: A filtered staff list showing information on staff from the cluster CSIT.  The total hours for each staff member is shown broken down by the total hours for papers, postgraduate supervision, and administration hours as well as the overall total.  At the bottom is the totals for the cluster.  It demonstrates the grouping of data, making it easier for the viewer to figure out what is going on.
+[[file:images/staff_list-csit.png]]
+
 
     The cluster leader view is editable, just like a spreadsheet, with
     columns and rows.  Each cell that, when the mouse passes over,
@@ -885,12 +886,14 @@ once.  One resets the information to the way it was before, two
 commits the changes to the database.  Both nave confirm dialogs
 associated with them.
 
-How many teachers does a paper offering need?  This is a important question to
-ask, when designing a user interface, which can add and remove
-teachers.  Normally there is a maximum of three teachers
-for each paper offering.  The decision was to only allow up to four
-teachers per paper offering.  This helps overcome the layout problem,
-as the entire listing of offerings is put in a 
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:cluster-commit
+#+CAPTION: The cluster leader view highlighting the revert (1) and commit (2) buttons
+[[file:images/cluster_paper_edit_view2.png]]
+
+
+
+
 
 * Learning outcomes
   (What I learned and what I would do differently)
