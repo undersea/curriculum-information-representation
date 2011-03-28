@@ -18,7 +18,7 @@
 
 
 
-#+begin_src emacs-lisp :results silent :exports none
+#+begin_src emacs-lisp :results silent :exports results
   (add-to-list 'org-export-latex-classes
           '("file-class"
              "\\documentclass{scrartcl}
@@ -53,7 +53,7 @@
 
 #+STARTUP: hidestars
 
-#+DRAWERS: HIDDEN PROPERTIES STATE HIDDENTEXT
+#+DRAWERS: HIDDEN
 
 #+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
 #+LaTeX_HEADER: \setlength{\parindent}{0cm}
@@ -617,7 +617,7 @@ experience.
    +-------+       +--------------+
 
 #+END_DITAA
-
+   
 *** Python
     Python is needed by Django.  It is the programming language used on
     the server side of this application.
@@ -633,7 +633,48 @@ experience.
     ODBC is used as a means of extracting the data from the Microsoft
     Access database.  ODBC is access from python via a python library
     called pyodbc.  This hooks into unixODBC, which in turn uses a
-    MDBTools ODBC driver to read data from the Postgraduate database.  
+    MDBTools ODBC driver to read data from the Postgraduate database.
+    Figure \ref{fig:odbc} shows this process.
+    
+    #+ATTR_LaTeX: width=5cm
+    #+LABEL: fig:odbc
+    #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
+    #+begin_src ditaa :exports results :results file :file odbc-chain.png
+      +-------------+
+      | Workload    |
+      | application |
+      | {mo} cGRE   |
+      +-------------+      
+            ^
+            |
+      +-------------+
+      | Python      |
+      | pyodbc      |
+      | {io} cBLU   |
+      +-------------+      
+            ^
+            |
+      +-------------+
+      | Unix ODBC   |
+      | {io} cBLU   |
+      +-------------+
+            ^
+            |
+      +-------------+
+      | MDB Tools   |
+      | {io} cBLU   |
+      +-------------+
+            ^
+            |
+      +--------------+
+      | Postgraduate |
+      | Database     |
+      | {s} c888     |
+      +--------------+
+    #+end_src
+
+
+    
 *** Javascript
     On the client side Javascript is used to make the pages dynamic.
     jQuery \cite{jquery1} is the Javascript library used to make
@@ -654,8 +695,8 @@ experience.
 
     
 ** Overall design
-
-*** Ideal world
+*** Data inputs and outputs
+**** Ideal world
     Figure \ref{fig:dataflow} shows a general flow of where data is
     sourced from and what is being output.  The original idea was to get
     data from three sources.  A database containing the workload data, the
@@ -670,7 +711,7 @@ experience.
 #+LABEL: fig:dataflow
 #+CAPTION: Ideal Data IO for the workload process
     [[file:images/workload-process-ideal.png]]
-*** Data source problems
+**** Data source problems
     Unfortunately the CoS database information is restricted and thus not
     available to this project.  This means the information now has to be
     manually entered.  The new data flow diagram is shown in figure
@@ -680,7 +721,55 @@ experience.
 #+LABEL: fig:dataflow2
 #+CAPTION: Actual Data IO for the workload process
     [[file:images/workload-process.png]]
-*** User Interface
+
+
+
+
+
+* Redesign phase (following user presentation)
+  After developing a initial design the application was presented to
+  the cluster leaders at a meeting.  They were given a preview of
+  how they could interact with the application.
+
+
+  The application tree view model prototype was not liked. It was
+  discovered they liked the way that Microsoft Excell allowed one to
+  edit the data about teaching allocations and paper coordination. 
+
+  A major redesign was undertaken for how the cluster leaders can
+  edit the teaching allocations and paper coordinations was
+  undertaken.  Peviously the interface had been based upon a tree
+  like stucture, with nodes showing the paper, which expand to show
+  paper offerings and teaching allocations.  The cluster leaders, I
+  think, did not like this, and seemed to like the way they were able
+  to edit the relavent sections in the spreadsheet.  So the new
+  interface gained some of the functionality of the spreadsheet. This
+  is shown in figure \ref{fig:redesign:clusterview}. The old view is
+  shown in figure \ref{fig:redesign:oldview}.
+  
+  
+  #+ATTR_LaTeX: width=\textwidth, placement=[H]
+  #+CAPTION: Cluster leader paper edit view in spreadsheet style
+  #+LABEL: fig:redesign:clusterview
+  
+  [[./images/cluster_paper_edit_view.png]]
+  
+  
+  #+ATTR_LaTeX: width=\textwidth, placement=[H]
+  #+CAPTION: The old way cluster leaders were to edit their papers
+  #+LABEL: fig:redesign:oldview
+  
+  [[./images/admin_offering_teach_edit_view.png]]
+** Testing
+   At every stage of development, testing took place.  There were no
+   automated tests, even though they are possible, due to the developers
+   inexperience in testing web applications.  However, at every stage,
+   a checklist of features and operations were tested by hand.  A
+   checkbox list of inputs and results were checked for pass or
+   crossed for fail.
+
+* Implementation
+** User Interface
     The major constraints of this project is the user interface.  The
     application is web served and the interaction takes place in a web
     browser.  The problem faced here is the incompatibilities across
@@ -756,11 +845,12 @@ clicked.  An example of this is shown in figure
 
 Another fact about the controls, like the drop down menus used, is
 that they were all created from a mixture of server side Python using
-Django, Ajax and Javascript.  The Python side script returns text, in
-the form of JSON, which is then evaluated by Javascript to form the
-HTML form element, which are then inserted into the HTML DOM on
-demand.  This process could take place many times, each time with
-fresh data.  The process is shown in figure
+Django, Ajax and Javascript.  Javascript is called and uses Ajax to
+connect and retrieve data from the server. The server side Python
+script processes the request and returns a result, in the form of
+JSON. This result is then evaluated by Javascript to form a HTML form
+element. The form element is then inserted into the HTML DOM.  This
+process could take place many times.  The process is shown in figure
 \ref{fig:control-creation}.
 
 #+attr_latex: width=10cm
@@ -797,53 +887,10 @@ associated with them.
 
 How many teachers does a paper offering need?  This is a important question to
 ask, when designing a user interface, which can add and remove
-teachers.  It seems that normally there is a maximum of three teachers
-a paper offering has.  Using this information
-
-
-* Redesign phase (following user presentation)
-  After developing a initial design the application was presented to
-  the cluster leaders at a meeting.  They were given a preview of
-  how they could interact with the application.
-
-
-  The application tree view model prototype was not liked. It was
-  discovered they liked the way that Microsoft Excell allowed one to
-  edit the data about teaching allocations and paper coordination. 
-
-  A major redesign was undertaken for how the cluster leaders can
-  edit the teaching allocations and paper coordinations was
-  undertaken.  Peviously the interface had been based upon a tree
-  like stucture, with nodes showing the paper, which expand to show
-  paper offerings and teaching allocations.  The cluster leaders, I
-  think, did not like this, and seemed to like the way they were able
-  to edit the relavent sections in the spreadsheet.  So the new
-  interface gained some of the functionality of the spreadsheet. This
-  is shown in figure \ref{fig:redesign:clusterview}. The old view is
-  shown in figure \ref{fig:redesign:oldview}.
-  
-  
-  #+ATTR_LaTeX: width=\textwidth, placement=[H]
-  #+CAPTION: Cluster leader paper edit view in spreadsheet style
-  #+LABEL: fig:redesign:clusterview
-  
-  [[./images/cluster_paper_edit_view.png]]
-  
-  
-  #+ATTR_LaTeX: width=\textwidth, placement=[H]
-  #+CAPTION: The old way cluster leaders were to edit their papers
-  #+LABEL: fig:redesign:oldview
-  
-  [[./images/admin_offering_teach_edit_view.png]]
-** Testing
-   At every stage of development, testing took place.  There were no
-   automated tests, even though they are possible, due to the developers
-   inexperience in testing web applications.  However, at every stage,
-   a checklist of features and operations were tested by hand.  A
-   checkbox list of inputs and results were checked for pass or
-   crossed for fail.
-
-* Implementation
+teachers.  Normally there is a maximum of three teachers
+for each paper offering.  The decision was to only allow up to four
+teachers per paper offering.  This helps overcome the layout problem,
+as the entire listing of offerings is put in a 
 
 * Learning outcomes
   (What I learned and what I would do differently)
@@ -905,12 +952,14 @@ jQuery helped overcome most of the issues, but there were rules that
 need to be adhered to make sure your code works in most major
 browsers.
   1) Always use var to declare variables
-  2) Avoid the use of a few keywords, like delete
+  2) Avoid the use of a few keywords, like delete for variable names
   3) If creating a array list, do not put a comma after the last element
 
 The first and the third rules are for Internet Explorer, but the
 second is true particularly for any browser based on Webkit, like
-Safari.
+Safari.  The second one may sound like common sense , and it is, but
+there are implementations that under certain circumstances will allow
+you to use these keywords.
 
 Using jQuery from the start avoided most of the other possible
 incompatabilities, to the extent that no other issues other than the
@@ -920,7 +969,7 @@ ones previously mentioned were encountered.
 This application relies on javascript, so if it is turned off then
 hardly anything will work.  Currently nothing is done in response to
 this situation. In future, a warning message, telling the user this,
-produced on the server side, would be shown.  Other than this there is
+produced on the server side, should be shown.  Other than this there is
 nothing that can be done, if the browser has javascript turned off.
 
 ** CSS
