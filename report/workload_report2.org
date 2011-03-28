@@ -16,9 +16,8 @@
 #+LINK_HOME:
 #+XSLT:
 
-
-
-#+begin_src emacs-lisp :results silent :exports results
+#+source: jim()
+#+begin_src emacs-lisp :results output silent :exports results
   (add-to-list 'org-export-latex-classes
           '("file-class"
              "\\documentclass{scrartcl}
@@ -46,7 +45,9 @@
              ("\\paragraph{%s}" . "\\paragraph*{%s}")
              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
              ))
+
 #+end_src
+
 
 
 #+LaTeX_CLASS: file-class
@@ -75,7 +76,6 @@ belong to.  It demonstrates the display of data, restriction of write
 and read access relevant to that group.
 \end{abstract}
 #+END_abstract
-
 
 
 
@@ -770,12 +770,6 @@ experience.
 
 * Implementation
 ** User Interface
-    The major constraints of this project is the user interface.  The
-    application is web served and the interaction takes place in a web
-    browser.  The problem faced here is the incompatibilities across
-    different browsers.  Finding HTML, CSS and Javascript which works in
-    all major browsers is a challenge.  
-
     The idea was to make the pages look like reports, but make parts
     of them editable.  This was overcome using jQuery, to alter the
     HTML DOM on the fly, using event triggers like click and hover on
@@ -836,23 +830,22 @@ Unlike the spreadsheet, this view does not require the user to
 remember the legal entry values.  In the case of editing the
 campus, coordinators, semester, mode, and staff in the teaching
 allocations, a drop down menu would appear when the element is
-clicked.  An example of this is shown in figure
-\ref{fig:cluster-view-dropdown}.
+clicked.  The cognitive load on the user is thus reduced. An example
+of this is shown in figure \ref{fig:cluster-view-dropdown}.
 
 #+attr_latex: width=\textwidth
 #+LABEL: fig:cluster-view-dropdown
 #+CAPTION: An example of a drop down menu used to edit a field in cluster leaders view.  Also of note is the fact this is a staff list and has ordered the staff names according to cluster, then ordered by surname.
 [[file:images/cluster-view-dropdown.png]]
 
-Another fact about the controls, like the drop down menus used, is
-that they were all created from a mixture of server side Python using
-Django, Ajax and Javascript.  Javascript is called and uses Ajax to
-connect and retrieve data from the server. The server side Python
-script processes the request and returns a result, in the form of
-JSON. This result is then evaluated by Javascript to form a HTML form
-element. The form element is then inserted into the HTML DOM.  This
-process could take place many times.  The process is shown in figure
-\ref{fig:control-creation}.
+The controls, like the drop down menus used, were all created from a
+mixture of server side Python using Django, Ajax and Javascript.
+Javascript is called and uses Ajax to connect and retrieve data from
+the server. The server side Python script processes the request and
+returns text in JSON format. This text is then evaluated
+by Javascript to form a HTML form element. The form element is then
+inserted into the HTML DOM.  This process could take place many times.
+The process is shown in figure \ref{fig:control-creation}.
 
 #+attr_latex: width=10cm
 #+LABEL: fig:control-creation
@@ -863,15 +856,17 @@ process could take place many times.  The process is shown in figure
 The staff menu has all staff in seat listed.  This creates a problem,
 for finding a staff in this huge list can be a problem.  The order of
 the names is changed to help solve this problem.  They are ordered
-according to what cluster they belong to, then ordered by surname.  This has the effect of grouping the
-staff according to what cluster they belong to.  The menu entries are
-filled with first the cluster they belong to, followed by their
-initials, then their first name, followed by their last name. Making
-it obvious what cluster each staff member belongs to in the drop down
-menu makes it possible to figure out at a glance which cluster they
-belong to. Thus making finding a particular staff from a cluster is
-easier.  Figure \ref{fig:cluster-view-dropdown} gives a glimpse of
-this.
+according to what cluster they belong to, then ordered by surname.
+This has the effect of grouping the staff according to what cluster
+they belong to.  The menu entries are filled with first the cluster
+they belong to, followed by their initials, then their first name,
+followed by their last name. Making it obvious what cluster each staff
+member belongs to in the drop down menu makes it possible to figure
+out at a glance which cluster they belong to. Thus making finding a
+particular staff from a cluster is easier.  Figure
+\ref{fig:cluster-view-dropdown} gives a glimpse of this.
+
+** Warning messages
 
 It was also important to give visual prompts, warning the user of an
 dangerous action or telling them that something is wrong.  For all
@@ -1026,6 +1021,18 @@ Add screen-shot here
    view, but when it was collapsed, the page would scroll to a
    location somewhere below the paper that was just collapsed.  This
    is a real problem, as even href anchors do not seem to fix this.  
+
+** Value editing errors
+   When changing a value, if a error occurs, then the user will be
+   told of this error.  The problem is that the entered value will not
+   revert to the previous value.  This can be misleading to the user,
+   who looks at this value, sees it has changed in the page, so
+   assumes the value in the database has changed, when it has not. The
+   user will find out next time they load the page and look at this
+   value, and see it is not the value they altered it to.  This is a
+   problem, that needs fixing.
+
+
 
 # LocalWords:  customise centring
 
