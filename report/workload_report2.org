@@ -1040,9 +1040,9 @@ As a result of Javascript being to slow, data processing by Javascript
 was removed.  Javascript has been reduced to fetching small pieces of
 data via Ajax, and displaying them in the page.  This means that most
 of the processing is done by the server.  However the number of time
-bulk processing of data is done is reduced, as the pages get
-redisplayed as little as possible, with the use of Ajax. thus do mass
-processing of data on the server side.  Only use javascript to process
+consuming bulk processing of data is done is reduced.  The pages get
+redisplayed as little as possible, with the use of Ajax.  Mass
+processing of data is done on the server side.  Only use javascript to process
 or retrieve small amounts of data. 
 
 *** Algorithm efficiency
@@ -1085,13 +1085,8 @@ browsers.
 The first and the third rules are for Internet Explorer, but the
 second is true particularly for any browser based on Webkit, like
 Safari.  The second one may sound like common sense , and it is, but
-there are implementations that under certain circumstances will allow
+there are Javascript implementations that, under certain circumstances, will allow
 you to use these keywords.
-
-Using jQuery from the start avoided most of the other possible
-incompatabilities, to the extent that no other issues other than the
-ones previously mentioned were encountered.
-
 
 This application relies on javascript, so if it is turned off then
 hardly anything will work.  Currently nothing is done in response to
@@ -1104,7 +1099,7 @@ The best defense a web developer has against different browser
 implementations of CSS, is to stick to standards and hope that the
 browser being used adheres to these standards.  The differences are
 otherwise to vast to keep track, and most of the development time
-would be spent on resolving these differences.
+would be spent on resolving these differences, if this was attempted.
 
 ** Concurrency / Multiple views
 Most of the concurrency issues have been avoided.  The only possible
@@ -1176,7 +1171,8 @@ Add screen-shot here
    With the archives, it is possible to analyse the information and
    get some trends from it.  It might be useful to create a process to
    extract and display this data in a meaningful way.  This might take
-   the form of graphs.
+   the form of graphs.  This would be useful if it was desired to see
+   how workload hours changed over time.
 
 * Conclusion
   It is possible to split data up in a meaningful way to different
@@ -1185,7 +1181,7 @@ Add screen-shot here
   independently work on their information.  Any concurrency issues
   involved are avoided, by the virtue of allowing the users to only
   edit data pertinent to them, and the data which involves more than
-  one group is arbitrated by a independent authority.  
+  one group is arbitrated by the administrator.  
   
   
 #+LATEX: \bibliographystyle{plain}

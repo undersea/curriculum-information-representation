@@ -171,12 +171,17 @@ Conclusion is here
 # check spelling
 * Programme Planner
 ** Introduction
-An idea was investigated as to can a tool be made to help students
-plan their coarse of study for their degree.  This would take the form
-of list of sets of possible papers, with each set being a programme of
-study.
+   An idea was investigated as to can a tool be made to help students
+   plan their coarse of study for their degree.  This would take the form
+   of list of sets of possible papers, with each set being a programme of
+   study.
 
-The proposal is to try and solve this problem using a constraints
-satisfaction.  Also a define what the user interface would look like.
+   The proposal is to try and solve this problem using a constraints
+   satisfaction.  Also a define what the user interface would look like.
 
+   Unfortunately this project ran out of time, and was not finished.
+   This report will outline what could have been.
 
+** Procedure
+   The idea was to take in a list of papers and determine what is the
+   best degree and major combination for this selection.  
