@@ -95,9 +95,7 @@ and read access relevant to that group.
   the data across different groups.  This approach does not
   scale well. The means of gathering this information is painfully
   slow and time consuming. The spreadsheet application is also
-  complicated and hard to use.  A new way of gathering the data
-  together and disseminating the results is being examined to overcome
-  the stated problems.
+  complicated and hard to use.
 
   #+ATTR_LATEX: width=\textwidth,placement=[H]
   #+CAPTION: The current spreadsheet application
@@ -725,6 +723,25 @@ experience.
 
 
 
+** The system users
+   There are three users of this system, the cluster staff, cluster
+   leaders, and  overall administrator.  From these three users are
+   formed the three views.  Each user has different functionality.
+
+*** Cluster user
+    The staff who make up the cluster.  They have a interest in making
+    sure the data about them is correct.
+*** Cluster leaders
+    Who has the responsibility of collating the data for teaching
+    allocations, and coordinator roles.  They also have a interest in
+    seeing how their cluster is doing overall.  They also have the
+    same interest as a ordinary staff member.
+*** Administrator
+    An administrator is not a academic staff member and is assumed to
+    be a manager. They see the overall picture of how SEAT is doing
+    broken down by cluster, campus and class.  Their role is to
+    collate all the data from the clusters together.  They also need
+    to be able to archive the current data, add new staff, and papers.
 
 * Redesign phase (following user presentation)
   After developing a initial design the application was presented to
@@ -770,6 +787,8 @@ experience.
 
 * Implementation
 ** User Interface
+   
+*** Look and feel
     The idea was to make the pages look like reports, but make parts
     of them editable.  This was overcome using jQuery, to alter the
     HTML DOM on the fly, using event triggers like click and hover on
@@ -866,7 +885,7 @@ out at a glance which cluster they belong to. Thus making finding a
 particular staff from a cluster is easier.  Figure
 \ref{fig:cluster-view-dropdown} gives a glimpse of this.
 
-** Warning messages
+*** Warning messages
 
 It was also important to give visual prompts, warning the user of an
 dangerous action or telling them that something is wrong.  For all
@@ -881,6 +900,11 @@ once.  One resets the information to the way it was before, two
 commits the changes to the database.  Both nave confirm dialogs
 associated with them.
 
+Also of note is the rows entirely in red.  This visual prompt helps
+draw attention to a mistake in teaching allocations. When the hours
+are corrected so they equal one hundred, that row will no longer be
+red.
+
 #+ATTR_LaTeX: width=\textwidth
 #+LABEL: fig:cluster-commit
 #+CAPTION: The cluster leader view highlighting the revert (1) and commit (2) buttons
@@ -888,10 +912,115 @@ associated with them.
 
 
 
+*** Three views
+    When a user logs in they see a different setup.
+**** Cluster user
+     Sees their own personal page with their personal details, of
+     name, cluster, and a break down of their workload hours, by
+     paper offerings, postgraduate supervision and administration
+     roles.
 
+     The paper offerings list their teaching allocations, and
+     coordination of papers
+
+     They also get the chance to look at other staffs data, since this
+     information is not secret and there was a desire to be able to do
+     this.
+
+**** Cluster leader
+     This user sees a menu from which they can navigate to different of staff
+     lists, with a break down of their hours, with the total hours
+     gained from papers, postgraduate supervision, and administration
+     roles, with a grand total at the end.  Also a total for the
+     entire cluster is given.
+
+     They also get to look at other clusters details.
+
+     The other item in the menu is the cluster paper offering page.
+     Here they get to edit the teaching allocations for the papers
+     which any of their staff have something to do with.  Figure
+     \ref{fig:cluster-commit} is a example of what a CSIT cluster
+     leader would see in this page.
+
+**** Administrator
+     The administrator view sees a menu which also allows them to see
+     the same views as a cluster leader, but instead of automatically
+     being filtered by the cluster, they see all staff.  The cluster
+     paper offerings view for them is there for those papers that have
+     staff from two or more clusters.  This is needed to avoid
+     concurrency problems.  They check to see if the data is correct
+     and accepts or rejects them accordingly.  No offering is editable
+     by the administrator in this view, these are left to the cluster
+     leaders to do.  Figure \ref{fig:admin-cluster-view} is a example
+     of this view.
+
+     The places circled in red are the accept all button and the
+     accept and reject buttons for a offering.  The accept all button
+     was implemented to allow the acceptance of all the offerings
+     viewed. This assumes that the details are accepted as being
+     correct for all offerings.  A confirm dialog will pop up when
+     this is clicked just in case this was clicked by mistake.  The
+     first of the duplicate offering in this case is used as the one
+     that is copied over to the main database, and the other
+     duplicates are deleted. If the accept button is clicked on a
+     individual offering, any other duplicate offerings are deleted,
+     with the one accepted, being copied to the main database.
+
+     
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:admin-cluster-view
+#+CAPTION: The cluster view of offering which have staff involved from more than one cluster, which need checking before being committed to the main database.
+[[file:images/admin_cluster_view2.png]]
+
+** Responsiveness
+   Ideally the loading of a page should take as little time as
+   possible.  There are three bottle necks to speed of page loading.
+   The server side scripts, the client side scripts, and the amount
+   of data needed to process.  The server side scripts have the
+   fastest execution time, while the client side Javascript, can be
+   very slow, especially when inserting elements into the HTML DOM.
+   It was decided that most of the processing of data should be done
+   by the server.  The insertion of elements into the HTML DOM by
+   will be kept to a minimum.  The reloading of pages is done as few
+   time as it is possible, unless the request was to process large
+   amounts of data, like filtering the staff list by cluster, campus
+   or class.
+** Archiving of data
+   The application allows the backing up of data to files.  These
+   files are written in JSON format.  JSON is a format which can be
+   written to or read by Django.  This makes it a easy choice for
+   backup formats.   It means that data from a previous year can be
+   compared to the current data.  It also means that if something
+   goes wrong, the backed up data can be used to restore the database
+   to where it was before the mistake took place.
+** Updating paper offerings process
+   Each year the cluster leaders must update the teaching
+   allocations and coordination roles for the cluster.  With several
+   staff editing the database at once, a potential for concurrency
+   issues is raised.  To overcome this, the issue was avoided.  This
+   was achieved through the cluster view.  Each cluster leader edits
+   paper offerings which their staff members are involved in, and not
+   any other papers, so most concurrency problems are avoided as a
+   result.  However their are offerings which have staff from more
+   than one cluster involved.  To avoid conflicts a copy of the
+   offering is made for each cluster and displayed in the cluster edit
+   view.  The cluster leaders edit their copy then submit it to the
+   system.  If the offering has only staff from that cluster involved,
+   the offering will be copied to the original.  For those that
+   involve more than one cluster, it is displayed in the
+   administrators cluster view for checking.  If the administrator is
+   satisfied that all the different copies agree and are correct, will
+   accept it and the data will be copied to the original. Figures
+   \ref{fig:cluster-commit} and \ref{fig:admin-cluster-view} show these
+   interfaces.  Figure \ref{fig:updateprocess}  shows the process of
+   updating the paper offerings.
+
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:updateprocess
+#+CAPTION:  The process that takes place to update paper offerings by cluster leaders and the administrator
+[[file:images/update_offering_process.png]]
 
 * Learning outcomes
-  (What I learned and what I would do differently)
 ** Responsiveness
 *** Data processing
 There are two places to process the data and one place to display the
@@ -944,7 +1073,7 @@ If you feel the need for speed, go for built-in functions - you can't beat a loo
 
 #+end_quote
 
-** Javascript compatability
+** Javascript compatibility
 Javascript is implemented differently across different browsers.
 jQuery helped overcome most of the issues, but there were rules that
 need to be adhered to make sure your code works in most major
@@ -977,7 +1106,7 @@ browser being used adheres to these standards.  The differences are
 otherwise to vast to keep track, and most of the development time
 would be spent on resolving these differences.
 
-** Cocurrency / Multiple views
+** Concurrency / Multiple views
 Most of the concurrency issues have been avoided.  The only possible
 issue that could cause real problems, is if two cluster leaders from
 the same cluster logged in and started editing the papers.  Most of
@@ -999,8 +1128,10 @@ hacks are not desirable, as they add another unstable element into the
 page display.  
 
 One way that was found to control the look of controls
-was not to simulate them, using HTML elements, along with javascript
-events.  This was done in the cluster view of the site.
+was to simulate them, using HTML elements, like the <img> element, along with javascript
+events to change something about this element, like the image in the
+<img> element.  This was done in the cluster view of the site, in the
+offered column.
 
 :HIDDEN:
 Add screen-shot here  
@@ -1030,12 +1161,34 @@ Add screen-shot here
    assumes the value in the database has changed, when it has not. The
    user will find out next time they load the page and look at this
    value, and see it is not the value they altered it to.  This is a
-   problem, that needs fixing.
+   problem, that needs attention.
+** Staff menu
+   The staff is ordered by cluster then surname.  In future, to make
+   cluster members, for the viewing cluster leader, easier to find,
+   the cluster members of the cluster leaders cluster, will appear at
+   the top of the menu.  The rest will then be ordered by cluster then
+   surname. The reasoning behind this, is that the cluster leader is
+   normally only interested in staff from their own cluster.  The
+   staff most relevant to the cluster leader should appear at the most
+   convenient place, thus reducing the time needed to find a member of
+   that cluster.
+** Archiving of data
+   With the archives, it is possible to analyse the information and
+   get some trends from it.  It might be useful to create a process to
+   extract and display this data in a meaningful way.  This might take
+   the form of graphs.
 
-
-
-# LocalWords:  customise centring
-
+* Conclusion
+  It is possible to split data up in a meaningful way to different
+  groups of people.  This can be done by associating different view with different
+  groups of users, grouping data and allowing users to
+  independently work on their information.  Any concurrency issues
+  involved are avoided, by the virtue of allowing the users to only
+  edit data pertinent to them, and the data which involves more than
+  one group is arbitrated by a independent authority.  
+  
+  
 #+LATEX: \bibliographystyle{plain}
 #+LATEX: \bibliography{bibliography}
 
+# LocalWords:  customise centring
