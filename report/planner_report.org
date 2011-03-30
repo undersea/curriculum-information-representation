@@ -279,8 +279,8 @@ Conclusion is here
 | Student  |   | Select   |   | Create      |  | Determine    |
 | Academic |   | Best     |   | Paper       |  | Valid        |
 | Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
-| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
-|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
+| {s}c888  |   | cFF8     |   | Tree        |  | Combinations |
+|          |   |          |   | cFF8        |  | {mo} c9FB    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
 
