@@ -1,5 +1,20 @@
+#+TITLE:     Programme Planner
+#+AUTHOR:    James Hurford
+#+EMAIL:     
+#+DATE:      2011-03-30 Wed
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
 
-* Paper Planner
+* Paper Planner                                                    :noexport:
 ** The Problem
 *** How to represent it to users
 *** Ideas on the user interface
@@ -51,13 +66,13 @@ What software support there is for Constraints Satisfaction Problems
 which the library would be used, in a effort to stay in the language of
 choice, python, as much as possible, the library had to be written in
 either C/C++ or python.  C/C++ was considered as python can use these
-libraries through either the module ctypes or in the form of a
+libraries through either the module /ctypes/ or in the form of a
 specially written C module, using Python C API.  If it was written
 as a C module for python, that could lead to it only being usable by a
 Python interpreter written in C.  The choice was to make the
 environment used as configurable as possible, so cytpes was chosen, as
 in theory, any Python interpreter, no matter what language they are
-written in has a ctypes implementation, as ctypes has become part of
+written in has a /ctypes/ implementation, as /ctypes/ has become part of
 the set of standard modules since (citation needed here).
 
 
@@ -141,7 +156,7 @@ minimum to satisfy the major requirements.
 *** Programming language choice
 ** Challenges
 *** Using python to run C++ code
-Python can import C libraries using ctypes package and run C
+Python can import C libraries using /ctypes/ package and run C
 functions.  There are a lot of CSP libraries that are written in C or
 C++.  This is one method that can be used to use these libraries.
 Gecode is a C++ library, and it was seriously looked at how it can be
@@ -158,7 +173,7 @@ blocks of code or functions to tell the C++ compiler not to mangle the
 names of the items in this block and thus enabling C code to use it.
 Using this one can then write a C function that calls the C++ code
 that you want to run.  This in turn is accessible to the C import
-library, which is used by pythons ctypes package.
+library, which is used by pythons /ctypes/ package.
 
 
 *** How to represent and encode the problem
@@ -171,10 +186,12 @@ Conclusion is here
 # check spelling
 * Programme Planner
 ** Introduction
-   An idea was investigated as to can a tool be made to help students
-   plan their coarse of study for their degree.  This would take the form
-   of list of sets of possible papers, with each set being a programme of
-   study.
+   Can constraints satisfaction be used to aid in the planning of a
+   students programme of study towards the selection of papers for a
+   degree?  This is a aid to the decision process.  It will show what
+   choices they have and show what is possible valid paper
+   combinations there are.  It will use constraints satisfaction to
+   help decide if the selection of papers are valid.  The 
 
    The proposal is to try and solve this problem using a constraints
    satisfaction.  Also a define what the user interface would look like.
@@ -182,6 +199,89 @@ Conclusion is here
    Unfortunately this project ran out of time, and was not finished.
    This report will outline what could have been.
 
-** Procedure
-   The idea was to take in a list of papers and determine what is the
-   best degree and major combination for this selection.  
+** Design Perspectives
+
+*** Technologies used
+**** Python
+     Python was chosen to develop this system in.  It worked well for
+     the Workload application, so it is only logical that Python
+     should be used for this application.
+
+     Python has a easy syntactically pleasing way of creating lists.
+     Since this problem is all about creating lists of papers, it
+     seems like the perfect choice.  All that it requires is a way of
+     applying constraints satisfaction to this process of creating
+     lists.  
+**** Constraints Satisfaction
+     This is a 
+
+     This has to be applied to the problem in a programming language.
+     A way has to be found to apply this in Python.  There are several
+     ways a third party library could be used in Python.  Python can
+     use libraries written in C/C++ as well as Python.  Through the
+     module /ctypes/, C library files can be loaded, and their functions
+     called from within Python.
+
+     Several libraries were looked at to solve this problem.
+     Cassowary constraint solver \cite{cassowary1}, Gecode
+     \cite{gecode1}, and or-tools \cite{or-tools1}.  Each was eith
+     written in C/C++ or had a Python implementation.
+
+
+**** Gecode
+     Gecode was chosen due to its maturity, and track record.  It has
+     won a few challenges in the last few years.
+
+     #+begin_quote
+     Gecode won all MiniZinc Challenges so far (in all categories):
+     2010, 2009, and 2008.
+     -- http://www.gecode.org/
+     #+end_quote
+
+     There is also a active on line community, with plenty of example code
+     to reference, found in various places on the web.
+
+     It is also written in C++, which can be called on by Python
+     through the /ctypes/ library.
+     
+*** Procedure
+    Take in a list of papers and determine what is the best degree and
+    major combination for this selection.  From there determine the
+    best set of papers that the student should do to complete their
+    degree major combination.
+    
+    The solution come up with, as shown in figure
+    \ref{fig:decisionprocess}, aims at being simple.  The problem of a
+    large search space has been addressed by narrowing down the search by
+    using a simple algorithm of counting the number of papers done that
+    are in the major schedule for each major available, and the major that
+    has the academic record has the most papers, is the chosen set that is
+    used to create a leads to tree.  This tree is then used as the search
+    space for the constraints satisfaction part.  The rules are based upon
+    the minimum required papers to satisfy the degree requirements and the
+    minimum to satisfy the major requirements.  
+    #+attr_latex: width=30em,placement=[H]
+    #+CAPTION: The process for determining programme selection options
+    #+LABEL: fig:decisionprocess
+#+BEGIN_DITAA decision-process-diagram -r -S -E
+               +---------+   +----------+   +----------+   +--------------+
+               | Major   |   | Leads to |   | Degree   |   | Valid        |
+               | Paper   |   | Paper    |   | Paper    |   | Degree       |
+               | List    |   | DB       |   | List     |   | Paper        |
+               | {s}c888 |   | {s}c888  |   | {s} c888 |   | Combinations |
+               |         |   |          |   |          |   | {s}c888      |
+               +----+----+   +----+-----+   +----------+   +--------------+
+                    |    |        |         |              |
+                    |    +----+   |         |              |
+                    |         |   |         |              |
+                    V         V   V         V              V
++----------+   +----+-----+   +---+---------+  +-----------+--+
+| Student  |   | Select   |   | Create      |  | Determine    |
+| Academic |   | Best     |   | Paper       |  | Valid        |
+| Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
+| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
+|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
++----------+   +----------+   +-------------+  +--------------+
+#+END_DITAA
+
+

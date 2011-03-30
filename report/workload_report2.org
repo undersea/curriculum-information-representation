@@ -1,6 +1,6 @@
 #+BIND: org-export-latex-title-command "\\maketitle"
 
-#+TITLE:     Workload Report
+#+TITLE:     Meaningful Data Representation Report
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com
 #+DATE:
@@ -78,7 +78,6 @@ and read access relevant to that group.
 #+END_abstract
 
 
-
 * Introduction
   With the large amount of data available on a problem, is it possible
   to split this data up in a meaningful way, to different groups of
@@ -90,31 +89,37 @@ and read access relevant to that group.
   much they are doing will be shown.  This helps decide if they are doing to much or to
   little teaching.
 
-  Currently a spreadsheet application, shown in figure
-  \ref{fig:spreadsheet}, has been used to disseminate 
-  the data across different groups.  This approach does not
-  scale well. The means of gathering this information is painfully
-  slow and time consuming. The spreadsheet application is also
-  complicated and hard to use.
+  A programme planner will be proposed using constraints satisfaction
+  to help choose papers for a students programme of study towards a
+  degree. 
 
-  #+ATTR_LATEX: width=\textwidth,placement=[H]
-  #+CAPTION: The current spreadsheet application
-  #+LABEL: fig:spreadsheet
-  [[./images/spreadsheet.png]]
+* Workload Project
+** Introduction
+   Currently a spreadsheet application, shown in figure
+   \ref{fig:spreadsheet}, has been used to disseminate 
+   the data across different groups.  This approach does not
+   scale well. The means of gathering this information is painfully
+   slow and time consuming. The spreadsheet application is also
+   complicated and hard to use.
 
-  This project attempts to develop a web served, database
-  backed application. Dissemination of the information according to which
-  group a user belongs to is attempted.  The proposed application tries to overcome the problem of
-  gathering the data by using a central database which everyone enters
-  information into from various places around SEAT, using a web
-  interface.  It also tries and reduce the amount of data entered by
-  using other already existing sources of information.
+   #+ATTR_LATEX: width=\textwidth,placement=[H]
+   #+CAPTION: The current spreadsheet application
+   #+LABEL: fig:spreadsheet
+   [[./images/spreadsheet.png]]
 
-  
+   This project attempts to develop a web served, database
+   backed application. Dissemination of the information according to which
+   group a user belongs to is attempted.  The proposed application tries to overcome the problem of
+   gathering the data by using a central database which everyone enters
+   information into from various places around SEAT, using a web
+   interface.  It also tries and reduce the amount of data entered by
+   using other already existing sources of information.
 
-  
    
-* Design perspectives
+
+   
+    
+** Design perspectives
 :HIDDEN:
 --** Open source
    The aim was to develop on linux, using open source libraries as much
@@ -573,9 +578,9 @@ experience.
 |---------------------+--------+-----------+-------|
 
 :END:
-** Technologies used
-   This project uses the following technologies.
-*** Django
+*** Technologies used
+    This project uses the following technologies.
+**** Django
    Django \cite{django1} is a web framework written in Python.  It is designed to
    allow rapid development of web sites.
 
@@ -616,85 +621,85 @@ experience.
 
 #+END_DITAA
    
-*** Python
-    Python \cite{python1} is needed by Django.  It is the programming language used on
-    the server side of this application.
-*** MySQL
-    MySQL was the database engine used to store the data used by the
-    application.   
-*** Microsoft Access
-    This is a external source which has been imposed on this
-    application. It holds all the postgraduate supervision data is
-    kept, which is part of what makes up the final workload figure of
-    staff.
-*** ODBC
-    ODBC is used as a means of extracting the data from the Microsoft
-    Access database.  ODBC is access from python via a python library
-    called pyodbc.  This hooks into unixODBC, which in turn uses a
-    MDBTools ODBC driver to read data from the Postgraduate database.
-    Figure \ref{fig:odbc} shows this process.
-    
-    #+ATTR_LaTeX: width=5cm
-    #+LABEL: fig:odbc
-    #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
-    #+begin_src ditaa :exports results :results file :file odbc-chain.png
-      +-------------+
-      | Workload    |
-      | application |
-      | {mo} cGRE   |
-      +-------------+      
-            ^
-            |
-      +-------------+
-      | Python      |
-      | pyodbc      |
-      | {io} cBLU   |
-      +-------------+      
-            ^
-            |
-      +-------------+
-      | Unix ODBC   |
-      | {io} cBLU   |
-      +-------------+
-            ^
-            |
-      +-------------+
-      | MDB Tools   |
-      | {io} cBLU   |
-      +-------------+
-            ^
-            |
-      +--------------+
-      | Postgraduate |
-      | Database     |
-      | {s} c888     |
-      +--------------+
-    #+end_src
+**** Python
+     Python \cite{python1} is needed by Django.  It is the programming language used on
+     the server side of this application.
+**** MySQL
+     MySQL was the database engine used to store the data used by the
+     application.   
+**** Microsoft Access
+     This is a external source which has been imposed on this
+     application. It holds all the postgraduate supervision data is
+     kept, which is part of what makes up the final workload figure of
+     staff.
+**** ODBC
+     ODBC is used as a means of extracting the data from the Microsoft
+     Access database.  ODBC is access from python via a python library
+     called pyodbc.  This hooks into unixODBC, which in turn uses a
+     MDBTools ODBC driver to read data from the Postgraduate database.
+     Figure \ref{fig:odbc} shows this process.
+     
+     #+ATTR_LaTeX: width=5cm
+     #+LABEL: fig:odbc
+     #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
+     #+begin_src ditaa :exports results :results file :file odbc-chain.png
+       +-------------+
+       | Workload    |
+       | application |
+       | {mo} cGRE   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Python      |
+       | pyodbc      |
+       | {io} cBLU   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Unix ODBC   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +-------------+
+       | MDB Tools   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +--------------+
+       | Postgraduate |
+       | Database     |
+       | {s} c888     |
+       +--------------+
+     #+end_src
 
 
-    
-*** Javascript
-    On the client side Javascript is used to make the pages dynamic.
-    jQuery \cite{jquery1} is the Javascript library used to make
-    it easier to develop solutions using Javascript.
+     
+**** Javascript
+     On the client side Javascript is used to make the pages dynamic.
+     jQuery \cite{jquery1} is the Javascript library used to make
+     it easier to develop solutions using Javascript.
 
-    #+begin_quote
-    jQuery is a fast and concise JavaScript Library that simplifies
-    HTML document traversing, event handling, animating, and Ajax
-    interactions for rapid web development. -- http://jquery.com/
-    #+end_quote
+     #+begin_quote
+     jQuery is a fast and concise JavaScript Library that simplifies
+     HTML document traversing, event handling, animating, and Ajax
+     interactions for rapid web development. -- http://jquery.com/
+     #+end_quote
 
-    A side affect of using jQuery is it helps overcome the
-    incompatibilities between different browsers.
-*** HTML and CSS
-    Each page that is viewed is generated by a server side process.
-    The output produced is a mixture of HTML and CSS.  CSS was used as
-    a aid to laying out the HTML elements in the viewing browser.
+     A side affect of using jQuery is it helps overcome the
+     incompatibilities between different browsers.
+**** HTML and CSS
+     Each page that is viewed is generated by a server side process.
+     The output produced is a mixture of HTML and CSS.  CSS was used as
+     a aid to laying out the HTML elements in the viewing browser.
 
-    
-** Overall design
-*** Data inputs and outputs
-**** Ideal world
+     
+*** Overall design
+**** Data inputs and outputs
+***** Ideal world
     Figure \ref{fig:dataflow} shows a general flow of where data is
     sourced from and what is being output.  The original idea was to get
     data from three sources.  A database containing the workload data, the
@@ -709,7 +714,7 @@ experience.
 #+LABEL: fig:dataflow
 #+CAPTION: Ideal Data IO for the workload process
     [[file:images/workload-process-ideal.png]]
-**** Data source problems
+***** Data source problems
     Unfortunately the CoS database information is restricted and thus not
     available to this project.  This means the information now has to be
     manually entered.  The new data flow diagram is shown in figure
@@ -723,72 +728,72 @@ experience.
 
 
 
-** The system users
-   There are three users of this system, the cluster staff, cluster
-   leaders, and  overall administrator.  From these three users are
-   formed the three views.  Each user has different functionality.
+*** The system users
+    There are three users of this system, the cluster staff, cluster
+    leaders, and  overall administrator.  From these three users are
+    formed the three views.  Each user has different functionality.
 
-*** Cluster user
-    The staff who make up the cluster.  They have a interest in making
-    sure the data about them is correct.
-*** Cluster leaders
-    Who has the responsibility of collating the data for teaching
-    allocations, and coordinator roles.  They also have a interest in
-    seeing how their cluster is doing overall.  They also have the
-    same interest as a ordinary staff member.
-*** Administrator
-    An administrator is not a academic staff member and is assumed to
-    be a manager. They see the overall picture of how SEAT is doing
-    broken down by cluster, campus and class.  Their role is to
-    collate all the data from the clusters together.  They also need
-    to be able to archive the current data, add new staff, and papers.
+**** Cluster user
+     The staff who make up the cluster.  They have a interest in making
+     sure the data about them is correct.
+**** Cluster leaders
+     Who has the responsibility of collating the data for teaching
+     allocations, and coordinator roles.  They also have a interest in
+     seeing how their cluster is doing overall.  They also have the
+     same interest as a ordinary staff member.
+**** Administrator
+     An administrator is not a academic staff member and is assumed to
+     be a manager. They see the overall picture of how SEAT is doing
+     broken down by cluster, campus and class.  Their role is to
+     collate all the data from the clusters together.  They also need
+     to be able to archive the current data, add new staff, and papers.
 
-* Redesign phase (following user presentation)
-  After developing a initial design the application was presented to
-  the cluster leaders at a meeting.  They were given a preview of
-  how they could interact with the application.
+** Redesign phase (following user presentation)
+   After developing a initial design the application was presented to
+   the cluster leaders at a meeting.  They were given a preview of
+   how they could interact with the application.
 
 
-  The application tree view model prototype was not liked. It was
-  discovered they liked the way that Microsoft Excell allowed one to
-  edit the data about teaching allocations and paper coordination. 
+   The application tree view model prototype was not liked. It was
+   discovered they liked the way that Microsoft Excell allowed one to
+   edit the data about teaching allocations and paper coordination. 
 
-  A major redesign was undertaken for how the cluster leaders can
-  edit the teaching allocations and paper coordinations was
-  undertaken.  Peviously the interface had been based upon a tree
-  like stucture, with nodes showing the paper, which expand to show
-  paper offerings and teaching allocations.  The cluster leaders, I
-  think, did not like this, and seemed to like the way they were able
-  to edit the relavent sections in the spreadsheet.  So the new
-  interface gained some of the functionality of the spreadsheet. This
-  is shown in figure \ref{fig:redesign:clusterview}. The old view is
-  shown in figure \ref{fig:redesign:oldview}.
-  
-  
-  #+ATTR_LaTeX: width=\textwidth, placement=[H]
-  #+CAPTION: Cluster leader paper edit view in spreadsheet style
-  #+LABEL: fig:redesign:clusterview
-  
-  [[./images/cluster_paper_edit_view.png]]
-  
-  
-  #+ATTR_LaTeX: width=\textwidth, placement=[H]
-  #+CAPTION: The old way cluster leaders were to edit their papers
-  #+LABEL: fig:redesign:oldview
-  
-  [[./images/admin_offering_teach_edit_view.png]]
-** Testing
-   At every stage of development, testing took place.  There were no
-   automated tests, even though they are possible, due to the developers
-   inexperience in testing web applications.  However, at every stage,
-   a checklist of features and operations were tested by hand.  A
-   checkbox list of inputs and results were checked for pass or
-   crossed for fail.
-
-* Implementation
-** User Interface
+   A major redesign was undertaken for how the cluster leaders can
+   edit the teaching allocations and paper coordinations was
+   undertaken.  Peviously the interface had been based upon a tree
+   like stucture, with nodes showing the paper, which expand to show
+   paper offerings and teaching allocations.  The cluster leaders, I
+   think, did not like this, and seemed to like the way they were able
+   to edit the relavent sections in the spreadsheet.  So the new
+   interface gained some of the functionality of the spreadsheet. This
+   is shown in figure \ref{fig:redesign:clusterview}. The old view is
+   shown in figure \ref{fig:redesign:oldview}.
    
-*** Look and feel
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: Cluster leader paper edit view in spreadsheet style
+   #+LABEL: fig:redesign:clusterview
+   
+   [[./images/cluster_paper_edit_view.png]]
+   
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: The old way cluster leaders were to edit their papers
+   #+LABEL: fig:redesign:oldview
+   
+   [[./images/admin_offering_teach_edit_view.png]]
+*** Testing
+    At every stage of development, testing took place.  There were no
+    automated tests, even though they are possible, due to the developers
+    inexperience in testing web applications.  However, at every stage,
+    a checklist of features and operations were tested by hand.  A
+    checkbox list of inputs and results were checked for pass or
+    crossed for fail.
+
+** Implementation
+*** User Interface
+    
+**** Look and feel
     The idea was to make the pages look like reports, but make parts
     of them editable.  This was overcome using jQuery, to alter the
     HTML DOM on the fly, using event triggers like click and hover on
@@ -885,7 +890,7 @@ out at a glance which cluster they belong to. Thus making finding a
 particular staff from a cluster is easier.  Figure
 \ref{fig:cluster-view-dropdown} gives a glimpse of this.
 
-*** Warning messages
+**** Warning messages
 
 It was also important to give visual prompts, warning the user of an
 dangerous action or telling them that something is wrong.  For all
@@ -912,37 +917,37 @@ red.
 
 
 
-*** Three views
-    When a user logs in they see a different setup.
-**** Cluster user
-     Sees their own personal page with their personal details, of
-     name, cluster, and a break down of their workload hours, by
-     paper offerings, postgraduate supervision and administration
-     roles.
+**** Three views
+     When a user logs in they see a different setup.
+***** Cluster user
+      Sees their own personal page with their personal details, of
+      name, cluster, and a break down of their workload hours, by
+      paper offerings, postgraduate supervision and administration
+      roles.
 
-     The paper offerings list their teaching allocations, and
-     coordination of papers
+      The paper offerings list their teaching allocations, and
+      coordination of papers
 
-     They also get the chance to look at other staffs data, since this
-     information is not secret and there was a desire to be able to do
-     this.
+      They also get the chance to look at other staffs data, since this
+      information is not secret and there was a desire to be able to do
+      this.
 
-**** Cluster leader
-     This user sees a menu from which they can navigate to different of staff
-     lists, with a break down of their hours, with the total hours
-     gained from papers, postgraduate supervision, and administration
-     roles, with a grand total at the end.  Also a total for the
-     entire cluster is given.
+***** Cluster leader
+      This user sees a menu from which they can navigate to different of staff
+      lists, with a break down of their hours, with the total hours
+      gained from papers, postgraduate supervision, and administration
+      roles, with a grand total at the end.  Also a total for the
+      entire cluster is given.
 
-     They also get to look at other clusters details.
+      They also get to look at other clusters details.
 
-     The other item in the menu is the cluster paper offering page.
-     Here they get to edit the teaching allocations for the papers
-     which any of their staff have something to do with.  Figure
-     \ref{fig:cluster-commit} is a example of what a CSIT cluster
-     leader would see in this page.
+      The other item in the menu is the cluster paper offering page.
+      Here they get to edit the teaching allocations for the papers
+      which any of their staff have something to do with.  Figure
+      \ref{fig:cluster-commit} is a example of what a CSIT cluster
+      leader would see in this page.
 
-**** Administrator
+***** Administrator
      The administrator view sees a menu which also allows them to see
      the same views as a cluster leader, but instead of automatically
      being filtered by the cluster, they see all staff.  The cluster
@@ -972,28 +977,28 @@ red.
 #+CAPTION: The cluster view of offering which have staff involved from more than one cluster, which need checking before being committed to the main database.
 [[file:images/admin_cluster_view2.png]]
 
-** Responsiveness
-   Ideally the loading of a page should take as little time as
-   possible.  There are three bottle necks to speed of page loading.
-   The server side scripts, the client side scripts, and the amount
-   of data needed to process.  The server side scripts have the
-   fastest execution time, while the client side Javascript, can be
-   very slow, especially when inserting elements into the HTML DOM.
-   It was decided that most of the processing of data should be done
-   by the server.  The insertion of elements into the HTML DOM by
-   will be kept to a minimum.  The reloading of pages is done as few
-   time as it is possible, unless the request was to process large
-   amounts of data, like filtering the staff list by cluster, campus
-   or class.
-** Archiving of data
-   The application allows the backing up of data to files.  These
-   files are written in JSON format.  JSON is a format which can be
-   written to or read by Django.  This makes it a easy choice for
-   backup formats.   It means that data from a previous year can be
-   compared to the current data.  It also means that if something
-   goes wrong, the backed up data can be used to restore the database
-   to where it was before the mistake took place.
-** Updating paper offerings process
+*** Responsiveness
+    Ideally the loading of a page should take as little time as
+    possible.  There are three bottle necks to speed of page loading.
+    The server side scripts, the client side scripts, and the amount
+    of data needed to process.  The server side scripts have the
+    fastest execution time, while the client side Javascript, can be
+    very slow, especially when inserting elements into the HTML DOM.
+    It was decided that most of the processing of data should be done
+    by the server.  The insertion of elements into the HTML DOM by
+    will be kept to a minimum.  The reloading of pages is done as few
+    time as it is possible, unless the request was to process large
+    amounts of data, like filtering the staff list by cluster, campus
+    or class.
+*** Archiving of data
+    The application allows the backing up of data to files.  These
+    files are written in JSON format.  JSON is a format which can be
+    written to or read by Django.  This makes it a easy choice for
+    backup formats.   It means that data from a previous year can be
+    compared to the current data.  It also means that if something
+    goes wrong, the backed up data can be used to restore the database
+    to where it was before the mistake took place.
+*** Updating paper offerings process
    Each year the cluster leaders must update the teaching
    allocations and coordination roles for the cluster.  With several
    staff editing the database at once, a potential for concurrency
@@ -1020,9 +1025,9 @@ red.
 #+CAPTION:  The process that takes place to update paper offerings by cluster leaders and the administrator
 [[file:images/update_offering_process.png]]
 
-* Learning outcomes
-** Responsiveness
-*** Data processing
+** Learning outcomes
+*** Responsiveness
+**** Data processing
 There are two places to process the data and one place to display the
 results. You can use client side scripts, like javascript to process
 the data, and it can be processed on the server side.  The more data
@@ -1045,7 +1050,7 @@ redisplayed as little as possible, with the use of Ajax.  Mass
 processing of data is done on the server side.  Only use javascript to process
 or retrieve small amounts of data. 
 
-*** Algorithm efficiency
+**** Algorithm efficiency
 
 The efficiency of algorithms will have more impact on the
 loading time of dynamic pages than the choice of languages.  The
@@ -1073,7 +1078,7 @@ If you feel the need for speed, go for built-in functions - you can't beat a loo
 
 #+end_quote
 
-** Javascript compatibility
+*** Javascript compatibility
 Javascript is implemented differently across different browsers.
 jQuery helped overcome most of the issues, but there were rules that
 need to be adhered to make sure your code works in most major
@@ -1094,14 +1099,14 @@ this situation. In future, a warning message, telling the user this,
 produced on the server side, should be shown.  Other than this there is
 nothing that can be done, if the browser has javascript turned off.
 
-** CSS
+*** CSS
 The best defense a web developer has against different browser
 implementations of CSS, is to stick to standards and hope that the
 browser being used adheres to these standards.  The differences are
 otherwise to vast to keep track, and most of the development time
 would be spent on resolving these differences, if this was attempted.
 
-** Concurrency / Multiple views
+*** Concurrency / Multiple views
 Most of the concurrency issues have been avoided.  The only possible
 issue that could cause real problems, is if two cluster leaders from
 the same cluster logged in and started editing the papers.  Most of
@@ -1110,7 +1115,7 @@ solution is to either implement concurrency solutions like locks, or
 if there are two cluster leaders of the same cluster, logged on, to
 logg both of them off with a warning message.
 
-** Look and feel of pages
+*** Look and feel of pages
 Getting pages to look the same across browsers is very difficult
 when using the HTML markup, even with the aid of CSS and javascript.
 The best you can do is make sure the components appear in the same
@@ -1132,49 +1137,49 @@ offered column.
 Add screen-shot here  
 :END:
 
-** Problems with Paper List page
-   In the original design a paper list page was created.  This view
-   was a expandable tree with the paper code, title, points value and
-   global coordinator being displayed for each paper.  You could
-   expand this to show the paper offerings along with the teaching
-   allocations of each offering.  The problem was that in expanding
-   the view to include that papers offerings and teaching allocations,
-   the size of the output would be changed, and thus the browser would
-   have to redisplay the page.  This often meant that the view would
-   suddenly go somewhere else and the viewer would have to scroll up
-   or down to find the expanded paper.  This part was fixed with the
-   addition of href anchors.  This only worked for expanding the paper
-   view, but when it was collapsed, the page would scroll to a
-   location somewhere below the paper that was just collapsed.  This
-   is a real problem, as even href anchors do not seem to fix this.  
+*** Problems with Paper List page
+    In the original design a paper list page was created.  This view
+    was a expandable tree with the paper code, title, points value and
+    global coordinator being displayed for each paper.  You could
+    expand this to show the paper offerings along with the teaching
+    allocations of each offering.  The problem was that in expanding
+    the view to include that papers offerings and teaching allocations,
+    the size of the output would be changed, and thus the browser would
+    have to redisplay the page.  This often meant that the view would
+    suddenly go somewhere else and the viewer would have to scroll up
+    or down to find the expanded paper.  This part was fixed with the
+    addition of href anchors.  This only worked for expanding the paper
+    view, but when it was collapsed, the page would scroll to a
+    location somewhere below the paper that was just collapsed.  This
+    is a real problem, as even href anchors do not seem to fix this.  
 
-** Value editing errors
-   When changing a value, if a error occurs, then the user will be
-   told of this error.  The problem is that the entered value will not
-   revert to the previous value.  This can be misleading to the user,
-   who looks at this value, sees it has changed in the page, so
-   assumes the value in the database has changed, when it has not. The
-   user will find out next time they load the page and look at this
-   value, and see it is not the value they altered it to.  This is a
-   problem, that needs attention.
-** Staff menu
-   The staff is ordered by cluster then surname.  In future, to make
-   cluster members, for the viewing cluster leader, easier to find,
-   the cluster members of the cluster leaders cluster, will appear at
-   the top of the menu.  The rest will then be ordered by cluster then
-   surname. The reasoning behind this, is that the cluster leader is
-   normally only interested in staff from their own cluster.  The
-   staff most relevant to the cluster leader should appear at the most
-   convenient place, thus reducing the time needed to find a member of
-   that cluster.
-** Archiving of data
-   With the archives, it is possible to analyse the information and
-   get some trends from it.  It might be useful to create a process to
-   extract and display this data in a meaningful way.  This might take
-   the form of graphs.  This would be useful if it was desired to see
-   how workload hours changed over time.
+*** Value editing errors
+    When changing a value, if a error occurs, then the user will be
+    told of this error.  The problem is that the entered value will not
+    revert to the previous value.  This can be misleading to the user,
+    who looks at this value, sees it has changed in the page, so
+    assumes the value in the database has changed, when it has not. The
+    user will find out next time they load the page and look at this
+    value, and see it is not the value they altered it to.  This is a
+    problem, that needs attention.
+*** Staff menu
+    The staff is ordered by cluster then surname.  In future, to make
+    cluster members, for the viewing cluster leader, easier to find,
+    the cluster members of the cluster leaders cluster, will appear at
+    the top of the menu.  The rest will then be ordered by cluster then
+    surname. The reasoning behind this, is that the cluster leader is
+    normally only interested in staff from their own cluster.  The
+    staff most relevant to the cluster leader should appear at the most
+    convenient place, thus reducing the time needed to find a member of
+    that cluster.
+*** Archiving of data
+    With the archives, it is possible to analyse the information and
+    get some trends from it.  It might be useful to create a process to
+    extract and display this data in a meaningful way.  This might take
+    the form of graphs.  This would be useful if it was desired to see
+    how workload hours changed over time.
 
-* Conclusion
+** Conclusion
   It is possible to split data up in a meaningful way to different
   groups of people.  This can be done by associating different view with different
   groups of users, grouping data and allowing users to
@@ -1183,6 +1188,8 @@ Add screen-shot here
   edit data pertinent to them, and the data which involves more than
   one group is arbitrated by the administrator.  
   
+
+#+INCLUDE: planner_report.org
   
 #+LATEX: \bibliographystyle{plain}
 #+LATEX: \bibliography{bibliography}
