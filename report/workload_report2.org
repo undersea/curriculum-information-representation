@@ -7,7 +7,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:5 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:6 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -17,7 +17,7 @@
 #+XSLT:
 
 #+source: jim()
-#+begin_src emacs-lisp :results output silent :exports results
+#+begin_src emacs-lisp :results output silent :exports none
   (add-to-list 'org-export-latex-classes
           '("file-class"
              "\\documentclass{scrartcl}
@@ -89,7 +89,7 @@ and read access relevant to that group.
   much they are doing will be shown.  This helps decide if they are doing to much or to
   little teaching.
 
-  A programme planner will be proposed using constraints satisfaction
+  A programme planner is proposed using constraints satisfaction
   to help choose papers for a students programme of study towards a
   degree. 
 
@@ -633,9 +633,9 @@ experience.
      kept, which is part of what makes up the final workload figure of
      staff.
 **** ODBC
-     ODBC is used as a means of extracting the data from the Microsoft
-     Access database.  ODBC is access from python via a python library
-     called pyodbc.  This hooks into unixODBC, which in turn uses a
+     ODBC \cite{odbc1} is used as a means of extracting the data from the Microsoft
+     Access database.  ODBC is accessed from python via a python library
+     called pyodbc \cite{pyodbc1}.  This hooks into unixODBC \cite{unixODBC}, which in turn uses a
      MDBTools ODBC driver to read data from the Postgraduate database.
      Figure \ref{fig:odbc} shows this process.
      

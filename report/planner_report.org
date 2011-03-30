@@ -213,8 +213,6 @@ Conclusion is here
      applying constraints satisfaction to this process of creating
      lists.  
 **** Constraints Satisfaction
-     This is a 
-
      This has to be applied to the problem in a programming language.
      A way has to be found to apply this in Python.  There are several
      ways a third party library could be used in Python.  Python can
@@ -222,28 +220,37 @@ Conclusion is here
      module /ctypes/, C library files can be loaded, and their functions
      called from within Python.
 
-     Several libraries were looked at to solve this problem.
-     Cassowary constraint solver \cite{cassowary1}, Gecode
-     \cite{gecode1}, and or-tools \cite{or-tools1}.  Each was eith
-     written in C/C++ or had a Python implementation.
+     Gecode \cite{gecode1}, and or-tools \cite{or-tools1} libraries
+     were looked at.
 
+     Gecode was chosen due to its maturity, and track record.
+***** or-tools
+      Is a set of operations research tools developed at Google, with one of
+      the tools being a constraints solver.  It is written in C++ and has a
+      Python implementation.  
 
-**** Gecode
-     Gecode was chosen due to its maturity, and track record.  It has
-     won a few challenges in the last few years.
+      It is dependent on other Google libraries, which complicates its
+      use for the developer.  It also is very new, and has not much
+      support other than in the form of examples.
 
-     #+begin_quote
-     Gecode won all MiniZinc Challenges so far (in all categories):
-     2010, 2009, and 2008.
-     -- http://www.gecode.org/
-     #+end_quote
+***** Gecode
+      It has won a few challenges in the last few years.
 
-     There is also a active on line community, with plenty of example code
-     to reference, found in various places on the web.
+      #+begin_quote
+      Gecode won all MiniZinc Challenges so far (in all categories):
+      2010, 2009, and 2008.
+      -- http://www.gecode.org/
+      #+end_quote
 
-     It is also written in C++, which can be called on by Python
-     through the /ctypes/ library.
-     
+      There is also a active on line community, with plenty of example code
+      to reference, found in various places on the web.
+
+      It is also written in C++, which can be called on by Python
+      through the /ctypes/ library.
+      
+      It does not need any external dependencies to be used, thus is
+      easy to install.
+
 *** Procedure
     Take in a list of papers and determine what is the best degree and
     major combination for this selection.  From there determine the
