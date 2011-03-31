@@ -35,7 +35,6 @@
                    {\\small Supervisor: \\@supervisor\\par}%
                    \\vskip 1cm
                    {\\Large \\@date\\par}%
-                   
                  \\end{center}%
                  \\vfill
                  \\null
@@ -68,27 +67,13 @@
 
 #+BEGIN_abstract
 \begin{abstract}
-This project asks the question, can you split up data in a meaningful
-way, to different groups of people?  It will achieve this aim by using
-several different techniques.  These involve human computer
-interaction (HCI), processing of data, and web based authentication.
 
-A web based application for managing academic staff workloads will be
-developed, which will demonstrate this is possible.  It will collect
-data together and display data according to which group of people you
-belong to.  It demonstrates the display of data, restriction of write
-and read access relevant to that group.
 \end{abstract}
 #+END_abstract
 
 
 * Introduction
-  It is common for different users to have different needs for
-  accessing, updating, and viewing the same data set (or combination
-  of data sets).  In this project I considered how to implement
-  software for a workload presentation system.  The challenge was to
-  ensure that each user saw the data in a way appropriate to them, and
-  had the access rights to interact with the data set as required.
+  
 
   A tool to manage staff teaching allocations will be developed.  How
   much they are doing will be shown.  This helps decide if they are doing to much or to
@@ -100,6 +85,13 @@ and read access relevant to that group.
 
 * Workload Project
 ** Introduction
+   It is common for different users to have different needs for
+   accessing, updating, and viewing the same data set (or combination
+   of data sets).  In this project I considered how to implement
+   software for a workload presentation system.  The challenge was to
+   ensure that each user saw the data in a way appropriate to them, and
+   had the access rights to interact with the data set as required.
+
    Currently a spreadsheet application, shown in figure
    \ref{fig:spreadsheet}, has been used to disseminate 
    the data across different groups.  This approach does not

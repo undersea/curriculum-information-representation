@@ -186,12 +186,13 @@ Conclusion is here
 # check spelling
 * Programme Planner
 ** Introduction
+
    Can constraints satisfaction be used to aid in the planning of a
    students programme of study towards the selection of papers for a
    degree?  This is a aid to the decision process.  It will show what
    choices they have and show what is possible valid paper
    combinations there are.  It will use constraints satisfaction to
-   help decide if the selection of papers are valid.  The 
+   help decide if the selection of papers are valid.
 
    The proposal is to try and solve this problem using a constraints
    satisfaction.  Also a define what the user interface would look like.
@@ -203,15 +204,14 @@ Conclusion is here
 
 *** Technologies used
 **** Python
-     Python was chosen to develop this system in.  It worked well for
+     Python was chosen to develop this system.  It worked well for
      the Workload application, so it is only logical that Python
      should be used for this application.
 
-     Python has a easy syntactically pleasing way of creating lists.
+     Python also has a easy syntactically pleasing way of creating lists.
      Since this problem is all about creating lists of papers, it
      seems like the perfect choice.  All that it requires is a way of
-     applying constraints satisfaction to this process of creating
-     lists.  
+     applying constraints satisfaction to this.
 **** Constraints Satisfaction
      This has to be applied to the problem in a programming language.
      There are several ways a third party library could be used in
@@ -285,7 +285,7 @@ Conclusion is here
 | Student  |   | Select   |   | Create      |  | Determine    |
 | Academic |   | Best     |   | Paper       |  | Valid        |
 | Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
-| {s}c888  |   | cFF8     |   | Tree        |  | Combinations |
+| {s}c888  |   | cFDA {o} |   | Tree        |  | Combinations |
 |          |   |          |   | cFF8        |  | {mo} c9FB    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
