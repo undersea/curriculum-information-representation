@@ -213,14 +213,11 @@ Conclusion is here
      applying constraints satisfaction to this process of creating
      lists.  
 **** Constraints Satisfaction
-     This is a 
-
      This has to be applied to the problem in a programming language.
-     A way has to be found to apply this in Python.  There are several
-     ways a third party library could be used in Python.  Python can
-     use libraries written in C/C++ as well as Python.  Through the
-     module /ctypes/, C library files can be loaded, and their functions
-     called from within Python.
+     There are several ways a third party library could be used in
+     Python.  Python can use libraries written in C/C++ as well as
+     Python.  Through the module /ctypes/, C library files can be
+     loaded, and their functions called from within Python.
 
      Several libraries were looked at to solve this problem.
      Cassowary constraint solver \cite{cassowary1}, Gecode
