@@ -1,6 +1,6 @@
 #+BIND: org-export-latex-title-command "\\maketitle"
 
-#+TITLE:     Meaningful Data Representation Report
+#+TITLE:     Workflow planning and visualisation
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com
 #+DATE:
@@ -30,9 +30,11 @@
                    \\normalfont
                    {\\LARGE \\@title\\par}%
                    \\vskip 1cm
-                   {\\Large by \\@author\\par}%
+                   {\\Large \\@author\\par}%
                    \\vskip 1cm
-                   {\\small Supervisor: \\@supervisor\\par}%
+                   {\\small \\@institute\\par}%
+                   \\vskip 1cm
+                   {\\small Supervisors: \\@supervisor\\par}%
                    \\vskip 1cm
                    {\\Large \\@date\\par}%
                  \\end{center}%
@@ -41,6 +43,7 @@
                \\cleardoublepage
                }
                \\def\\supervisor\#1{\\def\\@supervisor{\#1}}
+               \\def\\institute\#1{\\def\\@institute{\#1}}
              \\makeatother"
              ("\\section{%s}" . "\\section*{%s}")
              ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -62,6 +65,7 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
 #+LaTeX_HEADER: \setlength{\parindent}{0cm}
 #+LaTeX_HEADER: \setlength{\parskip}{0.5cm}
+#+LaTeX_HEADER: \institute{Computer Science Honours project, Massey University}
 #+LaTeX_HEADER: \supervisor{Stephen Marsland}
 
 
