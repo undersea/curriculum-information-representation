@@ -77,7 +77,12 @@
 
 
 * Introduction
-  
+  It is common for different users to have different needs for
+  accessing, updating, and viewing the same data set (or combination
+  of data sets).  In this project I considered how to implement
+  software for a workload presentation system.  The challenge was to
+  ensure that each user saw the data in a way appropriate to them, and
+  had the access rights to interact with the data set as required.
 
   A tool to manage staff teaching allocations will be developed.  How
   much they are doing will be shown.  This helps decide if they are doing to much or to
@@ -89,39 +94,10 @@
 
 * Workload Project
 ** Introduction
-   It is common for different users to have different needs for
-   accessing, updating, and viewing the same data set (or combination
-   of data sets).  In this project I considered how to implement
-   software for a workload presentation system.  The challenge was to
-   ensure that each user saw the data in a way appropriate to them, and
-   had the access rights to interact with the data set as required.
+   This project attempts to develop a web served, database backed
+   application that represents the data appropriately for each user
+   and automatically provides as much of the data as possible. 
 
-   Currently a spreadsheet application, shown in figure
-   \ref{fig:spreadsheet}, has been used to disseminate 
-   the data across different groups.  This approach does not
-   scale well. The means of gathering this information is painfully
-   slow and time consuming. The spreadsheet application is also
-   complicated and hard to use.
-
-   #+ATTR_LATEX: width=\textwidth,placement=[H]
-   #+CAPTION: The current spreadsheet application
-   #+LABEL: fig:spreadsheet
-   [[./images/spreadsheet.png]]
-
-   This project attempts to develop a web served, database
-   backed application. Dissemination of the information according to which
-   group a user belongs to is attempted.  The proposed application tries to overcome the problem of
-   gathering the data by using a central database which everyone enters
-   information into from various places around SEAT, using a web
-   interface.  It also tries and reduce the amount of data entered by
-   using other already existing sources of information.
-
-   
-   
-
-
-
-** The Problem
    Workload is a measure of how many virtual hours each staff member is
    going to be doing for the coming year. The purpose of Workload is to
    spread the workload as fairly among the staff.  It is a artificial
@@ -139,393 +115,39 @@
 
  - The Admin roles for each of the members of staff and how much
    the admin roles are worth in Workload hours.
- - For each staff
-   + Which postgraduate they are supervising
-     + how much supervision in percentage terms they are giving
-     + Given that each postgraduate degree is worth different hours
+ - For each staff member
+   + Which postgraduates they are supervising
+     - how much supervision in percentage terms they are giving
+     - Given that each postgraduate degree is worth different hours
        + What percentage of supervision they give and thus how many of
          those hours do they get.
  - The application must be configurable
-   + This could be done by a expert, so it doesn't have to be addressed
+   + This could be done by an expert, so it doesn't have to be addressed
      in the user interface, it could be simply a config file.
 
-Can this be done, using a single point of access for all, but serve
-many at the same time?
+   Can this be done, using a single point of access for all, but serve
+   many at the same time?
 
+   Currently a spreadsheet application, shown in figure
+   \ref{fig:spreadsheet}, has been used to disseminate 
+   the data across different groups.  This approach does not
+   scale well. The means of gathering this information is painfully
+   slow and time consuming. The spreadsheet application is also
+   complicated and hard to use.
 
+   #+ATTR_LATEX: width=\textwidth,placement=[H]
+   #+CAPTION: The current spreadsheet application
+   #+LABEL: fig:spreadsheet
+   [[./images/spreadsheet.png]]
 
-
-** Calculating Workload hours
-How workload hours had to be the first priority in developing this
-application.  The way that was chosen to tackle this was to go and see
-one of the people involved in designing this formula.  The impression
-was that the spreadsheet was designed by a committee. Dr Huub Bakker
-was visited and some direction from him about the workload process was
-gained.  A couple of documents were provided by Mrs Glenda Kirk, one
-being the actual spreadsheet \cite{stdhours2} that this application is replacing and
-the other is a document \cite{stdhours1} describing the workload formula and a few note
-on how it is applied.  The process that was used to figure out how the
-workload process works, could almost be called reverse engineering.
-The document was sparse in describing the way the process worked and
-the spreadsheet was a highly complex document, which was almost
-impossible to follow.
-
-*** The standard hours formula
-The problem was described as each staff member has various jobs and
-responsibilities.  For each of these jobs and responsibilities they
-get awarded Workload hours, based upon a formula.  The way in which
-Workload hours are assigned was described in a word document called
-"Standard Hours Formula" \cite{stdhours1}.  This gave a formula
-for calculating standard hours for a paper shown in figure
-\ref{fig:formula}.  A table was also provided which gave the
-coefficients for each teaching input shown in table \ref{table:coefficients}.
-
-#+BEGIN_LATEX
-\begin{figure}[H]
-\centering
-#+END_LATEX
-#+begin_example
-Standard Hours = Intercept*paper points/12.5  
-                 + (Slope*no. of students)
-                 - (144/no. of students)  
-#+end_example
-#+BEGIN_LATEX
-\caption{\label{fig:formula} The standard hours formula used to
-calculate a standard hour component}
-\end{figure}
-#+END_LATEX
-
-
-#+ATTR_LaTeX: placement=[H]
-#+CAPTION: Coefficients table
-#+LABEL: table:coefficients
-|---------------------+--------+-----------+-------|
-| Input               | Points | Intercept | Slope |
-|---------------------+--------+-----------+-------|
-| Undergraduate paper |   12.5 |     287.5 |     4 |
-| Project paper       |     25 |         0 |    50 |
-| Honours project     |     25 |         0 |    50 |
-| DipApplSc           |     25 |         0 |    50 |
-| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
-| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
-| PhD (1st Sup)       |    100 |         0 |   100 |
-| PhD (2nd Sup)       |    100 |         0 |    50 |
-|---------------------+--------+-----------+-------|
-
-
-
-
-There is also the spreadsheet used called "Std\_hrs\_2010\_14.xlsx" \cite{stdhours2}.
-This gave a example of what numbers should be produced for each of the
-papers given the number of enrolled.  The formula used in the
-spreadsheet application was to complex to use except as a way of checking the answers when applying
-the formula to a given paper, or any of the other components that are
-used to create the total Workload hours for each member of staff. 
-
-When the formula in figure \ref{fig:formula} using the coefficients
-found in table \ref{table:coefficients} was applied to a undergraduate
-paper using the number of students enrolled that year and the paper
-points from that paper, the answer did not agree with the answer seen
-in the spreadsheet.  After a while it was realised that the reason
-they were not agreeing was that the formula in figure
-\ref{fig:formula} is out of date.  When this document "Standard Hours
-Formula (Amended January 2006)" was written in 2006, papers were worth
-12.5 points each.  It is surmised that the intercept is how much a
-single semester paper is worth in points.  A paper worth 25 points
-should take twice as long to teach thus the  "paper points/12.5" part
-of the formula would calculate to two and so the intercept would then
-be multiplied by two. Thus representing the intercept of a 25 point
-paper.  If you applied this formula using the points value of a paper
-these days, which most are 15 points, then this formula will give you
-entirely wrong answers with both the formula and coefficients given in
-the document provided.  What was worked out is that the value 12.5 in
-this formula is actually 15, and the table is also wrong with the
-values of 25 actually being 30.  The adjusted formula is given in
-figure \ref{fig:formula2} and the adjusted coefficients are given in
-table \ref{table:coefficients2}. This now gave the same answer as the ones given in the spreadsheet for
-2010 workload hours, for undergraduate papers.
-
-#+begin_html 
-<div id="fig:formula2" class="figure">
-#+end_html
-#+BEGIN_LATEX
-\begin{figure}[H]
-\centering
-#+END_LATEX
-#+begin_example
-Standard Hours = Intercept*paper points/15
-                 + (Slope*no. of students)
-                 - (144/no. of students) 
-
-#+end_example
-
-#+BEGIN_LATEX
-\caption{\label{fig:formula2} The corrected standard hours formula used to
-calculate a standard hour component}
-\end{figure}
-#+END_LATEX
-#+begin_html 
-</div>
-#+end_html
-
-
-
-
-
-#+ATTR_LaTeX: placement=[H]
-#+CAPTION: Corrected Coefficients table
-#+LABEL: table:coefficients2
-|---------------------+--------+-----------+-------|
-| Input               | Points | Intercept | Slope |
-|---------------------+--------+-----------+-------|
-| Undergraduate paper |     15 |     287.5 |     4 |
-| Project paper       |     30 |         0 |    50 |
-| Honours project     |     30 |         0 |    50 |
-| DipApplSc           |     30 |         0 |    50 |
-| Dip/Mast (1st Sup)  |     50 |         0 |    75 |
-| Dip/Mast (2nd Sup)  |     50 |         0 |    25 |
-| PhD (1st Sup)       |    100 |         0 |   100 |
-| PhD (2nd Sup)       |    100 |         0 |    50 |
-|---------------------+--------+-----------+-------|
-
-
-*** Teaching allocation hours
-The standard hours formula calculates how many hours a paper is worth
-for that given year with the students enrolled in it that year.  Each
-staff member who teaches this paper gets a share of these standard
-hours that were calculate.  It is determined how much of the paper
-they teach in percentage terms, and this percentage is the percentage
-of the total standard hours this paper provides for that year.  an
-example is provided in figure \ref{fig:example1}.
-
-#+BEGIN_LATEX
-\begin{figure}[H]
-\centering
-#+END_LATEX
-#+begin_example
-no. of students = 10
-paper points = 15
-Intercept = 287.5
-Slope = 4
-
-standard hours = 287.5*15/15
-                 + (4*10)
-                 - (144/10)
-               = 313.1
-
-staff1 teach allocation = 60%
-staff2 teach allocation = 40%
-
-staff1 gets 313.1*(60/100) = 187.86 standard hours
-staff2 gets 313.1*(40/100) = 125.24 standard hours
-#+end_example
-#+BEGIN_LATEX
-\caption{\label{fig:example1} An example of how the standard hours are
-used to calculate a staff members teaching hours}
-\end{figure}
-#+END_LATEX
-
-
-
-*** Coordinator hours
-
-For each paper it is recognised as having two coordinators.  The
-global coordinator and the local coordinator.  The global coordinator
-"overseas paper direction, paper content, cross campus equivalence
-etc" \cite{stdhours1}.  The local coordinator "coordinates the paper
-on an individual campus" \cite{stdhours1}.  The coordination of this
-paper has a intercept of 15 and a slope of 0.15.  These are split
-between the local and global coordinator.  This is shown in table
-\ref{table:coord}.
-
-
-#+ATTR_LaTeX: placement=[H]
-#+CAPTION: Table showing the intercept and slope used for local and global coordinators
-#+LABEL: table:coord
-|-----------+-------------+-------------+-------|
-|           | Global      | Local       |       |
-|           | Coordinator | Coordinator | Total |
-|-----------+-------------+-------------+-------|
-| Intercept | 12          | 3           | 15    |
-| Slope     | 0.05        | 0.1         | 0.15  |
-|-----------+-------------+-------------+-------|
-
-
-The standard hours formula, in figure \ref{fig:formula2}, was at first assumed to apply to all
-aspects of workload hours including coordinator hours. When
-coordinator hours were calculated using the formula in figure
-\ref{fig:formula2} it came up with a answer which did not agree with the
-example that was being looked at, at the time. In the notes given in
-the "Standard Hours Formula" \cite{stdhours1}, it 
-mentions the "small class" correction factor, which is 144 divided by
-the number of students.  It does not mention also that for calculating
-coordinator hours it was not included as part of the formula.  The way
-this was discovered was a pure accident born of frustration.  It was
-decided to see what the result would be if parts of the standard hours
-formula were removed.  When this 144/no. of students was removed it
-came up with the correct answer. This was repeated a few times to make
-sure the assumption made is correct. The new formula is given in figure
-\ref{fig:formula3}.
-
-#+BEGIN_LATEX
-\begin{figure}[H]
-\centering
-#+END_LATEX
-#+begin_example 
-coordinator standard hours = Intercept*paper points/15
-                             + (Slope*no. of students)
-#+end_example
-#+BEGIN_LATEX
-\caption{\label{fig:formula3} The corrected standard hours formula
-used to calculate coordinator standard hours}
-\end{figure}
-#+END_LATEX
-
-
-*** Other modifiers used to calculate standard hours
-- *Off campus modifier:*
-    A loading modifier of 1.25 is applied to the intercept for papers
-    delivered by staff whose home campus is located elsewhere.
-- *Same teaching material:*
-    If the material taught in two papers is the same then the intercept is
-    only included once.
-- *Duplicate Teaching:*
-    If a staff is teaching similar material in two papers, the the
-    intercept is applied only once for both and a modifier of 1.5 is
-    applied to this intercept.
-
-These modifiers add a small level of complication.  How do
-you know if the material is the same or similar across two papers?
-What is the difference between same teaching and duplicate material?
-
-The answer to the first question is, it can't be answered by a
-software solution, but a solution is to let the user of the
-application decide.  There is a solution to how the application can be
-made to take this into account.  Provided in the spreadsheet, is a
-intercept field.  This is a modifier which is applied to the equation,
-and is a number from zero to one.
-*** Project papers
-Project papers have how many workload hours they are worth calculated
-just like a normal undergraduate paper, like the formula in figure
-\ref{fig:formula2}.  The difference is that the staff involved
-supervise a set number of students, instead of teaching a percentage
-of the paper, and thus get the hours that the portion of the total
-enrolled students is worth.  The intercept for undergraduate project
-papers is 40 and it has a slope of 0.  Thus if there are 10 enrolled
-students, and the staff member was supervising 1 of them then the
-hours they would get 2.56 workload hours.  Assuming that this is a
-paper of 15 points in value. 
-
-\begin{equation}
-40*15/15+(0*10)-(144/10) = 25.6
-25.6*(1/10) = 2.56
-\end{equation}
-
-Postgraduate project papers are also calculated given the formula from
-figure \ref{fig:formula2}.  Their points value, intercept and slope
-are given in table \ref{table:coefficients2}.
-
-*** Postgraduate supervision
-Staff members maybe supervising postgraduate students.  This
-supervision is worth workload hours, but how many the staff member
-gets depends on what postgraduate degree the postgraduate is doing and
-how much supervision this staff member is giving the postgraduate
-student. No where in the "Standard Hours Formula" \cite{stdhours1},
-does it explain how this is done, but fortunately the people who
-actually use the spreadsheet do.  They explained that the number of
-hours for each postgraduate degree is different and that these hours
-are divided among the supervising staff according to how much they are
-supervising this postgraduate student.
-
-The spreadsheet implementation uses a set of cells that contain the
-workload hours that each degree is worth.  The extracted table, shown
-in table \ref{table:pghours}, has one column with the shortened degree
-name and next to that degree in the next column is the total hours.
-
-
-#+ATTR_LaTeX: placement=[H]
-#+CAPTION: The extracted postgraduate workload hours
-#+LABEL: table:pghours
-|---------------+-----|
-| ApplSc(Hons)  |  50 |
-| DipApplSc     |  50 |
-| PGDipTech     | 100 |
-| PGDipApplSc   | 100 |
-| PGDipEng      | 100 |
-| DipTech       | 100 |
-| DipMIO        | 100 |
-| GradDip       | 100 |
-| GDipTech      | 100 |
-| GCertScTech   |   0 |
-| Exchange      |   0 |
-| MApplSc       | 100 |
-| MInfSc        | 100 |
-| MPhil         | 100 |
-| MSc           | 100 |
-| MDairySc&Tech | 100 |
-| MTech         | 100 |
-| ME            | 100 |
-| PGDip         |  50 |
-| PhD           | 150 |
-|---------------+-----|
-
-#+BEGIN_LATEX
-\begin{figure}[H]
-\centering
-#+END_LATEX
-A staff member has a postgraduate student doing a MSc. 
-The staff member does 50% of the supervision for this student.  MSc is worth 100
-workload hours.  50% of 100 is 50 so the staff member gets awarded 50
-workload hours for supervising this student.  The other staff member
-also provides 50% of the supervision for this student and gets awarded
-the other 50% of the workload hours available for supervising this
-student which is also 50 workload hours.
-#+BEGIN_LATEX
-\caption{\label{fig:pgequation}A example of how the postgraduate hours
-are divided between two supervisors}
-\end{figure}
-#+END_LATEX
-*** Administration roles
-Administration roles held by staff are also worth some workload
-hours.  Each role is worth a set number of hours and could include
-things like being a member of IEEE.
-
-Every staff member gets a administration allowance of 90 workload
-hours.
-
-The document "Standard Hours Formula" \cite{stdhours1} states various
-categories of administration roles, but it comes down to a role
-description which has a set number of hours associated with it.  The
-spreadsheet \cite{stdhours2} handles it by having a look up table of the roles along
-with their hours.  Table \ref{table:admin1} showing this has been extracted from the
-spreadsheet \cite{stdhours2}.
-
-
-#+ATTR_LaTeX: placement=[H]
-#+CAPTION: Table from spreadsheet showing the workload hour values of a set of administration roles
-#+LABEL: table:admin1
-|-----------------------+--------------|
-| Committee             |        Hours |
-|-----------------------+--------------|
-| A Class Cmttee        | Case by Case |
-| Admin Allowance       |           90 |
-| Assoc Head AL         |          169 |
-| Assoc Head PN         |           84 |
-| Assoc Head WN         |          169 |
-| B Class Cmttee        |           40 |
-| C Class Cmttee        |           20 |
-| Cluster Leader        |          337 |
-| Deputy Cluster Leader |          169 |
-| HOS                   |         1113 |
-| IEEE                  |          169 |
-| International         |          169 |
-| Major Leader          |          135 |
-| Marketing Director    |          337 |
-| PG Director           |          422 |
-| Research Director     |          253 |
-| Tech Services Manager |          337 |
-| Undergrad Director    |          675 |
-|-----------------------+--------------|
+   This project attempts to develop a web served, database
+   backed application. Dissemination of the information according to which
+   group a user belongs to is attempted.  The proposed application
+   tries to overcome the problem of gathering the data by using a
+   central database which everyone enters information into from
+   various places around SEAT, using a web interface.  It also tries
+   and reduce the amount of data entered by using other already
+   existing sources of information.
    
     
 ** Design perspectives
@@ -548,7 +170,7 @@ spreadsheet \cite{stdhours2}.
    pages more dynamic.
 --*** Problems encountered
     Javascript posed problems in that each of the different web
-    browsers have different implementations of the javascript engine.
+    browsers have different implementations of the Javascript engine.
     What may work with one browser may not work with another.  For
     example the following code will work in Firefox, but will not work
     in Internet Explorer.
@@ -987,123 +609,6 @@ experience.
 |---------------------+--------+-----------+-------|
 
 :END:
-*** Technologies used
-    This project uses the following technologies.
-**** Django
-   Django \cite{django1} is a web framework written in Python.  It is designed to
-   allow rapid development of web sites.
-
-   Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
-   prefers to use Model Template View (MTV) as a way of describing
-   their framework.
-
-   Django uses the MTV development pattern shown in figure \ref{fig:mtv}.
-    - M is the model which is the data access layer.
-    - T is the templates which is the presentation layer.
-    - V is the views which is the business logic layer.
-
-#+attr_latex: width=20em,placement=[H]
-#+CAPTION: The Django model
-#+LABEL: fig:mtv
-#+BEGIN_DITAA  mtv_django -r -S -E
-
- +----------+      +--------------+
- | {d}      |      | {d}          |
- | Template |------| Presentation |
- | cC02     |      | cC02         |
- +-----+----+      +-------+------+
-       ^                   ^
-       |                   |
-   +---+--+        +-------+------+
-   | {io} |        | {io}         |
-   | View |--------| Business cBLU|
-   | cBLU |        | Logic Layer  |
-   +---+--+        +-------+------+
-       ^                   ^
-       |                   |
-       |                   |
-   +---+---+       +-------+------+
-   | {s}   |       | {s}          |
-   | Model |-------| Data Access  |
-   | c888  |       | Layer c888   |
-   +-------+       +--------------+
-
-#+END_DITAA
-   
-**** Python
-     Python \cite{python1} is needed by Django.  It is the programming language used on
-     the server side of this application.
-**** MySQL
-     MySQL was the database engine used to store the data used by the
-     application.   
-**** Microsoft Access
-     This is a external source which has been imposed on this
-     application. It holds all the postgraduate supervision data is
-     kept, which is part of what makes up the final workload figure of
-     staff.
-**** ODBC
-     ODBC \cite{odbc1} is used as a means of extracting the data from the Microsoft
-     Access database.  ODBC is accessed from python via a python library
-     called pyodbc \cite{pyodbc1}.  This hooks into unixODBC \cite{unixODBC}, which in turn uses a
-     MDBTools ODBC driver to read data from the Postgraduate database.
-     Figure \ref{fig:odbc} shows this process.
-     
-     #+ATTR_LaTeX: width=5cm
-     #+LABEL: fig:odbc
-     #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
-     #+begin_src ditaa :exports results :results file :file odbc-chain.png
-       +-------------+
-       | Workload    |
-       | application |
-       | {mo} cGRE   |
-       +-------------+      
-             ^
-             |
-       +-------------+
-       | Python      |
-       | pyodbc      |
-       | {io} cBLU   |
-       +-------------+      
-             ^
-             |
-       +-------------+
-       | Unix ODBC   |
-       | {io} cBLU   |
-       +-------------+
-             ^
-             |
-       +-------------+
-       | MDB Tools   |
-       | {io} cBLU   |
-       +-------------+
-             ^
-             |
-       +--------------+
-       | Postgraduate |
-       | Database     |
-       | {s} c888     |
-       +--------------+
-     #+end_src
-
-
-     
-**** Javascript
-     On the client side Javascript is used to make the pages dynamic.
-     jQuery \cite{jquery1} is the Javascript library used to make
-     it easier to develop solutions using Javascript.
-
-     #+begin_quote
-     jQuery is a fast and concise JavaScript Library that simplifies
-     HTML document traversing, event handling, animating, and Ajax
-     interactions for rapid web development. -- http://jquery.com/
-     #+end_quote
-
-     A side affect of using jQuery is it helps overcome the
-     incompatibilities between different browsers.
-**** HTML and CSS
-     Each page that is viewed is generated by a server side process.
-     The output produced is a mixture of HTML and CSS.  CSS was used as
-     a aid to laying out the HTML elements in the viewing browser.
 
      
 *** Overall design
@@ -1119,7 +624,7 @@ experience.
     database contains data on the staff, and provides most of the
     information needed on papers.
 
-#+attr_latex: width=\textwidth
+#+attr_latex: width=\textwidth,placement=[H]
 #+LABEL: fig:dataflow
 #+CAPTION: Ideal Data IO for the workload process
     [[file:images/workload-process-ideal.png]]
@@ -1157,48 +662,6 @@ experience.
      collate all the data from the clusters together.  They also need
      to be able to archive the current data, add new staff, and papers.
 
-** Redesign phase (following user presentation)
-   After developing a initial design the application was presented to
-   the cluster leaders at a meeting.  They were given a preview of
-   how they could interact with the application.
-
-
-   The application tree view model prototype was not liked. It was
-   discovered they liked the way that Microsoft Excell allowed one to
-   edit the data about teaching allocations and paper coordination. 
-
-   A major redesign was undertaken for how the cluster leaders can
-   edit the teaching allocations and paper coordinations was
-   undertaken.  Peviously the interface had been based upon a tree
-   like stucture, with nodes showing the paper, which expand to show
-   paper offerings and teaching allocations.  The cluster leaders, I
-   think, did not like this, and seemed to like the way they were able
-   to edit the relavent sections in the spreadsheet.  So the new
-   interface gained some of the functionality of the spreadsheet. This
-   is shown in figure \ref{fig:redesign:clusterview}. The old view is
-   shown in figure \ref{fig:redesign:oldview}.
-   
-   
-   #+ATTR_LaTeX: width=\textwidth, placement=[H]
-   #+CAPTION: Cluster leader paper edit view in spreadsheet style
-   #+LABEL: fig:redesign:clusterview
-   
-   [[./images/cluster_paper_edit_view.png]]
-   
-   
-   #+ATTR_LaTeX: width=\textwidth, placement=[H]
-   #+CAPTION: The old way cluster leaders were to edit their papers
-   #+LABEL: fig:redesign:oldview
-   
-   [[./images/admin_offering_teach_edit_view.png]]
-*** Testing
-    At every stage of development, testing took place.  There were no
-    automated tests, even though they are possible, due to the developers
-    inexperience in testing web applications.  However, at every stage,
-    a checklist of features and operations were tested by hand.  A
-    checkbox list of inputs and results were checked for pass or
-    crossed for fail.
-
 ** Implementation
 *** User Interface
     
@@ -1216,7 +679,7 @@ experience.
     to update the appropriate field in the database.  The process is
     shown in figure \ref{fig:edit-process}.
 
-#+attr_latex: width=15cm
+#+attr_latex: width=10cm,placement=[H]
 #+LABEL: fig:edit-process
 #+CAPTION: The flow of events that happen when editing displayed data.
     [[file:images/edit-process.png]]
@@ -1229,7 +692,7 @@ experience.
     shown in figure \ref{fig:spreadsheet-teaching}.  
 
 
-#+attr_latex: width=\textwidth
+#+attr_latex: width=\textwidth,placement=[H]
 #+LABEL: fig:spreadsheet-teaching
 #+CAPTION: The standard hours formula spreadsheet worksheet showing papers and teaching allocations
 [[file:images/spreadsheet-teaching.png]]
@@ -1240,7 +703,7 @@ experience.
 
 
 
-#+attr_latex: width=\textwidth
+#+attr_latex: width=\textwidth,placement=[H]
 #+LABEL: fig:staff_list
 #+CAPTION: A filtered staff list showing information on staff from the cluster CSIT.  The total hours for each staff member is shown broken down by the total hours for papers, postgraduate supervision, and administration hours as well as the overall total.  At the bottom is the totals for the cluster.  It demonstrates the grouping of data, making it easier for the viewer to figure out what is going on.
 [[file:images/staff_list-csit.png]]
@@ -1254,7 +717,7 @@ experience.
     click the mouse on this cell, which brings up a appropriate
     control, which the user can edit the value with.
 
-#+attr_latex: width=\textwidth
+#+attr_latex: width=\textwidth,placement=[H]
 #+LABEL: fig:cluster-view-row-highlighted
 #+CAPTION: A row from the cluster viewwith a cell being highlighted to indicate it is editable.
 [[file:images/cluster-view-row-highlighted.png]]
@@ -1266,7 +729,7 @@ allocations, a drop down menu would appear when the element is
 clicked.  The cognitive load on the user is thus reduced. An example
 of this is shown in figure \ref{fig:cluster-view-dropdown}.
 
-#+attr_latex: width=\textwidth
+#+attr_latex: width=\textwidth,placement=[H]
 #+LABEL: fig:cluster-view-dropdown
 #+CAPTION: An example of a drop down menu used to edit a field in cluster leaders view.  Also of note is the fact this is a staff list and has ordered the staff names according to cluster, then ordered by surname.
 [[file:images/cluster-view-dropdown.png]]
@@ -1280,7 +743,7 @@ by Javascript to form a HTML form element. The form element is then
 inserted into the HTML DOM.  This process could take place many times.
 The process is shown in figure \ref{fig:control-creation}.
 
-#+attr_latex: width=10cm
+#+attr_latex: width=8cm,placement=[H]
 #+LABEL: fig:control-creation
 #+CAPTION: The process that takes place to create a form control like a drop down menu of staff.
 [[file:images/form-control-creation.png]]
@@ -1434,19 +897,190 @@ red.
 #+CAPTION:  The process that takes place to update paper offerings by cluster leaders and the administrator
 [[file:images/update_offering_process.png]]
 
+** Implementation choices
+*** Technologies used
+    This project uses the following technologies.
+   
+**** Python
+     Other languages could have been used, such as PHP, Java or
+     Perl. Python \cite{python1} is the language that we are most
+     comfortable with.  A web framework is needed to develop this
+     application in and Django \cite{django1} was chosen.
+**** Django
+   Django \cite{django1} is a web framework written in Python.  It is designed to
+   allow rapid development of web sites.
+
+   Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
+   prefers to use Model Template View (MTV) as a way of describing
+   their framework.
+
+   The MTV development pattern shown in figure \ref{fig:mtv}.
+    - M is the model which is the data access layer.
+    - T is the templates which is the presentation layer.
+    - V is the views which is the business logic layer.
+
+#+attr_latex: width=20em,placement=[H]
+#+CAPTION: The Django model
+#+LABEL: fig:mtv
+#+BEGIN_DITAA  mtv_django -r -S -E
+
+ +----------+      +--------------+
+ | {d}      |      | {d}          |
+ | Template |------| Presentation |
+ | cC02     |      | cC02         |
+ +-----+----+      +-------+------+
+       ^                   ^
+       |                   |
+   +---+--+        +-------+------+
+   | {io} |        | {io}         |
+   | View |--------| Business cBLU|
+   | cBLU |        | Logic Layer  |
+   +---+--+        +-------+------+
+       ^                   ^
+       |                   |
+       |                   |
+   +---+---+       +-------+------+
+   | {s}   |       | {s}          |
+   | Model |-------| Data Access  |
+   | c888  |       | Layer c888   |
+   +-------+       +--------------+
+
+#+END_DITAA
+**** MySQL
+     MySQL was the database engine used to store the data used by the
+     application.   
+**** Microsoft Access
+     This is a external source which has been imposed on this
+     application. It holds all the postgraduate supervision data is
+     kept, which is part of what makes up the final workload figure of
+     staff.
+**** ODBC
+     ODBC \cite{odbc1} is used as a means of extracting the data from the Microsoft
+     Access database.  ODBC is accessed from python via a python library
+     called pyodbc \cite{pyodbc1}.  This hooks into unixODBC \cite{unixODBC}, which in turn uses a
+     MDBTools ODBC driver to read data from the Postgraduate database.
+     Figure \ref{fig:odbc} shows this process.
+     
+     #+ATTR_LaTeX: width=5cm
+     #+LABEL: fig:odbc
+     #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
+     #+begin_src ditaa :exports results :results file :file odbc-chain.png
+       +-------------+
+       | Workload    |
+       | application |
+       | {mo} cGRE   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Python      |
+       | pyodbc      |
+       | {io} cBLU   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Unix ODBC   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +-------------+
+       | MDB Tools   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +--------------+
+       | Postgraduate |
+       | Database     |
+       | {s} c888     |
+       +--------------+
+     #+end_src
+
+
+     
+**** Javascript
+     On the client side Javascript is used to make the pages dynamic.
+     jQuery \cite{jquery1} is the Javascript library used to make
+     it easier to develop solutions using Javascript.
+
+     #+begin_quote
+     jQuery is a fast and concise Javascript Library that simplifies
+     HTML document traversing, event handling, animating, and Ajax
+     interactions for rapid web development. -- http://jquery.com/
+     #+end_quote
+
+     A side affect of using jQuery is it helps overcome the
+     incompatibilities between different browsers.
+**** HTML and CSS
+     Each page that is viewed is generated by a server side process.
+     The output produced is a mixture of HTML and CSS.  CSS was used as
+     a aid to laying out the HTML elements in the viewing browser.
+
+  
+** Testing
+   Unit testing is difficult when testing user interactions, which is
+   the reason they are not used.  Instead user testing was done.
+
+   
+   
+** Redesign phase
+   After developing a initial design the application was presented to
+   the cluster leaders at a meeting.  They were given a preview of
+   how they could interact with the application.
+
+
+   The application tree view model prototype was not liked. It was
+   discovered they liked the way that Microsoft Excell allowed one to
+   edit the data about teaching allocations and paper coordination. 
+
+   A major redesign was undertaken for how the cluster leaders can
+   edit the teaching allocations and paper coordinations was
+   undertaken.  Peviously the interface had been based upon a tree
+   like stucture, with nodes showing the paper, which expand to show
+   paper offerings and teaching allocations.  The cluster leaders, I
+   think, did not like this, and seemed to like the way they were able
+   to edit the relavent sections in the spreadsheet.  So the new
+   interface gained some of the functionality of the spreadsheet. This
+   is shown in figure \ref{fig:redesign:clusterview}. The old view is
+   shown in figure \ref{fig:redesign:oldview}.
+   
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: Cluster leader paper edit view in spreadsheet style
+   #+LABEL: fig:redesign:clusterview
+   
+   [[./images/cluster_paper_edit_view.png]]
+   
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: The old way cluster leaders were to edit their papers
+   #+LABEL: fig:redesign:oldview
+   
+   [[./images/admin_offering_teach_edit_view.png]]
+*** Testing
+    At every stage of development, testing took place.  There were no
+    automated tests, even though they are possible, due to the developers
+    inexperience in testing web applications.  However, at every stage,
+    a checklist of features and operations were tested by hand.  A
+    checkbox list of inputs and results were checked for pass or
+    crossed for fail.
+
+   
 ** Learning outcomes
 *** Responsiveness
 **** Data processing
 There are two places to process the data and one place to display the
-results. You can use client side scripts, like javascript to process
+results. You can use client side scripts, like Javascript to process
 the data, and it can be processed on the server side.  The more data
 that is processed on the server side the less people that it can
 handle at once.  Also doing it all on the server side means the pages
 have to be reloaded every time a new choice is made.  The client side
 processing of data, takes some of the load off the server, but it has
 the downside, of relying on the clients browser to have the
-functionality required, like javascript, which could be of a different
-version to the one that the site was developed for.  Also javascript
+functionality required, like Javascript, which could be of a different
+version to the one that the site was developed for.  Also Javascript
 seems to be a lot slower to process data than the server side scripts
 are in browsers like Firefox.
 
@@ -1456,7 +1090,7 @@ data via Ajax, and displaying them in the page.  This means that most
 of the processing is done by the server.  However the number of time
 consuming bulk processing of data is done is reduced.  The pages get
 redisplayed as little as possible, with the use of Ajax.  Mass
-processing of data is done on the server side.  Only use javascript to process
+processing of data is done on the server side.  Only use Javascript to process
 or retrieve small amounts of data. 
 
 **** Algorithm efficiency
@@ -1502,11 +1136,11 @@ Safari.  The second one may sound like common sense , and it is, but
 there are Javascript implementations that, under certain circumstances, will allow
 you to use these keywords.
 
-This application relies on javascript, so if it is turned off then
+This application relies on Javascript, so if it is turned off then
 hardly anything will work.  Currently nothing is done in response to
 this situation. In future, a warning message, telling the user this,
 produced on the server side, should be shown.  Other than this there is
-nothing that can be done, if the browser has javascript turned off.
+nothing that can be done, if the browser has Javascript turned off.
 
 *** CSS
 The best defense a web developer has against different browser
@@ -1526,7 +1160,7 @@ logg both of them off with a warning message.
 
 *** Look and feel of pages
 Getting pages to look the same across browsers is very difficult
-when using the HTML markup, even with the aid of CSS and javascript.
+when using the HTML markup, even with the aid of CSS and Javascript.
 The best you can do is make sure the components appear in the same
 place, using simalar colours.  The shape of the form controls are out
 of your hand and in most browsers can not be manipulated very easily
@@ -1537,7 +1171,7 @@ hacks are not desirable, as they add another unstable element into the
 page display.  
 
 One way that was found to control the look of controls
-was to simulate them, using HTML elements, like the <img> element, along with javascript
+was to simulate them, using HTML elements, like the <img> element, along with Javascript
 events to change something about this element, like the image in the
 <img> element.  This was done in the cluster view of the site, in the
 offered column.

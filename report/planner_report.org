@@ -14,6 +14,10 @@
 #+LINK_HOME: 
 #+XSLT:
 
+#+DRAWERS: HIDDEN
+
+#+STARTUP: hidestars
+
 * Paper Planner                                                    :noexport:
 ** The Problem
 *** How to represent it to users
@@ -185,8 +189,17 @@ Conclusion is here
 
 # check spelling
 * Programme Planner
-** Introduction
 
+
+** Introduction
+   This report presents a specification of a way to present this data
+   to students, and discusses the ways in which it could be designed
+   and implemented. Due to time constraints it has not been
+   completed.
+
+   Unfortunately this project ran out of time, and was not
+   finished. This report will outline what could have been.
+:HIDDEN:
    Can constraints satisfaction be used to aid in the planning of a
    students programme of study towards the selection of papers for a
    degree?  This is a aid to the decision process.  It will show what
@@ -199,58 +212,9 @@ Conclusion is here
 
    Unfortunately this project ran out of time, and was not finished.
    This report will outline what could have been.
+:END:
 
-** Design Perspectives
-
-*** Technologies used
-**** Python
-     Python was chosen to develop this system.  It worked well for
-     the Workload application, so it is only logical that Python
-     should be used for this application.
-
-     Python also has a easy syntactically pleasing way of creating lists.
-     Since this problem is all about creating lists of papers, it
-     seems like the perfect choice.  All that it requires is a way of
-     applying constraints satisfaction to this.
-**** Constraints Satisfaction
-     This has to be applied to the problem in a programming language.
-     There are several ways a third party library could be used in
-     Python.  Python can use libraries written in C/C++ as well as
-     Python.  Through the module /ctypes/, C library files can be
-     loaded, and their functions called from within Python.
-
-     Gecode \cite{gecode1}, and or-tools \cite{or-tools1} libraries
-     were looked at.
-
-     Gecode was chosen due to its maturity, and track record.
-***** or-tools
-      Is a set of operations research tools developed at Google, with one of
-      the tools being a constraints solver.  It is written in C++ and has a
-      Python implementation.  
-
-      It is dependent on other Google libraries, which complicates its
-      use for the developer.  It also is very new, and has not much
-      support other than in the form of examples.
-
-***** Gecode
-      It has won a few challenges in the last few years.
-
-      #+begin_quote
-      Gecode won all MiniZinc Challenges so far (in all categories):
-      2010, 2009, and 2008.
-      -- http://www.gecode.org/
-      #+end_quote
-
-      There is also a active on line community, with plenty of example code
-      to reference, found in various places on the web.
-
-      It is also written in C++, which can be called on by Python
-      through the /ctypes/ library.
-      
-      It does not need any external dependencies to be used, thus is
-      easy to install.
-
-*** Procedure
+** Design
     Take in a list of papers and determine what is the best degree and
     major combination for this selection.  From there determine the
     best set of papers that the student should do to complete their
@@ -289,5 +253,50 @@ Conclusion is here
 |          |   |          |   | cFF8        |  | {mo} c9FB    |
 +----------+   +----------+   +-------------+  +--------------+
 #+END_DITAA
+** Ideas
+   A set of user interface ideas were discussed
+#+ATTR_LaTeX: width=10cm,height=5cm,placement=[H]
+#+LABEL: fig:building
+#+CAPTION: Building with papers as rooms and stairs connecting them to papers that they lead to or are needed prerequisites.
+[[file:images/building.pdf]]
+*** Constraints Satisfaction
+    This has to be applied to the problem in a programming language.
+    There are several ways a third party library could be used in
+    Python.  Python can use libraries written in C/C++ as well as
+    Python.  Through the module /ctypes/, C library files can be
+    loaded, and their functions called from within Python.
 
+    Gecode \cite{gecode1}, and or-tools \cite{or-tools1} libraries
+    were looked at.
 
+    Gecode was chosen due to its maturity, and track record.
+**** or-tools
+     Is a set of operations research tools developed at Google, with one of
+     the tools being a constraints solver.  It is written in C++ and has a
+     Python implementation.  
+
+     It is dependent on other Google libraries, which complicates its
+     use for the developer.  It also is very new, and has not much
+     support other than in the form of examples.
+
+**** Gecode
+     It has won a few challenges in the last few years.
+
+     #+begin_quote
+     Gecode won all MiniZinc Challenges so far (in all categories):
+     2010, 2009, and 2008.
+     -- http://www.gecode.org/
+     #+end_quote
+
+     There is also a active on line community, with plenty of example code
+     to reference, found in various places on the web.
+
+     It is also written in C++, which can be called on by Python
+     through the /ctypes/ library.
+     
+     It does not need any external dependencies to be used, thus is
+     easy to install.
+** Design Perspectives
+   
+*** 
+** Implementation choices
