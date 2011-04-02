@@ -218,18 +218,17 @@ Conclusion is here
     Take in a list of papers and determine what is the best degree and
     major combination for this selection.  From there determine the
     best set of papers that the student should do to complete their
-    degree major combination.
-    
-    The solution come up with, as shown in figure
-    \ref{fig:decisionprocess}, aims at being simple.  The problem of a
-    large search space has been addressed by narrowing down the search by
-    using a simple algorithm of counting the number of papers done that
-    are in the major schedule for each major available, and the major that
-    has the academic record has the most papers, is the chosen set that is
-    used to create a leads to tree.  This tree is then used as the search
-    space for the constraints satisfaction part.  The rules are based upon
-    the minimum required papers to satisfy the degree requirements and the
-    minimum to satisfy the major requirements.  
+    degree major combination.  The solution come up with, is shown in
+    figure \ref{fig:decisionprocess}.
+
+    The problem of a large search space has been addressed by
+    narrowing down the search by using a simple algorithm of counting
+    the number of papers done that are in the major schedule for each
+    major available.  The major that has the most papers present in
+    academic record, is the chosen set that is used to create a leads
+    to tree.  This tree is then used as the search space for
+    constraints satisfaction.  The rules are based upon the minimum,
+    required papers to satisfy, the degree and major requirements.
     #+attr_latex: width=30em,placement=[H]
     #+CAPTION: The process for determining programme selection options
     #+LABEL: fig:decisionprocess
@@ -259,25 +258,23 @@ Conclusion is here
 #+LABEL: fig:building
 #+CAPTION: Building with papers as rooms and stairs connecting them to papers that they lead to or are needed prerequisites.
 [[file:images/building.pdf]]
+** Implementation
+   
+*** Programming language
+    Python was used in the workload application, so it seemed easier
+    to continue using Python.
 *** Constraints Satisfaction
-    This has to be applied to the problem in a programming language.
-    There are several ways a third party library could be used in
-    Python.  Python can use libraries written in C/C++ as well as
-    Python.  Through the module /ctypes/, C library files can be
-    loaded, and their functions called from within Python.
+    We could develop our own constraints satisfaction library or use a
+    third party library.  It was considered to time consuming to
+    create one ourselves, so a third party library was investigated.
+    Python can use libraries written in C/C++ through the
+    module /ctypes/, C library files can be loaded, and their
+    functions called from within Python.
 
-    Gecode \cite{gecode1}, and or-tools \cite{or-tools1} libraries
-    were looked at.
+    Gecode \cite{gecode1}, and or-tools \cite{or-tools1}, developed by
+    Google, were investigated.
 
     Gecode was chosen due to its maturity, and track record.
-**** or-tools
-     Is a set of operations research tools developed at Google, with one of
-     the tools being a constraints solver.  It is written in C++ and has a
-     Python implementation.  
-
-     It is dependent on other Google libraries, which complicates its
-     use for the developer.  It also is very new, and has not much
-     support other than in the form of examples.
 
 **** Gecode
      It has won a few challenges in the last few years.
@@ -296,7 +293,12 @@ Conclusion is here
      
      It does not need any external dependencies to be used, thus is
      easy to install.
-** Design Perspectives
-   
-*** 
-** Implementation choices
+**** or-tools
+     Is a set of operations research tools developed at Google, with one of
+     the tools being a constraints solver.  It is written in C++ and has a
+     Python implementation.  
+
+     It is dependent on other Google libraries, which complicates its
+     use for the developer.  It also is very new, and has not much
+     support other than in the form of examples.
+** Implementation
