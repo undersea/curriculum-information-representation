@@ -307,20 +307,17 @@ Conclusion is here
     results would be a HTML page.  The page was then search through a
     combination of xpath, and regular expressions.
 *** Programming language
-    Python was used in the workload application, so it seemed easier
+    Python was used in the workload application, and it seemed easier
     to continue using Python.
 *** Constraints Satisfaction
-    We could develop our own constraints satisfaction library or use a
-    third party library.  It was considered to time consuming to
-    create one ourselves, so a third party library was investigated.
+    The options are, develop our own constraints satisfaction library or use a
+    third party library.  A third party  library was investigated.
 
-    Python can use libraries written in C/C++ through the
-    module /ctypes/, C library files can be loaded, and their
-    functions called from within Python.  This gives us more scope on
-    what we can use.
+    Libraries, written in C, are accessed through the Python module
+    /ctypes/. This gives us more scope on what constraints
+    satisfaction libraries are available.
 
-    Several constraint satisfaction libraries were considered.
-    Gecode \cite{gecode1} was chosen.
+    Gecode \cite{gecode1}, written in C++, is chosen.
 
 **** Gecode
      It has won a few challenges in the last few years.
@@ -331,14 +328,14 @@ Conclusion is here
      -- http://www.gecode.org/
      #+end_quote
 
-     There is also a active on line community, with plenty of example code
-     to reference, found in various places on the web.
+     An active on line community exists. Example code is found in
+     various places on the web.
 
-     It is also written in C++, which can be called on by Python
+     It is also written in C++. Gecode is accessed by Python
      through the /ctypes/ library.
 
-     It does not need any external dependencies to be used, thus is
-     easy to install.
+     It does not need any external dependencies.  Because of this, the
+     complexity of using Gecode is reduced.
 **** or-tools                                                      :noexport:
      Is a set of operations research tools developed at Google, with one of
      the tools being a constraints solver.  It is written in C++ and has a
@@ -355,12 +352,12 @@ Conclusion is here
 
 **** C++ name mangling
      /ctypes/ uses a dynamic library loader which only handles C
-     function calls.  C++ mangles the names of functions and data types so that
-     /ctypes/ does not recognise it.  Use of a proxy function,
-     in a *extern "C"* block must be used to allow /ctypes/ to use a
-     C++ functions or data types. An example of this is shown below,
-     where a c_function calls upon a function defined in a external
-     c++ library, from a function defined between a extern "C" block
+     function calls.  C++ mangles the names of functions and data
+     types and /ctypes/ cannot recognise these functions and data
+     types.  Use of a proxy function, in a *extern "C"* block must be used to allow /ctypes/ to use a
+     C++ functions or data types. An example of this is shown below.
+     A c_function calls upon a function defined in a external
+     c++ library, from a function in the extern "C" block
      and thus be made available to /ctypes/.
 
 
@@ -378,8 +375,8 @@ Conclusion is here
 
 **** Memory allocation
      To use a C function from within Python through /ctypes/, a means
-     of passing data structures between C and Python must be found.
-     There are two ways of doing this.
+     of passing data structures is investigated.
+     Two ways of doing this are explained.
 ***** Create a data structure in Python and pass this to the C function
       This is by far the preferred method, as the Python garbage
       collector can be used to deallocate memory.  This can be done
