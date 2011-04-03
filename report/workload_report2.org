@@ -7,7 +7,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:6 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -51,7 +51,39 @@
              ("\\paragraph{%s}" . "\\paragraph*{%s}")
              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
              ))
-  
+  (add-to-list 'org-export-latex-classes
+          '("file-class2"
+             "\\documentclass{report}
+             \\makeatletter
+               \\def\\maketitle{%
+                  \\null
+                 \\thispagestyle{empty}%
+                 \\vfill
+                 \\begin{center}\\leavevmode
+                   \\normalfont
+                   {\\LARGE \\@title\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@author\\par}%
+                   \\vskip 1cm
+                   {\\small \\@institute\\par}%
+                   \\vskip 1cm
+                   {\\small Supervisors: \\@supervisor\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@date\\par}%
+                 \\end{center}%
+                 \\vfill
+                 \\null
+               \\cleardoublepage
+               }
+               \\def\\supervisor\#1{\\def\\@supervisor{\#1}}
+               \\def\\institute\#1{\\def\\@institute{\#1}}
+             \\makeatother"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+             ))
 #+end_src
 
 
@@ -63,18 +95,74 @@
 #+DRAWERS: HIDDEN
 
 #+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
-#+LaTeX_HEADER: \setlength{\parindent}{0cm}
+#+LaTeX_HEADER: \setlength{\parindent}{0.3cm}
 #+LaTeX_HEADER: \setlength{\parskip}{0.5cm}
 #+LaTeX_HEADER: \institute{Computer Science Honours project, Massey University}
 #+LaTeX_HEADER: \supervisor{Stephen Marsland}
 
 
+
+#+LaTeX: \clearpage \begin{center} \begin{large}
+*Abstract*
+#+LaTeX: \end{large} \end{center}
+
 #+BEGIN_abstract
 \begin{abstract}
+This report discusses the different needs of different users, for
+accessing, updating and viewing of the same data set.  It outlines how
+to implement a workload presentation system.  It shows that each user
+sees the appropriate data set to them, with appropriate access rights
+to access this data as required.
+
+The data sources are outlined, indicating that not all sources can be
+used due to access rights being denied to us.  One of the sources that
+is available, is a Microsoft access, and the problems getting the data
+are discussed.
+
+The three types of users, staff, cluster leaders and administrators
+are are outlined, showing what they see, and are able to do in this
+system.
+
+The implementation details, user interface, responsiveness of the
+application, data backup, and updating of the teaching allocations
+process is discussed.
+
+The implementation choices are discussed, with technologies used,
+Python, Django, MySQL, Microsoft Access, ODBC, Javascript, HTML and
+CSS are discussed.
+
+Testing followed by the redesign stage is discussed.
+
+Learning outcomes from the experiences with responsiveness of the
+application, Javascript and CSS compatibility problems, concurrency,
+look and feel, paper list page problems, staff menus, and archiving of
+data are discussed.
+
+It also outlines how a student programme planner, using constraints
+satisfaction to choose a degree and a set of appropriate papers.
+
+Design of the process to solve this problem are discussed.
+
+The implementation details of data collection, programming language
+choice, and constraints satisfaction are talked about.
+
+Learning outcomes from using C++ from Python, constraints
+satisfaction libraries, and data collection are talked about.
+
+
+This will lead you to the conclusion that the different users needs
+were addressed, for updating, and viewing the same data set.  The
+workload presentation system, was implemented successfully, to for
+full these needs.  The challenge to ensure that each user saw the data
+in a way appropriate to them, have been meet through permissions,
+based upon which group they belonged to, and has the access rights to
+interact with the data set as required.
+
 
 \end{abstract}
 #+END_abstract
 
+#+LaTeX: \clearpage
 
 * Introduction
   It is common for different users to have different needs for
@@ -84,13 +172,9 @@
   ensure that each user saw the data in a way appropriate to them, and
   had the access rights to interact with the data set as required.
 
-  A tool to manage staff teaching allocations will be developed.  How
-  much they are doing will be shown.  This helps decide if they are doing to much or to
-  little teaching.
-
-  A programme planner is proposed using constraints satisfaction
-  to help choose papers for a students programme of study towards a
-  degree. 
+  A programme planner is proposed, using
+  constraints satisfaction to help choose papers for a students
+  programme of study towards a degree.
 
 * Workload Project
 ** Introduction
@@ -614,7 +698,7 @@ experience.
 *** Overall design
 **** Data inputs and outputs
 ***** Ideal world
-    Figure \ref{fig:dataflow} shows a general flow of where data is
+    Figure \ref{fig:dataflow2} shows a general flow of where data is
     sourced from and what is being output.  The original idea was to get
     data from three sources.  A database containing the workload data, the
     postgraduate data and data from College of Sciences (CoS).  The
@@ -624,15 +708,12 @@ experience.
     database contains data on the staff, and provides most of the
     information needed on papers.
 
-#+attr_latex: width=\textwidth,placement=[H]
-#+LABEL: fig:dataflow
-#+CAPTION: Ideal Data IO for the workload process
-    [[file:images/workload-process-ideal.png]]
 ***** Data source problems
     Unfortunately the CoS database information is restricted and thus not
     available to this project.  This means the information now has to be
-    manually entered.  The new data flow diagram is shown in figure
-    \ref{fig:dataflow2}.
+    manually entered.  The data flow diagram shown in figure
+    \ref{fig:dataflow2} already shows this by crossing out the CoS
+    data source.
 
 #+attr_latex: width=\textwidth
 #+LABEL: fig:dataflow2
@@ -870,8 +951,8 @@ red.
     compared to the current data.  It also means that if something
     goes wrong, the backed up data can be used to restore the database
     to where it was before the mistake took place.
-*** Updating paper offerings process
-   Each year the cluster leaders must update the teaching
+*** Updating teaching allocation process
+    Each year the cluster leaders must update the teaching
    allocations and coordination roles for the cluster.  With several
    staff editing the database at once, a potential for concurrency
    issues is raised.  To overcome this, the issue was avoided.  This
@@ -900,7 +981,7 @@ red.
 ** Implementation choices
 *** Technologies used
     This project uses the following technologies.
-   
+    
 **** Python
      Other languages could have been used, such as PHP, Java or
      Perl. Python \cite{python1} is the language that we are most
@@ -1022,12 +1103,15 @@ red.
 ** Testing
    Unit testing is difficult when testing user interactions, which is
    the reason they are not used.  Instead user testing was done.
+   Several people Hans Guesgen, Stephen Marsland,
+   Michelle Wagner, Giovanni Moretti and Patrick Rynhart, were
+   voluntarily employed to test the application throughout its
+   development.  With their help, the user interface was redesigned
+   several times, to make the application easier to use.
 
-   
-   
 ** Redesign phase
    After developing a initial design the application was presented to
-   the cluster leaders at a meeting.  They were given a preview of
+   the cluster leaders, and Glenda Kirk at a meeting.  They were given a preview of
    how they could interact with the application.
 
 
@@ -1059,15 +1143,11 @@ red.
    #+LABEL: fig:redesign:oldview
    
    [[./images/admin_offering_teach_edit_view.png]]
-*** Testing
-    At every stage of development, testing took place.  There were no
-    automated tests, even though they are possible, due to the developers
-    inexperience in testing web applications.  However, at every stage,
-    a checklist of features and operations were tested by hand.  A
-    checkbox list of inputs and results were checked for pass or
-    crossed for fail.
 
-   
+
+   The new design was shown to Glenda Kirk, who was satisfied with the
+   new redesign.
+    
 ** Learning outcomes
 *** Responsiveness
 **** Data processing
@@ -1196,15 +1276,6 @@ Add screen-shot here
     location somewhere below the paper that was just collapsed.  This
     is a real problem, as even href anchors do not seem to fix this.  
 
-*** Value editing errors
-    When changing a value, if a error occurs, then the user will be
-    told of this error.  The problem is that the entered value will not
-    revert to the previous value.  This can be misleading to the user,
-    who looks at this value, sees it has changed in the page, so
-    assumes the value in the database has changed, when it has not. The
-    user will find out next time they load the page and look at this
-    value, and see it is not the value they altered it to.  This is a
-    problem, that needs attention.
 *** Staff menu
     The staff is ordered by cluster then surname.  In future, to make
     cluster members, for the viewing cluster leader, easier to find,
@@ -1222,18 +1293,22 @@ Add screen-shot here
     the form of graphs.  This would be useful if it was desired to see
     how workload hours changed over time.
 
-** Conclusion
-  It is possible to split data up in a meaningful way to different
-  groups of people.  This can be done by associating different view with different
-  groups of users, grouping data and allowing users to
-  independently work on their information.  Any concurrency issues
-  involved are avoided, by the virtue of allowing the users to only
-  edit data pertinent to them, and the data which involves more than
-  one group is arbitrated by the administrator.  
-  
+#+INCLUDE: planner_report.org  
 
-#+INCLUDE: planner_report.org
+
+* Conclusion
+   The different users needs were addressed, for updating, and viewing
+   the same data set.  The workload presentation system, was
+   implemented successfully, to for full these needs.  The challenge to
+   ensure that each user saw the data in a way appropriate to them, have
+   been meet through permissions, based upon which group they
+   belonged to, and has the access rights to interact with the data
+   set as required.
   
+   The programme planner was discussed, and a outline of how it could
+   be implemented using constraints satisfaction was proposed.
+
+
 #+LATEX: \bibliographystyle{plain}
 #+LATEX: \bibliography{bibliography}
 
