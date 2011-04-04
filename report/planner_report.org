@@ -291,20 +291,19 @@ Conclusion is here
     The problem of a large search space has been addressed by
     narrowing down the search by using a simple algorithm of counting
     papers done that are in the major schedule for each
-    major available.  The major that has the most papers present in
-    academic record, is the chosen set that is used to create a leads
-    to tree.  This tree is then used as the search space for
+    major available.  The major with the papers present
+    in the greatest numbers in students academic record, is the chosen set that is used to
+    create a leads to tree.  This tree is then used as the search space for
     constraints satisfaction.
 
 ** Implementation
 *** Data collection
     A means of collecting data for a leads to tree had to be devised.
-    One way to do this is manual entry.  A tedious
-    option, which we avoided.  The other method, is to use already
-    existing, on-line sources, which took the form of the paper search
-    results.  We found that we can search for papers from within the
-    application.  This would be in the form of a HTTP request, and the
-    results would be a HTML page.  The page was then search through a
+    A way to do this is manual entry.  The other method, is to use already
+    existing, on-line sources, and took the form of the paper search
+    results.  We searched for papers from within the
+    application.  This was done with a HTTP request, and the
+    results are returned as HTML.  The page was then search through a
     combination of xpath, and regular expressions.
 *** Programming language
     Python was used in the workload application, and it seemed easier
@@ -379,30 +378,29 @@ Conclusion is here
      Two ways of doing this are explained.
 ***** Create a data structure in Python and pass this to the C function
       This is by far the preferred method, as the Python garbage
-      collector can be used to deallocate memory.  This can be done
-      through using a /ctypes/ data structure, like c_int, which 
-      mimics the C data types.  It can also be done using a third
-      party library called /NumPy/ \cite{numpy1}.  There are some good
-      cookbook approaches documented \cite{numpyallocation1} for this,
+      collector is be used to deallocate memory.  This is done
+      through using a /ctypes/ data structure, and 
+      mimics the C data types.  It is also be done using a third
+      party library called /NumPy/ \cite{numpy1}.  Cookbook approaches are documented \cite{numpyallocation1} for this,
       and in our opinion, is probably the best approach when what you
       want to use is arrays.  Since arrays suit the needs of this
       application, the /NumPy/ approach was used.
 
       /ctypes/ can allow pointers to python functions to be passed to
-      C, where C can call this Python function.  This is referred to as
+      C, where C calls this Python function, called
       callbacks.  The array is then filled with values, and then the
       /NumPy/ array in Python has the values we are after. We do not
       favour this approach, as it creates a extra layer of complexity
-      to the code.  The below example creates a allocator
+      to the code.  The below example creates a allocator.
 
       Another approach is to create the array, then using the C
-      function to fill this array with values.  We favour this
-      approach, due to its simplicity, compared to the previous
-      approach.  This approach is shown below, where a Python function is
-      created to create a /NumPy/ array and return it, along with its
+      function to fill this array with values.  This is a simple
+      approach, and is what is used in the code.  This approach is
+      shown below, where a Python function is
+      created to create a /NumPy/ array and return it, and the arrays
       dimensions.  You will note it adds the array to a global list
-      called "allocated_arrays."  The pointer that it returns is then
-      passed to the C function, along with its dimensions.
+      called "allocated_arrays."  The pointer and dimensions that
+      it returns are then passed to the C function.
 
       #+begin_src python
         from ctypes import *
@@ -478,36 +476,37 @@ Conclusion is here
      The problem with this option is that Python then has to
      remember to deallocate the memory when it is finished with it.
      This requires the developer to remember to do this, and does not
-     take advantage of Pythons garbage collector.  However, due to the
-     complexity of the alternatives, sometimes means this approach is
-     the best we have available.  In the previous example this method
-     was used to return a pointer to a array of results, which had to
-     be freed, and to stop it being accidentally used again, made to
-     reference NULL, or in Python None.
+     take advantage of Pythons garbage collector.  The complexity of
+     the alternatives, sometimes means this approach is the best we
+     have available.  In the previous example this method was used to
+     return a pointer to a array of results, and had to free up the memory,
+     and to stop it being accidentally used again, made to reference
+     NULL, or in Python None.
 
 
 
 # LocalWords:  deallocate
 
 *** Constraints satisfaction libraries
-    If this project was to be done again, a different library would be
-    used.  One that worked native in Python is preferred.  Gecode is a
+    In future version of this, Gecode will no longer be used.  A
+    native Python implementation is preferred.  Gecode is a
     brilliant comprehensive constraints satisfaction library, but
-    having to work with C++ from Python, creates problems, like
-    passing variables, handling memory allocation.  Until there is a
-    Python implementation of the Gecode library, we would prefer to
-    either, implement constraints satisfaction ourselves, or use
-    or-tools \cite{or-tools1} from Google.  Dealing with more than one
-    language, and having to get them to communicate, added a level of
-    complexity that was not wanted.
+    having to work with C++ from Python, creates problems.  These
+    pron\blem include passing variables, handling memory allocation.
+    Until a Gecode implements a Python version of their library, we
+    prefer to either, implement constraints satisfaction
+    ourselves, or use or-tools \cite{or-tools1} from Google.  Dealing
+    with several languages, and having to get them to
+    communicate, added a level of complexity that was not wanted.
 *** Data collection
-    The problem with using data presented in HTML, is that the data is
-    not consistent in layout.  A prerequisite for one paper could be
-    in the form of "159.2xx, 161.1xx" or it could be "Any 100-level BA
-    paper."  The first is easy to process, but the second, is almost
-    impossible, at the skill the developer of this project has.  It
-    was decided that if a prerequisite should take the form which
-    cannot be parsed, then it shall be assumed to not exist.  This
-    does cause problems, but there does not seem like any other option.
+    The problem with using data presented in HTML, is that the format
+    is not consistent.  A prerequisite for a paper is either
+    displayed as "159.2xx, 161.1xx" or another option is "Any 100-level BA
+    paper."  Figuring out the dependencies of the first has been done,
+    but the second, is almost impossible, at the skill the developer
+    of this project has.  It was decided that if a prerequisite should
+    take the form that is to hard to parse, then it is assumed to
+    not exist.  This does cause problems, but there does not seem to be
+    any other option.
 
 
