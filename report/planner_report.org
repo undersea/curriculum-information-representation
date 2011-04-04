@@ -492,7 +492,7 @@ Conclusion is here
     native Python implementation is preferred.  Gecode is a
     brilliant comprehensive constraints satisfaction library, but
     having to work with C++ from Python, creates problems.  These
-    pron\blem include passing variables, handling memory allocation.
+    problem include passing variables, handling memory allocation.
     Until a Gecode implements a Python version of their library, we
     prefer to either, implement constraints satisfaction
     ourselves, or use or-tools \cite{or-tools1} from Google.  Dealing

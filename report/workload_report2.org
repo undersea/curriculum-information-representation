@@ -3,7 +3,7 @@
 #+TITLE:     Workflow planning and visualisation
 #+AUTHOR:    James Hurford
 #+EMAIL:     terrasea@gmail.com
-#+DATE:
+#+DATE:      April 4, 2011
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -97,7 +97,7 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
 #+LaTeX_HEADER: \setlength{\parindent}{0.3cm}
 #+LaTeX_HEADER: \setlength{\parskip}{0.5cm}
-#+LaTeX_HEADER: \institute{Computer Science Honours project, Massey University}
+#+LaTeX_HEADER: \institute{Computer Science project, Massey University}
 #+LaTeX_HEADER: \supervisor{Stephen Marsland}
 
 
@@ -1168,10 +1168,10 @@ or retrieve small amounts of data.
 
 **** Algorithm efficiency
 
-The efficiency of algorithms will have more impact on the
-loading time of dynamic pages than the choice of languages.  The
-loading time of a page was reduced by following the following rules,
-based upon "Python Patterns - An Optimization Anecdote"
+The loading time of a page is influenced more by the
+efficiency of the algorithm used, then the choice of programming
+languages.  The loading time of a page was reduced by following the
+following rules, based upon "Python Patterns - An Optimization Anecdote"
 \cite{optimising1}.
 
 
@@ -1195,58 +1195,56 @@ If you feel the need for speed, go for built-in functions - you can't beat a loo
 #+end_quote
 
 *** Javascript compatibility
-Javascript is implemented differently across different browsers.
-jQuery helped overcome most of the issues, but there were rules that
-need to be adhered to make sure your code works in most major
+Javascript is implemented differently across different
+browsers. jQuery helps overcome, the compatibility issues
+amongst different browsers, but there were rules that
+need to be adhered to make sure your code works across the major
 browsers.
-  1) Always use var to declare variables
-  2) Avoid the use of a few keywords, like delete for variable names
-  3) If creating a array list, do not put a comma after the last element
+  1) Always use var to declare variables.
+  2) Avoid the use of a few keywords, such as delete for variable names.
+  3) If creating a array list, do not put a comma after the last element.
 
 The first and the third rules are for Internet Explorer, but the
-second is true particularly for any browser based on Webkit, like
-Safari.  The second one may sound like common sense , and it is, but
-there are Javascript implementations that, under certain circumstances, will allow
-you to use these keywords.
+second is true particularly for any browser based on Webkit, such as 
+Safari.  With the second rule, some Javascript implementations
+that, under certain circumstances, will allow you to use these keywords.
 
-This application relies on Javascript, so if it is turned off then
-hardly anything will work.  Currently nothing is done in response to
-this situation. In future, a warning message, telling the user this,
-produced on the server side, should be shown.  Other than this there is
-nothing that can be done, if the browser has Javascript turned off.
+This application relies on Javascript, and if it is turned off then
+hardly anything will work.  Nothing is done,  in response to
+Javascript being disabled. In future, a warning message, telling the user this,
+produced on the server side, should be shown.  Except showing a
+message, if the browser has Javascript turned off, no other actions
+are possible.
 
 *** CSS
 The best defense a web developer has against different browser
 implementations of CSS, is to stick to standards and hope that the
 browser being used adheres to these standards.  The differences are
-otherwise to vast to keep track, and most of the development time
-would be spent on resolving these differences, if this was attempted.
+otherwise to vast to keep track of.
 
 *** Concurrency / Multiple views
-Most of the concurrency issues have been avoided.  The only possible
-issue that could cause real problems, is if two cluster leaders from
-the same cluster logged in and started editing the papers.  Most of
-the time this curcumstance would not happen, but it could.  A possible
-solution is to either implement concurrency solutions like locks, or
-if there are two cluster leaders of the same cluster, logged on, to
+The concurrency issues have been avoided.  The possible
+issue that will cause real problems, is if two cluster leaders from
+the same cluster logged in and started editing the papers.  This
+circumstance is unlikely to happen.  A possible
+solution is to either implement concurrency solutions, such as locks, or
+if two cluster leaders of the same cluster, logged on, to
 logg both of them off with a warning message.
 
 *** Look and feel of pages
-Getting pages to look the same across browsers is very difficult
-when using the HTML markup, even with the aid of CSS and Javascript.
-The best you can do is make sure the components appear in the same
-place, using simalar colours.  The shape of the form controls are out
-of your hand and in most browsers can not be manipulated very easily
-with CSS.  Firefox for example, uses native controls like checkboxes,
-and does not allow CSS to alter the look of this control.  There are
-methods, which can be used to make it look the way you want it.  These
-hacks are not desirable, as they add another unstable element into the
+Getting pages to look the same across browsers is difficult
+when using the HTML markup.  The shape of the form controls are out
+of your hand, and in browsers, cannot be manipulated easily
+with CSS.  Firefox for example, uses native controls, such as checkboxes,
+and does not allow CSS to alter the look of this control.  Methods
+exist, sing CSS to make it look the way you want it, and are not
+desirable, and add another unstable element into the 
 page display.  
 
-One way that was found to control the look of controls
-was to simulate them, using HTML elements, like the <img> element, along with Javascript
-events to change something about this element, like the image in the
-<img> element.  This was done in the cluster view of the site, in the
+A way that was found to control the look of controls
+was to simulate them, using HTML elements, such as the <img> element, along with Javascript
+events to change something about this element, such as the image in the
+<img> element.  This was done in the cluster view, in the
 offered column.
 
 :HIDDEN:
@@ -1256,16 +1254,16 @@ Add screen-shot here
 *** Problems with Paper List page
     In the original design a paper list page was created.  This view
     was a expandable tree with the paper code, title, points value and
-    global coordinator being displayed for each paper.  You could
-    expand this to show the paper offerings along with the teaching
+    global coordinator being displayed for each paper.  This is
+    expandable and shows the paper offerings along with the teaching
     allocations of each offering.  The problem was that in expanding
     the view to include that papers offerings and teaching allocations,
-    the size of the output would be changed, and thus the browser would
-    have to redisplay the page.  This often meant that the view would
-    suddenly go somewhere else and the viewer would have to scroll up
+    the size of the output will be changed, and thus the browser will
+    have to redisplay the page.  This often meant that the view will
+    suddenly go somewhere else and the viewer will have to scroll up
     or down to find the expanded paper.  This part was fixed with the
-    addition of href anchors.  This only worked for expanding the paper
-    view, but when it was collapsed, the page would scroll to a
+    addition of href anchors.  This worked for expanding the paper
+    view, but when it was collapsed, the page will scroll to a
     location somewhere below the paper that was just collapsed.  This
     is a real problem, as even href anchors do not seem to fix this.  
 
@@ -1275,16 +1273,10 @@ Add screen-shot here
     the cluster members of the cluster leaders cluster, will appear at
     the top of the menu.  The rest will then be ordered by cluster then
     surname. The reasoning behind this, is that the cluster leader is
-    normally only interested in staff from their own cluster.  The
-    staff most relevant to the cluster leader should appear at the most
+    interested in staff from their own cluster.  The
+    staff relevant to the cluster leader should appear at the
     convenient place, thus reducing the time needed to find a member of
     that cluster.
-*** Archiving of data
-    With the archives, it is possible to analyse the information and
-    get some trends from it.  It might be useful to create a process to
-    extract and display this data in a meaningful way.  This might take
-    the form of graphs.  This would be useful if it was desired to see
-    how workload hours changed over time.
 
 #+INCLUDE: planner_report.org  
 
@@ -1292,15 +1284,18 @@ Add screen-shot here
 * Conclusion
    The different users needs were addressed, for updating, and viewing
    the same data set.  The workload presentation system, was
-   implemented successfully, to for full these needs.  The challenge to
-   ensure that each user saw the data in a way appropriate to them, have
-   been meet through permissions, based upon which group they
-   belonged to, and has the access rights to interact with the data
+   implemented successfully, to for full these needs.  The challenge of
+   that each user seeing data in a way appropriate to them, have
+   been meet through permissions, based upon which group the user
+   belongs to, and has the access rights to interact with the data
    set as required.
   
-   The programme planner was discussed, and a outline of how it could
+   The programme planner was discussed, and a outline of how it will
    be implemented using constraints satisfaction was proposed.
+   Since time constraints prevented the completion of this
+   system, work still needs to be done.
 
+#+LaTeX: \clearpage
 
 #+LATEX: \bibliographystyle{plain}
 #+LATEX: \bibliography{bibliography}
