@@ -1,0 +1,194 @@
+#+SETUPFILE: htmlslidy.org
+
+
+
+#+TITLE: Managing staff workloads
+#+AUTHOR: <br/><br/><p><div>by James Hurford</div> <div>Supervisor Stephen Marsland</div></p>
+
+
+* Introduction
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+** My project involves two projects
+*** *Workload*
+A Web based application for managing academic staff workload
+*** *Student Programme Planner*
+An application to aid in the planning of a students programme of study
+for their entire degree.
+
+[[./tdmanager.gif]]                                   
+#+BEGIN_HTML                                                 
+</div>
+</div>
+#+END_HTML
+
+
+* Current workload tool.
+
+** Microsoft Excel Spreadsheet application.
+#+begin_html
+<div class="large">
+#+end_html
+  [[./spreadsheet.png]]
+#+begin_html
+</div>
+#+end_html
+* 
+   - Is complicated and hard to use.
+   - Time consuming to collate data.
+   - The amount of data stored is coming to the maximum.
+
+* Data IO
+
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
+[[./workload-process.png]]
+#+BEGIN_HTML
+</div>
+
+#+END_HTML
+* Consultation
+** Prototype demonstrated to cluster leaders
+** Design changes took place
+* Sample Cluster leader paper edit view
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
+
+[[./cluster_paper_edit_view.png]]
+
+#+BEGIN_HTML
+</div>
+#+END_HTML
+
+* The new Workload Application
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+
+** Web application
+*** Client side
+**** jQuery
+**** Ajax
+**** HTML
+**** CSS
+*** Server side
+**** Python
+**** Django
+**** MySQL
+**** Microsoft Access
+** Configurable
+** Responsive
+
+
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
+
+* Access, Concurrency and Security
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+** 3 types of users
+ + Administrator
+ + Cluster leader
+ + Ordinary Staff
+** How concurrency issues were avoided
+ + Cluster Copy
+ + Administrator control
+ + Otherwise not critical
+** How important is security?
+ + Password access
+ + No secrets between staff
+ + Write access
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
+* Student Programme Planner
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+** What does Student Programme Planner do?
+
+*** A tool to aid the planning and selecting of a degree.
+
+*** Give the student a narrowed down choice of sets of papers for each degree.
+
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML
+* Scenario.
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+** Jim has done one year of study.
+  - Did the following
+    + 159.101
+    + 159.102
+    + 160.101
+    + 160.102
+    + 161.101
+    + 158.100
+    + 119.117
+    + 178.100
+*** Jim doesn't know what major to do, or even what is available.  He brings up the planner tool and is presented with...
+
+* What was the planned process?
+#+BEGIN_HTML
+<div class="process">
+#+END_HTML
+
+#+BEGIN_DITAA decision-process-diagram -r -S -E
+               +---------+   +----------+   +----------+   +--------------+
+               | Major   |   | Leads to |   | Degree   |   | Valid        |
+               | Paper   |   | Paper    |   | Paper    |   | Degree       |
+               | List    |   | DB       |   | List     |   | Paper        |
+               | {s}c888 |   | {s}c888  |   | {s} c888 |   | Combinations |
+               |         |   |          |   |          |   | {s}c888      |
+               +----+----+   +----+-----+   +----------+   +--------------+
+                    |    |        |         |              |
+                    |    +----+   |         |              |
+                    |         |   |         |              |
+                    V         V   V         V              V
++----------+   +----+-----+   +---+---------+  +-----------+--+
+| Student  |   | Select   |   | Create      |  | Determine    |
+| Academic |   | Best     |   | Paper       |  | Valid        |
+| Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
+| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
+|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
++----------+   +----------+   +-------------+  +--------------+
+#+END_DITAA
+
+#+BEGIN_HTML
+</div>
+#+END_HTML
+
+* Outcomes
+** The workload process is streamlined
+** Makes it easier for cluster leaders and the administrator
+** Takes less time to collate data
+** Backups are possible
+** Postgraduate supervision updates easier
+
+* Thank you
+#+BEGIN_HTML
+<div class="centre2">
+<div>
+#+END_HTML
+** Questions?
+
+# LocalWords:  optimisation Marsland
+#+BEGIN_HTML
+</div>
+</div>
+#+END_HTML

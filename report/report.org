@@ -1,87 +1,196 @@
 #+TITLE:     The management of databases for a large organisation
 #+AUTHOR:    James Hurford
-#+EMAIL:     
-#+DESCRIPTION: 
-#+KEYWORDS: 
+#+EMAIL:
+#+TEXT:  Research Report
+#+TEXT: [TABLE-OF-CONTENTS]
+#+DESCRIPTION: Reasearch Report
+#+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   H:4 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
-#+XSLT: 
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+
+
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1em}
 
 * Introduction
 
-
-* Workload
-** The Problem
-Workload is a measure of how many virtual hours each staff member is
-going to be doing for the coming year. The purpose of Workload is to
-spread the workload as fairly among the staff.  It is a artificial
-measurement, using a formula to determine a individuals hour based on
-a set of predetermined metrics.
-
-The task is to create a application to take in:
-
-+ For each paper offered
-
-+ For each person teaching this paper how much of the paper they
-  are teaching.
-  + who the global coordinator is
-  + who the local coordinator is
-
-+ The Admin roles for each of the members of staff and how much
-  the admin roles are worth in Workload hours.
-+ For each postgraduate student
-
-
-It could also be used as a tool to indicate where resources are needed
-the most, if a extra staff member is needed.
-*** What it is that this application is replacing
-Currently a Excel spreadsheet is being used to store the input data
-and calculate and display the results.  The current solutions is to
-complex and needs a easier method for inputting the data.  The amount
-of data inputted is coming near to the limit of how much Excel can
-take.
-*** How can a application be more flexible than the spreadsheet solution
-
-
-*** How to represent it to users?
-What form will this take?  What sort of format will be used?
-** Challenges
-*** What methods of development do I use?
-*** What programming platform do I use?
-*** Where is it going to be deployed?
-*** Security
-*** How to represent it to users
-*** Where do I get my data from and how do I store it
-*** What functionality do I implement
-*** Responsiveness of application
-** Solutions
-*** Method of development
-*** Deploying the application
-*** Security
-*** Framework choice
-*** Database and importing of data
-*** Feature choice
-*** Code optimisation
-** Conclusion
 
 * Paper Planner
 ** The Problem
 *** How to represent it to users
 *** How to solve it
+This was going to be a complete application, but it was realised that
+there was not enough time to do everything, so the Use case shown in
+figure \ref{fig:usecase1} was adopted, and this would be the scenario that would be
+solved using constraints satisfaction.
+
+
+#+LaTeX: \begin{figure}[H]
+#+LaTeX: \centering
+#+begin_example
+A Student does their first year of study at university.  They pass a
+number of papers.  They have not decided upon a major yet, but they
+want to know what their options are.  They want to know what major
+suits their choice of papers so far the best, and what are the
+possible paper combinations they can have for their future programme
+of study.  These combinations must be valid for the choice of degree
+and major, and allows them to complete their degree if done.  
+#+end_example
+#+LaTeX: \caption{\label{fig:usecase1} Use case for student having done one year of study}
+#+LaTeX: \end{figure}
+
+
+
+The first priority was to learn what are Constraints Satisfaction
+Problems.  To do this I looked on line and found a definition with a
+example, in this case it was the map colours problem.  
+
+
+
+What software support there is for Constraints Satisfaction Problems
+(CSP) was looked at.  There were criteria under
+which the library would be used, in a effort to stay in the language of
+choice, python, as much as possible, the library had to be written in
+either C/C++ or python.  C/C++ was considered as python can use these
+libraries through either the module ctypes or in the form of a
+specially written C module, using Python C API.  If it was written
+as a C module for python, that could lead to it only being usable by a
+Python interpreter written in C.  The choice was to make the
+environment used as configurable as possible, so cytpes was chosen, as
+in theory, any Python interpreter, no matter what language they are
+written in has a ctypes implementation, as ctypes has become part of
+the set of standard modules since (citation needed here).
+
+
+Gecode was looked at and was the choice for implementing the
+CSP, as it is a mature library, with one of the
+authors claiming that it is relatively bug free.  Also there seemed to
+be quiet a few references to Gecode in the forms that were looked at.
+Thus there should be plenty of examples on how to solve various
+problems using Gecode.
+
+So To use this library there needs to be some research done on how to
+use it.  There is a provided manual called "Modeling and Programming
+with Gecode" (MPG) \cite{MPG1}.  The approach was to read as much of
+this manual MPG as is needed to implement the solution come up with to
+solve the problem.
+
+
+While reading this document, some of the examples were gone through to
+figure out how Gecode encodes CSP.
+
+
+In Figure \ref{fig:GecodeArch} The Gecode Model Archatechture you have
+3 layers, the Model, 
+
+#+ATTR_LaTeX: width=30em,placement=[H]
+#+CAPTION: The Gecode Model Archatechture
+#+LABEL: fig:GecodeArch
+[[./images/gecode-model.png]]
+
+One of the strategies taken was to have a look and see what books
+there are on the subject, in regard to the problem.  The books
+available are almost non existent, except for one book that was a
+collection of articles which sounded like they might be solving a
+similar problem was "Planning, Scheduling and Constraint Satisfaction:
+to Practice." \cite{COBA01}.  However the problem they were
+attempting to solve, were not close enough to the Paper Planner
+problem.
+
+
+
 ** Solutions chosen
-*** Web Representation
+The solution come up with, as shown in figure
+\ref{fig:decisionprocess}, aims at being simple.  The problem of a
+large search space has been addressed by narrowing down the search by
+using a simple algorithm of counting the number of papers done that
+are in the major schedule for each major available, and the major that
+has the academic record has the most papers, is the chosen set that is
+used to create a leads to tree.  This tree is then used as the search
+space for the constraints satisfaction part.  The rules are based upon
+the minimum required papers to satisfy the degree requirements and the
+minimum to satisfy the major requirements.  
+#+attr_latex: width=30em,placement=[H]
+#+CAPTION: The decision process for determining programme selection options
+#+LABEL: fig:decisionprocess
+#+BEGIN_DITAA decision-process-diagram -r -S -E
+               +---------+   +----------+   +----------+   +--------------+
+               | Major   |   | Leads to |   | Degree   |   | Valid        |
+               | Paper   |   | Paper    |   | Paper    |   | Degree       |
+               | List    |   | DB       |   | List     |   | Paper        |
+               | {s}c888 |   | {s}c888  |   | {s} c888 |   | Combinations |
+               |         |   |          |   |          |   | {s}c888      |
+               +----+----+   +----+-----+   +----------+   +--------------+
+                    |    |        |         |              |
+                    |    +----+   |         |              |
+                    |         |   |         |              |
+                    V         V   V         V              V
++----------+   +----+-----+   +---+---------+  +-----------+--+
+| Student  |   | Select   |   | Create      |  | Determine    |
+| Academic |   | Best     |   | Paper       |  | Valid        |
+| Record   +-->+ Major    +-->+ Leads to    +->+ Paper        |
+| {s}c888  |   | {io}cBLU |   | Tree        |  | Combinations |
+|          |   |          |   | {io}cBLU    |  | {io} cBLU    |
++----------+   +----------+   +-------------+  +--------------+
+#+END_DITAA
 *** Constraints Satisfaction
+
+*** Database use.
 *** Programming library choice
+
+
 *** Programming language choice
 ** Challenges
 *** Using python to run C++ code
-Python can import C libraries using ctypes and run C functions.
+Python can import C libraries using ctypes package and run C
+functions.  There are a lot of CSP libraries that are written in C or
+C++.  This is one method that can be used to use these libraries.
+Gecode is a C++ library, and it was seriously looked at how it can be
+used by python.
+
+A solution searcher must be written in C++, if Gecode is to be used,
+then compiled into a dynamic library which python can then load and
+run function from.  The problem with C++ is that it mangles the names
+of functions making it unusable by python as the code used to load
+this library was written to load C libraries.  This posses the
+question of how do you then use this C++ code.  Fortunately there has
+been a solution for a long time.  The 'extern "C"' can be used on
+blocks of code or functions to tell the C++ compiler not to mangle the
+names of the items in this block and thus enabling C code to use it.
+Using this one can then write a C function that calls the C++ code
+that you want to run.  This in turn is accessible to the C import
+library, which is used by pythons ctypes package.
+
+
 *** How to represent and encode the problem
+
+
+
 ** Conclusion
 Conclusion is here
+
+# check spelling
+* Acknowledgments
+ I would like to thank these people for their help
+ + Stephen Marsland
+ + Hans Guesgen
+ + Glenda Kirk
+ + Michelle Wagnar
+ + Patrick Rynhart
+ + Hubb Bakar
+ + Giovanni Moretti
+ + Lisa Lightband
+ 
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+# LocalWords:  prepend Bakar

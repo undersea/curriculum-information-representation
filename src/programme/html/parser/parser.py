@@ -1,8 +1,6 @@
 import tidy #to normalise the html to a valid xml document format
 import urllib2
 from page_finder import urls
-import libxml2
-import re
 
 
 class Parser(object):
@@ -31,8 +29,6 @@ Parameters:
             self.url = urls[programme]
             self.htmlstr = urllib2.urlopen(self.url).read()
             self.xmlstr = str(tidy.parseString(self.htmlstr, **self.options))
-            self.data = libxml2.parseDoc(self.xmlstr)
         except Exception, e:
-            self.data = None
             self.xmlstr=''
         

@@ -1,89 +1,33 @@
-#ifndef _DEGREE_HPP_
-#define _DEGREE_HPP_
+#ifndef __DEGREE_HPP__
+#define __DEGREE_HPP__
 
-#include "Python.h"
-
-#include <gecode/int.hh>
-#include <gecode/search.hh>
-#include <gecode/minimodel.hh>
+#include "major.hpp"
 
 
-#include <vector>
-
-using namespace Gecode;
-
-
-typedef MaximizeSpace MaximiseSpace;
-typedef MinimizeSpace MinimiseSpace;
-
-typedef struct
+namespace Programme
 {
-  int paper;
-  int *prerequites;
-  int prereq_len;
-  int *corequisites;
-  int coreq_len;
-  int *restrictions;
-  int restrict_len;
-} Dependencies;
-
-
-typedef struct
-{
-  int *papers;
-  int plength;
-  int *major;
-  int mlength;
-} DegreePapers;
-
-
-namespace Degree
-{
-  class Degree : public MinimiseSpace
+  class Degree : public Space
   {
   public:
-    Degree(int *papers, 
-           int length,
-           int *deg_papers,
-           int dplength);
-    Degree(bool share, Degree &degree);
-    ~Degree(void);
-
+    Degree(std::map<int, std::map<int, std::vector<int> > > &degrees0,
+           std::vector<int> &paper_record0);
+    Degree(bool share, Degree &d);
     virtual Space *copy(bool share);
-    
-
-    //cost function needed for MaximiseSpace
-    virtual IntVar cost(void) const;
-
-    void print(void) const;    
-
-    int get_paper(int pos) const;
-    int get_degree(void) const;
+    virtual void constrain(const Space &_b);
+    void print(void) const;
+    int *get(void) const;
   protected:
-    IntVar cost_value;
-    IntVarArray degree_papers;
-    //IntVar degree;
+    std::map<int, std::map<int, std::vector<int> > > degrees;
+    std::vector<int> paper_record;
+    IntVar degree;
+    IntVar major;
+    IntVarArray degree_weights;
 
-    std::vector<int> paper_list;
-    //DegreePapers *degree_schedule;
-    std::vector<int> ar_papers;
+    inline void process_degrees(void);
+
   private:
-    
   };
-} //namespace Degree
+} // namespace Programme
 
 
-#ifdef __cplusplus
-extern "C" {
-  void run(int *papers,
-           int length,
-           int *degrees,
-           int dlength,
-           void (caller)(int, int *, int))/*, 
-           void *(is_valid)(int, int *))*/;
-  //int get_paper(Degree::Degree &degree, int &pos);
-}
-#endif //  __cplusplus
-
-
-#endif // _DEGREE_HPP_
+#endif // __DEGREE_HPP__

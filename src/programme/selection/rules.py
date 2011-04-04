@@ -7,6 +7,6 @@ def find_relevant_degree(papers):
 
 
 
-find_relevant_degree([159101, 160101, 192101, 158100, 161101])
+find_relevant_degree([159101, 159102, 160101, 160102, 192101, 158100, 161101])
 for key in degrees:
     print key, degrees[key].value

@@ -219,7 +219,8 @@
     September 15 2010.  This has got me to thinking that it might be a
     good idea to at the moment stick to Gecode since it has been
     around for a while and is mostly free of bugs, or so they claim.
-
+*** <2011-01-28 Fri>
+    To new so no complete tutorial or reference to the python version
 
 ** Approach <2010-12-14 Tue>
 *** Constrain by what papers are required
@@ -520,3 +521,31 @@
   How do I reduce the space to the point that it takes at most 2 or 3
   minutes? This is something solid I can get help on, if I can explain
   it properly.
+
+  Seems I am on the wrong track, and am the solution has a to larger
+  search space.  I need to focus on finding a valid major, the using
+  the list of valid majors find the major which best fits the papers
+  done by student.  Then once best major is chosen, select the
+  combination of papers that gives the student the most choice in
+  terms of what how many papers a paper can lead to.  The first one
+  can be done with CS, but can also be done without.  I want to
+  simplify the solution, so avoid using CS if a easy solution which
+  gives the best results is available.  The last 2 I decided to use CS
+  and use the COP approach.
+
+  This all means going back to square one again.
+* entry <2011-01-24 Mon>
+Started reworking finding best major
+* entry <2011-01-25 Tue>
+Got the selecting best major done.
+* entry <2011-01-26 Wed>
+Worked out a formula for filling out a programme of study based upon
+prerequisite look-up and adding this to selection.  Talked to Stephen,
+where we both figured out it was not a constraints optimisation
+problem.  Am going to work on a tree of papers I have prerequisites
+to, and a list of papers I don't need prerequisites for.  I am going
+to enforce the degree rules on these.  This is where CS may come in.
+* entry <2011-01-29 Sat>
+  Partial Constraints Satisfaction Problem (PCSP)
+  [[http://ktiml.mff.cuni.cz/~bartak/constraints/pcsp.html]]
+  Ask about relation with COP

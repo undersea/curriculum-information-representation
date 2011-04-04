@@ -1,0 +1,1303 @@
+#+BIND: org-export-latex-title-command "\\maketitle"
+
+#+TITLE:     Workflow planning and visualisation
+#+AUTHOR:    James Hurford
+#+EMAIL:     terrasea@gmail.com
+#+DATE:      April 4, 2011
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+source: jim()
+#+begin_src emacs-lisp :results output silent :exports none
+  (add-to-list 'org-export-latex-classes
+          '("file-class"
+             "\\documentclass{scrartcl}
+             \\makeatletter
+               \\def\\maketitle{%
+                  \\null
+                 \\thispagestyle{empty}%
+                 \\vfill
+                 \\begin{center}\\leavevmode
+                   \\normalfont
+                   {\\LARGE \\@title\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@author\\par}%
+                   \\vskip 1cm
+                   {\\small \\@institute\\par}%
+                   \\vskip 1cm
+                   {\\small Supervisors: \\@supervisor\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@date\\par}%
+                 \\end{center}%
+                 \\vfill
+                 \\null
+               \\cleardoublepage
+               }
+               \\def\\supervisor\#1{\\def\\@supervisor{\#1}}
+               \\def\\institute\#1{\\def\\@institute{\#1}}
+             \\makeatother"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+             ))
+  (add-to-list 'org-export-latex-classes
+          '("file-class2"
+             "\\documentclass{report}
+             \\makeatletter
+               \\def\\maketitle{%
+                  \\null
+                 \\thispagestyle{empty}%
+                 \\vfill
+                 \\begin{center}\\leavevmode
+                   \\normalfont
+                   {\\LARGE \\@title\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@author\\par}%
+                   \\vskip 1cm
+                   {\\small \\@institute\\par}%
+                   \\vskip 1cm
+                   {\\small Supervisors: \\@supervisor\\par}%
+                   \\vskip 1cm
+                   {\\Large \\@date\\par}%
+                 \\end{center}%
+                 \\vfill
+                 \\null
+               \\cleardoublepage
+               }
+               \\def\\supervisor\#1{\\def\\@supervisor{\#1}}
+               \\def\\institute\#1{\\def\\@institute{\#1}}
+             \\makeatother"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+             ))
+#+end_src
+
+
+
+#+LaTeX_CLASS: file-class
+
+#+STARTUP: hidestars
+
+#+DRAWERS: HIDDEN
+
+#+LaTeX_CLASS_OPTIONS: [a4paper, 12pt]
+#+LaTeX_HEADER: \setlength{\parindent}{0.3cm}
+#+LaTeX_HEADER: \setlength{\parskip}{0.5cm}
+#+LaTeX_HEADER: \institute{Computer Science project, Massey University}
+#+LaTeX_HEADER: \supervisor{Stephen Marsland}
+
+
+
+#+LaTeX: \clearpage \begin{center} \begin{large}
+*Abstract*
+#+LaTeX: \end{large} \end{center}
+
+#+BEGIN_abstract
+\begin{abstract}
+This report discusses the different needs of different users, for
+accessing, updating and viewing of the same data set.  It outlines how
+to implement a workload presentation system.  It shows that each user
+sees the appropriate data set to them, with appropriate access rights
+to access this data as required.
+
+The data sources are outlined, indicating that not all sources are
+used because of access rights being denied to us.  A source that
+is available, is a Microsoft access, and the problems getting the data
+are discussed.
+
+The three types of users, staff, cluster leaders and administrators
+are outlined, showing views specific to them, and what actions the
+user is able to take.
+
+The implementation details, user interface, responsiveness of the
+application, data backup, and updating of the teaching allocations
+process is discussed.
+
+The implementation choices are discussed, with technologies used,
+Python, Django, MySQL, Microsoft Access, ODBC, Javascript, HTML and
+CSS are discussed.
+
+Testing followed by the redesign stage is discussed.
+
+Learning outcomes from the experiences with responsiveness of the
+application, Javascript and CSS compatibility problems, concurrency,
+look and feel, paper list page problems, staff menus, and archiving of
+data are discussed.
+
+It also outlines how a student programme planner, using constraints
+satisfaction to choose a degree and a set of appropriate papers.
+
+Design of the process to solve this problem are discussed.
+
+The implementation details of data collection, programming language
+choice, and constraints satisfaction are talked about.
+
+Learning outcomes from using C++ from Python, constraints
+satisfaction libraries, and data collection are talked about.
+
+
+In conclusion the different users needs
+were addressed, for updating, and viewing the same data set.  The
+workload presentation system, was implemented successfully, to for
+full these needs.  The challenge that each user sees the data
+in a way appropriate to them, have been meet through permissions.
+This is based upon the group that is belonged to, and has the access rights to
+interact with the data set as required.
+\end{abstract}
+#+END_abstract
+
+#+LaTeX: \clearpage
+
+* Introduction
+  It is common for different users to have different needs for
+  accessing, updating, and viewing the same data set (or combination
+  of data sets).  In this project we considered how to implement
+  software for a workload presentation system.  The challenge that
+  each user sees the data in a way appropriate to them, and had the
+  access rights to interact with the data set as required.
+
+  A programme planner is proposed, using
+  constraints satisfaction to help choose papers for a students
+  programme of study towards a degree.
+
+* Workload Project
+** Introduction
+   This project attempts to develop a web served, database backed
+   application that represents the data appropriately for each user
+   and automatically provides as much of the data as possible. 
+
+   Workload is a measure of how many virtual hours each staff member is
+   going to be doing for the coming year. The purpose of Workload is to
+   spread the workload fairly, amongst the staff.  It is a artificial
+   measurement, using a formula to determine a individuals hour based on
+   a set of predetermined metrics.
+
+   The task is to create a application to take in:
+
+ - For each paper offered
+
+   + For each person teaching this paper how much of the paper is
+     taught by them.
+   + Who the global coordinator is.
+   + Who the local coordinator is.
+
+ - The Admin roles for each of the members of staff and how much
+   the admin roles are worth in Workload hours.
+ - For each staff member.
+   + What postgraduates are being supervised.
+     - What percentage of the supervision is being given.
+     - Given that each postgraduate degree is worth different hours.
+       + What percentage of supervision is given and thus how many of
+         those hours is gained.
+ - The application must be configurable.
+   + This is to be done by an expert, and it doesn't have to be addressed
+     in the user interface, just a simple configuration file.
+
+   A spreadsheet application, shown in figure
+   \ref{fig:spreadsheet}, has been used to disseminate 
+   the data across different groups.  This approach does not
+   scale well. The means of gathering this information is painfully
+   slow and time consuming. The spreadsheet application is also
+   complicated and hard to use.
+
+   #+ATTR_LATEX: width=\textwidth,placement=[H]
+   #+CAPTION: The current spreadsheet application
+   #+LABEL: fig:spreadsheet
+   [[./images/spreadsheet.png]]
+
+   This project attempts to develop a web served, database
+   backed application. Dissemination of the information according to which
+   group a user belongs to is attempted.  The proposed application
+   tries to overcome the problem of gathering the data by using a
+   central database where everyone enters information into from
+   various places around SEAT, using a web interface.  It also tries
+   and reduce the amount of data entered by using other already
+   existing sources of information.
+   
+    
+** Design perspectives
+:HIDDEN:
+--** Open source
+   The aim was to develop on linux, using open source libraries as much
+   as possible to do the job.  This put some big restrictions on the
+   possible solutions, and in some cases left this project with only one
+   choice.  The biggest challenge was dealing with Microsoft Access.
+--** Web
+   The application is to be a web served application.  The reason for
+   this is to avoid the need to install it on every computer that
+   needs access to this application, with the only requirement being
+   that the computer has some sort of web browser installed.  This
+   also avoids the need to develop several different versions for each
+   operating system installed computers that are part of the SEAT
+   network.
+--** Javascript
+   Javascript is the client programming language used to make the web
+   pages more dynamic.
+--*** Problems encountered
+    Javascript posed problems in that each of the different web
+    browsers have different implementations of the Javascript engine.
+    What may work with one browser may not work with another.  For
+    example the following code will work in Firefox, but will not work
+    in Internet Explorer.
+    
+    #+begin_src javascript
+      tmp = 8;
+      alert(tmp);
+    #+end_src
+    
+    Internet Explorer expects any variable to be declared using the
+    var keyword.  Any browser based upon Webkit such as Safari were
+    the most strict when it comes to what they will accept.
+  
+    The development of javascript for this application had to undergo
+    a few critical changes to make sure the code worked in all major
+    browsers. The following rules had to be adopted.
+    1) Always use var to declare variables
+    2) Avoid the use of a few keywords, like delete
+    3) If creating a array list, do not put a comma after the last element
+
+    This list of rules does not cover every compatibility issue, but
+    they were the major ones encountered.
+--** jQuery
+   jQuery \cite{jquery1} makes for a uniform javascript api across most of the major
+   browsers, like IE and Firefox.  This simplifies the development of web
+   applications and reduces the number of issues that come from having
+   more than one brand of web browser accessing the site.
+
+   #+begin_quote 
+   jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
+   #+end_quote
+   jQuery \cite{jquery1}.
+
+--** CSS
+   CSS is to be used to customise the look and formatting of the
+   documents displayed by the web browser.
+--*** Problems encountered
+    CSS is handled differently by different browsers.  Some of the CSS
+    styles chosen, work perfectly in Firefox, but fail to work in
+    Internet Explorer.  There is nothing that can be done about the
+    incompatibilities, but one can either flag the problem as
+    unimportant, like not centring, or not use it.  The policy chosen
+    by this project is to make sure that the pages produced adhered to
+    CSS version 2.0.  This standard is not supported by Internet
+    Explorer 6, but later versions are assumed to adhere to this
+    standard.
+--** Python
+   Python \cite{python1} is to be the programming language used on the
+   server to rendered the HTML to the web browser. Python \cite{python1} is a high level scripting language with a large
+   set of libraries available to it as part of the standard Python
+   library.  It is needed by Django \cite{django1}. Python is easy to
+   read, so easy to maintain.
+
+   The application is to be developed in Python \cite{python1}, using
+   the Django \cite{django1} framework.
+--** Django
+   "Django is a high-level Python Web framework that encourages rapid
+   development and clean, pragmatic design." \cite{django1}
+
+   "Django focuses on automating as much as possible and adhering to the
+   DRY principle." \cite{django1}
+
+   DRY stands for "Don't Repeat Yourself" \cite{DRY1}.
+
+   Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
+   prefers to use Model Template View (MTV) as a way of describing
+   their framework.
+
+   Django uses the MTV development pattern shown in figure \ref{fig:mtv}.
+    - M is the model which is the data access layer.
+    - T is the templates which is the presentation layer.
+    - V is the views which is the business logic layer.
+
+   This is important in realising how this application has been
+   designed.  You get the database (models) with all the data needed, you
+   have the views, which process the data, which is then taken by the
+   templates which decide how this data is going to be displayed and
+   what is going to be displayed.
+
+#+attr_latex: width=20em,placement=[H]
+#+CAPTION: The Django model
+#+LABEL: fig:mtv
+#+BEGIN_DITAA  mtv_django -r -S -E
+
+ +----------+      +--------------+
+ | {d}      |      | {d}          |
+ | Template |------| Presentation |
+ | cC02     |      | cC02         |
+ +-----+----+      +-------+------+
+       ^                   ^
+       |                   |
+   +---+--+        +-------+------+
+   | {io} |        | {io}         |
+   | View |--------| Business cBLU|
+   | cBLU |        | Logic Layer  |
+   +---+--+        +-------+------+
+       ^                   ^
+       |                   |
+       |                   |
+   +---+---+       +-------+------+
+   | {s}   |       | {s}          |
+   | Model |-------| Data Access  |
+   | c888  |       | Layer c888   |
+   +-------+       +--------------+
+
+#+END_DITAA
+
+   It has a few official databases that it can work with, those being
+   MySQL, PostGRESQL, PostGRESQL psycopg2, SQLLite and Oracle.  Others
+   are available, but these are unofficial.
+
+   To talk in Django terms, Django consists of a project, which contains
+   all the configuration information for setting up you site, over
+   several files. Within this project is one or more, what Django refers
+   to as, applications \cite{django1}.
+
+   
+   #+begin_quote
+   
+   Projects vs. apps
+
+   What's the difference between a project and an app? An app is a Web
+   application that does something -- e.g., a Weblog system, a database
+   of public records or a simple poll app. A project is a collection of
+   configuration and apps for a particular Web site. A project can
+   contain multiple apps. An app can be in multiple projects.
+   
+   #+end_quote
+   
+   The basic way Django handles requests is shown diagramatically in
+   figure \ref{fig:djprocess}.  A request for a URL is made.  Django
+   looks up this URL pattern and maps this to a view, which then using a
+   template, renders the html to the requesting browser.
+   
+   #+attr_latex: width=30em,placement=[H]
+   #+CAPTION: The Django Process from URL Request to rendering to browser
+   #+LABEL: fig:djprocess
+   #+BEGIN_DITAA django-process -r -S -E
+   
+   +----------+        +------------+        +-----------+      +------------+
+   | URL      |        |  URL       |        | Mapped    |      | Template   |
+   | Request  +------->+  Pattern   +------->+ View      +----->+ Rendering  |
+   |          |        |  Lookup    |        | Execution |      | To Browser |
+   +----------+        +------------+        +-----------+      +------------+
+   
+   #+END_DITAA
+   
+
+   Django has a unique way of handling URLs.  Every application in a
+   Django project has a file called 'urls.py'.  It defines a object
+   called urlpatterns, which is a mapping of URL patterns, which are
+   regular expressions and Python callback functions \cite{django1}.
+   Part of the URL for that application is the name of the application.
+   For example if a application is called 'frog', then all URLs with frog
+   at the beginning of the URL string will be referencing the 'frog'
+   application. Figure \ref{fig:urls} shows a brief example urls.py file
+   contents. When a browser requests a page with the URL
+   http://localhost/frog/prince/ it will be given the output of the
+   project.frog.views shown in figure \ref{fig:djview} modules index function.
+
+
+   -----
+
+#+LaTeX: \begin{figure}[H]
+
+#+begin_src python
+from django.conf.urls.defaults import patterns
+
+urlpatterns = patterns('',
+    (r'^prince/$', 'project.frog.views.index'),
+)
+
+#+end_src
+
+#+LaTeX: \caption{\label{fig:urls} An example content of a Django urls.py file}
+#+LaTeX: \end{figure}
+
+-----
+
+The project.views.index function, in figure \ref{fig:djview}, then
+takes this request and processes it, passing the results to a template
+shown in figure \ref{fig:djtemplate}, which then renders the html to
+the browser.
+
+
+
+-----
+
+#+LaTeX: \begin{figure}[H]
+
+#+begin_src python
+  
+  from django.shortcuts import render_to_response
+  from project.frog.models import Frog
+  
+  def index(request):
+      #do some processing getting all records from the Frog model
+      #with results stored in frog
+
+      frogs = Frogs.objects.all()
+  
+      #render this to a template called index.html passing to it the
+      #records from the Frog model as part of a dictionary (the second parameter)
+
+      return render_to_response('index.html', {'frogs':frogs})
+  
+#+end_src
+
+#+LaTeX: \caption{\label{fig:djview} The project.frog.views.index function}
+#+LaTeX: \end{figure}
+
+-----
+
+The template, shown in figure \ref{fig:djtemplate} uses the dictionary to create a list of variables in this
+case it is called 'frog' which is the records from the Frog model.
+The records in this example are iterated through with each record
+being outputed as the text of a html div tag.  As you can see anything
+between {% %} is a Django template tag, which is processed by Djangos
+template renderer.
+
+-----
+
+#+LaTeX: \begin{figure}[H]
+
+#+begin_src html
+  <html>
+    <head>
+      <title>Frogs</title>
+    </head>
+    <body>
+      {% for frog in frogs %}
+      <div>{% frog %}</div>
+      {% endfor %}
+    </body>
+  </html>
+#+end_src
+
+#+LaTeX: \caption{\label{fig:djtemplate} The index.html template}
+#+LaTeX: \end{figure}
+
+-----
+
+To get a full description of what is happening here see the Django
+documentation \cite{django1}.
+
+--** Database connectivity
+   The application must have a way of storing and retrieving the data
+   it needs to calculate Workload hours.  To achieve this relational databases
+   are to be used.  All the information is to be stored on a local
+   database with connections to others to retrieve specific information
+   needed.
+
+   There are two databases involved here, the local database which holds
+   all information and the SEAT Postgraduate database.  The local
+   database shall be a MySQL database, which Django has support for.
+   The other database, which is used to update the postgraduate
+   tables, is a Microsoft Access database.
+
+   Since the application is being run on a GNU/Linux server a way to
+   connect to the SEAT Postgraduate database has to found.  In the web
+   forum unixODBC-support\cite{unixODBC} Martin J. Evans says there
+   are three ways to get data from a MS Access database file from
+   GNU/Linux.
+    1) Share the folder containing the MS Access file and access it
+       using MDBTools
+    2) Create a link from a MS SQL Server to the MS Access file and use a
+       MS SQL Server ODBC driver.
+    3) Create a ODBC-ODBC bridge in which you install the ODBC service on
+       the Windows machine, which uses a ODBC driver for MS Access, and
+       use a ODBC driver on the Linux server which can talk to the remote
+       server.
+
+   The MDBTools option was choosen.  MDBTools has a ODBC driver
+   library.  It was decided to use this in conjunction with a Python
+   library called pyodbc \cite{pyodbc1}.  The options for what Python
+   libraries to use for accessing ODBC were limited, and at the time
+   of development pyodbc was the only one found that was open source
+   and allowed a connection to a ODBC DSN source written entirely in
+   Python.
+
+   The pyodbc libary is written in C++. It adheres to the "Python Database
+   API Specification v2.0" \cite{pydb2}.
+--*** Problems encountered
+--**** pyodbc
+     The library pyodbc had problem.  In the environment that
+     it was being run, it did not behave in the way, one assumes, that
+     the author of the code thought.  This gave us results like, if the
+     database entry was a integer of value 290 the returned result was
+     3160370, or a double value of 40.0 being returned as
+     6.9524415266644334e-310.
+
+
+     The problem stemmed from the functions that get data from the
+     results of the query and convert them into the appropriate data
+     type for python.  The entire library depends on unix ODBC C
+     library.  It uses various function calls which interact with unix ODBC,
+     one of these fetches a single value from a row and transforms it
+     into the appropriate data type.  Like if a field in a table is a
+     Integer then the appropriate function transforms it into a Python
+     Integer type.  To fetch the value at a particular position in the
+     fetched row pyodbc uses the ODBC function SQLGetData(...).
+
+     Its use of the function SQLGetData(...) is flawed, in
+     that the results being returned for floating point values are
+     incorrect.  SQLGetData(...) can in theory, retrieve the data and
+     convert it into the equivalent data type specified by the database
+     table column type.
+
+     With some modifications to the code, it was possible to rely on
+     the modified version of this library.  We found that getting the
+     data as a string value gave us a accurate answer represented in a
+     string format.  One could then convert this to the appropriate
+     type with a Python convenience C function like for integers like
+     PyLong_FromString(...).
+
+     That was all that was needed to make pyodbc to produce the expected
+     accurate results.
+--**** MDBTools
+     Using the MDBTools odbc driver has problems that with certain
+     queries, it caused the application to throw a segmentation
+     fault.  There is no more information than that, and it only
+     happens when fetching data from a certain table, in this case it
+     was the Staff table in the SEAT2008.mdb file.  On one computer it
+     would work perfectly, but only if the query used excluded all
+     those except for academic staff.  This was on a computer separate
+     from the SEAT intranet.  When used on a different machine,
+     connected to the SEAT intranet, it would segment fault, no matter
+     what query was used, but it was the same table, so something
+     about that table is causing MDBTools problems.  It was hoped
+     there was a newer version of MDBTools that has resolved this
+     problem, but it was found that MDBTools is no longer being
+     actively developed, and has not been for two years at the time of
+     writing this report.
+
+     While it is possible to get a hold of the source, finding and
+     fixing the bug, may be beyond the means available to the current
+     developer. It may require knowledge of Microsoft Access which is
+     not available to the developer of this application.
+
+     Other tools were looked for, but only a Java library, called
+     Jackcess \cite{jackess1}, could be found.  This would increase the complexity of
+     the application, unless it was run under a jython environment.
+     This situation was a undesirable one. The developer did not want
+     to use Java as a solution for this problem.  To use Jython would
+     introduce Java into Python code, which would cause it not to be
+     portable to other Python environments.
+
+     One easy solution, if it is only happening when accessing the Staff
+     table, is to include the information needed in the Staff table held in
+     the local database, which is the LoginName field of the SEAT2008 Staff
+     table.  This is needed to identify the supervisor of a postgraduate
+     from the SuperviseStudent table in PostgradData.mdb.  The
+     solution has yet to be implemented, and that would mean altering
+     the Staff table in the Workload database and adding the extra
+     field for LoginName.
+
+     This problem is still unresolved.
+--** Concurrency / Multiple views
+   The application must be able to deal with having several people
+   accessing the database at once.  Concurrent access to this data
+   must be addressed.
+
+   There are three views or users of this system.
+    - Manager
+    - Cluster leader
+    - Staff
+
+   Each has a different set of functions available to them.
+
+    + The manager should be able to access for all clusters
+      - a overview of total staff workload hours which includes hours
+        gained from papers, postgraduate supervision, and administration roles.
+      - a breakdown of the administration roles held by staff and the
+        hours they gain from this.
+      - a breakdown of the postgraduate students that are supervised by
+        staff and how many hours they get from each student
+      - a programme list of papers offered by degrees listed by the year
+        they are offered
+      - a means by which they can manage which staff teach, coordinate
+        papers, what administrative roles they hold.
+      - make archives of the current database
+
+    + The cluster leader can access the same options that the manager
+      can access, but only for their cluster.
+
+    + the individual staff member who is not a cluster leader, or a
+      manager. They can edit personal details like first name, and
+      last name. They can access only their workload information in a
+      read only format, with a breakdown of what their total workload
+      hours are made up of.
+      - Papers
+      - Administration roles
+      - Postgraduate supervision
+
+
+  Editing of data, must be able to be done at the same time. This is where
+  the concurrency problem comes in.  A means by which data can be
+  edited from several sources at once must be found.  An idea was to
+  avoid having multiple people editing the same paper at once.
+
+--** Security / Multiple access
+   Security is a minor issue for this application.  Write access is the
+   primary concern here.  It does not seem like it is a major issue,
+   but the data is still treated as sensitive. Within the organisation
+   the information of one cluster is open to the other.  They seem to
+   like to see what the other is doing and is not worried if another
+   cluster member does see thier information.
+--** Application configuration
+The application is required to be configurable and is operating under
+the following assumption.  The discrete coefficient variable must be
+able to be changed in the future.  I forfull this requirement by
+creating a model called Coefficients, and another for the standard
+points value of a paper called StdPoints.  These would take the form
+of tables in a database, probably called db_coefficients and
+db_stdpoints.  There are shown in table \ref{table:coefficients}.  The
+values can be changed, but while the input can be changed, if it is,
+would break the system.  The functions that do the calculations use
+inputs as the primary key lookup value.
+
+
+The part that can not be changed is the formulas themselves.  To
+change these, someone needs to alter the formulas in the formula
+module.  This would require someone with Python programming
+experience.
+
+#+CAPTION: Table of coefficients
+#+LABEL: table:coefficients
+
+|---------------------+--------+-----------+-------|
+| input               | points | intercept | slope |
+|---------------------+--------+-----------+-------|
+| undergrad           |     15 |     287.5 |     4 |
+| project             |     30 |         0 |    50 |
+| local\_coordinator  |     15 |         3 |   0.1 |
+| global\_coordinator |     15 |        12 |  0.05 |
+|---------------------+--------+-----------+-------|
+
+:END:
+
+     
+*** Overall design
+**** Data inputs and outputs
+***** Ideal world
+    Figure \ref{fig:dataflow2} shows a general flow of where data
+    comes from and what is being output.  The original idea was to get
+    data from three sources.  A database containing the workload data, the
+    postgraduate data and data from College of Sciences (CoS).  The
+    workload database contains the teaching allocation data,
+    and paper coordinator details.  The postgraduate database
+    contains data on staff supervision of postgraduate students.  The CoS
+    database contains data on the staff, and provides the
+    information needed on papers.
+
+***** Data source problems
+    Unfortunately the CoS database information is restricted and thus not
+    available to this project.  This means the information now has to be
+    manually entered.  The data flow diagram shown in figure
+    \ref{fig:dataflow2} already shows this by crossing out the CoS
+    data source.
+
+#+attr_latex: width=\textwidth
+#+LABEL: fig:dataflow2
+#+CAPTION: Actual Data IO for the workload process
+    [[file:images/workload-process.png]]
+
+
+
+
+*** The system users
+    Three users, the cluster staff, cluster
+    leaders, and  overall administrator are identified.  From these
+    three users are formed the three views.  Each user has different
+    functionality.
+
+**** Cluster user
+     The staff who make up the cluster, and have a interest in making
+     sure the data about them is correct.
+**** Cluster leaders
+     Who has the responsibility of collating the data for teaching
+     allocations, and coordinator roles.  Also have a interest in
+     seeing how their cluster is doing overall, and have the
+     same interest as a ordinary staff member.
+**** Administrator
+     An administrator is not a academic staff member and is assumed to
+     be a manager.  Sees the overall picture of how SEAT is doing
+     broken down by cluster, campus and class.  Their role is to
+     collate all the data from the clusters together, and also need
+     to archive the current data, add new staff, and papers.
+
+** Implementation
+*** User Interface
+    
+**** Look and feel
+    The idea was to make the pages have a report feel, but make parts
+    of them editable.  This was overcome using jQuery, to alter the
+    HTML DOM on the fly, using event triggers, such as click and hover on
+    HTML elements.  This replaces a HTML element <span> with a
+    <form> element of <input>. The <input> element is editable, and
+    when the mouse leaves this element, turns into a <span> element.
+    The span element that is left contains the updated information.
+    When the mouse pointer leaves the <input> element, a hover out
+    event is triggered, and uses Ajax, through jQuery, to connect
+    with the server and send it the update, and the server then uses
+    to update the appropriate field in the database.  The process is
+    shown in figure \ref{fig:edit-process}.
+
+#+attr_latex: width=10cm,placement=[H]
+#+LABEL: fig:edit-process
+#+CAPTION: The flow of events that happen when editing displayed data.
+    [[file:images/edit-process.png]]
+
+
+    The previous system was a spreadsheet, and the new system loosely
+    models itself on this spreadsheet, or the tabular view.  The
+    cluster view is an example of the spreadsheet model, shown in figure
+    \ref{fig:redesign:clusterview}.  This mimics the view that is
+    shown in figure \ref{fig:spreadsheet-teaching}.  
+
+
+#+attr_latex: width=\textwidth,placement=[H]
+#+LABEL: fig:spreadsheet-teaching
+#+CAPTION: The standard hours formula spreadsheet worksheet showing papers and teaching allocations
+[[file:images/spreadsheet-teaching.png]]
+
+    Everything is grouped by category and where workload hours are
+    being displayed, totals are shown at every stage.  An example of
+    this grouping is shown in figure \ref{fig:staff_list}.
+
+
+
+#+attr_latex: width=\textwidth,placement=[H]
+#+LABEL: fig:staff_list
+#+CAPTION: A filtered staff list showing information on staff from the cluster CSIT.  The total hours for each staff member is shown broken down by the total hours for papers, postgraduate supervision, and administration hours as well as the overall total.  At the bottom is the totals for the cluster.  It demonstrates the grouping of data, making it easier for the viewer to figure out what is going on.
+[[file:images/staff_list-csit.png]]
+
+
+    The cluster leader view is editable, modeled on a spreadsheet, with
+    columns and rows.  Each cell that, when the mouse passes over,
+    will be highlighted with blue.  This indicates the cell is
+    editable.  This is shown in figure
+    \ref{fig:cluster-view-row-highlighted}.  To edit it the user must
+    click the mouse on this cell, brings up a appropriate
+    control, and the user edits the value with it.
+
+#+attr_latex: width=\textwidth,placement=[H]
+#+LABEL: fig:cluster-view-row-highlighted
+#+CAPTION: A row from the cluster viewwith a cell being highlighted to indicate it is editable.
+[[file:images/cluster-view-row-highlighted.png]]
+
+Unlike the spreadsheet, this view does not require the user to
+remember the legal entry values.  When editing the
+campus, coordinators, semester, mode, and staff in the teaching
+allocations, a drop down menu appears when the element is
+clicked.  The cognitive load on the user is thus reduced. An example
+of this is shown in figure \ref{fig:cluster-view-dropdown}.
+
+#+attr_latex: width=\textwidth,placement=[H]
+#+LABEL: fig:cluster-view-dropdown
+#+CAPTION: An example of a drop down menu used to edit a field in cluster leaders view.  Also of note is the fact this is a staff list and has ordered the staff names according to cluster, then ordered by surname.
+[[file:images/cluster-view-dropdown.png]]
+
+The controls, were all created from a
+mixture of server side Python using Django, Ajax and Javascript.
+Javascript is called and uses Ajax to connect and retrieve data from
+the server. The server side Python script processes the request and
+returns text in JSON format. This text is then evaluated
+by Javascript to form a HTML form element. The form element is then
+inserted into the HTML DOM.  This process takes place many times.
+The process is shown in figure \ref{fig:control-creation}.
+
+#+attr_latex: width=8cm,placement=[H]
+#+LABEL: fig:control-creation
+#+CAPTION: The process that takes place to create a form control like a drop down menu of staff.
+[[file:images/form-control-creation.png]]
+
+
+The staff menu has all staff in seat listed.  This creates a problem,
+for finding a staff in this huge list is a problem.  The order of
+the names is changed to help solve this problem, and are ordered
+according to what cluster the names belong to, then ordered by surname.
+This groups the staff according to what cluster
+the staff belong to.  The menu entries are filled with first the cluster
+the staff belong to, followed by their initials, then their first name,
+followed by their last name. Making it obvious what cluster each staff
+member belongs to in the drop down menu makes it possible to figure
+out at a glance what cluster the staff belong to. Thus making finding a
+particular staff from a cluster is easier.  Figure
+\ref{fig:cluster-view-dropdown} gives a glimpse of this.
+
+**** Warning messages
+
+It was also important to give visual prompts, warning the user of an
+dangerous action or telling them that something is wrong.  For all
+events, if a error has happened then the user is informed of this.  It
+is not always possible to give messages that tell the user exactly
+what has gone wrong, but effort has gone into at least informing them
+of a error.  Some actions also have confirm messages, that deal with lots of items at once, shown in figure
+\ref{fig:cluster-commit}.  The red circles, labeled "1" and "2", are such
+events, and label "1" resets
+the information to the way it was before, and label "2" commits the changes to
+the database.  Both nave confirm dialogs associated with them.
+
+Also of note is the rows entirely in red.  This visual prompt helps
+draw attention to a mistake in teaching allocations. When the hours
+are corrected to equal a hundred, and that row will no longer be
+red.
+
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:cluster-commit
+#+CAPTION: The cluster leader view highlighting the revert (1) and commit (2) buttons
+[[file:images/cluster_paper_edit_view2.png]]
+
+
+
+**** Three views
+     When a user logs in, each see a different setup.
+***** Cluster user
+      Sees their own personal page with their personal details, of
+      name, cluster, and a break down of their workload hours, by
+      paper offerings, postgraduate supervision and administration
+      roles.
+
+      The paper offerings list their teaching allocations, and
+      coordination of papers.
+
+      The cluster leader also gets the chance to look at other staffs
+      data, since this information is not secret across the groups.
+***** Cluster leader
+      This user sees a menu from which the user navigates to different staff
+      lists, with a break down of their hours, with the total hours
+      gained from papers, postgraduate supervision, and administration
+      roles, with a grand total at the end.  Also a total for the
+      entire cluster is given.
+
+      The user also get to look at other clusters details.
+
+      The other item in the menu is the cluster paper offering page.
+      Here the user gets to edit the teaching allocations for the papers
+      that any of their staff have something to do with.  Figure
+      \ref{fig:cluster-commit} is a example of what a CSIT cluster
+      leader sees in this page.
+
+***** Administrator
+     The administrator view sees a menu that also allows them to see
+     the same views as a cluster leader, but instead of automatically
+     being filtered by the cluster, and see all staff.  The cluster
+     paper offerings view for them is there for those papers that have
+     staff from two or more clusters.  This is needed to avoid
+     concurrency problems and check to see if the data shown is correct,
+     and accepts or rejects them accordingly.  No offering is editable
+     by the administrator in this view, these are left to the cluster
+     leaders to do.  Figure \ref{fig:admin-cluster-view} is a example
+     of this view.
+
+     The places circled in red are the accept all button and the
+     accept and reject buttons for a offering.  The accept all button
+     was implemented to allow the acceptance of all the offerings
+     viewed. This assumes that the details are accepted as being
+     correct for all offerings.  A dialog will pop up when
+     this is clicked to confirm the action taken.  The
+     first of the duplicate offerings is used as the offering
+     that is copied over to the main database, and the other
+     duplicates are deleted. If the accept button is clicked on a
+     individual offering, any other duplicate offerings are deleted,
+     with the offering accepted, being copied to the main database.
+
+     
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:admin-cluster-view
+#+CAPTION: The cluster view of offering which have staff involved from more than one cluster, which need checking before being committed to the main database.
+[[file:images/admin_cluster_view2.png]]
+
+*** Responsiveness
+    Ideally the loading of a page should take as little time as
+    possible.  Three bottle necks to speed of page loading exist.
+    The server side scripts, the client side scripts, and the amount
+    of data needed to process.  The server side scripts have the
+    fastest execution time, and the client side Javascript, are
+    slow, especially when inserting elements into the HTML DOM.
+    It was decided the processing of data should be done
+    by the server.  The insertion of elements into the HTML DOM by
+    will be kept to a minimum.  The reloading of pages is done as few
+    time as it is possible, unless the request was to process large
+    amounts of data, such as filtering the staff list by cluster, campus
+    or class.
+*** Archiving of data
+    The application allows the backing up of data to files.  These
+    files are written in JSON format.  JSON is a formats that is
+    written to or read by Django and makes it a the best choice for
+    backup formats.   Data from a previous year, backed up, can
+    be used to restore the database to where it was before the mistake
+    took place.
+*** Updating teaching allocation process
+    Each year the cluster leaders must update the teaching
+   allocations and coordination roles for the cluster.  With several
+   staff editing the database at once, a potential for concurrency
+   issues is raised.  To overcome this, the issue was avoided.  This
+   was achieved through the cluster view.  Each cluster leader edits
+   paper offerings that their staff members are involved in, and not
+   any other papers, and concurrency problems are avoided.  Their
+   offerings that have staff from multiple clusters involved do cause problems.  To avoid conflicts a copy of the
+   offering is made for each cluster and displayed in the cluster edit
+   view.  The cluster leaders edit their copy then submit it to the
+   system.  If the offering has staff from that cluster only, 
+   the offering will be copied to the original.  For those that
+   involve multiple clusters, it is displayed in the
+   administrators cluster view for checking.  If the administrator is
+   satisfied that all the different copies agree and are correct, will
+   accept it and the data will be copied to the original. Figures
+   \ref{fig:cluster-commit} and \ref{fig:admin-cluster-view} show these
+   interfaces.  Figure \ref{fig:updateprocess}  shows the process of
+   updating the paper offerings.
+
+#+ATTR_LaTeX: width=\textwidth
+#+LABEL: fig:updateprocess
+#+CAPTION:  The process that takes place to update paper offerings by cluster leaders and the administrator
+[[file:images/update_offering_process.png]]
+
+** Implementation choices
+*** Technologies used
+    This project uses the following technologies.
+    
+**** Python
+     Other possible languages were PHP, Java or
+     Perl. Python \cite{python1} is the language that we are
+     comfortable with.  A web framework is needed to develop this
+     application in and Django \cite{django1} was chosen.
+**** Django
+   Django \cite{django1} is a web framework written in Python.  It is designed to
+   allow rapid development of web sites.
+
+   Django uses a Model View Controller (MVC) \cite{mvc1} implementation, but
+   prefers to use Model Template View (MTV) as a way of describing
+   their framework.
+
+   The MTV development pattern shown in figure \ref{fig:mtv}.
+    - M is the model that is the data access layer.
+    - T is the templates that is the presentation layer.
+    - V is the views that is the business logic layer.
+
+#+attr_latex: width=20em,placement=[H]
+#+CAPTION: The Django model
+#+LABEL: fig:mtv
+#+BEGIN_DITAA  mtv_django -r -S -E
+
+ +----------+      +--------------+
+ | {d}      |      | {d}          |
+ | Template |------| Presentation |
+ | cC02     |      | cC02         |
+ +-----+----+      +-------+------+
+       ^                   ^
+       |                   |
+   +---+--+        +-------+------+
+   | {io} |        | {io}         |
+   | View |--------| Business cBLU|
+   | cBLU |        | Logic Layer  |
+   +---+--+        +-------+------+
+       ^                   ^
+       |                   |
+       |                   |
+   +---+---+       +-------+------+
+   | {s}   |       | {s}          |
+   | Model |-------| Data Access  |
+   | c888  |       | Layer c888   |
+   +-------+       +--------------+
+
+#+END_DITAA
+**** MySQL
+     MySQL was the database engine used to store the data used by the
+     application.   The choice of this database was beyond the control
+     of the developer.
+**** Microsoft Access
+     This is a external source that has been imposed on this
+     application. It holds all the postgraduate supervision data,
+     that is part of what makes up the final workload figure of
+     staff.
+**** ODBC
+     ODBC \cite{odbc1} is used as a means of extracting the data from the Microsoft
+     Access database.  ODBC is accessed from python via a python library
+     called pyodbc \cite{pyodbc1}.  This hooks into unixODBC
+     \cite{unixODBC}, that in turn uses a 
+     MDBTools ODBC driver to read data from the Postgraduate database.
+     Figure \ref{fig:odbc} shows this process.
+     
+     #+ATTR_LaTeX: width=5cm
+     #+LABEL: fig:odbc
+     #+CAPTION: The tool chain that is used to fetch data from the postgraduate database.
+     #+begin_src ditaa :exports results :results file :file odbc-chain.png
+       +-------------+
+       | Workload    |
+       | application |
+       | {mo} cGRE   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Python      |
+       | pyodbc      |
+       | {io} cBLU   |
+       +-------------+      
+             ^
+             |
+       +-------------+
+       | Unix ODBC   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +-------------+
+       | MDB Tools   |
+       | {io} cBLU   |
+       +-------------+
+             ^
+             |
+       +--------------+
+       | Postgraduate |
+       | Database     |
+       | {s} c888     |
+       +--------------+
+     #+end_src
+
+
+     
+**** Javascript
+     On the client side Javascript is used to make the pages dynamic.
+     jQuery \cite{jquery1} is the Javascript library used to make
+     it easier to develop solutions using Javascript.
+
+     #+begin_quote
+     jQuery is a fast and concise Javascript Library that simplifies
+     HTML document traversing, event handling, animating, and Ajax
+     interactions for rapid web development. -- http://jquery.com/
+     #+end_quote
+
+     jQuery also helps overcome the
+     incompatibilities over different browsers.
+**** HTML and CSS
+     Each page that is viewed is generated by a server side process.
+     The output produced is a mixture of HTML and CSS.  CSS was used as
+     a aid to laying out the HTML elements in the viewing browser.  To
+     distribute this application as a web served application viewed by
+     web browsers, HTML is needed.
+
+  
+** Testing
+   Unit testing is difficult when testing user interactions.  Instead
+   user testing was done.  Hans Guesgen, Stephen Marsland,
+   Michelle Wagner, Giovanni Moretti and Patrick Rynhart, were
+   voluntarily employed to test the application throughout
+   development.  With their help, the user interface was redesigned
+   several times, to make the application easier to use.
+
+** Redesign phase
+   After developing a initial design the application was presented to
+   the cluster leaders, and Glenda Kirk at a meeting.  The cluster
+   leaders were given 
+   a preview of the  application.
+
+
+   The application tree view model prototype was not liked. It was
+   discovered the cluster leaders liked the way that Microsoft Excel
+   allowed you to edit the data about teaching allocations and paper
+   coordination.
+
+   A major redesign was undertaken for how the cluster leaders edit
+   the teaching allocations and paper coordinations was undertaken.
+   Peviously the interface had been based upon a tree 
+   structure, with nodes showing the paper, that expand to show
+   paper offerings and teaching allocations.  The cluster leaders,
+   liked the way that the spreadsheet enabled the editing of the relevant
+   sections.  The new interface gained some of
+   the functionality of the spreadsheet. This is shown in figure
+   \ref{fig:redesign:clusterview}. The old view is shown in figure
+   \ref{fig:redesign:oldview}. 
+   
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: Cluster leader paper edit view in spreadsheet style
+   #+LABEL: fig:redesign:clusterview
+   
+   [[./images/cluster_paper_edit_view.png]]
+   
+   
+   #+ATTR_LaTeX: width=\textwidth, placement=[H]
+   #+CAPTION: The old way cluster leaders were to edit their papers
+   #+LABEL: fig:redesign:oldview
+   
+   [[./images/admin_offering_teach_edit_view.png]]
+
+
+   The new design was shown to Glenda Kirk, who was satisfied with the
+   new redesign.
+    
+** Learning outcomes
+*** Responsiveness
+**** Data processing
+Processing is done in two places, client side scripts, and on the
+server side.  The more data processed on the server side,
+reduces the capacity of the server.  Also doing it all on the server
+side means the pages 
+have to be reloaded every time a new choice is made.  The client side
+processing of data, takes some of the load off the server, but it has
+the downside, of relying on the clients browser to have the
+functionality required.   When compared with server side scripts, client side
+scripts speeds are slow.  Javascript is the client side script used by
+this application.
+
+Since Javascript is slow, data processing by Javascript
+was removed.  Javascript has been reduced to fetching small pieces of
+data via Ajax, and displaying them in the page.  This means that the
+processing is done by the server.  The time 
+consuming bulk processing of data is reduced.  The pages get
+redisplayed as little as possible, with the use of Ajax.  Mass
+processing of data is done on the server side.  Use Javascript to process
+or retrieve small amounts of data. 
+
+**** Algorithm efficiency
+
+The loading time of a page is influenced more by the
+efficiency of the algorithm used, then the choice of programming
+languages.  The loading time of a page was reduced by following the
+following rules, based upon "Python Patterns - An Optimization Anecdote"
+\cite{optimising1}.
+
+
+#+begin_quote 
+If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want. If there isn't one, here are some guidelines for loop optimization: 
+
+    + Rule number one: only optimize when there is a proven speed bottleneck. Only optimize the innermost loop. (This rule is independent of Python, but it doesn't hurt repeating it, since it can save a lot of work. :-)
+    + Small is beautiful. Given Python's hefty charges for bytecode instructions and variable look-up, it rarely pays off to add extra tests to save a little bit of work.
+    + Use intrinsic operations. An implied loop in map() is faster than an explicit for loop; a while loop with an explicit loop counter is even slower.
+    + Avoid calling functions written in Python in your inner loop. This includes lambdas. In-lining the inner loop can save a lot of time.
+    + Local variables are faster than globals; if you use a global constant in a loop, copy it to a local variable before the loop. And in Python, function names (global or built-in) are also global constants!
+    + Try to use map(), filter() or reduce() to replace an explicit for loop, but only if you can use a built-in function: map with a built-in function beats for loop, but a for loop with in-line code beats map with a lambda function!
+    + Check your algorithms for quadratic behavior. But notice that a more complex algorithm only pays off for large N - for small N, the complexity doesn't pay off. In our case, 256 turned out to be small enough that the simpler version was still a tad faster. Your mileage may vary - this is worth investigating.
+    + And last but not least: collect data. Python's excellent profile
+      module can quickly show the bottleneck in your code. if you're
+      considering different versions of an algorithm, test it in a
+      tight loop using the time.clock() function. 
+
+--- http://www.python.org/doc/essays/list2str.html
+
+#+end_quote
+
+*** Javascript compatibility
+Javascript is implemented differently across different
+browsers. jQuery helps overcome, the compatibility issues
+amongst different browsers, but there were rules that
+need to be adhered to make sure your code works across the major
+browsers.
+  1) Always use var to declare variables.
+  2) Avoid the use of a few keywords, such as delete for variable names.
+  3) If creating a array list, do not put a comma after the last element.
+
+The first and the third rules are for Internet Explorer, but the
+second is true particularly for any browser based on Webkit, such as 
+Safari.  With the second rule, some Javascript implementations
+that, under certain circumstances, will allow you to use these keywords.
+
+This application relies on Javascript, and if it is turned off then
+hardly anything will work.  Nothing is done,  in response to
+Javascript being disabled. In future, a warning message, telling the user this,
+produced on the server side, should be shown.  Except showing a
+message, if the browser has Javascript turned off, no other actions
+are possible.
+
+*** CSS
+The best defense a web developer has against different browser
+implementations of CSS, is to stick to standards and hope that the
+browser being used adheres to these standards.  The differences are
+otherwise to vast to keep track of.
+
+*** Concurrency / Multiple views
+The concurrency issues have been avoided.  The possible
+issue that will cause real problems, is if two cluster leaders from
+the same cluster logged in and started editing the papers.  This
+circumstance is unlikely to happen.  A possible
+solution is to either implement concurrency solutions, such as locks, or
+if two cluster leaders of the same cluster, logged on, to
+logg both of them off with a warning message.
+
+*** Look and feel of pages
+Getting pages to look the same across browsers is difficult
+when using the HTML markup.  The shape of the form controls are out
+of your hand, and in browsers, cannot be manipulated easily
+with CSS.  Firefox for example, uses native controls, such as checkboxes,
+and does not allow CSS to alter the look of this control.  Methods
+exist, sing CSS to make it look the way you want it, and are not
+desirable, and add another unstable element into the 
+page display.  
+
+A way that was found to control the look of controls
+was to simulate them, using HTML elements, such as the <img> element, along with Javascript
+events to change something about this element, such as the image in the
+<img> element.  This was done in the cluster view, in the
+offered column.
+
+:HIDDEN:
+Add screen-shot here  
+:END:
+
+*** Problems with Paper List page
+    In the original design a paper list page was created.  This view
+    was a expandable tree with the paper code, title, points value and
+    global coordinator being displayed for each paper.  This is
+    expandable and shows the paper offerings along with the teaching
+    allocations of each offering.  The problem was that in expanding
+    the view to include that papers offerings and teaching allocations,
+    the size of the output will be changed, and thus the browser will
+    have to redisplay the page.  This often meant that the view will
+    suddenly go somewhere else and the viewer will have to scroll up
+    or down to find the expanded paper.  This part was fixed with the
+    addition of href anchors.  This worked for expanding the paper
+    view, but when it was collapsed, the page will scroll to a
+    location somewhere below the paper that was just collapsed.  This
+    is a real problem, as even href anchors do not seem to fix this.  
+
+*** Staff menu
+    The staff is ordered by cluster then surname.  In future, to make
+    cluster members, for the viewing cluster leader, easier to find,
+    the cluster members of the cluster leaders cluster, will appear at
+    the top of the menu.  The rest will then be ordered by cluster then
+    surname. The reasoning behind this, is that the cluster leader is
+    interested in staff from their own cluster.  The
+    staff relevant to the cluster leader should appear at the
+    convenient place, thus reducing the time needed to find a member of
+    that cluster.
+
+#+INCLUDE: planner_report.org  
+
+
+* Conclusion
+   The different users needs were addressed, for updating, and viewing
+   the same data set.  The workload presentation system, was
+   implemented successfully, to for full these needs.  The challenge of
+   that each user seeing data in a way appropriate to them, have
+   been meet through permissions, based upon which group the user
+   belongs to, and has the access rights to interact with the data
+   set as required.
+  
+   The programme planner was discussed, and a outline of how it will
+   be implemented using constraints satisfaction was proposed.
+   Since time constraints prevented the completion of this
+   system, work still needs to be done.
+
+#+LaTeX: \clearpage
+
+#+LATEX: \bibliographystyle{plain}
+#+LATEX: \bibliography{bibliography}
+
+# LocalWords:  customise centring
