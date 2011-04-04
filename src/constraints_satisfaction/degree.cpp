@@ -46,6 +46,22 @@ extern "C" {
 namespace Degree
 {
 
+  int deg_cost(IntVarArray p, std::vector<int> papers)
+  {
+    int result = 0;
+    for(int i = 0; i < p.size(); i++) {
+      if(p[i].assigned()) {
+        for(unsigned j = 0; j < papers.size(); j++) {
+          if(p[i].val() == papers[j]) {
+            result++;
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+
   Degree::Degree(int *papers, 
                  int length,
                  int *deg_papers,
@@ -57,42 +73,32 @@ namespace Degree
       
   {
     std::cout << "In constructor with paper length of " << dplength << std::endl;
-    std::cout << "Set consists of ranges of " << IntSet(deg_papers, dplength) << std::endl;
-    //int j = 0;
+    
     for(int i = 0; i < dplength; i++) {
       paper_list[i] = deg_papers[i];
-      //std::printf("papers[%d] = %d\n", i, papers[i]);
-      //
     }
 
+    
     for(int i = 0; i < length; i++) {
       ar_papers[i] = papers[i];
+      
     }
 
-    /*for(int i = 0; i < length; i++) {
-      rel(*this, degree_papers[j++] == papers[i]);
-      }*/
 
-    std::printf("valid paper propagators\n");
+    
     for(int i = 0; i < 24; i++) {
       rel(*this, degree_papers[i] != 0);
       
-      //valid_paper(*this, paper_list, degree_papers[i]);
-      
+          
     }
     
-    //for(unsigned i = 0; i < ar_papers.size(); i++ ) {
-      //atleast(*this, degree_papers, ar_papers[i], 1);
-    //}
+    //at_least_one(*this, ar_papers, degree_papers);
     
-    at_least_one(*this, ar_papers, degree_papers);
-    //dom(*this, degree_papers, IntSet(deg_papers, dplength));
-    //}
   
 
     //rel(*this, degree == is_valid(degree.assigned() ? degree.val() : -1, NULL, -1, -1));
-    distinct(*this, degree_papers);
-    rel(*this, cost_value == 100);//sum(degree_papers));
+    //distinct(*this, degree_papers);
+    rel(*this, cost_value == deg_cost(degree_papers, ar_papers));
 
     branch(*this, degree_papers, INT_VAR_NONE, INT_VAL_RND);
     //branch(*this, degree, INT_VAR_SIZE_MIN, INT_VAL_RND);
@@ -131,6 +137,7 @@ namespace Degree
 
   IntVar Degree::cost(void) const
   {
+    std::cout << degree_papers << std::endl;
     return cost_value;
   }
 
